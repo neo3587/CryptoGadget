@@ -80,9 +80,10 @@ namespace CryptoGadget {
             }
 
             if((dt & DefaultType.ColorsLight) != 0) {
+                data["Colors"]["Coins"]            = "FF000000";
+                data["Colors"]["Values"]           = "FF000000";
                 data["Colors"]["BackGround1"]      = "FFF3F7F7";
                 data["Colors"]["BackGround2"]      = "FFFFFFFF";
-                data["Colors"]["Text"]             = "FF000000";
                 data["Colors"]["PositiveRefresh"]  = "FFCEEBD3";
                 data["Colors"]["NegativeRefresh"]  = "FFF6D4D1";
                 data["Colors"]["Edge"]             = "FFAFAFAF";
@@ -93,9 +94,10 @@ namespace CryptoGadget {
             }
 
             if((dt & DefaultType.ColorsDark) != 0) {
+                data["Colors"]["Coins"]            = "FFDADADA";
+                data["Colors"]["Values"]           = "FFDADADA";
                 data["Colors"]["BackGround1"]      = "FF1E1E1E";
                 data["Colors"]["BackGround2"]      = "FF2F2F2F";
-                data["Colors"]["Text"]             = "FFDADADA";
                 data["Colors"]["PositiveRefresh"]  = "FF3A8F49";
                 data["Colors"]["NegativeRefresh"]  = "FF96261D";
                 data["Colors"]["Edge"]             = "FF535353";

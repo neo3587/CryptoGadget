@@ -29,6 +29,16 @@ namespace CryptoGadget {
             All = Basic | Advanced | Colors
         }
 
+        private JObject DownloadCoinDB() {
+            Enabled = false;
+            ProgressForm form = new ProgressForm();
+            form.ShowDialog();
+            Enabled = true;
+            if(form.coindb == null)
+                throw new System.Net.WebException("Couldn't download the Coin List Database");
+            return form.coindb;
+        }
+
         /// <summary>
         /// Reads and checks the CoinList.json or downloads a new one (if corrupted or not available) and triggers a MessageBox if something goes wrong.
         /// </summary>
@@ -36,24 +46,22 @@ namespace CryptoGadget {
         /// <returns>
         /// Returns a valid JObject if everything was correct or null otherwise
         /// </returns>
-        private JObject GetCoinDB() {
+        private bool GetCoinDB() {
 
-            Func<JObject> DownloadDB = () => {
-                Enabled = false;
-                ProgressForm form = new ProgressForm();
-                form.ShowDialog();
-                Enabled = true;
-                if(form.coindb == null)
-                    throw new System.Net.WebException("Couldn't download the Coin List Database");
-                return form.coindb;
+            Action<JObject> JsonToFile = (data) => {
+                StreamWriter writer = new StreamWriter(Common.jsonLocation);
+                writer.Write(data.ToString(Newtonsoft.Json.Formatting.None));
+                writer.Close();
             };
 
             if(json != null)
-                return json;
+                return true;
 
             try {
                 if(!File.Exists(Common.jsonLocation)) {
-                    json = DownloadDB();
+                    json = DownloadCoinDB();
+                    JsonToFile(json);
+                    return true;
                 }
                 else {
                     json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
@@ -62,9 +70,12 @@ namespace CryptoGadget {
                             if(coin["code"] == null || coin["name"] == null)
                                 throw new Exception();
                         }
+                        return true;
                     } catch(Exception) {
                         MessageBox.Show("The coin list file is corrupted, downloading a new copy...", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        json = DownloadDB();
+                        json = DownloadCoinDB();
+                        JsonToFile(json);
+                        return true;
                     }
                 }
 
@@ -82,7 +93,7 @@ namespace CryptoGadget {
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
-            return json;
+            return false;
         }
 
         private void LoadData(IniData data, DataType dt = DataType.All) {
@@ -94,14 +105,14 @@ namespace CryptoGadget {
                     boxTargetCoin.Items.Clear();
                     coinGrid.Rows.Clear();
 
-                    checkIconVisible.Checked = bool.Parse(data["Visibility"]["Icon"]);
-                    checkCoinVisible.Checked = bool.Parse(data["Visibility"]["Coin"]);
-                    checkValueVisible.Checked = bool.Parse(data["Visibility"]["Value"]);
-                    checkChangeVisible.Checked = bool.Parse(data["Visibility"]["Change"]);
-                    checkHeaderVisible.Checked = bool.Parse(data["Visibility"]["Header"]);
-                    checkEdgeVisible.Checked = bool.Parse(data["Visibility"]["Edge"]);
+                    checkIconVisible.Checked    = bool.Parse(data["Visibility"]["Icon"]);
+                    checkCoinVisible.Checked    = bool.Parse(data["Visibility"]["Coin"]);
+                    checkValueVisible.Checked   = bool.Parse(data["Visibility"]["Value"]);
+                    checkChangeVisible.Checked  = bool.Parse(data["Visibility"]["Change"]);
+                    checkHeaderVisible.Checked  = bool.Parse(data["Visibility"]["Header"]);
+                    checkEdgeVisible.Checked    = bool.Parse(data["Visibility"]["Edge"]);
                     checkRefreshVisible.Checked = bool.Parse(data["Visibility"]["Refresh"]);
-                    checkStartup.Checked = bool.Parse(data["Others"]["OpenStartup"]);
+                    checkStartup.Checked        = bool.Parse(data["Others"]["OpenStartup"]);
 
                     numericRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
 
@@ -116,9 +127,7 @@ namespace CryptoGadget {
                     if(coinGrid.RowCount > 0)
                         coinGrid.Rows[0].Selected = true;
 
-                    JObject json = GetCoinDB();
-
-                    if(json != null)
+                    if(GetCoinDB())
                         foreach(JToken coin in json["rows"])
                             boxTargetCoin.Items.Add(coin["code"] + " (" + coin["name"] + ")");
 
@@ -132,45 +141,47 @@ namespace CryptoGadget {
 
                 if((dt & DataType.Advanced) != 0) {
 
-                    boxIconWidth.Text = data["Metrics"]["Icon"];
-                    boxCoinWidth.Text = data["Metrics"]["Coin"];
-                    boxValueWidth.Text = data["Metrics"]["Value"];
-                    boxChangeWidth.Text = data["Metrics"]["Change"];
-                    boxEdgeWidth.Text = data["Metrics"]["Edge"];
+                    boxIconWidth.Text    = data["Metrics"]["Icon"];
+                    boxCoinWidth.Text    = data["Metrics"]["Coin"];
+                    boxValueWidth.Text   = data["Metrics"]["Value"];
+                    boxChangeWidth.Text  = data["Metrics"]["Change"];
+                    boxEdgeWidth.Text    = data["Metrics"]["Edge"];
                     boxHeaderHeight.Text = data["Metrics"]["Header"];
-                    boxRowsHeight.Text = data["Metrics"]["Rows"];
-                    boxIconSize.Text = data["Metrics"]["IconSize"];
-                    boxTextSize.Text = data["Metrics"]["Text"];
-                    boxNumbersSize.Text = data["Metrics"]["Numbers"];
+                    boxRowsHeight.Text   = data["Metrics"]["Rows"];
+                    boxIconSize.Text     = data["Metrics"]["IconSize"];
+                    boxTextSize.Text     = data["Metrics"]["Text"];
+                    boxNumbersSize.Text  = data["Metrics"]["Numbers"];
 
-                    boxMaxValueDigits.Text = data["Others"]["MaxValueDigits"];
-                    boxMaxValueDecimals.Text = data["Others"]["MaxValueDecimals"];
-                    boxMaxChangeDigits.Text = data["Others"]["MaxChangeDigits"];
+                    boxMaxValueDigits.Text   = data["Others"]["MaxValueDigits"];
+                    boxMaxValueDecimals.Text  = data["Others"]["MaxValueDecimals"];
+                    boxMaxChangeDigits.Text   = data["Others"]["MaxChangeDigits"];
                     boxMaxChangeDecimals.Text = data["Others"]["MaxChangeDecimals"];
 
                     boxStartX.Text = data["Coordinates"]["StartX"];
                     boxStartY.Text = data["Coordinates"]["StartY"];
-                    checkExitSave.Checked = bool.Parse(data["Coordinates"]["ExitSave"]);
+                    checkExitSave.Checked     = bool.Parse(data["Coordinates"]["ExitSave"]);
                     checkLockPosition.Checked = bool.Parse(data["Coordinates"]["LockPosition"]);
 
                 }
 
                 if((dt & DataType.Colors) != 0) {
 
-                    buttonColorText.BackColor = Common.StrHexToColor(data["Colors"]["Text"]);
-                    buttonColorBackGround1.BackColor = Common.StrHexToColor(data["Colors"]["BackGround1"]);
-                    buttonColorBackGround2.BackColor = Common.StrHexToColor(data["Colors"]["BackGround2"]);
-                    buttonColorEdge.BackColor = Common.StrHexToColor(data["Colors"]["Edge"]);
-                    buttonColorPositiveRefresh.BackColor = Common.StrHexToColor(data["Colors"]["PositiveRefresh"]);
-                    buttonColorNegativeRefresh.BackColor = Common.StrHexToColor(data["Colors"]["NegativeRefresh"]);
-                    buttonColorPositiveChange.BackColor = Common.StrHexToColor(data["Colors"]["PositiveChange"]);
-                    buttonColorNegativeChange.BackColor = Common.StrHexToColor(data["Colors"]["NegativeChange"]);
-                    buttonColorHeaderText.BackColor = Common.StrHexToColor(data["Colors"]["HeaderText"]);
+                    buttonColorCoins.BackColor            = Common.StrHexToColor(data["Colors"]["Coins"]);
+                    buttonColorValues.BackColor           = Common.StrHexToColor(data["Colors"]["Values"]);
+                    buttonColorBackGround1.BackColor      = Common.StrHexToColor(data["Colors"]["BackGround1"]);
+                    buttonColorBackGround2.BackColor      = Common.StrHexToColor(data["Colors"]["BackGround2"]);
+                    buttonColorEdge.BackColor             = Common.StrHexToColor(data["Colors"]["Edge"]);
+                    buttonColorPositiveRefresh.BackColor  = Common.StrHexToColor(data["Colors"]["PositiveRefresh"]);
+                    buttonColorNegativeRefresh.BackColor  = Common.StrHexToColor(data["Colors"]["NegativeRefresh"]);
+                    buttonColorPositiveChange.BackColor   = Common.StrHexToColor(data["Colors"]["PositiveChange"]);
+                    buttonColorNegativeChange.BackColor   = Common.StrHexToColor(data["Colors"]["NegativeChange"]);
+                    buttonColorHeaderText.BackColor       = Common.StrHexToColor(data["Colors"]["HeaderText"]);
                     buttonColorHeaderBackGround.BackColor = Common.StrHexToColor(data["Colors"]["HeaderBackGround"]);
 
                 }
 
             });
+
         }
         private void SaveData(DataType dt = DataType.All) {
             
@@ -223,7 +234,8 @@ namespace CryptoGadget {
             }
 
             if((dt & DataType.Colors) != 0) {
-                Common.ini["Colors"]["Text"]             = Common.ColorToStrHex(buttonColorText.BackColor);
+                Common.ini["Colors"]["Coins"]            = Common.ColorToStrHex(buttonColorCoins.BackColor);
+                Common.ini["Colors"]["Values"]           = Common.ColorToStrHex(buttonColorValues.BackColor);
                 Common.ini["Colors"]["BackGround1"]      = Common.ColorToStrHex(buttonColorBackGround1.BackColor);
                 Common.ini["Colors"]["BackGround2"]      = Common.ColorToStrHex(buttonColorBackGround2.BackColor);
                 Common.ini["Colors"]["Edge"]             = Common.ColorToStrHex(buttonColorEdge.BackColor);
@@ -399,6 +411,30 @@ namespace CryptoGadget {
             ofd.ShowDialog();
 
         }
+
+        /// <summary>
+        /// Event method to re-download the coin list database
+        /// </summary>
+        private void buttonDownloadList_Click(object sender, EventArgs e) {
+
+            try {
+                JObject check = DownloadCoinDB();
+                if(!JToken.DeepEquals(check, json)) {
+                    json = check;
+                    StreamWriter writer = new StreamWriter(Common.jsonLocation);
+                    writer.Write(json.ToString(Newtonsoft.Json.Formatting.None));
+                    writer.Close();
+                    MessageBox.Show("New coins were added to the coin list database");
+                }
+                else {
+                    MessageBox.Show("There are not new coins to add to the coin list database");
+                }
+            } catch(Exception) {
+                MessageBox.Show("Couldn't download the coin list database");
+            }
+
+        }
+
 
 
     }

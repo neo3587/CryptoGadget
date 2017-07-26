@@ -14,3 +14,19 @@ C:\Users\neo35\onedrive\documentos\visual studio 2017\Projects\CryptoGadget\Cryp
 C:\Users\neo35\onedrive\documentos\visual studio 2017\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.MainForm.resources
 C:\Users\neo35\onedrive\documentos\visual studio 2017\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.AddCoinForm.resources
 C:\Users\neo35\onedrive\documentos\visual studio 2017\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.ProgressForm.resources
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\CryptoGadget.exe.config
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\CryptoGadget.exe
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\CryptoGadget.pdb
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\INIFileParser.dll
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\Newtonsoft.Json.dll
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\INIFileParser.xml
+F:\Projects\CryptoGadget\CryptoGadget\bin\Debug\Newtonsoft.Json.xml
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.csprojResolveAssemblyReference.cache
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.MainForm.resources
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.SettingsForm.resources
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.AddCoinForm.resources
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.ProgressForm.resources
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.Properties.Resources.resources
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.csproj.GenerateResource.Cache
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.exe
+F:\Projects\CryptoGadget\CryptoGadget\obj\Debug\CryptoGadget.pdb

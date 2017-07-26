@@ -120,9 +120,6 @@ namespace CryptoGadget {
                         return;
                     }
 
-                    data.Position = 0;
-                    data.CopyTo(File.Create(Common.jsonLocation));
-
                     Invoke((MethodInvoker)delegate { Close(); });
 
                 }).Start();

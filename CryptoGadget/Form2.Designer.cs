@@ -35,6 +35,9 @@
             this.checkHeaderVisible = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.coinGrid = new System.Windows.Forms.DataGridView();
+            this.img = new System.Windows.Forms.DataGridViewImageColumn();
+            this.acronym = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonSub = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,6 +45,7 @@
             this.buttonDown = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonAddIcon = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
             this.checkRefreshVisible = new System.Windows.Forms.CheckBox();
@@ -88,6 +92,8 @@
             this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonColorValues = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
             this.buttonDefaultColors = new System.Windows.Forms.Button();
             this.buttonColorHeaderBackGround = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -104,7 +110,7 @@
             this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
             this.buttonColorBackGround2 = new System.Windows.Forms.Button();
             this.buttonColorBackGround1 = new System.Windows.Forms.Button();
-            this.buttonColorText = new System.Windows.Forms.Button();
+            this.buttonColorCoins = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -112,10 +118,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonAddIcon = new System.Windows.Forms.Button();
-            this.img = new System.Windows.Forms.DataGridViewImageColumn();
-            this.acronym = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonDownloadList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -127,7 +130,7 @@
             // 
             // checkIconVisible
             // 
-            this.checkIconVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkIconVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkIconVisible.AutoSize = true;
             this.checkIconVisible.Location = new System.Drawing.Point(335, 8);
             this.checkIconVisible.Name = "checkIconVisible";
@@ -138,7 +141,7 @@
             // 
             // checkCoinVisible
             // 
-            this.checkCoinVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkCoinVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkCoinVisible.AutoSize = true;
             this.checkCoinVisible.Location = new System.Drawing.Point(335, 31);
             this.checkCoinVisible.Name = "checkCoinVisible";
@@ -149,7 +152,7 @@
             // 
             // checkValueVisible
             // 
-            this.checkValueVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkValueVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkValueVisible.AutoSize = true;
             this.checkValueVisible.Location = new System.Drawing.Point(335, 54);
             this.checkValueVisible.Name = "checkValueVisible";
@@ -160,7 +163,7 @@
             // 
             // checkChangeVisible
             // 
-            this.checkChangeVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkChangeVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkChangeVisible.AutoSize = true;
             this.checkChangeVisible.Location = new System.Drawing.Point(335, 77);
             this.checkChangeVisible.Name = "checkChangeVisible";
@@ -172,7 +175,7 @@
             // buttonAccept
             // 
             this.buttonAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAccept.Location = new System.Drawing.Point(302, 382);
+            this.buttonAccept.Location = new System.Drawing.Point(302, 402);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 4;
@@ -184,7 +187,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(382, 382);
+            this.buttonCancel.Location = new System.Drawing.Point(382, 402);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -194,7 +197,6 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 9);
             this.label1.Name = "label1";
@@ -204,7 +206,7 @@
             // 
             // checkHeaderVisible
             // 
-            this.checkHeaderVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkHeaderVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkHeaderVisible.AutoSize = true;
             this.checkHeaderVisible.Location = new System.Drawing.Point(335, 100);
             this.checkHeaderVisible.Name = "checkHeaderVisible";
@@ -217,7 +219,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(9, 387);
+            this.textBox1.Location = new System.Drawing.Point(9, 407);
             this.textBox1.MaxLength = 100;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -233,7 +235,8 @@
             this.coinGrid.AllowUserToDeleteRows = false;
             this.coinGrid.AllowUserToResizeColumns = false;
             this.coinGrid.AllowUserToResizeRows = false;
-            this.coinGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.coinGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.coinGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.img,
@@ -245,12 +248,41 @@
             this.coinGrid.ReadOnly = true;
             this.coinGrid.RowHeadersVisible = false;
             this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.coinGrid.Size = new System.Drawing.Size(202, 284);
+            this.coinGrid.Size = new System.Drawing.Size(202, 303);
             this.coinGrid.TabIndex = 10;
+            // 
+            // img
+            // 
+            this.img.HeaderText = "";
+            this.img.MinimumWidth = 15;
+            this.img.Name = "img";
+            this.img.ReadOnly = true;
+            this.img.Width = 25;
+            // 
+            // acronym
+            // 
+            this.acronym.FillWeight = 69.76744F;
+            this.acronym.HeaderText = "Coin";
+            this.acronym.MaxInputLength = 20;
+            this.acronym.MinimumWidth = 20;
+            this.acronym.Name = "acronym";
+            this.acronym.ReadOnly = true;
+            this.acronym.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.acronym.Width = 50;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.FillWeight = 130.2326F;
+            this.name.HeaderText = "Name";
+            this.name.MaxInputLength = 20;
+            this.name.MinimumWidth = 25;
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            this.name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAdd.Location = new System.Drawing.Point(214, 41);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(25, 25);
@@ -262,7 +294,6 @@
             // 
             // buttonSub
             // 
-            this.buttonSub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSub.Location = new System.Drawing.Point(214, 72);
             this.buttonSub.Name = "buttonSub";
             this.buttonSub.Size = new System.Drawing.Size(25, 25);
@@ -276,7 +307,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 325);
+            this.label2.Location = new System.Drawing.Point(5, 344);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 16;
@@ -286,7 +317,6 @@
             // 
             // buttonUp
             // 
-            this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUp.Location = new System.Drawing.Point(214, 145);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(25, 25);
@@ -298,7 +328,6 @@
             // 
             // buttonDown
             // 
-            this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDown.Location = new System.Drawing.Point(214, 176);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(25, 25);
@@ -319,11 +348,12 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(457, 376);
+            this.tabControl1.Size = new System.Drawing.Size(457, 396);
             this.tabControl1.TabIndex = 19;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonDownloadList);
             this.tabPage1.Controls.Add(this.buttonAddIcon);
             this.tabPage1.Controls.Add(this.buttonCheck);
             this.tabPage1.Controls.Add(this.numericRefreshRate);
@@ -347,14 +377,26 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(449, 350);
+            this.tabPage1.Size = new System.Drawing.Size(449, 370);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonAddIcon
+            // 
+            this.buttonAddIcon.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddIcon.Image")));
+            this.buttonAddIcon.Location = new System.Drawing.Point(214, 251);
+            this.buttonAddIcon.Name = "buttonAddIcon";
+            this.buttonAddIcon.Size = new System.Drawing.Size(25, 25);
+            this.buttonAddIcon.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.buttonAddIcon, "Add or Swap the Icon");
+            this.buttonAddIcon.UseVisualStyleBackColor = true;
+            this.buttonAddIcon.Click += new System.EventHandler(this.buttonAddIcon_Click);
+            // 
             // buttonCheck
             // 
-            this.buttonCheck.Location = new System.Drawing.Point(214, 321);
+            this.buttonCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCheck.Location = new System.Drawing.Point(214, 340);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(75, 23);
             this.buttonCheck.TabIndex = 25;
@@ -395,7 +437,7 @@
             // 
             // checkRefreshVisible
             // 
-            this.checkRefreshVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkRefreshVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkRefreshVisible.AutoSize = true;
             this.checkRefreshVisible.Location = new System.Drawing.Point(335, 147);
             this.checkRefreshVisible.Name = "checkRefreshVisible";
@@ -406,7 +448,7 @@
             // 
             // checkStartup
             // 
-            this.checkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkStartup.AutoSize = true;
             this.checkStartup.Location = new System.Drawing.Point(335, 201);
             this.checkStartup.Name = "checkStartup";
@@ -418,7 +460,7 @@
             // buttonDefaultBasic
             // 
             this.buttonDefaultBasic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultBasic.Location = new System.Drawing.Point(367, 321);
+            this.buttonDefaultBasic.Location = new System.Drawing.Point(367, 341);
             this.buttonDefaultBasic.Name = "buttonDefaultBasic";
             this.buttonDefaultBasic.Size = new System.Drawing.Size(75, 23);
             this.buttonDefaultBasic.TabIndex = 21;
@@ -428,7 +470,8 @@
             // 
             // boxTargetCoin
             // 
-            this.boxTargetCoin.Location = new System.Drawing.Point(76, 322);
+            this.boxTargetCoin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.boxTargetCoin.Location = new System.Drawing.Point(76, 341);
             this.boxTargetCoin.Name = "boxTargetCoin";
             this.boxTargetCoin.Size = new System.Drawing.Size(132, 21);
             this.boxTargetCoin.Sorted = true;
@@ -437,7 +480,7 @@
             // 
             // checkEdgeVisible
             // 
-            this.checkEdgeVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkEdgeVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkEdgeVisible.AutoSize = true;
             this.checkEdgeVisible.Location = new System.Drawing.Point(335, 124);
             this.checkEdgeVisible.Name = "checkEdgeVisible";
@@ -467,7 +510,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(449, 350);
+            this.tabPage2.Size = new System.Drawing.Size(449, 370);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -635,7 +678,7 @@
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.boxValueWidth);
-            this.groupBox1.Location = new System.Drawing.Point(6, 149);
+            this.groupBox1.Location = new System.Drawing.Point(6, 169);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(437, 166);
             this.groupBox1.TabIndex = 13;
@@ -847,7 +890,7 @@
             // buttonDefaultAdvanced
             // 
             this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultAdvanced.Location = new System.Drawing.Point(367, 321);
+            this.buttonDefaultAdvanced.Location = new System.Drawing.Point(367, 341);
             this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
             this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
             this.buttonDefaultAdvanced.TabIndex = 2;
@@ -857,6 +900,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.buttonColorValues);
+            this.tabPage3.Controls.Add(this.label31);
             this.tabPage3.Controls.Add(this.buttonDefaultColors);
             this.tabPage3.Controls.Add(this.buttonColorHeaderBackGround);
             this.tabPage3.Controls.Add(this.label14);
@@ -873,7 +918,7 @@
             this.tabPage3.Controls.Add(this.buttonColorPositiveRefresh);
             this.tabPage3.Controls.Add(this.buttonColorBackGround2);
             this.tabPage3.Controls.Add(this.buttonColorBackGround1);
-            this.tabPage3.Controls.Add(this.buttonColorText);
+            this.tabPage3.Controls.Add(this.buttonColorCoins);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.label7);
@@ -883,15 +928,33 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(449, 350);
+            this.tabPage3.Size = new System.Drawing.Size(449, 370);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Colors";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // buttonColorValues
+            // 
+            this.buttonColorValues.Location = new System.Drawing.Point(117, 71);
+            this.buttonColorValues.Name = "buttonColorValues";
+            this.buttonColorValues.Size = new System.Drawing.Size(23, 23);
+            this.buttonColorValues.TabIndex = 24;
+            this.buttonColorValues.UseVisualStyleBackColor = true;
+            this.buttonColorValues.Click += new System.EventHandler(this.buttonSharedColorPick);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 76);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(42, 13);
+            this.label31.TabIndex = 23;
+            this.label31.Text = "Values:";
+            // 
             // buttonDefaultColors
             // 
             this.buttonDefaultColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultColors.Location = new System.Drawing.Point(367, 321);
+            this.buttonDefaultColors.Location = new System.Drawing.Point(367, 341);
             this.buttonDefaultColors.Name = "buttonDefaultColors";
             this.buttonDefaultColors.Size = new System.Drawing.Size(75, 23);
             this.buttonDefaultColors.TabIndex = 22;
@@ -901,7 +964,7 @@
             // 
             // buttonColorHeaderBackGround
             // 
-            this.buttonColorHeaderBackGround.Location = new System.Drawing.Point(117, 309);
+            this.buttonColorHeaderBackGround.Location = new System.Drawing.Point(117, 332);
             this.buttonColorHeaderBackGround.Name = "buttonColorHeaderBackGround";
             this.buttonColorHeaderBackGround.Size = new System.Drawing.Size(23, 23);
             this.buttonColorHeaderBackGround.TabIndex = 21;
@@ -911,7 +974,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 314);
+            this.label14.Location = new System.Drawing.Point(6, 337);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(105, 13);
             this.label14.TabIndex = 20;
@@ -919,7 +982,7 @@
             // 
             // buttonColorHeaderText
             // 
-            this.buttonColorHeaderText.Location = new System.Drawing.Point(117, 280);
+            this.buttonColorHeaderText.Location = new System.Drawing.Point(117, 303);
             this.buttonColorHeaderText.Name = "buttonColorHeaderText";
             this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
             this.buttonColorHeaderText.TabIndex = 19;
@@ -929,7 +992,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 285);
+            this.label13.Location = new System.Drawing.Point(6, 308);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(66, 13);
             this.label13.TabIndex = 18;
@@ -937,7 +1000,7 @@
             // 
             // buttonColorEdge
             // 
-            this.buttonColorEdge.Location = new System.Drawing.Point(117, 135);
+            this.buttonColorEdge.Location = new System.Drawing.Point(117, 158);
             this.buttonColorEdge.Name = "buttonColorEdge";
             this.buttonColorEdge.Size = new System.Drawing.Size(23, 23);
             this.buttonColorEdge.TabIndex = 17;
@@ -947,7 +1010,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 140);
+            this.label12.Location = new System.Drawing.Point(6, 163);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 13);
             this.label12.TabIndex = 16;
@@ -955,7 +1018,7 @@
             // 
             // buttonColorNegativeChange
             // 
-            this.buttonColorNegativeChange.Location = new System.Drawing.Point(117, 251);
+            this.buttonColorNegativeChange.Location = new System.Drawing.Point(117, 274);
             this.buttonColorNegativeChange.Name = "buttonColorNegativeChange";
             this.buttonColorNegativeChange.Size = new System.Drawing.Size(23, 23);
             this.buttonColorNegativeChange.TabIndex = 15;
@@ -965,7 +1028,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 256);
+            this.label11.Location = new System.Drawing.Point(6, 279);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(90, 13);
             this.label11.TabIndex = 14;
@@ -994,7 +1057,7 @@
             // 
             // buttonColorPositiveChange
             // 
-            this.buttonColorPositiveChange.Location = new System.Drawing.Point(117, 222);
+            this.buttonColorPositiveChange.Location = new System.Drawing.Point(117, 245);
             this.buttonColorPositiveChange.Name = "buttonColorPositiveChange";
             this.buttonColorPositiveChange.Size = new System.Drawing.Size(23, 23);
             this.buttonColorPositiveChange.TabIndex = 11;
@@ -1003,7 +1066,7 @@
             // 
             // buttonColorNegativeRefresh
             // 
-            this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(117, 193);
+            this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(117, 216);
             this.buttonColorNegativeRefresh.Name = "buttonColorNegativeRefresh";
             this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonColorNegativeRefresh.TabIndex = 10;
@@ -1012,7 +1075,7 @@
             // 
             // buttonColorPositiveRefresh
             // 
-            this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(117, 164);
+            this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(117, 187);
             this.buttonColorPositiveRefresh.Name = "buttonColorPositiveRefresh";
             this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonColorPositiveRefresh.TabIndex = 9;
@@ -1021,7 +1084,7 @@
             // 
             // buttonColorBackGround2
             // 
-            this.buttonColorBackGround2.Location = new System.Drawing.Point(117, 106);
+            this.buttonColorBackGround2.Location = new System.Drawing.Point(117, 129);
             this.buttonColorBackGround2.Name = "buttonColorBackGround2";
             this.buttonColorBackGround2.Size = new System.Drawing.Size(23, 23);
             this.buttonColorBackGround2.TabIndex = 8;
@@ -1030,26 +1093,26 @@
             // 
             // buttonColorBackGround1
             // 
-            this.buttonColorBackGround1.Location = new System.Drawing.Point(117, 77);
+            this.buttonColorBackGround1.Location = new System.Drawing.Point(117, 100);
             this.buttonColorBackGround1.Name = "buttonColorBackGround1";
             this.buttonColorBackGround1.Size = new System.Drawing.Size(23, 23);
             this.buttonColorBackGround1.TabIndex = 7;
             this.buttonColorBackGround1.UseVisualStyleBackColor = true;
             this.buttonColorBackGround1.Click += new System.EventHandler(this.buttonSharedColorPick);
             // 
-            // buttonColorText
+            // buttonColorCoins
             // 
-            this.buttonColorText.Location = new System.Drawing.Point(117, 48);
-            this.buttonColorText.Name = "buttonColorText";
-            this.buttonColorText.Size = new System.Drawing.Size(23, 23);
-            this.buttonColorText.TabIndex = 6;
-            this.buttonColorText.UseVisualStyleBackColor = true;
-            this.buttonColorText.Click += new System.EventHandler(this.buttonSharedColorPick);
+            this.buttonColorCoins.Location = new System.Drawing.Point(117, 42);
+            this.buttonColorCoins.Name = "buttonColorCoins";
+            this.buttonColorCoins.Size = new System.Drawing.Size(23, 23);
+            this.buttonColorCoins.TabIndex = 6;
+            this.buttonColorCoins.UseVisualStyleBackColor = true;
+            this.buttonColorCoins.Click += new System.EventHandler(this.buttonSharedColorPick);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 227);
+            this.label9.Location = new System.Drawing.Point(6, 250);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(84, 13);
             this.label9.TabIndex = 5;
@@ -1058,7 +1121,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 198);
+            this.label8.Location = new System.Drawing.Point(6, 221);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 13);
             this.label8.TabIndex = 4;
@@ -1067,7 +1130,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 169);
+            this.label7.Location = new System.Drawing.Point(6, 192);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 13);
             this.label7.TabIndex = 3;
@@ -1076,7 +1139,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 111);
+            this.label6.Location = new System.Drawing.Point(6, 134);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
             this.label6.TabIndex = 2;
@@ -1085,7 +1148,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 82);
+            this.label5.Location = new System.Drawing.Point(6, 105);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 1;
@@ -1094,52 +1157,23 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 53);
+            this.label4.Location = new System.Drawing.Point(6, 47);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Text:";
+            this.label4.Text = "Coins:";
             // 
-            // buttonAddIcon
+            // buttonDownloadList
             // 
-            this.buttonAddIcon.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddIcon.Image")));
-            this.buttonAddIcon.Location = new System.Drawing.Point(214, 251);
-            this.buttonAddIcon.Name = "buttonAddIcon";
-            this.buttonAddIcon.Size = new System.Drawing.Size(25, 25);
-            this.buttonAddIcon.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.buttonAddIcon, "Add or Swap the Icon");
-            this.buttonAddIcon.UseVisualStyleBackColor = true;
-            this.buttonAddIcon.Click += new System.EventHandler(this.buttonAddIcon_Click);
-            // 
-            // img
-            // 
-            this.img.HeaderText = "";
-            this.img.MinimumWidth = 15;
-            this.img.Name = "img";
-            this.img.ReadOnly = true;
-            this.img.Width = 25;
-            // 
-            // acronym
-            // 
-            this.acronym.FillWeight = 69.76744F;
-            this.acronym.HeaderText = "Coin";
-            this.acronym.MaxInputLength = 20;
-            this.acronym.MinimumWidth = 20;
-            this.acronym.Name = "acronym";
-            this.acronym.ReadOnly = true;
-            this.acronym.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.acronym.Width = 50;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.FillWeight = 130.2326F;
-            this.name.HeaderText = "Name";
-            this.name.MaxInputLength = 20;
-            this.name.MinimumWidth = 25;
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            this.name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.buttonDownloadList.Location = new System.Drawing.Point(367, 269);
+            this.buttonDownloadList.Name = "buttonDownloadList";
+            this.buttonDownloadList.Size = new System.Drawing.Size(75, 34);
+            this.buttonDownloadList.TabIndex = 27;
+            this.buttonDownloadList.Text = "Download Coin List";
+            this.toolTip1.SetToolTip(this.buttonDownloadList, "Re-downloads the coin list, this is useful to refresh the\r\ncurrent selectable coi" +
+        "ns since there are new coins almost\r\nevery week.");
+            this.buttonDownloadList.UseVisualStyleBackColor = true;
+            this.buttonDownloadList.Click += new System.EventHandler(this.buttonDownloadList_Click);
             // 
             // SettingsForm
             // 
@@ -1147,7 +1181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(462, 410);
+            this.ClientSize = new System.Drawing.Size(462, 430);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonCancel);
@@ -1201,7 +1235,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonColorText;
+        private System.Windows.Forms.Button buttonColorCoins;
         private System.Windows.Forms.Button buttonColorPositiveChange;
         private System.Windows.Forms.Button buttonColorNegativeRefresh;
         private System.Windows.Forms.Button buttonColorPositiveRefresh;
@@ -1266,5 +1300,8 @@
         private System.Windows.Forms.DataGridViewImageColumn img;
         private System.Windows.Forms.DataGridViewTextBoxColumn acronym;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.Button buttonColorValues;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Button buttonDownloadList;
     }
 }

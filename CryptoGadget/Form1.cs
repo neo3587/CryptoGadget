@@ -222,7 +222,7 @@ namespace CryptoGadget {
                 ConversionCheck("Visibility", new string[] { "Icon", "Coin", "Value", "Change", "Header", "Edge", "Refresh" }, (str) => bool.Parse(str));
                 ConversionCheck("Coordinates", new string[] { "StartX", "StartY" }, (str) => int.Parse(str));
                 ConversionCheck("Coordinates", new string[] { "ExitSave", "LockPosition" }, (str) => bool.Parse(str));
-                ConversionCheck("Colors", new string[] { "BackGround1", "BackGround2", "Text", "PositiveRefresh", "NegativeRefresh", "Edge",
+                ConversionCheck("Colors", new string[] { "Coins", "Values","BackGround1", "BackGround2", "PositiveRefresh", "NegativeRefresh", "Edge",
                                                          "PositiveChange", "NegativeChange", "HeaderText", "HeaderBackGround" }, (str) => Common.StrHexToColor(str));
                 ConversionCheck("Others", new string[] { "OpenStartup" }, (str) => bool.Parse(str));
 
@@ -274,9 +274,12 @@ namespace CryptoGadget {
 
                 #region Color Init
 
-                for(int i = 0; i < coinGrid.Rows.Count; i++)
-                    coinGrid.Rows[i].DefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"][i % 2 == 0 ? "BackGround1" : "BackGround2"]);
-                coinGrid.DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Text"]);
+                coinGrid.RowsDefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"]["BackGround1"]);
+                coinGrid.AlternatingRowsDefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"]["BackGround2"]);
+                //coinGrid.DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Coins"]);
+                coinGrid.Columns[1].DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Coins"]);
+                coinGrid.Columns[2].DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Values"]);
+
 
                 coinGrid.ColumnHeadersDefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["HeaderText"]);
                 coinGrid.ColumnHeadersDefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"]["HeaderBackGround"]);
