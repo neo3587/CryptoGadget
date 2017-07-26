@@ -337,7 +337,7 @@ namespace CryptoGadget {
 
             InitializeComponent();
 
-            HandleCreated += (sender, e) => {
+            Load += (sender, e) => {
                 GridInit();
                 ResizeForm();
 
