@@ -3,6 +3,7 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [How to get & run it](#get_run)
+- [Customization examples](#examples)
 - [Additional notes](#notes)
 - [Known Issues](#notes)
 
@@ -27,6 +28,10 @@ Instructions:
 - Run CryptoGadget.exe
 - Right-click to the gadget and select 'Settings'
 - Customize your gadget at your liking
+
+# <a name="examples"></a> Customization examples
+
+<img src="http://i.imgur.com/VhZ2AQE.png" /> <img src="http://i.imgur.com/3aOcagn.png" /> <img src="http://i.imgur.com/wfKx5BU.png" /> <img src="http://i.imgur.com/tPJX8ic.png" />
 
 # <a name="notes"></a> Additional notes
 
