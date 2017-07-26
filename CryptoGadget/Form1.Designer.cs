@@ -166,7 +166,6 @@
             this.ShowInTaskbar = false;
             this.Text = "CryptoGadget";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);

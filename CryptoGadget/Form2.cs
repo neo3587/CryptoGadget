@@ -242,7 +242,7 @@ namespace CryptoGadget {
         public SettingsForm(MainForm form) {
             InitializeComponent();
             ptrForm = form;
-            new Thread(() => LoadData(Common.ini)).Start();
+            HandleCreated += (sender, e) => new Thread(() => LoadData(Common.ini)).Start();
         }
 
 
@@ -274,7 +274,6 @@ namespace CryptoGadget {
         private void buttonAdd_Click(object sender, EventArgs e) {
             AddCoinForm form = new AddCoinForm(boxTargetCoin, coinGrid);
             form.ShowDialog();
-            
         }
         private void buttonSub_Click(object sender, EventArgs e) {
             if(coinGrid.SelectedRows.Count > 0) {

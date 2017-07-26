@@ -77,7 +77,6 @@
             this.Name = "AddCoinForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CryptoGadget Settings [Add Coins]";
-            this.Load += new System.EventHandler(this.AddCoinForm_Load);
             this.ResumeLayout(false);
 
         }

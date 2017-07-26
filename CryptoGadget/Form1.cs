@@ -334,21 +334,23 @@ namespace CryptoGadget {
 
 
         public MainForm() {
+
             InitializeComponent();
-        }
-        private void MainForm_Load(object sender, EventArgs e) {
-            GridInit();
-            ResizeForm();
 
-            coinGrid.DoubleBuffered(true);
-            FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
+            HandleCreated += (sender, e) => {
+                GridInit();
+                ResizeForm();
 
-            timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
+                coinGrid.DoubleBuffered(true);
+                FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
+
+                timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
+            };
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
 
-            timerRequest.Dispose();
+            timerRequest.Change(Timeout.Infinite, Timeout.Infinite);
 
             SettingsForm form2 = new SettingsForm(this);
             form2.ShowDialog();
@@ -360,7 +362,7 @@ namespace CryptoGadget {
                 ResizeForm();
             }
 
-            timerRequest = new System.Threading.Timer(TimerRoutine, mutex, 0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
+            timerRequest.Change(0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
         }
         private void hideStripMenuItem_Click(object sender, EventArgs e) {
             Visible = !Visible;

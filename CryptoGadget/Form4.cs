@@ -31,7 +31,7 @@ namespace CryptoGadget {
             string targetCoin = target.Substring(0, target.LastIndexOf('(')).Trim(' ');
             progressBar.Maximum = coinList.Count;
 
-            Load += (sender, ev) => {
+            HandleCreated += (sender, ev) => {
                 new Thread(() => {
                     int errCount = 0;
 
@@ -80,7 +80,7 @@ namespace CryptoGadget {
             labelProgress.Text = "Downloading Coin List (0%)";
             progressBar.Maximum = 100;
 
-            Load += (sender, ev) => {
+            HandleCreated += (sender, ev) => {
 
                 new Thread(async () => {
 

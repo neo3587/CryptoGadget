@@ -17,14 +17,18 @@ namespace CryptoGadget {
         ComboBox ptrBox;
 
         public AddCoinForm(ComboBox box, DataGridView grid) {
+
             InitializeComponent();
+
             ptrGrid = grid;
             ptrBox = box;
-        }
-        private void AddCoinForm_Load(object sender, EventArgs e) {
-            foreach(System.Object coin in ptrBox.Items)
-                boxCoins.Items.Add(coin);
-            boxCoins.SelectedIndex = boxCoins.Items.Count == 0 ? -1 : 0;
+
+            HandleCreated += (sender, e) => {
+                foreach(System.Object coin in ptrBox.Items)
+                    boxCoins.Items.Add(coin);
+                boxCoins.SelectedIndex = boxCoins.Items.Count == 0 ? -1 : 0;
+            };
+
         }
 
         private void buttonAdd_Click(object sender, EventArgs e) {
