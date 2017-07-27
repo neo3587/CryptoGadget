@@ -17,6 +17,8 @@ namespace CryptoGadget {
         public static string iniLocation  = Application.StartupPath + "\\settings.ini";
         public static string iconLocation = Application.StartupPath + "\\ico\\";
         public static string jsonLocation = Application.StartupPath + "\\CoinList.json";
+        public static bool advertise10 = false;
+
 
         public static IniData ini = new IniData();
 
@@ -117,8 +119,8 @@ namespace CryptoGadget {
             return col.ToArgb().ToString("X8");
         }
 
-        public static JObject HttpRequest(string input, string output) {
-            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://api.cryptonator.com/api/ticker/" + input.ToLower() + "-" + output.ToLower());
+        public static JObject HttpRequest(string input_coin, string output_coin) {
+            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://api.cryptonator.com/api/ticker/" + input_coin.ToLower() + "-" + output_coin.ToLower());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
         }
 

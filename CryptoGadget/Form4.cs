@@ -45,19 +45,18 @@ namespace CryptoGadget {
                             MessageBox.Show(e.Message);
                         }
 
-
                         try {
                             JObject json = Common.HttpRequest(coinList[i].Item1, targetCoin);
                             if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null)
                                 badCoins.Add(coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
                             i++;
                         } catch(Exception) {
-                            if(errCount++ == 50) {
-                                badCoins.Add(" - " + coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
+                            if(errCount++ == 100) {
+                                badCoins.Add(coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
                                 errCount = 0;
                                 i++;
                             }
-                            Thread.Sleep(1);
+                            Thread.Sleep(100);
                         }
 
                     }

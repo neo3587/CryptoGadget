@@ -137,6 +137,8 @@ namespace CryptoGadget {
                         boxTargetCoin.SelectedIndex = 0;
                     }
 
+                    numericRefreshRate.Minimum = 3.00m + (coinGrid.RowCount <= 9 ? 0 : (coinGrid.RowCount - 9) * 0.25m);
+
                 }
 
                 if((dt & DataType.Advanced) != 0) {

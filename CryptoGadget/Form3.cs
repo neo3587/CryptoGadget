@@ -12,7 +12,6 @@ namespace CryptoGadget {
 
     public partial class AddCoinForm : Form {
 
-        private bool advertise10 = false;
         DataGridView ptrGrid;
         ComboBox ptrBox;
 
@@ -40,9 +39,9 @@ namespace CryptoGadget {
                 return false;
             };
 
-            if(ptrGrid.RowCount >= 10 && !advertise10) {
-                advertise10 = true;
-                if(MessageBox.Show("Using more than 10 coins may give unexpected results due the server requests limits", "Warning", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
+            if(ptrGrid.RowCount >= 10 && !Common.advertise10) {
+                Common.advertise10 = true;
+                if(MessageBox.Show("The server only allows up to 10 coin conversions requests at a time, each coin added above 10 will add an average time of 250ms to perform all the requests", "Warning", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
                     Close();
                     return;
                 }

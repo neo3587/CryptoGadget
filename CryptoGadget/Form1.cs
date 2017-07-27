@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
+using System.Diagnostics;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
@@ -29,10 +30,17 @@ namespace CryptoGadget {
     public partial class MainForm : Form {
 
         private System.Threading.Timer timerRequest;
-        private Object mutex = new Object();
+        private volatile bool timerDisposed = false;
 
-        // This methods need a lot of changes
         internal void TimerRoutine(object state) {
+
+            try {
+                timerRequest.Change(Timeout.Infinite, Timeout.Infinite);
+            } catch(Exception) {
+                return;
+            }
+
+            Stopwatch watch = Stopwatch.StartNew();
 
             Func<double, int, int, double> AdaptValue = (val, maxDigit, maxDecimal) => {
                 int decimals = maxDigit - (int)Math.Floor(Math.Log10(Math.Abs(val) < 1.0 ? 1.0 : Math.Abs(val)) + 1);
@@ -43,58 +51,65 @@ namespace CryptoGadget {
                 return val.ToString("0." + new string('0', decimals <= maxDecimal ? decimals : maxDecimal));
             };
 
-            lock(mutex) {
-            
-                List<string> coins = new List<string>();
-                foreach(DataGridViewRow row in coinGrid.Rows)
-                    coins.Add(row.Cells[1].Value.ToString());
+            List<string> coins = new List<string>();
+            foreach(DataGridViewRow row in coinGrid.Rows)
+                coins.Add(row.Cells[1].Value.ToString());
 
-                List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
+            List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
 
-                int maxValDig = int.Parse(Common.ini["Others"]["MaxValueDigits"]), maxValDec = int.Parse(Common.ini["Others"]["MaxValueDecimals"]);
-                int maxChgDig = int.Parse(Common.ini["Others"]["MaxChangeDigits"]), maxChgDec = int.Parse(Common.ini["Others"]["MaxChangeDecimals"]);
+            int maxValDig = int.Parse(Common.ini["Others"]["MaxValueDigits"]), maxValDec = int.Parse(Common.ini["Others"]["MaxValueDecimals"]);
+            int maxChgDig = int.Parse(Common.ini["Others"]["MaxChangeDigits"]), maxChgDec = int.Parse(Common.ini["Others"]["MaxChangeDecimals"]);
 
-                int errCount = 0;
+            int errCount = 0;
 
-                for(int i = 0; i < coins.Count; ) {
-                    try {
-                        JObject json = Common.HttpRequest(coins[i], Common.ini["Others"]["TargetCoin"]);
-                        if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null) {
-                            prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
-                        }
-                        else {
-                            prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
-                                AdaptValue(json["ticker"]["price"].ToObject<double>(), maxValDig, maxValDec),
-                                AdaptValue(json["ticker"]["change"].ToObject<double>(), maxChgDig, maxChgDec)));
-                        }
+            for(int i = 0; i < coins.Count;) {
+
+                if(timerDisposed)
+                    return;
+
+                if(i >= 10)
+                    Thread.Sleep(200); // the server allows up to 10 consecutive requests, then it will only allow 1 per ~200ms
+
+                if(timerDisposed)
+                    return;
+
+                try {
+                    JObject json = Common.HttpRequest(coins[i], Common.ini["Others"]["TargetCoin"]);
+                    if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null) {
+                        prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
+                    }
+                    else {
+                        prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
+                            AdaptValue(json["ticker"]["price"].ToObject<double>(), maxValDig, maxValDec),
+                            AdaptValue(json["ticker"]["change"].ToObject<double>(), maxChgDig, maxChgDec)));
+                    }
+                    i++;
+                } catch(Exception) {
+                    if(errCount++ == 10) {
+                        prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
+                        errCount = 0;
                         i++;
-                    } catch(Exception) {
-                        Thread.Sleep(1);
-                        if(errCount++ == 30) { // weird trick to allow more than 10 http get requests to the server, won't work always and it's a bad practice, need to change this
-                            prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
-                            errCount = 0;
-                            i++;
-                        }
-                    } 
+                    }
                 }
-
-                for(int i = 0; i < prices.Count; i++) {
-                    coinGrid.Rows[i].Cells[2].Value = AdaptValueStr(prices[i].Item2, maxValDig, maxValDec);
-                    coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, maxChgDig, maxChgDec);
-                    coinGrid.Rows[i].Cells[3].Style.ForeColor = Common.StrHexToColor(Common.ini["Colors"][prices[i].Item3 >= 0.0 ? "PositiveChange" : "NegativeChange"]);
-                }
-
-                if(bool.Parse(Common.ini["Visibility"]["Refresh"])) 
-                    TimerHighlight(prices);
-
             }
+
+            for(int i = 0; i < prices.Count; i++) {
+                coinGrid.Rows[i].Cells[2].Value = AdaptValueStr(prices[i].Item2, maxValDig, maxValDec);
+                coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, maxChgDig, maxChgDec);
+                coinGrid.Rows[i].Cells[3].Style.ForeColor = Common.StrHexToColor(Common.ini["Colors"][prices[i].Item3 >= 0.0 ? "PositiveChange" : "NegativeChange"]);
+            }
+
+            if(bool.Parse(Common.ini["Visibility"]["Refresh"]))
+                TimerHighlight(prices);
+
+            int period = (int)(decimal.Parse(Common.ini["Others"]["RefreshRate"]) * 1000);
+            try {
+                timerRequest.Change(Math.Max(0, period - watch.ElapsedMilliseconds), period);
+            } catch(Exception) { }
 
         }
 
-        // This method needs a lot of changes
-        private void TimerHighlight(object state) {
-
-            List<Tuple<double, double, double>> prices = state as List<Tuple<double, double, double>>;
+        private void TimerHighlight(List<Tuple<double, double, double>> prices) {
 
             Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
                 byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
@@ -106,6 +121,14 @@ namespace CryptoGadget {
             };
 
             for(float opacity = 0.0f; opacity < 0.9999f; opacity += 0.05f) {
+
+                if(timerDisposed) {
+                    for(int i = 0; i < prices.Count; i++) {
+                        Color bgcolor = Common.StrHexToColor(Common.ini["Colors"][i % 2 == 0 ? "BackGround1" : "BackGround2"]);
+                        coinGrid.Rows[i].DefaultCellStyle.BackColor = bgcolor;
+                    }
+                    return;
+                }
 
                 for(int i = 0; i < prices.Count; i++) {
 
@@ -353,19 +376,24 @@ namespace CryptoGadget {
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
 
-            timerRequest.Change(Timeout.Infinite, Timeout.Infinite);
+            WaitHandle wait = new AutoResetEvent(false);
+            timerRequest.Dispose(wait);
+            timerDisposed = true;
 
             SettingsForm form2 = new SettingsForm(this);
             form2.ShowDialog();
+
+            wait.WaitOne();
+
             if(form2.accept) {
-                lock(mutex) { } // the timer won't tick anymore, this is just for wait until it finishes the job (which usually should be already done)
                 if(!SaveCoords())
                     new IniParser.FileIniDataParser().WriteFile(Common.iniLocation, Common.ini);
                 GridInit();
                 ResizeForm();
             }
 
-            timerRequest.Change(0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
+            timerDisposed = false;
+            timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
         }
         private void hideStripMenuItem_Click(object sender, EventArgs e) {
             Visible = !Visible;

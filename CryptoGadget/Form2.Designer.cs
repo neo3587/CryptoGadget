@@ -45,6 +45,7 @@
             this.buttonDown = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonDownloadList = new System.Windows.Forms.Button();
             this.buttonAddIcon = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
@@ -118,7 +119,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonDownloadList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -381,6 +381,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // buttonDownloadList
+            // 
+            this.buttonDownloadList.Location = new System.Drawing.Point(367, 269);
+            this.buttonDownloadList.Name = "buttonDownloadList";
+            this.buttonDownloadList.Size = new System.Drawing.Size(75, 34);
+            this.buttonDownloadList.TabIndex = 27;
+            this.buttonDownloadList.Text = "Download Coin List";
+            this.toolTip1.SetToolTip(this.buttonDownloadList, "Re-downloads the coin list, this is useful to refresh the\r\ncurrent selectable coi" +
+        "ns since there are new coins almost\r\nevery week.");
+            this.buttonDownloadList.UseVisualStyleBackColor = true;
+            this.buttonDownloadList.Click += new System.EventHandler(this.buttonDownloadList_Click);
             // 
             // buttonAddIcon
             // 
@@ -1162,18 +1174,6 @@
             this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Coins:";
-            // 
-            // buttonDownloadList
-            // 
-            this.buttonDownloadList.Location = new System.Drawing.Point(367, 269);
-            this.buttonDownloadList.Name = "buttonDownloadList";
-            this.buttonDownloadList.Size = new System.Drawing.Size(75, 34);
-            this.buttonDownloadList.TabIndex = 27;
-            this.buttonDownloadList.Text = "Download Coin List";
-            this.toolTip1.SetToolTip(this.buttonDownloadList, "Re-downloads the coin list, this is useful to refresh the\r\ncurrent selectable coi" +
-        "ns since there are new coins almost\r\nevery week.");
-            this.buttonDownloadList.UseVisualStyleBackColor = true;
-            this.buttonDownloadList.Click += new System.EventHandler(this.buttonDownloadList_Click);
             // 
             // SettingsForm
             // 
