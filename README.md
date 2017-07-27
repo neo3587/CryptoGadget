@@ -42,3 +42,9 @@ Also my english is far from perfect, so expect some grammatical errors if you re
 # <a name="issues"></a> Known Issues
 
 - The Cryptonator server only allows ~10 requests at a time and rejects any other until a period of time has passed, if you try to add more than 10 cryptocurrencies in the settings it will pop up a message advertising you from this (but it will allow you to add as many cryptocurrencies as you want), working on a way to be more friendly with the server. 
+
+
+
+**BTC Donations:** 1Mj1jigcCcWsqpYt8Qdrcc7TkRMU3Amhwa
+
+**ETH Donations:** 0x7b60ac39d10567229fe5e1166cdb667d04c949e2
