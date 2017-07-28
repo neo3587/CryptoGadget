@@ -42,6 +42,6 @@ Also my english is far from perfect, so expect some grammatical errors if you re
 
 
 
-**BTC Donations:** 1Mj1jigcCcWsqpYt8Qdrcc7TkRMU3Amhwa
+**BTC Donations:** 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv
 
 **ETH Donations:** 0x7b60ac39d10567229fe5e1166cdb667d04c949e2
