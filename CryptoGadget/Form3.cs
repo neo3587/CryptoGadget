@@ -76,7 +76,6 @@ namespace CryptoGadget {
             boxCoins.DroppedDown = true;
         }
 
-        
     }
 
 }

@@ -33,6 +33,7 @@ namespace CryptoGadget {
 
             HandleCreated += (sender, ev) => {
                 new Thread(() => {
+
                     int errCount = 0;
 
                     for(int i = 0; i < coinList.Count;) {
@@ -41,9 +42,9 @@ namespace CryptoGadget {
                                 labelProgress.Text = coinList[i].Item1 + " (" + coinList[i].Item2 + ") -> " + target;
                                 progressBar.Value = i;
                             });
-                        } catch(Exception e) {
-                            MessageBox.Show(e.Message);
-                        }
+                        } catch(Exception) { }
+
+                        Thread.Sleep(200);
 
                         try {
                             JObject json = Common.HttpRequest(coinList[i].Item1, targetCoin);
@@ -51,12 +52,11 @@ namespace CryptoGadget {
                                 badCoins.Add(coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
                             i++;
                         } catch(Exception) {
-                            if(errCount++ == 100) {
+                            if(errCount++ == 10) {
                                 badCoins.Add(coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
                                 errCount = 0;
                                 i++;
                             }
-                            Thread.Sleep(100);
                         }
 
                     }

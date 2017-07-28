@@ -13,17 +13,6 @@ using neo;
 
 
 
-/*
-TODO LIST:
-    - find a way to allow more than 10 http get requests :
-        Opt 1: n / 10 ticks instead of 1 tick of n requests (partial grid refresh with each tick)
-        Opt 2: do each request with a little delay (will take a lot to refresh on large grids)
-        Opt 3: brute force (actual method)
-        Opt 4: dunno, need to think on something
-*/
-
-
-
 
 namespace CryptoGadget {
 
@@ -214,7 +203,7 @@ namespace CryptoGadget {
             checkIni.Sections["Coins"].RemoveAllKeys();
 
             if(!IsIniSubset(Common.ini, checkIni)) {
-                MessageBox.Show("Corrupted settings.ini file, default values will be used", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Corrupted settings.ini file, default values will be used", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 parser.WriteFile(Common.iniLocation, Common.DefaultIni());
                 Common.ini = parser.ReadFile(Common.iniLocation);
             }

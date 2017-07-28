@@ -31,7 +31,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(83, 39);
+            this.buttonAdd.Location = new System.Drawing.Point(95, 39);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 0;
@@ -42,7 +42,7 @@
             // buttonDone
             // 
             this.buttonDone.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDone.Location = new System.Drawing.Point(164, 39);
+            this.buttonDone.Location = new System.Drawing.Point(176, 39);
             this.buttonDone.Name = "buttonDone";
             this.buttonDone.Size = new System.Drawing.Size(75, 23);
             this.buttonDone.TabIndex = 1;
@@ -52,11 +52,9 @@
             // 
             // boxCoins
             // 
-            this.boxCoins.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.boxCoins.FormattingEnabled = true;
             this.boxCoins.Location = new System.Drawing.Point(12, 12);
             this.boxCoins.Name = "boxCoins";
-            this.boxCoins.Size = new System.Drawing.Size(146, 21);
+            this.boxCoins.Size = new System.Drawing.Size(158, 21);
             this.boxCoins.TabIndex = 2;
             this.boxCoins.Click += new System.EventHandler(this.boxCoins_Click);
             // 
@@ -66,7 +64,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonDone;
-            this.ClientSize = new System.Drawing.Size(246, 70);
+            this.ClientSize = new System.Drawing.Size(264, 70);
             this.Controls.Add(this.boxCoins);
             this.Controls.Add(this.buttonDone);
             this.Controls.Add(this.buttonAdd);
