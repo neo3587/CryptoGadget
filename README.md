@@ -39,9 +39,6 @@ This is the first time I program in C#, also is the first time that I use Window
 
 Also my english is far from perfect, so expect some grammatical errors if you read the tooltips (by holding the mouse on almost any thing in the settings).
 
-# <a name="issues"></a> Known Issues
-
-- The Cryptonator server only allows ~10 requests at a time and rejects any other until a period of time has passed, if you try to add more than 10 cryptocurrencies in the settings it will pop up a message advertising you from this (but it will allow you to add as many cryptocurrencies as you want), working on a way to be more friendly with the server. 
 
 
 
