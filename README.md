@@ -5,7 +5,6 @@
 - [How to get & run it](#get_run)
 - [Customization examples](#examples)
 - [Additional notes](#notes)
-- [Known Issues](#notes)
 
 # <a name ="introduction"></a> Introduction
 
