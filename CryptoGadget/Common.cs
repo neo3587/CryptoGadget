@@ -23,11 +23,12 @@ namespace CryptoGadget {
         public static IniData ini = new IniData();
 
         public enum DefaultType {
-            Basic = 0x01,
-            Advanced = 0x02,
-            ColorsLight = 0x04,
-            ColorsDark = 0x08,
-            All = Basic | Advanced | ColorsLight
+            Coins = 0x01,
+            Basic = 0x02,
+            Advanced = 0x04,
+            ColorsLight = 0x08,
+            ColorsDark = 0x10,
+            All = Coins | Basic | Advanced | ColorsLight
         }
 
 
@@ -35,16 +36,20 @@ namespace CryptoGadget {
 
             data = data ?? new IniData();
 
-            if((dt & DefaultType.Basic) != 0) {
-                data["Coins"]["Bitcoin"]  = "BTC";
-                data["Coins"]["Ethereum"] = "ETH";
-                data["Coins"]["Ethereum Classic"] = "ETC";
-                data["Coins"]["Litecoin"] = "LTC";
-                data["Coins"]["Zcash"]    = "ZEC";
-                data["Coins"]["Ripple"]   = "XRP";
-                data["Coins"]["Decred"]   = "DCR";
-                data["Coins"]["Monero"]   = "XMR";
+            if((dt & DefaultType.Coins) != 0) {
+                data["Coins"]["BTC"] = "USDT";
+                data["Coins"]["ETH"] = "USDT";
+                data["Coins"]["ETC"] = "USDT";
+                data["Coins"]["LTC"] = "USDT";
+                data["Coins"]["ZEC"] = "USDT";
+                data["Coins"]["XRP"] = "USDT";
+                data["Coins"]["DCR"] = "USDT";
+                data["Coins"]["XMR"] = "USDT";
 
+                data["Others"]["RefreshRate"] = "10";
+            }
+
+            if((dt & DefaultType.Basic) != 0) {
                 data["Visibility"]["Icon"]    = "True";
                 data["Visibility"]["Coin"]    = "True";
                 data["Visibility"]["Value"]   = "True";
@@ -53,8 +58,6 @@ namespace CryptoGadget {
                 data["Visibility"]["Edge"]    = "True";
                 data["Visibility"]["Refresh"] = "True";
 
-                data["Others"]["RefreshRate"] = "10";
-                data["Others"]["TargetCoin"]  = "USD";
                 data["Others"]["OpenStartup"] = "False";
             }
 

@@ -207,7 +207,7 @@ namespace CryptoGadget {
                 Common.ini = parser.ReadFile(Common.iniLocation);
             }
 
-            IniParser.Model.IniData checkIni = Common.DefaultIni();
+            IniParser.Model.IniData checkIni = Common.DefaultIni(null, Common.DefaultType.Basic | Common.DefaultType.Advanced | Common.DefaultType.ColorsLight);
             checkIni.Sections["Coins"].RemoveAllKeys();
 
             if(!IsIniSubset(Common.ini, checkIni)) {
