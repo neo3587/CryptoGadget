@@ -62,7 +62,17 @@ namespace neo {
                 e.Handled = true;
         }
 
- 
+        /// <summary>
+        /// Event method to change the backcolor of a button on press
+        /// </summary>
+        public static void buttonColorPick(object sender, EventArgs e) {
+            ColorDialog cd = new ColorDialog();
+            cd.Color = (sender as Button).BackColor;
+            cd.FullOpen = true;
+            cd.ShowDialog();
+            (sender as Button).BackColor = cd.Color;
+        }
+
     }
 
 }

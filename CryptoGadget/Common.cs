@@ -119,6 +119,7 @@ namespace CryptoGadget {
             return col.ToArgb().ToString("X8");
         }
 
+        // to change
         public static JObject HttpRequest(string input_coin, string output_coin) {
             HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://api.cryptonator.com/api/ticker/" + input_coin.ToLower() + "-" + output_coin.ToLower());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());

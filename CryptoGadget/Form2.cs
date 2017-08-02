@@ -50,8 +50,18 @@ namespace CryptoGadget {
 
             Action<JObject> JsonToFile = (data) => {
                 StreamWriter writer = new StreamWriter(Common.jsonLocation);
-                writer.Write(data.ToString(Newtonsoft.Json.Formatting.None));
+                writer.Write(data.ToString(Newtonsoft.Json.Formatting.Indented));
                 writer.Close();
+            };
+            Func<JObject, bool> JObjIsValid = (jobj) => {
+                foreach(JProperty coin in jobj["Data"]) {
+                    JToken val = coin.Value;
+                    if(val["Id"] == null || val["Url"] == null || val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
+                        MessageBox.Show(coin.Name);
+                        return false;
+                    }
+                }
+                return true;
             };
 
             if(json != null)
@@ -65,13 +75,10 @@ namespace CryptoGadget {
                 }
                 else {
                     json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
-                    try {
-                        foreach(JToken coin in json["rows"]) {
-                            if(coin["code"] == null || coin["name"] == null)
-                                throw new Exception();
-                        }
+                    if(JObjIsValid(json)) {
                         return true;
-                    } catch(Exception) {
+                    }
+                    else {
                         MessageBox.Show("The coin list file is corrupted, downloading a new copy...", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         json = DownloadCoinDB();
                         JsonToFile(json);
@@ -126,8 +133,8 @@ namespace CryptoGadget {
                     coinGrid.Rows[0].Selected = true;
 
                 if(GetCoinDB())
-                    foreach(JToken coin in json["rows"])
-                        boxTargetCoin.Items.Add(coin["code"] + " (" + coin["name"] + ")");
+                    foreach(JProperty coin in json["Data"])
+                        boxTargetCoin.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
 
                 boxTargetCoin.SelectedIndex = boxTargetCoin.FindString(data["Others"]["TargetCoin"]);
                 if(boxTargetCoin.SelectedIndex == -1) {
@@ -137,7 +144,7 @@ namespace CryptoGadget {
 
                 numericRefreshRate.Minimum = 3.00m + (coinGrid.RowCount <= 10 ? 0 : (coinGrid.RowCount - 10) * 0.25m);
 
-            }
+           }
 
             if((dt & DataType.Advanced) != 0) {
 
@@ -258,17 +265,6 @@ namespace CryptoGadget {
         }
 
 
-        /// <summary>
-        /// Event method to change the backcolor of a button on press
-        /// </summary>
-        private void buttonSharedColorPick(object sender, EventArgs e) {
-            ColorDialog cd = new ColorDialog();
-            cd.Color = (sender as Button).BackColor;
-            cd.FullOpen = true;
-            cd.ShowDialog();
-            (sender as Button).BackColor = cd.Color;
-        }
-
         private void buttonAccept_Click(object sender, EventArgs e) {
             if(!checkIconVisible.Checked && !checkCoinVisible.Checked && !checkValueVisible.Checked && !checkChangeVisible.Checked) {
                 MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -283,6 +279,7 @@ namespace CryptoGadget {
             Close();
         }
 
+        
         private void buttonAdd_Click(object sender, EventArgs e) {
             AddCoinForm form = new AddCoinForm(boxTargetCoin, coinGrid);
             form.ShowDialog();
@@ -429,8 +426,8 @@ namespace CryptoGadget {
                 else {
                     MessageBox.Show("There are not new coins to add to the coin list database");
                 }
-            } catch(Exception) {
-                MessageBox.Show("Couldn't download the coin list database");
+            } catch(System.Net.WebException ex) {
+                MessageBox.Show(ex.Message);
             }
 
         }

@@ -12,6 +12,14 @@ using neo;
 
 
 
+/* IDEAS:
+ - Support more APIs (start with crytocompare?)
+ - use struct of primitive types instead of accessing and parsing the ini file  
+ - Individual target coin
+ - Graphs (will require a new tab)
+*/
+
+
 
 
 namespace CryptoGadget {

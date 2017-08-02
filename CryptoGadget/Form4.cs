@@ -99,7 +99,8 @@ namespace CryptoGadget {
                     });
 
                     try {
-                        await client.DownloadDataTaskAsync(new Uri("https://www.cryptonator.com/api/currencies"));
+                        await client.DownloadDataTaskAsync(new Uri("https://www.cryptocompare.com/api/data/coinlist/"));
+                        
                     } catch(Exception) {
                         Invoke((MethodInvoker)delegate { Close(); });
                         return;
