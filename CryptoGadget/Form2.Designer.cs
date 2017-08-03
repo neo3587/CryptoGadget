@@ -120,6 +120,7 @@
             this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.checkPercentageChange = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
@@ -130,6 +131,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAccept
@@ -409,7 +411,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.checkPercentageChange);
             this.tabPage2.Controls.Add(this.checkRefreshVisible);
             this.tabPage2.Controls.Add(this.checkStartup);
             this.tabPage2.Controls.Add(this.checkEdgeVisible);
@@ -1176,6 +1177,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.checkPercentageChange);
+            this.tabPage4.Controls.Add(this.buttonDownloadMissingIcons);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -1184,13 +1187,22 @@
             this.tabPage4.Text = "Experimental";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // buttonDownloadMissingIcons
+            // 
+            this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(10, 10);
+            this.buttonDownloadMissingIcons.Name = "buttonDownloadMissingIcons";
+            this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(90, 44);
+            this.buttonDownloadMissingIcons.TabIndex = 0;
+            this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
+            this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
+            // 
             // checkPercentageChange
             // 
             this.checkPercentageChange.AutoSize = true;
-            this.checkPercentageChange.Location = new System.Drawing.Point(10, 249);
+            this.checkPercentageChange.Location = new System.Drawing.Point(156, 183);
             this.checkPercentageChange.Name = "checkPercentageChange";
             this.checkPercentageChange.Size = new System.Drawing.Size(143, 17);
-            this.checkPercentageChange.TabIndex = 52;
+            this.checkPercentageChange.TabIndex = 53;
             this.checkPercentageChange.Text = "Use Percentage Change";
             this.toolTip1.SetToolTip(this.checkPercentageChange, "Show the change values in percentages instead of with flat values");
             this.checkPercentageChange.UseVisualStyleBackColor = true;
@@ -1224,6 +1236,8 @@
             this.tabPage3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1326,6 +1340,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn target;
         private System.Windows.Forms.DataGridViewTextBoxColumn targetName;
+        private System.Windows.Forms.Button buttonDownloadMissingIcons;
         private System.Windows.Forms.CheckBox checkPercentageChange;
     }
 }

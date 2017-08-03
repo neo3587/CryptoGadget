@@ -216,7 +216,7 @@ namespace CryptoGadget {
         }
 
         private void LoadData(IniData data, DataType dt = DataType.All) {
-            
+
             if((dt & DataType.Coins) != 0) {
 
                 coinGrid.Rows.Clear();
@@ -234,8 +234,8 @@ namespace CryptoGadget {
 
                 if(GetCoinDB()) { 
                     foreach(DataGridViewRow row in coinGrid.Rows) {
-                        row.Cells[2].Value = Common.json["Data"][(string)row.Cells[1].Value]["CoinName"];
-                        //row.Cells[4].Value = Common.json["Data"][data["Coins"][row.Cells[3].Value.ToString()]]["CoinName"]; // TODO: distinguish between fiat and crypto (save fiat in the coinlist ??)
+                        row.Cells[2].Value = Common.json["Data"][row.Cells[1].Value.ToString()]["CoinName"];
+                        row.Cells[4].Value = Common.json["Data"][row.Cells[3].Value.ToString()]["CoinName"]; 
                     }
                 }
 

@@ -30,11 +30,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.boxTarget = new System.Windows.Forms.ComboBox();
+            this.checkOnlyFiat = new System.Windows.Forms.CheckBox();
+            this.checkListByAbbreviation = new System.Windows.Forms.CheckBox();
+            this.checkListByName = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(249, 52);
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAdd.Location = new System.Drawing.Point(249, 78);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 0;
@@ -44,8 +48,9 @@
             // 
             // buttonDone
             // 
+            this.buttonDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDone.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDone.Location = new System.Drawing.Point(330, 52);
+            this.buttonDone.Location = new System.Drawing.Point(330, 78);
             this.buttonDone.Name = "buttonDone";
             this.buttonDone.Size = new System.Drawing.Size(75, 23);
             this.buttonDone.TabIndex = 1;
@@ -86,13 +91,46 @@
             this.boxTarget.Size = new System.Drawing.Size(192, 21);
             this.boxTarget.TabIndex = 4;
             // 
+            // checkOnlyFiat
+            // 
+            this.checkOnlyFiat.AutoSize = true;
+            this.checkOnlyFiat.Location = new System.Drawing.Point(213, 52);
+            this.checkOnlyFiat.Name = "checkOnlyFiat";
+            this.checkOnlyFiat.Size = new System.Drawing.Size(120, 17);
+            this.checkOnlyFiat.TabIndex = 6;
+            this.checkOnlyFiat.Text = "Only Fiat Currencies";
+            this.checkOnlyFiat.UseVisualStyleBackColor = true;
+            // 
+            // checkListByAbbreviation
+            // 
+            this.checkListByAbbreviation.AutoSize = true;
+            this.checkListByAbbreviation.Location = new System.Drawing.Point(12, 52);
+            this.checkListByAbbreviation.Name = "checkListByAbbreviation";
+            this.checkListByAbbreviation.Size = new System.Drawing.Size(118, 17);
+            this.checkListByAbbreviation.TabIndex = 7;
+            this.checkListByAbbreviation.Text = "List by Abbreviation";
+            this.checkListByAbbreviation.UseVisualStyleBackColor = true;
+            // 
+            // checkListByName
+            // 
+            this.checkListByName.AutoSize = true;
+            this.checkListByName.Location = new System.Drawing.Point(12, 75);
+            this.checkListByName.Name = "checkListByName";
+            this.checkListByName.Size = new System.Drawing.Size(87, 17);
+            this.checkListByName.TabIndex = 8;
+            this.checkListByName.Text = "List by Name";
+            this.checkListByName.UseVisualStyleBackColor = true;
+            // 
             // AddCoinForm
             // 
             this.AcceptButton = this.buttonAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonDone;
-            this.ClientSize = new System.Drawing.Size(414, 85);
+            this.ClientSize = new System.Drawing.Size(417, 113);
+            this.Controls.Add(this.checkListByName);
+            this.Controls.Add(this.checkListByAbbreviation);
+            this.Controls.Add(this.checkOnlyFiat);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.boxTarget);
             this.Controls.Add(this.label1);
@@ -119,5 +157,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox boxTarget;
+        private System.Windows.Forms.CheckBox checkOnlyFiat;
+        private System.Windows.Forms.CheckBox checkListByAbbreviation;
+        private System.Windows.Forms.CheckBox checkListByName;
     }
 }

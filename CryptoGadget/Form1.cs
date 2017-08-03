@@ -11,13 +11,22 @@ using Microsoft.Win32;
 using IniParser.Model;
 
 using neo;
-using static System.Resources.ResXFileRef;
 
 
 
 
 /* IDEAS:
  - Graphs (will require a new tab)
+ - Independent Right-Click context for each row (visit website, show graph, dunno what else)
+ - CoinName tooltip on MainForm coinGrid
+*/
+
+/* TODO:
+ - Finish Cryptocompare transition
+ - Add Use Percentage Change stuff
+ - Add Download Missing Icons stuff
+ - Add Only Fiat Currency stuff
+ - Add List by Abbreviation / Name stuff
 */
 
 
@@ -173,6 +182,7 @@ namespace CryptoGadget {
             };
 
             coinGrid.Rows.Clear();
+            Data.converts.Clear();
 
             IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
 
