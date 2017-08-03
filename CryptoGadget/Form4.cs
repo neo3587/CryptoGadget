@@ -18,7 +18,7 @@ namespace CryptoGadget {
 
     public partial class ProgressForm : Form {
         
-        public List<string> badCoins = new List<string>(); // FormType.Check
+        public List<string> badConvs = new List<string>(); // FormType.Check
         public JObject coindb = null; // FormType.Download
 
         public enum FormType {
@@ -26,11 +26,12 @@ namespace CryptoGadget {
             Download = 0x02
         };
 
-        // SettingsForm.buttonCheck
+
         public ProgressForm(SettingsForm form, FormType ft) {
 
             InitializeComponent();
 
+            // SettingsForm.buttonCheck
             if(ft == FormType.Check) { 
 
                 Text = "Cryptogadget Settings [Check]";
@@ -55,12 +56,12 @@ namespace CryptoGadget {
 
                             try {
                                 JObject json = Common.HttpRequest(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString());
-                                if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null)
-                                    badCoins.Add(row.Cells[1].Value + " (" + row.Cells[2].Value + ")");
+                                if(json[row.Cells[3].Value.ToString().ToUpper()] == null)
+                                    badConvs.Add(row.Cells[1].Value.ToString() + " (" + row.Cells[2].Value.ToString() + ") -> " + row.Cells[3].Value.ToString() + " (" + row.Cells[4].Value.ToString() + ")");
                                 i++;
                             } catch(Exception) {
                                 if(errCount++ == 5) {
-                                    badCoins.Add(row.Cells[1].Value + " (" + row.Cells[2].Value + ")");
+                                    badConvs.Add(row.Cells[1].Value.ToString() + " (" + row.Cells[2].Value.ToString() + ") -> " + row.Cells[3].Value.ToString() + " (" + row.Cells[4].Value.ToString() + ")");
                                     errCount = 0;
                                     i++;
                                 }
@@ -78,6 +79,7 @@ namespace CryptoGadget {
 
             }
 
+            // SettingsForm.buttonDownloadList
             else if(ft == FormType.Download) {
 
                 Text = "Cryptogadget Settings [Download]";

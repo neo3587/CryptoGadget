@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace neo {
 
-    class FormUtil {
+    public class FormUtil {
 
         #region DragMove Method Details
 

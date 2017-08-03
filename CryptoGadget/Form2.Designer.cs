@@ -41,12 +41,14 @@
             this.buttonDown = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
             this.buttonDownloadList = new System.Windows.Forms.Button();
             this.buttonAddIcon = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
-            this.buttonDefaultBasic = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonDefaultBasic = new System.Windows.Forms.Button();
+            this.checkShowPercentage = new System.Windows.Forms.CheckBox();
             this.checkRefreshVisible = new System.Windows.Forms.CheckBox();
             this.checkStartup = new System.Windows.Forms.CheckBox();
             this.checkEdgeVisible = new System.Windows.Forms.CheckBox();
@@ -78,10 +80,10 @@
             this.buttonColorNegativeChange = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonColorPositiveChange = new System.Windows.Forms.Button();
-            this.buttonDefaultColors = new System.Windows.Forms.Button();
             this.boxTheme = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.checkLockPosition = new System.Windows.Forms.CheckBox();
             this.checkExitSave = new System.Windows.Forms.CheckBox();
             this.boxStartY = new System.Windows.Forms.TextBox();
@@ -118,11 +120,9 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.boxValueWidth = new System.Windows.Forms.TextBox();
-            this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkPercentageChange = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -313,11 +313,11 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
             this.tabPage1.Controls.Add(this.buttonDownloadList);
             this.tabPage1.Controls.Add(this.buttonAddIcon);
             this.tabPage1.Controls.Add(this.buttonCheck);
             this.tabPage1.Controls.Add(this.numericRefreshRate);
-            this.tabPage1.Controls.Add(this.buttonDefaultBasic);
             this.tabPage1.Controls.Add(this.coinGrid);
             this.tabPage1.Controls.Add(this.buttonDown);
             this.tabPage1.Controls.Add(this.buttonUp);
@@ -331,6 +331,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Currencies";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // buttonDefaultCurrencies
+            // 
+            this.buttonDefaultCurrencies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDefaultCurrencies.Location = new System.Drawing.Point(373, 353);
+            this.buttonDefaultCurrencies.Name = "buttonDefaultCurrencies";
+            this.buttonDefaultCurrencies.Size = new System.Drawing.Size(75, 23);
+            this.buttonDefaultCurrencies.TabIndex = 56;
+            this.buttonDefaultCurrencies.Text = "Defaults";
+            this.buttonDefaultCurrencies.UseVisualStyleBackColor = true;
+            this.buttonDefaultCurrencies.Click += new System.EventHandler(this.buttonDefaultCurrencies_Click);
             // 
             // buttonDownloadList
             // 
@@ -398,19 +409,10 @@
             0,
             0});
             // 
-            // buttonDefaultBasic
-            // 
-            this.buttonDefaultBasic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultBasic.Location = new System.Drawing.Point(372, 353);
-            this.buttonDefaultBasic.Name = "buttonDefaultBasic";
-            this.buttonDefaultBasic.Size = new System.Drawing.Size(75, 23);
-            this.buttonDefaultBasic.TabIndex = 21;
-            this.buttonDefaultBasic.Text = "Defaults";
-            this.buttonDefaultBasic.UseVisualStyleBackColor = true;
-            this.buttonDefaultBasic.Click += new System.EventHandler(this.buttonDefaultBasic_Click);
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonDefaultBasic);
+            this.tabPage2.Controls.Add(this.checkShowPercentage);
             this.tabPage2.Controls.Add(this.checkRefreshVisible);
             this.tabPage2.Controls.Add(this.checkStartup);
             this.tabPage2.Controls.Add(this.checkEdgeVisible);
@@ -420,7 +422,6 @@
             this.tabPage2.Controls.Add(this.checkCoinVisible);
             this.tabPage2.Controls.Add(this.checkIconVisible);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.buttonDefaultColors);
             this.tabPage2.Controls.Add(this.boxTheme);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -430,6 +431,28 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Basic";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonDefaultBasic
+            // 
+            this.buttonDefaultBasic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDefaultBasic.Location = new System.Drawing.Point(373, 353);
+            this.buttonDefaultBasic.Name = "buttonDefaultBasic";
+            this.buttonDefaultBasic.Size = new System.Drawing.Size(75, 23);
+            this.buttonDefaultBasic.TabIndex = 57;
+            this.buttonDefaultBasic.Text = "Defaults";
+            this.buttonDefaultBasic.UseVisualStyleBackColor = true;
+            this.buttonDefaultBasic.Click += new System.EventHandler(this.buttonDefaultBasic_Click);
+            // 
+            // checkShowPercentage
+            // 
+            this.checkShowPercentage.AutoSize = true;
+            this.checkShowPercentage.Location = new System.Drawing.Point(10, 240);
+            this.checkShowPercentage.Name = "checkShowPercentage";
+            this.checkShowPercentage.Size = new System.Drawing.Size(165, 17);
+            this.checkShowPercentage.TabIndex = 54;
+            this.checkShowPercentage.Text = "Show Change as Percentage";
+            this.toolTip1.SetToolTip(this.checkShowPercentage, "Show the change values in percentages instead of with flat values");
+            this.checkShowPercentage.UseVisualStyleBackColor = true;
             // 
             // checkRefreshVisible
             // 
@@ -557,6 +580,7 @@
             this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
             this.buttonColorHeaderText.TabIndex = 57;
             this.buttonColorHeaderText.UseVisualStyleBackColor = true;
+            this.buttonColorHeaderText.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // label13
             // 
@@ -583,6 +607,7 @@
             this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonColorNegativeRefresh.TabIndex = 55;
             this.buttonColorNegativeRefresh.UseVisualStyleBackColor = true;
+            this.buttonColorNegativeRefresh.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // label7
             // 
@@ -609,6 +634,7 @@
             this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonColorPositiveRefresh.TabIndex = 53;
             this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
+            this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // buttonColorValues
             // 
@@ -617,6 +643,7 @@
             this.buttonColorValues.Size = new System.Drawing.Size(23, 23);
             this.buttonColorValues.TabIndex = 24;
             this.buttonColorValues.UseVisualStyleBackColor = true;
+            this.buttonColorValues.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // label4
             // 
@@ -652,6 +679,7 @@
             this.buttonColorHeaderBackGround.Size = new System.Drawing.Size(23, 23);
             this.buttonColorHeaderBackGround.TabIndex = 21;
             this.buttonColorHeaderBackGround.UseVisualStyleBackColor = true;
+            this.buttonColorHeaderBackGround.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // label14
             // 
@@ -678,6 +706,7 @@
             this.buttonColorCoins.Size = new System.Drawing.Size(23, 23);
             this.buttonColorCoins.TabIndex = 6;
             this.buttonColorCoins.UseVisualStyleBackColor = true;
+            this.buttonColorCoins.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // buttonColorBackGround1
             // 
@@ -686,6 +715,7 @@
             this.buttonColorBackGround1.Size = new System.Drawing.Size(23, 23);
             this.buttonColorBackGround1.TabIndex = 7;
             this.buttonColorBackGround1.UseVisualStyleBackColor = true;
+            this.buttonColorBackGround1.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // buttonColorEdge
             // 
@@ -694,6 +724,7 @@
             this.buttonColorEdge.Size = new System.Drawing.Size(23, 23);
             this.buttonColorEdge.TabIndex = 17;
             this.buttonColorEdge.UseVisualStyleBackColor = true;
+            this.buttonColorEdge.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // buttonColorBackGround2
             // 
@@ -702,6 +733,7 @@
             this.buttonColorBackGround2.Size = new System.Drawing.Size(23, 23);
             this.buttonColorBackGround2.TabIndex = 8;
             this.buttonColorBackGround2.UseVisualStyleBackColor = true;
+            this.buttonColorBackGround2.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // label12
             // 
@@ -719,6 +751,7 @@
             this.buttonColorNegativeChange.Size = new System.Drawing.Size(23, 23);
             this.buttonColorNegativeChange.TabIndex = 15;
             this.buttonColorNegativeChange.UseVisualStyleBackColor = true;
+            this.buttonColorNegativeChange.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // label11
             // 
@@ -736,16 +769,7 @@
             this.buttonColorPositiveChange.Size = new System.Drawing.Size(23, 23);
             this.buttonColorPositiveChange.TabIndex = 11;
             this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
-            // 
-            // buttonDefaultColors
-            // 
-            this.buttonDefaultColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultColors.Location = new System.Drawing.Point(373, 351);
-            this.buttonDefaultColors.Name = "buttonDefaultColors";
-            this.buttonDefaultColors.Size = new System.Drawing.Size(75, 23);
-            this.buttonDefaultColors.TabIndex = 42;
-            this.buttonDefaultColors.Text = "Defaults";
-            this.buttonDefaultColors.UseVisualStyleBackColor = true;
+            this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
             // 
             // boxTheme
             // 
@@ -757,6 +781,7 @@
             this.boxTheme.Name = "boxTheme";
             this.boxTheme.Size = new System.Drawing.Size(121, 21);
             this.boxTheme.TabIndex = 41;
+            this.boxTheme.SelectedIndexChanged += new System.EventHandler(this.boxTheme_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -769,6 +794,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
             this.tabPage3.Controls.Add(this.checkLockPosition);
             this.tabPage3.Controls.Add(this.checkExitSave);
             this.tabPage3.Controls.Add(this.boxStartY);
@@ -784,7 +810,6 @@
             this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.label20);
             this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -792,6 +817,17 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Advanced";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // buttonDefaultAdvanced
+            // 
+            this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDefaultAdvanced.Location = new System.Drawing.Point(373, 353);
+            this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
+            this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
+            this.buttonDefaultAdvanced.TabIndex = 60;
+            this.buttonDefaultAdvanced.Text = "Defaults";
+            this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
+            this.buttonDefaultAdvanced.Click += new System.EventHandler(this.buttonDefaultAdvanced_Click);
             // 
             // checkLockPosition
             // 
@@ -827,6 +863,7 @@
             this.boxStartY.TabIndex = 56;
             this.toolTip1.SetToolTip(this.boxStartY, "Pixel coordinate that poins to the Y position where the \r\ngadget will be shown wh" +
         "en opened.");
+            this.boxStartY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSint);
             // 
             // boxStartX
             // 
@@ -837,6 +874,7 @@
             this.boxStartX.TabIndex = 54;
             this.toolTip1.SetToolTip(this.boxStartX, "Pixel coordinate that poins to the X position where the \r\ngadget will be shown wh" +
         "en opened.");
+            this.boxStartX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSint);
             // 
             // boxMaxChangeDecimals
             // 
@@ -844,6 +882,7 @@
             this.boxMaxChangeDecimals.Name = "boxMaxChangeDecimals";
             this.boxMaxChangeDecimals.Size = new System.Drawing.Size(100, 20);
             this.boxMaxChangeDecimals.TabIndex = 52;
+            this.boxMaxChangeDecimals.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // boxMaxChangeDigits
             // 
@@ -851,6 +890,7 @@
             this.boxMaxChangeDigits.Name = "boxMaxChangeDigits";
             this.boxMaxChangeDigits.Size = new System.Drawing.Size(100, 20);
             this.boxMaxChangeDigits.TabIndex = 50;
+            this.boxMaxChangeDigits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // boxMaxValueDecimals
             // 
@@ -858,6 +898,7 @@
             this.boxMaxValueDecimals.Name = "boxMaxValueDecimals";
             this.boxMaxValueDecimals.Size = new System.Drawing.Size(100, 20);
             this.boxMaxValueDecimals.TabIndex = 48;
+            this.boxMaxValueDecimals.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // boxMaxValueDigits
             // 
@@ -865,6 +906,7 @@
             this.boxMaxValueDigits.Name = "boxMaxValueDigits";
             this.boxMaxValueDigits.Size = new System.Drawing.Size(100, 20);
             this.boxMaxValueDigits.TabIndex = 45;
+            this.boxMaxValueDigits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label25
             // 
@@ -994,6 +1036,7 @@
             this.boxNumbersSize.Name = "boxNumbersSize";
             this.boxNumbersSize.Size = new System.Drawing.Size(100, 20);
             this.boxNumbersSize.TabIndex = 22;
+            this.boxNumbersSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSfloat);
             // 
             // label28
             // 
@@ -1014,6 +1057,7 @@
             this.boxTextSize.Name = "boxTextSize";
             this.boxTextSize.Size = new System.Drawing.Size(100, 20);
             this.boxTextSize.TabIndex = 20;
+            this.boxTextSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSfloat);
             // 
             // label27
             // 
@@ -1034,6 +1078,7 @@
             this.boxIconSize.Name = "boxIconSize";
             this.boxIconSize.Size = new System.Drawing.Size(100, 20);
             this.boxIconSize.TabIndex = 18;
+            this.boxIconSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label26
             // 
@@ -1054,6 +1099,7 @@
             this.boxRowsHeight.Name = "boxRowsHeight";
             this.boxRowsHeight.Size = new System.Drawing.Size(100, 20);
             this.boxRowsHeight.TabIndex = 16;
+            this.boxRowsHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label3
             // 
@@ -1074,6 +1120,7 @@
             this.boxHeaderHeight.Name = "boxHeaderHeight";
             this.boxHeaderHeight.Size = new System.Drawing.Size(100, 20);
             this.boxHeaderHeight.TabIndex = 14;
+            this.boxHeaderHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // boxCoinWidth
             // 
@@ -1081,6 +1128,7 @@
             this.boxCoinWidth.Name = "boxCoinWidth";
             this.boxCoinWidth.Size = new System.Drawing.Size(100, 20);
             this.boxCoinWidth.TabIndex = 6;
+            this.boxCoinWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // boxEdgeWidth
             // 
@@ -1088,6 +1136,7 @@
             this.boxEdgeWidth.Name = "boxEdgeWidth";
             this.boxEdgeWidth.Size = new System.Drawing.Size(100, 20);
             this.boxEdgeWidth.TabIndex = 12;
+            this.boxEdgeWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label15
             // 
@@ -1117,6 +1166,7 @@
             this.boxIconWidth.Name = "boxIconWidth";
             this.boxIconWidth.Size = new System.Drawing.Size(100, 20);
             this.boxIconWidth.TabIndex = 4;
+            this.boxIconWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // boxChangeWidth
             // 
@@ -1124,6 +1174,7 @@
             this.boxChangeWidth.Name = "boxChangeWidth";
             this.boxChangeWidth.Size = new System.Drawing.Size(100, 20);
             this.boxChangeWidth.TabIndex = 10;
+            this.boxChangeWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label16
             // 
@@ -1164,20 +1215,10 @@
             this.boxValueWidth.Name = "boxValueWidth";
             this.boxValueWidth.Size = new System.Drawing.Size(100, 20);
             this.boxValueWidth.TabIndex = 8;
-            // 
-            // buttonDefaultAdvanced
-            // 
-            this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultAdvanced.Location = new System.Drawing.Point(372, 352);
-            this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
-            this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
-            this.buttonDefaultAdvanced.TabIndex = 44;
-            this.buttonDefaultAdvanced.Text = "Defaults";
-            this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
+            this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.checkPercentageChange);
             this.tabPage4.Controls.Add(this.buttonDownloadMissingIcons);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -1195,17 +1236,6 @@
             this.buttonDownloadMissingIcons.TabIndex = 0;
             this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
             this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
-            // 
-            // checkPercentageChange
-            // 
-            this.checkPercentageChange.AutoSize = true;
-            this.checkPercentageChange.Location = new System.Drawing.Point(156, 183);
-            this.checkPercentageChange.Name = "checkPercentageChange";
-            this.checkPercentageChange.Size = new System.Drawing.Size(143, 17);
-            this.checkPercentageChange.TabIndex = 53;
-            this.checkPercentageChange.Text = "Use Percentage Change";
-            this.toolTip1.SetToolTip(this.checkPercentageChange, "Show the change values in percentages instead of with flat values");
-            this.checkPercentageChange.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -1237,7 +1267,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1256,7 +1285,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button buttonDefaultBasic;
         internal System.Windows.Forms.DataGridView coinGrid;
         private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -1289,7 +1317,6 @@
         private System.Windows.Forms.Button buttonColorNegativeChange;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonColorPositiveChange;
-        private System.Windows.Forms.Button buttonDefaultColors;
         private System.Windows.Forms.ComboBox boxTheme;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkLockPosition;
@@ -1328,7 +1355,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox boxValueWidth;
-        private System.Windows.Forms.Button buttonDefaultAdvanced;
         private System.Windows.Forms.Button buttonColorHeaderText;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label8;
@@ -1341,6 +1367,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn target;
         private System.Windows.Forms.DataGridViewTextBoxColumn targetName;
         private System.Windows.Forms.Button buttonDownloadMissingIcons;
-        private System.Windows.Forms.CheckBox checkPercentageChange;
+        private System.Windows.Forms.CheckBox checkShowPercentage;
+        private System.Windows.Forms.Button buttonDefaultCurrencies;
+        private System.Windows.Forms.Button buttonDefaultBasic;
+        private System.Windows.Forms.Button buttonDefaultAdvanced;
     }
 }

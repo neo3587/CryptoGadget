@@ -144,7 +144,8 @@ namespace CryptoGadget {
 
             foreach(Tuple<string, string> fcoin in fiat) {
                 try {
-                    (form.coindb["Data"] as JObject).Add(fcoin.Item1, JToken.Parse("{ \"Name\": \"" + fcoin.Item1 + "\", \"CoinName\": \"" + fcoin.Item2 + "\", \"FullName\": \"" + fcoin.Item2 + " (" + fcoin.Item1 + ")\" }"));
+                    (form.coindb["Data"] as JObject).Add(fcoin.Item1, JToken.Parse("{ \"Name\": \"" + fcoin.Item1 + "\", \"CoinName\": \"" + fcoin.Item2 +
+                                                                                   "\", \"FullName\": \"" + fcoin.Item2 + " (" + fcoin.Item1 + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
                 } catch(Exception) { }
             }
 
@@ -254,6 +255,7 @@ namespace CryptoGadget {
                 checkEdgeVisible.Checked    = bool.Parse(data["Visibility"]["Edge"]);
                 checkRefreshVisible.Checked = bool.Parse(data["Visibility"]["Refresh"]);
                 checkStartup.Checked        = bool.Parse(data["Others"]["OpenStartup"]);
+                checkShowPercentage.Checked = bool.Parse(data["Others"]["ShowPercentage"]);
             }
 
             if((dt & DataType.Colors) != 0) {
@@ -317,6 +319,7 @@ namespace CryptoGadget {
 
                 Common.ini["Others"]["RefreshRate"] = numericRefreshRate.Value.ToString();
                 Common.ini["Others"]["OpenStartup"] = checkStartup.Checked.ToString();
+                Common.ini["Others"]["ShowPercentage"] = checkShowPercentage.Checked.ToString();
 
                 Common.ini["Visibility"]["Icon"]    = checkIconVisible.Checked.ToString();
                 Common.ini["Visibility"]["Coin"]    = checkCoinVisible.Checked.ToString();
@@ -431,9 +434,13 @@ namespace CryptoGadget {
             }
         }
 
+        private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
+            IniData ini = (IniData)Common.ini.Clone();
+            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Coins));
+            LoadData(ini, DataType.Coins);
+        }
         private void buttonDefaultBasic_Click(object sender, EventArgs e) {
             IniData ini = (IniData)Common.ini.Clone();
-            ini["Coins"].RemoveAllKeys();
             ini.Merge(Common.DefaultIni(null, Common.DefaultType.Basic));
             LoadData(ini, DataType.Basic);
         }
@@ -441,11 +448,6 @@ namespace CryptoGadget {
             IniData ini = (IniData)Common.ini.Clone();
             ini.Merge(Common.DefaultIni(null, Common.DefaultType.Advanced));
             LoadData(ini, DataType.Advanced);
-        }
-        private void buttonDefaultColors_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.ColorsLight));
-            LoadData(ini, DataType.Colors);
         }
 
         private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
@@ -471,11 +473,7 @@ namespace CryptoGadget {
             ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Check);
             form.ShowDialog();
 
-            string msg = "";
-            foreach(string bad in form.badCoins)
-                msg += " - " + bad + "\n";
-
-            MessageBox.Show(msg == "" ? "All coins are correct" : "List of problematic coins with the current target coin:\n" + msg);
+            MessageBox.Show(form.badConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.badConvs));
         }
 
         /// <summary>
@@ -539,6 +537,11 @@ namespace CryptoGadget {
 
         }
 
+        private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
 
     }
 

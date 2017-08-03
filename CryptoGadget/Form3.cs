@@ -24,10 +24,12 @@ namespace CryptoGadget {
             HandleCreated += (sender, e) => {
 
                 if(Common.json != null) {
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
                     foreach(JProperty coin in Common.json["Data"]) {
                         boxCoin.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
                         boxTarget.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
                     }
+
                     boxCoin.SelectedIndex = boxCoin.Items.Count == 0 ? -1 : 0;
                     boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
                 }
@@ -37,9 +39,9 @@ namespace CryptoGadget {
 
         private void buttonAdd_Click(object sender, EventArgs e) {
 
-            Func<string, string, bool> FindCoin = (strcoin, strname) => {
+            Func<string, string, bool> FindCoin = (l_coin, r_coin) => {
                 foreach(DataGridViewRow row in ptrGrid.Rows)
-                    if(row.Cells[1].Value.ToString() == strcoin && row.Cells[2].Value.ToString() == strname)
+                    if(row.Cells[1].Value.ToString() == l_coin && row.Cells[3].Value.ToString() == r_coin)
                         return true;
                 return false;
             };
@@ -47,20 +49,21 @@ namespace CryptoGadget {
             if(boxCoin.Items.Count <= 0 || boxCoin.SelectedIndex == -1)
                return;
 
-            string str = (string)boxCoin.SelectedItem;
-            string coin = str.Substring(0, str.LastIndexOf('(')).Trim(' ');
-            string name = str.Substring(str.LastIndexOf('(')).Trim(' ', ')', '(');
+            string coin   = boxCoin.SelectedItem.ToString().Substring(0, boxCoin.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
+            string name   = boxCoin.SelectedItem.ToString().Substring(boxCoin.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
+            string t_coin = boxCoin.SelectedItem.ToString().Substring(0, boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
+            string t_name = boxCoin.SelectedItem.ToString().Substring(boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
 
-            if(FindCoin(coin, name)) {
-                MessageBox.Show(str + " is already being used");
+            if(FindCoin(coin, t_coin)) {
+                MessageBox.Show(boxCoin.SelectedItem.ToString() + " -> " + boxTarget.SelectedItem.ToString() + " conversion is already being used");
                 return;
             }
 
             int insertPos = ptrGrid.SelectedRows.Count > 0 ? ptrGrid.SelectedRows[0].Index +1 : 0;
             try {
-                ptrGrid.Rows.Insert(insertPos, new Icon(Common.iconLocation + coin + ".ico", new Size(16, 16)).ToBitmap(), coin, name);
+                ptrGrid.Rows.Insert(insertPos, new Icon(Common.iconLocation + coin + ".ico", new Size(16, 16)).ToBitmap(), coin, name, t_coin, t_name);
             } catch(Exception) {
-                ptrGrid.Rows.Insert(insertPos, new Bitmap(1, 1), coin, name);
+                ptrGrid.Rows.Insert(insertPos, new Bitmap(1, 1), coin, name, t_coin, t_name);
             }
 
         }
@@ -71,6 +74,17 @@ namespace CryptoGadget {
 
         private void boxCoins_Click(object sender, EventArgs e) {
             boxCoin.DroppedDown = true;
+        }
+
+        private void checkOnlyFiat_CheckedChanged(object sender, EventArgs e) {
+            boxTarget.Items.Clear();
+            foreach(JProperty coin in Common.json["Data"]) {
+                if(checkOnlyFiat.Checked && coin.Value["FiatCurrency"] == null) 
+                    continue;
+                boxTarget.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
+            }
+            boxCoin.SelectedIndex = boxCoin.Items.Count == 0 ? -1 : 0;
+            boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
         }
 
     }

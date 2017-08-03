@@ -25,6 +25,7 @@ namespace CryptoGadget {
             public static int maxChangeDigits   = 5;
             public static int maxChangeDecimals = 4;
 
+            public static bool showPercentage = false;
         }
 
         public struct visible {
@@ -127,6 +128,7 @@ namespace CryptoGadget {
                 data["Visibility"]["Refresh"] = "True";
 
                 data["Others"]["OpenStartup"] = "False";
+                data["Others"]["ShowPercentage"] = "False";
             }
 
             if((dt & DefaultType.Advanced) != 0) {
@@ -190,13 +192,12 @@ namespace CryptoGadget {
             return col.ToArgb().ToString("X8");
         }
 
-        // to change
         public static JObject HttpRequest(string input_coin, string output_coin) {
-            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://api.cryptonator.com/api/ticker/" + input_coin.ToLower() + "-" + output_coin.ToLower());
+            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/price?fsym=" + input_coin.ToUpper() + "&tsyms=" + output_coin.ToUpper());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
         }
-        public static JObject HttpRequest2(string input_coin, string output_coin) {
-            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/price?fsym=" + input_coin.ToUpper() + "&tsyms=" + output_coin.ToUpper());
+        public static JObject HttpRequest(string[] input_coin, string[] output_coin) {
+            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + string.Join(",", input_coin).ToUpper() + "&tsyms=" + string.Join(",", output_coin).ToUpper());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
         }
 

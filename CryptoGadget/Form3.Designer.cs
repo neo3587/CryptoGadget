@@ -31,14 +31,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.boxTarget = new System.Windows.Forms.ComboBox();
             this.checkOnlyFiat = new System.Windows.Forms.CheckBox();
-            this.checkListByAbbreviation = new System.Windows.Forms.CheckBox();
-            this.checkListByName = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonAdd
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAdd.Location = new System.Drawing.Point(249, 78);
+            this.buttonAdd.Location = new System.Drawing.Point(249, 73);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 0;
@@ -50,7 +48,7 @@
             // 
             this.buttonDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDone.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDone.Location = new System.Drawing.Point(330, 78);
+            this.buttonDone.Location = new System.Drawing.Point(330, 73);
             this.buttonDone.Name = "buttonDone";
             this.buttonDone.Size = new System.Drawing.Size(75, 23);
             this.buttonDone.TabIndex = 1;
@@ -63,6 +61,7 @@
             this.boxCoin.Location = new System.Drawing.Point(12, 25);
             this.boxCoin.Name = "boxCoin";
             this.boxCoin.Size = new System.Drawing.Size(192, 21);
+            this.boxCoin.Sorted = true;
             this.boxCoin.TabIndex = 2;
             this.boxCoin.Click += new System.EventHandler(this.boxCoins_Click);
             // 
@@ -89,37 +88,19 @@
             this.boxTarget.Location = new System.Drawing.Point(213, 25);
             this.boxTarget.Name = "boxTarget";
             this.boxTarget.Size = new System.Drawing.Size(192, 21);
+            this.boxTarget.Sorted = true;
             this.boxTarget.TabIndex = 4;
             // 
             // checkOnlyFiat
             // 
             this.checkOnlyFiat.AutoSize = true;
-            this.checkOnlyFiat.Location = new System.Drawing.Point(213, 52);
+            this.checkOnlyFiat.Location = new System.Drawing.Point(285, 52);
             this.checkOnlyFiat.Name = "checkOnlyFiat";
             this.checkOnlyFiat.Size = new System.Drawing.Size(120, 17);
             this.checkOnlyFiat.TabIndex = 6;
             this.checkOnlyFiat.Text = "Only Fiat Currencies";
             this.checkOnlyFiat.UseVisualStyleBackColor = true;
-            // 
-            // checkListByAbbreviation
-            // 
-            this.checkListByAbbreviation.AutoSize = true;
-            this.checkListByAbbreviation.Location = new System.Drawing.Point(12, 52);
-            this.checkListByAbbreviation.Name = "checkListByAbbreviation";
-            this.checkListByAbbreviation.Size = new System.Drawing.Size(118, 17);
-            this.checkListByAbbreviation.TabIndex = 7;
-            this.checkListByAbbreviation.Text = "List by Abbreviation";
-            this.checkListByAbbreviation.UseVisualStyleBackColor = true;
-            // 
-            // checkListByName
-            // 
-            this.checkListByName.AutoSize = true;
-            this.checkListByName.Location = new System.Drawing.Point(12, 75);
-            this.checkListByName.Name = "checkListByName";
-            this.checkListByName.Size = new System.Drawing.Size(87, 17);
-            this.checkListByName.TabIndex = 8;
-            this.checkListByName.Text = "List by Name";
-            this.checkListByName.UseVisualStyleBackColor = true;
+            this.checkOnlyFiat.CheckedChanged += new System.EventHandler(this.checkOnlyFiat_CheckedChanged);
             // 
             // AddCoinForm
             // 
@@ -127,9 +108,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonDone;
-            this.ClientSize = new System.Drawing.Size(417, 113);
-            this.Controls.Add(this.checkListByName);
-            this.Controls.Add(this.checkListByAbbreviation);
+            this.ClientSize = new System.Drawing.Size(417, 107);
             this.Controls.Add(this.checkOnlyFiat);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.boxTarget);
@@ -158,7 +137,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox boxTarget;
         private System.Windows.Forms.CheckBox checkOnlyFiat;
-        private System.Windows.Forms.CheckBox checkListByAbbreviation;
-        private System.Windows.Forms.CheckBox checkListByName;
     }
 }

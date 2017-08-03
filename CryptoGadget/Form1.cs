@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ using neo;
  - Add Use Percentage Change stuff
  - Add Download Missing Icons stuff
  - Add Only Fiat Currency stuff
- - Add List by Abbreviation / Name stuff
 */
 
 
@@ -60,27 +60,27 @@ namespace CryptoGadget {
 
             List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
 
-            for(int i = 0; i < coinGrid.RowCount; i++) {
+            string[] input  = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1)));
+            string[] output = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2)));
+            string usePercent = Data.others.showPercentage ? "CHANGEPCT24HOUR" : "CHANGE24HOUR";
 
-                if(timerDisposed)
-                    return;
-
-                try {
-                    JObject json = Common.HttpRequest(Data.converts[i].Item1, Data.converts[i].Item2);
-                    if(json == null || json["success"].ToString().ToLower() == "false" || json["ticker"] == null) { // to change
-                        prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
-                    }
-                    else {
+            try {
+                JObject json = Common.HttpRequest(input, output);
+                if(json == null || json["Response"]?.ToString().ToLower() == "error") {
+                    prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
+                }
+                else {
+                    for(int i = 0; i < Data.converts.Count; i++) {
                         prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
-                            AdaptValue(json["ticker"]["price"].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
-                            AdaptValue(json["ticker"]["change"].ToObject<double>(), Data.others.maxChangeDigits, Data.others.maxChangeDecimals)));
+                            AdaptValue(json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["PRICE"].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
+                            AdaptValue(json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2][usePercent].ToObject<double>(), Data.others.maxChangeDigits, Data.others.maxChangeDecimals)));
                     }
-                } catch(Exception) { }
-            }
+                }
+            } catch(Exception) { }
 
             for(int i = 0; i < prices.Count; i++) {
                 coinGrid.Rows[i].Cells[2].Value = AdaptValueStr(prices[i].Item2, Data.others.maxValueDigits, Data.others.maxValueDecimals);
-                coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, Data.others.maxChangeDigits, Data.others.maxChangeDecimals);
+                coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, Data.others.maxChangeDigits, Data.others.maxChangeDecimals) + (Data.others.showPercentage ? "%" : "");
                 coinGrid.Rows[i].Cells[3].Style.ForeColor = prices[i].Item3 >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
             }
 
@@ -225,6 +225,8 @@ namespace CryptoGadget {
                 Data.others.maxValueDecimals  = AssignRule<int>()("Others", "MaxValueDecimals",  (obj) => obj >= 0);
                 Data.others.maxChangeDigits   = AssignRule<int>()("Others", "MaxChangeDigits",   (obj) => obj >= 0);
                 Data.others.maxChangeDecimals = AssignRule<int>()("Others", "MaxChangeDecimals", (obj) => obj >= 0);
+
+                Data.others.showPercentage = bool.Parse(Common.ini["Others"]["ShowPercentage"]);
 
                 Data.visible.icon    = bool.Parse(Common.ini["Visibility"]["Icon"]);
                 Data.visible.coin    = bool.Parse(Common.ini["Visibility"]["Coin"]);

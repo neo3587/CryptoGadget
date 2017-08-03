@@ -4358,21 +4358,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "760"
     },
-    "DOPE": {
-      "Id": "28332",
-      "Url": "/coins/dope/overview",
-      "ImageUrl": "/media/351526/dope.png",
-      "Name": "DOPE",
-      "CoinName": "DopeCoin",
-      "FullName": "DopeCoin (DOPE)",
-      "Algorithm": "Scrypt",
-      "ProofType": "PoW",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "575000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "761"
-    },
     "B3": {
       "Id": "28333",
       "Url": "/coins/b3/overview",
@@ -17232,21 +17217,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1099"
     },
-    "BTC": {
-      "Id": "1182",
-      "Url": "/coins/btc/overview",
-      "ImageUrl": "/media/19633/btc.png",
-      "Name": "BTC",
-      "CoinName": "Bitcoin",
-      "FullName": "Bitcoin (BTC)",
-      "Algorithm": "SHA256",
-      "ProofType": "PoW",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "21000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1"
-    },
     "GRE": {
       "Id": "5375",
       "Url": "/coins/gre/overview",
@@ -17385,7 +17355,6 @@
     "FUNC": {
       "Id": "179018",
       "Url": "/coins/func/overview",
-      "ImageUrl": "/media/1383739/func.png",
       "Name": "FUNC",
       "CoinName": "FunCoin",
       "FullName": "FunCoin (FUNC)",
@@ -18459,7 +18428,7 @@
     "GNT": {
       "Id": "33022",
       "Url": "/coins/gnt/overview",
-      "ImageUrl": "/media/351995/golem-logo.png",
+      "ImageUrl": "/media/351995/gnt.png",
       "Name": "GNT",
       "CoinName": "Golem Network Token",
       "FullName": "Golem Network Token (GNT)",
@@ -18958,21 +18927,6 @@
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1346"
-    },
-    "LKK": {
-      "Id": "30167",
-      "Url": "/coins/lkk-1/overview",
-      "ImageUrl": "/media/351734/lykke.png",
-      "Name": "LKK (1)",
-      "CoinName": "Lykke",
-      "FullName": "Lykke (LKK (1))",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "1250000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "840"
     },
     "MCO": {
       "Id": "166548",
@@ -20513,21 +20467,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1426"
     },
-    "KICK": {
-      "Id": "202849",
-      "Url": "/coins/kick/overview",
-      "ImageUrl": "/media/1383929/kick.png",
-      "Name": "KICK",
-      "CoinName": "KickCoin",
-      "FullName": "KickCoin (KICK)",
-      "Algorithm": "SHA256",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "815000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1436"
-    },
     "DNT": {
       "Id": "177175",
       "Url": "/coins/dnt/overview",
@@ -20588,35 +20527,156 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1311"
     },
-    "DIM": {
-      "Id": "180678",
-      "Url": "/coins/dim/overview",
-      "ImageUrl": "/media/1383761/dim.png",
-      "Name": "DIM",
-      "CoinName": "DIMCOIN",
-      "FullName": "DIMCOIN (DIM)",
+    "TRIBE": {
+      "Id": "186253",
+      "Url": "/coins/tribe/overview",
+      "ImageUrl": "/media/1383797/tribe.jpg",
+      "Name": "TRIBE",
+      "CoinName": "TribeToken",
+      "FullName": "TribeToken (TRIBE)",
       "Algorithm": "N/A",
       "ProofType": "N/A",
       "FullyPremined": "0",
-      "TotalCoinSupply": "10000000 ",
+      "TotalCoinSupply": "N/A",
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1323"
+      "SortOrder": "1353"
     },
-    "SDAO": {
-      "Id": "203183",
-      "Url": "/coins/sdao/overview",
-      "ImageUrl": "/media/1383933/sdao.png",
-      "Name": "SDAO",
-      "CoinName": "Solar DAO",
-      "FullName": "Solar DAO (SDAO)",
+    "NDC": {
+      "Id": "188787",
+      "Url": "/coins/ndc/overview",
+      "ImageUrl": "/media/1383827/ndc.png",
+      "Name": "NDC",
+      "CoinName": "NeverDie",
+      "FullName": "NeverDie (NDC)",
       "Algorithm": "N/A",
       "ProofType": "N/A",
       "FullyPremined": "0",
-      "TotalCoinSupply": "80000000",
+      "TotalCoinSupply": "400000000",
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1437"
+      "SortOrder": "1379"
+    },
+    "BNB": {
+      "Id": "60622",
+      "Url": "/coins/bnbstar/overview",
+      "ImageUrl": "/media/1382967/bnb.png",
+      "Name": "BNB*",
+      "CoinName": "Boats and Bitches",
+      "FullName": "Boats and Bitches (BNB*)",
+      "Algorithm": "X11",
+      "ProofType": "PoS",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "696969",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1164"
+    },
+    "BCAP": {
+      "Id": "72955",
+      "Url": "/coins/bcap/overview",
+      "ImageUrl": "/media/1383948/bcap1.png",
+      "Name": "BCAP",
+      "CoinName": "Blockchain Capital",
+      "FullName": "Blockchain Capital (BCAP)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "10000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1205"
+    },
+    "BTC": {
+      "Id": "1182",
+      "Url": "/coins/btc/overview",
+      "ImageUrl": "/media/19633/btc.png",
+      "Name": "BTC",
+      "CoinName": "Bitcoin",
+      "FullName": "Bitcoin (BTC)",
+      "Algorithm": "SHA256",
+      "ProofType": "PoW",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "21000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1"
+    },
+    "CORE": {
+      "Id": "205549",
+      "Url": "/coins/core/overview",
+      "ImageUrl": "/media/1383950/core.png",
+      "Name": "CORE",
+      "CoinName": "Core Group Asset",
+      "FullName": "Core Group Asset (CORE)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "1000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1440"
+    },
+    "EQ": {
+      "Id": "198698",
+      "Url": "/coins/eq/overview",
+      "ImageUrl": "/media/1383891/eq.png",
+      "Name": "EQ",
+      "CoinName": "EQUI",
+      "FullName": "EQUI (EQ)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "1",
+      "TotalCoinSupply": "500000000",
+      "TotalCoinsMined": "500000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1413"
+    },
+    "DGT": {
+      "Id": "202696",
+      "Url": "/coins/dgt/overview",
+      "ImageUrl": "/media/1383920/dgt.png",
+      "Name": "DGT",
+      "CoinName": "DigiPulse",
+      "FullName": "DigiPulse (DGT)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "N/A",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1433"
+    },
+    "DOPE": {
+      "Id": "28332",
+      "Url": "/coins/dope/overview",
+      "ImageUrl": "/media/351526/dope.png",
+      "Name": "DOPE",
+      "CoinName": "DopeCoin",
+      "FullName": "DopeCoin (DOPE)",
+      "Algorithm": "Scrypt",
+      "ProofType": "PoW",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "575000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "761"
+    },
+    "MOBI": {
+      "Id": "202706",
+      "Url": "/coins/mobi/overview",
+      "ImageUrl": "/media/1383921/mobi.png",
+      "Name": "MOBI",
+      "CoinName": "Mobius",
+      "FullName": "Mobius (MOBI)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "888000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1434"
     },
     "MBI": {
       "Id": "180539",
@@ -20739,21 +20799,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1390"
     },
-    "TRIBE": {
-      "Id": "186253",
-      "Url": "/coins/tribe/overview",
-      "ImageUrl": "/media/1383797/tribe.jpg",
-      "Name": "TRIBE",
-      "CoinName": "TribeToken",
-      "FullName": "TribeToken (TRIBE)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "N/A",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1353"
-    },
     "HVN": {
       "Id": "179329",
       "Url": "/coins/hvn/overview",
@@ -20768,36 +20813,6 @@
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1310"
-    },
-    "PQT": {
-      "Id": "179077",
-      "Url": "/coins/pqt/overview",
-      "ImageUrl": "/media/1383741/pqt.png",
-      "Name": "PQT",
-      "CoinName": "PAquarium",
-      "FullName": "PAquarium (PQT)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "1200000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1307"
-    },
-    "NDC": {
-      "Id": "188787",
-      "Url": "/coins/ndc/overview",
-      "ImageUrl": "/media/1383827/ndc.png",
-      "Name": "NDC",
-      "CoinName": "NeverDie",
-      "FullName": "NeverDie (NDC)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "400000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1379"
     },
     "STX": {
       "Id": "204716",
@@ -20814,475 +20829,594 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1438"
     },
-    "BNB": {
-      "Id": "60622",
-      "Url": "/coins/bnbstar/overview",
-      "ImageUrl": "/media/1382967/bnb.png",
-      "Name": "BNB*",
-      "CoinName": "Boats and Bitches",
-      "FullName": "Boats and Bitches (BNB*)",
-      "Algorithm": "X11",
-      "ProofType": "PoS",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "696969",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1164"
-    },
-    "BCAP": {
-      "Id": "72955",
-      "Url": "/coins/bcap/overview",
-      "ImageUrl": "/media/1383948/bcap1.png",
-      "Name": "BCAP",
-      "CoinName": "Blockchain Capital",
-      "FullName": "Blockchain Capital (BCAP)",
+    "PQT": {
+      "Id": "179077",
+      "Url": "/coins/pqt/overview",
+      "ImageUrl": "/media/1383741/pqt.png",
+      "Name": "PQT",
+      "CoinName": "PAquarium",
+      "FullName": "PAquarium (PQT)",
       "Algorithm": "N/A",
       "ProofType": "N/A",
       "FullyPremined": "0",
-      "TotalCoinSupply": "10000000",
+      "TotalCoinSupply": "1200000000",
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1205"
+      "SortOrder": "1307"
+    },
+    "DIM": {
+      "Id": "180678",
+      "Url": "/coins/dim/overview",
+      "ImageUrl": "/media/1383761/dim.png",
+      "Name": "DIM",
+      "CoinName": "DIMCOIN",
+      "FullName": "DIMCOIN (DIM)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "10000000 ",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1323"
+    },
+    "SDAO": {
+      "Id": "203183",
+      "Url": "/coins/sdao/overview",
+      "ImageUrl": "/media/1383933/sdao.png",
+      "Name": "SDAO",
+      "CoinName": "Solar DAO",
+      "FullName": "Solar DAO (SDAO)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "80000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1437"
+    },
+    "CSNO": {
+      "Id": "202714",
+      "Url": "/coins/csno/overview",
+      "ImageUrl": "/media/1383922/csno.png",
+      "Name": "CSNO",
+      "CoinName": "BitDice",
+      "FullName": "BitDice (CSNO)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "1",
+      "TotalCoinSupply": "100000000",
+      "TotalCoinsMined": "100000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1435"
     },
     "AED": {
       "Name": "AED",
       "CoinName": "United Arab Emirates Dirham",
-      "FullName": "United Arab Emirates Dirham (AED)"
+      "FullName": "United Arab Emirates Dirham (AED)",
+      "FiatCurrency": "true"
     },
     "AFN": {
       "Name": "AFN",
       "CoinName": "Afghan Afghani",
-      "FullName": "Afghan Afghani (AFN)"
+      "FullName": "Afghan Afghani (AFN)",
+      "FiatCurrency": "true"
     },
     "ARS": {
       "Name": "ARS",
       "CoinName": "Argentine Peso",
-      "FullName": "Argentine Peso (ARS)"
+      "FullName": "Argentine Peso (ARS)",
+      "FiatCurrency": "true"
     },
     "AUD": {
       "Name": "AUD",
       "CoinName": "Australian Dollar",
-      "FullName": "Australian Dollar (AUD)"
+      "FullName": "Australian Dollar (AUD)",
+      "FiatCurrency": "true"
     },
     "AZN": {
       "Name": "AZN",
       "CoinName": "Azerbaijani Manat",
-      "FullName": "Azerbaijani Manat (AZN)"
+      "FullName": "Azerbaijani Manat (AZN)",
+      "FiatCurrency": "true"
     },
     "BDT": {
       "Name": "BDT",
       "CoinName": "Bangladeshi Taka",
-      "FullName": "Bangladeshi Taka (BDT)"
+      "FullName": "Bangladeshi Taka (BDT)",
+      "FiatCurrency": "true"
     },
     "BGN": {
       "Name": "BGN",
       "CoinName": "Bulgarian Lev",
-      "FullName": "Bulgarian Lev (BGN)"
+      "FullName": "Bulgarian Lev (BGN)",
+      "FiatCurrency": "true"
     },
     "BND": {
       "Name": "BND",
       "CoinName": "Brunei Dollar",
-      "FullName": "Brunei Dollar (BND)"
+      "FullName": "Brunei Dollar (BND)",
+      "FiatCurrency": "true"
     },
     "BRL": {
       "Name": "BRL",
       "CoinName": "Brazilian Real",
-      "FullName": "Brazilian Real (BRL)"
+      "FullName": "Brazilian Real (BRL)",
+      "FiatCurrency": "true"
     },
     "BWP": {
       "Name": "BWP",
       "CoinName": "Botswana Pula",
-      "FullName": "Botswana Pula (BWP)"
+      "FullName": "Botswana Pula (BWP)",
+      "FiatCurrency": "true"
     },
     "BYN": {
       "Name": "BYN",
       "CoinName": "Belarusian Ruble",
-      "FullName": "Belarusian Ruble (BYN)"
+      "FullName": "Belarusian Ruble (BYN)",
+      "FiatCurrency": "true"
     },
     "BYR": {
       "Name": "BYR",
       "CoinName": "Belarusian Ruble",
-      "FullName": "Belarusian Ruble (BYR)"
+      "FullName": "Belarusian Ruble (BYR)",
+      "FiatCurrency": "true"
     },
     "CAD": {
       "Name": "CAD",
       "CoinName": "Canadian Dollar",
-      "FullName": "Canadian Dollar (CAD)"
+      "FullName": "Canadian Dollar (CAD)",
+      "FiatCurrency": "true"
     },
     "CHF": {
       "Name": "CHF",
       "CoinName": "Swiss Franc",
-      "FullName": "Swiss Franc (CHF)"
+      "FullName": "Swiss Franc (CHF)",
+      "FiatCurrency": "true"
     },
     "CNY": {
       "Name": "CNY",
       "CoinName": "Chinese Yuan Renminbi",
-      "FullName": "Chinese Yuan Renminbi (CNY)"
+      "FullName": "Chinese Yuan Renminbi (CNY)",
+      "FiatCurrency": "true"
     },
     "COP": {
       "Name": "COP",
       "CoinName": "Colombian Peso",
-      "FullName": "Colombian Peso (COP)"
+      "FullName": "Colombian Peso (COP)",
+      "FiatCurrency": "true"
     },
     "CZK": {
       "Name": "CZK",
       "CoinName": "Czech Koruna",
-      "FullName": "Czech Koruna (CZK)"
+      "FullName": "Czech Koruna (CZK)",
+      "FiatCurrency": "true"
     },
     "DOP": {
       "Name": "DOP",
       "CoinName": "Dominican Peso",
-      "FullName": "Dominican Peso (DOP)"
+      "FullName": "Dominican Peso (DOP)",
+      "FiatCurrency": "true"
     },
     "DZD": {
       "Name": "DZD",
       "CoinName": "Algerian Dinar",
-      "FullName": "Algerian Dinar (DZD)"
+      "FullName": "Algerian Dinar (DZD)",
+      "FiatCurrency": "true"
     },
     "DKK": {
       "Name": "DKK",
       "CoinName": "Danish Krone",
-      "FullName": "Danish Krone (DKK)"
+      "FullName": "Danish Krone (DKK)",
+      "FiatCurrency": "true"
     },
     "EGP": {
       "Name": "EGP",
       "CoinName": "Egyptian Pound",
-      "FullName": "Egyptian Pound (EGP)"
+      "FullName": "Egyptian Pound (EGP)",
+      "FiatCurrency": "true"
     },
     "EUR": {
       "Name": "EUR",
       "CoinName": "Euro",
-      "FullName": "Euro (EUR)"
+      "FullName": "Euro (EUR)",
+      "FiatCurrency": "true"
     },
     "GBP": {
       "Name": "GBP",
       "CoinName": "Great Britain Pound",
-      "FullName": "Great Britain Pound (GBP)"
+      "FullName": "Great Britain Pound (GBP)",
+      "FiatCurrency": "true"
     },
     "GEL": {
       "Name": "GEL",
       "CoinName": "Georgian Iari",
-      "FullName": "Georgian Iari (GEL)"
+      "FullName": "Georgian Iari (GEL)",
+      "FiatCurrency": "true"
     },
     "GGP": {
       "Name": "GGP",
       "CoinName": "Guernsey Pound",
-      "FullName": "Guernsey Pound (GGP)"
+      "FullName": "Guernsey Pound (GGP)",
+      "FiatCurrency": "true"
     },
     "GIP": {
       "Name": "GIP",
       "CoinName": "ibraltar Pound",
-      "FullName": "ibraltar Pound (GIP)"
+      "FullName": "ibraltar Pound (GIP)",
+      "FiatCurrency": "true"
     },
     "GOLD": {
       "Name": "GOLD",
       "CoinName": "Gold Grams",
-      "FullName": "Gold Grams (GOLD)"
+      "FullName": "Gold Grams (GOLD)",
+      "FiatCurrency": "true"
     },
     "GTQ": {
       "Name": "GTQ",
       "CoinName": "Guatemalan Quetzal",
-      "FullName": "Guatemalan Quetzal (GTQ)"
+      "FullName": "Guatemalan Quetzal (GTQ)",
+      "FiatCurrency": "true"
     },
     "HKD": {
       "Name": "HKD",
       "CoinName": "Hong Kong Dollar",
-      "FullName": "Hong Kong Dollar (HKD)"
+      "FullName": "Hong Kong Dollar (HKD)",
+      "FiatCurrency": "true"
     },
     "HNL": {
       "Name": "HNL",
       "CoinName": "Honduran Lempira",
-      "FullName": "Honduran Lempira (HNL)"
+      "FullName": "Honduran Lempira (HNL)",
+      "FiatCurrency": "true"
     },
     "HRK": {
       "Name": "HRK",
       "CoinName": "Croatian Kuna",
-      "FullName": "Croatian Kuna (HRK)"
+      "FullName": "Croatian Kuna (HRK)",
+      "FiatCurrency": "true"
     },
     "HUF": {
       "Name": "HUF",
       "CoinName": "Hungarian Forint",
-      "FullName": "Hungarian Forint (HUF)"
+      "FullName": "Hungarian Forint (HUF)",
+      "FiatCurrency": "true"
     },
     "IDR": {
       "Name": "IDR",
       "CoinName": "Indonesian Rupiah",
-      "FullName": "Indonesian Rupiah (IDR)"
+      "FullName": "Indonesian Rupiah (IDR)",
+      "FiatCurrency": "true"
     },
     "ILS": {
       "Name": "ILS",
       "CoinName": "Isreali New Shekel",
-      "FullName": "Isreali New Shekel (ILS)"
+      "FullName": "Isreali New Shekel (ILS)",
+      "FiatCurrency": "true"
     },
     "INR": {
       "Name": "INR",
       "CoinName": "Indian Rupee",
-      "FullName": "Indian Rupee (INR)"
+      "FullName": "Indian Rupee (INR)",
+      "FiatCurrency": "true"
     },
     "IQD": {
       "Name": "IQD",
       "CoinName": "Iraqi Dinar",
-      "FullName": "Iraqi Dinar (IQD)"
+      "FullName": "Iraqi Dinar (IQD)",
+      "FiatCurrency": "true"
     },
     "IRR": {
       "Name": "IRR",
       "CoinName": "Iranian Rial",
-      "FullName": "Iranian Rial (IRR)"
+      "FullName": "Iranian Rial (IRR)",
+      "FiatCurrency": "true"
     },
     "ISK": {
       "Name": "ISK",
       "CoinName": "Icelandic Krona",
-      "FullName": "Icelandic Krona (ISK)"
+      "FullName": "Icelandic Krona (ISK)",
+      "FiatCurrency": "true"
     },
     "JMD": {
       "Name": "JMD",
       "CoinName": "Jamaican Dollar",
-      "FullName": "Jamaican Dollar (JMD)"
+      "FullName": "Jamaican Dollar (JMD)",
+      "FiatCurrency": "true"
     },
     "JOD": {
       "Name": "JOD",
       "CoinName": "Jordanian Dinar",
-      "FullName": "Jordanian Dinar (JOD)"
+      "FullName": "Jordanian Dinar (JOD)",
+      "FiatCurrency": "true"
     },
     "JPY": {
       "Name": "JPY",
       "CoinName": "Japanese Yen",
-      "FullName": "Japanese Yen (JPY)"
+      "FullName": "Japanese Yen (JPY)",
+      "FiatCurrency": "true"
     },
     "KES": {
       "Name": "KES",
       "CoinName": "Kenyan Shilling",
-      "FullName": "Kenyan Shilling (KES)"
+      "FullName": "Kenyan Shilling (KES)",
+      "FiatCurrency": "true"
     },
     "KGS": {
       "Name": "KGS",
       "CoinName": "Kyryzstani Som",
-      "FullName": "Kyryzstani Som (KGS)"
+      "FullName": "Kyryzstani Som (KGS)",
+      "FiatCurrency": "true"
     },
     "KHR": {
       "Name": "KHR",
       "CoinName": "Cambodian Riel",
-      "FullName": "Cambodian Riel (KHR)"
+      "FullName": "Cambodian Riel (KHR)",
+      "FiatCurrency": "true"
     },
     "KRW": {
       "Name": "KRW",
       "CoinName": "South Korean Won",
-      "FullName": "South Korean Won (KRW)"
+      "FullName": "South Korean Won (KRW)",
+      "FiatCurrency": "true"
     },
     "KWD": {
       "Name": "KWD",
       "CoinName": "Kuwati Dinar",
-      "FullName": "Kuwati Dinar (KWD)"
+      "FullName": "Kuwati Dinar (KWD)",
+      "FiatCurrency": "true"
     },
     "KZT": {
       "Name": "KZT",
       "CoinName": "Kazakhstani Tenge",
-      "FullName": "Kazakhstani Tenge (KZT)"
+      "FullName": "Kazakhstani Tenge (KZT)",
+      "FiatCurrency": "true"
     },
     "LBP": {
       "Name": "LBP",
       "CoinName": "Lebanese Pound",
-      "FullName": "Lebanese Pound (LBP)"
+      "FullName": "Lebanese Pound (LBP)",
+      "FiatCurrency": "true"
     },
     "LKR": {
       "Name": "LKR",
       "CoinName": "Sri Lankan Rupee",
-      "FullName": "Sri Lankan Rupee (LKR)"
+      "FullName": "Sri Lankan Rupee (LKR)",
+      "FiatCurrency": "true"
     },
     "LSL": {
       "Name": "LSL",
       "CoinName": "Lesotho Loti",
-      "FullName": "Lesotho Loti (LSL)"
+      "FullName": "Lesotho Loti (LSL)",
+      "FiatCurrency": "true"
     },
     "MDL": {
       "Name": "MDL",
       "CoinName": "Moldovan Leu",
-      "FullName": "Moldovan Leu (MDL)"
+      "FullName": "Moldovan Leu (MDL)",
+      "FiatCurrency": "true"
     },
     "MUR": {
       "Name": "MUR",
       "CoinName": "Mauritian Rupee",
-      "FullName": "Mauritian Rupee (MUR)"
+      "FullName": "Mauritian Rupee (MUR)",
+      "FiatCurrency": "true"
     },
     "MXN": {
       "Name": "MXN",
       "CoinName": "Mexican Peso",
-      "FullName": "Mexican Peso (MXN)"
+      "FullName": "Mexican Peso (MXN)",
+      "FiatCurrency": "true"
     },
     "NAD": {
       "Name": "NAD",
       "CoinName": "Namibian Dollar",
-      "FullName": "Namibian Dollar (NAD)"
+      "FullName": "Namibian Dollar (NAD)",
+      "FiatCurrency": "true"
     },
     "NGN": {
       "Name": "NGN",
       "CoinName": "Nigerian Naira",
-      "FullName": "Nigerian Naira (NGN)"
+      "FullName": "Nigerian Naira (NGN)",
+      "FiatCurrency": "true"
     },
     "NHD": {
       "Name": "NHD",
       "CoinName": "Bahraini dinar",
-      "FullName": "Bahraini dinar (NHD)"
+      "FullName": "Bahraini dinar (NHD)",
+      "FiatCurrency": "true"
     },
     "MMK": {
       "Name": "MMK",
       "CoinName": "Burmese Kyat",
-      "FullName": "Burmese Kyat (MMK)"
+      "FullName": "Burmese Kyat (MMK)",
+      "FiatCurrency": "true"
     },
     "NOK": {
       "Name": "NOK",
       "CoinName": "Norwegian Krone",
-      "FullName": "Norwegian Krone (NOK)"
+      "FullName": "Norwegian Krone (NOK)",
+      "FiatCurrency": "true"
     },
     "NPR": {
       "Name": "NPR",
       "CoinName": "Napalese Rupee",
-      "FullName": "Napalese Rupee (NPR)"
+      "FullName": "Napalese Rupee (NPR)",
+      "FiatCurrency": "true"
     },
     "NZD": {
       "Name": "NZD",
       "CoinName": "New Zealand Dollar",
-      "FullName": "New Zealand Dollar (NZD)"
+      "FullName": "New Zealand Dollar (NZD)",
+      "FiatCurrency": "true"
     },
     "OMR": {
       "Name": "OMR",
       "CoinName": "Omani Rial",
-      "FullName": "Omani Rial (OMR)"
+      "FullName": "Omani Rial (OMR)",
+      "FiatCurrency": "true"
     },
     "PAB": {
       "Name": "PAB",
       "CoinName": "Panamanian Balboa",
-      "FullName": "Panamanian Balboa (PAB)"
+      "FullName": "Panamanian Balboa (PAB)",
+      "FiatCurrency": "true"
     },
     "PHP": {
       "Name": "PHP",
       "CoinName": "Philippine Peso",
-      "FullName": "Philippine Peso (PHP)"
+      "FullName": "Philippine Peso (PHP)",
+      "FiatCurrency": "true"
     },
     "PKR": {
       "Name": "PKR",
       "CoinName": "Pakistani Rupee",
-      "FullName": "Pakistani Rupee (PKR)"
+      "FullName": "Pakistani Rupee (PKR)",
+      "FiatCurrency": "true"
     },
     "PLN": {
       "Name": "PLN",
       "CoinName": "Polish zloty",
-      "FullName": "Polish zloty (PLN)"
+      "FullName": "Polish zloty (PLN)",
+      "FiatCurrency": "true"
     },
     "PYG": {
       "Name": "PYG",
       "CoinName": "Paraguayan Guarani",
-      "FullName": "Paraguayan Guarani (PYG)"
+      "FullName": "Paraguayan Guarani (PYG)",
+      "FiatCurrency": "true"
     },
     "QAR": {
       "Name": "QAR",
       "CoinName": "Qatari Riyal",
-      "FullName": "Qatari Riyal (QAR)"
+      "FullName": "Qatari Riyal (QAR)",
+      "FiatCurrency": "true"
     },
     "SEK": {
       "Name": "SEK",
       "CoinName": "Swedish Krona",
-      "FullName": "Swedish Krona (SEK)"
+      "FullName": "Swedish Krona (SEK)",
+      "FiatCurrency": "true"
     },
     "SGD": {
       "Name": "SGD",
       "CoinName": "Singapore Dollar",
-      "FullName": "Singapore Dollar (SGD)"
+      "FullName": "Singapore Dollar (SGD)",
+      "FiatCurrency": "true"
     },
     "RON": {
       "Name": "RON",
       "CoinName": "Romanian Leu",
-      "FullName": "Romanian Leu (RON)"
+      "FullName": "Romanian Leu (RON)",
+      "FiatCurrency": "true"
     },
     "RSD": {
       "Name": "RSD",
       "CoinName": "Serbian Dinar",
-      "FullName": "Serbian Dinar (RSD)"
+      "FullName": "Serbian Dinar (RSD)",
+      "FiatCurrency": "true"
     },
     "RUR": {
       "Name": "RUR",
       "CoinName": "Russian Ruble",
-      "FullName": "Russian Ruble (RUR)"
+      "FullName": "Russian Ruble (RUR)",
+      "FiatCurrency": "true"
     },
     "RWF": {
       "Name": "RWF",
       "CoinName": "Rwandan Franc",
-      "FullName": "Rwandan Franc (RWF)"
+      "FullName": "Rwandan Franc (RWF)",
+      "FiatCurrency": "true"
     },
     "THB": {
       "Name": "THB",
       "CoinName": "Thai Baht",
-      "FullName": "Thai Baht (THB)"
+      "FullName": "Thai Baht (THB)",
+      "FiatCurrency": "true"
     },
     "TND": {
       "Name": "TND",
       "CoinName": "unisian Dinar",
-      "FullName": "unisian Dinar (TND)"
+      "FullName": "unisian Dinar (TND)",
+      "FiatCurrency": "true"
     },
     "TRY": {
       "Name": "TRY",
       "CoinName": "Turkish Lira",
-      "FullName": "Turkish Lira (TRY)"
+      "FullName": "Turkish Lira (TRY)",
+      "FiatCurrency": "true"
     },
     "TTD": {
       "Name": "TTD",
       "CoinName": "Trinidad and Tobago Dollar",
-      "FullName": "Trinidad and Tobago Dollar (TTD)"
+      "FullName": "Trinidad and Tobago Dollar (TTD)",
+      "FiatCurrency": "true"
     },
     "TWD": {
       "Name": "TWD",
       "CoinName": "Taiwan Dollar",
-      "FullName": "Taiwan Dollar (TWD)"
+      "FullName": "Taiwan Dollar (TWD)",
+      "FiatCurrency": "true"
     },
     "UAH": {
       "Name": "UAH",
       "CoinName": "Ukrainian Hryvnia",
-      "FullName": "Ukrainian Hryvnia (UAH)"
+      "FullName": "Ukrainian Hryvnia (UAH)",
+      "FiatCurrency": "true"
     },
     "UGX": {
       "Name": "UGX",
       "CoinName": "Ugandan Shilling",
-      "FullName": "Ugandan Shilling (UGX)"
+      "FullName": "Ugandan Shilling (UGX)",
+      "FiatCurrency": "true"
     },
     "USD": {
       "Name": "USD",
       "CoinName": "United States Dollar",
-      "FullName": "United States Dollar (USD)"
+      "FullName": "United States Dollar (USD)",
+      "FiatCurrency": "true"
     },
     "UYU": {
       "Name": "UYU",
       "CoinName": "Uruguayan Peso",
-      "FullName": "Uruguayan Peso (UYU)"
+      "FullName": "Uruguayan Peso (UYU)",
+      "FiatCurrency": "true"
     },
     "VEF": {
       "Name": "VEF",
       "CoinName": "Venezuelan Bolivar",
-      "FullName": "Venezuelan Bolivar (VEF)"
+      "FullName": "Venezuelan Bolivar (VEF)",
+      "FiatCurrency": "true"
     },
     "VND": {
       "Name": "VND",
       "CoinName": "Vietnamese Dong",
-      "FullName": "Vietnamese Dong (VND)"
+      "FullName": "Vietnamese Dong (VND)",
+      "FiatCurrency": "true"
     },
     "XAG": {
       "Name": "XAG",
       "CoinName": "Troy Ounce of Silver",
-      "FullName": "Troy Ounce of Silver (XAG)"
+      "FullName": "Troy Ounce of Silver (XAG)",
+      "FiatCurrency": "true"
     },
     "XOF": {
       "Name": "XOF",
       "CoinName": "West African CFA Franc",
-      "FullName": "West African CFA Franc (XOF)"
+      "FullName": "West African CFA Franc (XOF)",
+      "FiatCurrency": "true"
     },
     "ZAR": {
       "Name": "ZAR",
       "CoinName": "South African Rand",
-      "FullName": "South African Rand (ZAR)"
+      "FullName": "South African Rand (ZAR)",
+      "FiatCurrency": "true"
     },
     "ZMW": {
       "Name": "ZMW",
       "CoinName": "Zambian Kwacha",
-      "FullName": "Zambian Kwacha (ZMW)"
+      "FullName": "Zambian Kwacha (ZMW)",
+      "FiatCurrency": "true"
     }
   },
   "Type": 100
