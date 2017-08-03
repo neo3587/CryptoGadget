@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
+using Newtonsoft.Json.Linq;
 
 
 
@@ -13,7 +14,6 @@ namespace CryptoGadget {
     public partial class AddCoinForm : Form {
 
         DataGridView ptrGrid;
-        ComboBox ptrBox;
 
         public AddCoinForm(DataGridView grid) {
 
@@ -22,10 +22,15 @@ namespace CryptoGadget {
             ptrGrid = grid;
 
             HandleCreated += (sender, e) => {
-                foreach(System.Object coin in ptrBox.Items)
-                    boxCoins.Items.Add(coin);
-                boxCoins.SelectedIndex = boxCoins.Items.Count == 0 ? -1 : 0;
-                
+
+                if(Common.json != null) {
+                    foreach(JProperty coin in Common.json["Data"]) {
+                        boxCoin.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
+                        boxTarget.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
+                    }
+                    boxCoin.SelectedIndex = boxCoin.Items.Count == 0 ? -1 : 0;
+                    boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
+                }
             };
 
         }
@@ -39,18 +44,10 @@ namespace CryptoGadget {
                 return false;
             };
 
-            if(ptrGrid.RowCount >= 10 && !Common.advertise10) {
-                Common.advertise10 = true;
-                if(MessageBox.Show("The server only allows up to 10 coin conversions requests at a time, each coin added above 10 will add an average time of 250ms to perform all the requests", "Warning", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
-                    Close();
-                    return;
-                }
-            }
-
-            if(boxCoins.Items.Count <= 0 || boxCoins.SelectedIndex == -1)
+            if(boxCoin.Items.Count <= 0 || boxCoin.SelectedIndex == -1)
                return;
 
-            string str = (string)boxCoins.SelectedItem;
+            string str = (string)boxCoin.SelectedItem;
             string coin = str.Substring(0, str.LastIndexOf('(')).Trim(' ');
             string name = str.Substring(str.LastIndexOf('(')).Trim(' ', ')', '(');
 
@@ -73,7 +70,7 @@ namespace CryptoGadget {
         }
 
         private void boxCoins_Click(object sender, EventArgs e) {
-            boxCoins.DroppedDown = true;
+            boxCoin.DroppedDown = true;
         }
 
     }

@@ -30,6 +30,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.coinGrid = new System.Windows.Forms.DataGridView();
+            this.img = new System.Windows.Forms.DataGridViewImageColumn();
+            this.coin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.target = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonSub = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
@@ -51,7 +56,13 @@
             this.checkCoinVisible = new System.Windows.Forms.CheckBox();
             this.checkIconVisible = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonColorHeaderText = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.buttonColorNegativeRefresh = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
             this.buttonColorValues = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -110,17 +121,7 @@
             this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label7 = new System.Windows.Forms.Label();
-            this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.buttonColorNegativeRefresh = new System.Windows.Forms.Button();
-            this.buttonColorHeaderText = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.img = new System.Windows.Forms.DataGridViewImageColumn();
-            this.coin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.target = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.targetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkPercentageChange = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -200,6 +201,54 @@
             this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.coinGrid.Size = new System.Drawing.Size(407, 315);
             this.coinGrid.TabIndex = 10;
+            // 
+            // img
+            // 
+            this.img.HeaderText = "";
+            this.img.MinimumWidth = 15;
+            this.img.Name = "img";
+            this.img.ReadOnly = true;
+            this.img.Width = 25;
+            // 
+            // coin
+            // 
+            this.coin.FillWeight = 69.76744F;
+            this.coin.HeaderText = "Coin";
+            this.coin.MaxInputLength = 20;
+            this.coin.MinimumWidth = 20;
+            this.coin.Name = "coin";
+            this.coin.ReadOnly = true;
+            this.coin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.coin.Width = 50;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.FillWeight = 130.2326F;
+            this.name.HeaderText = "Name";
+            this.name.MaxInputLength = 20;
+            this.name.MinimumWidth = 25;
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            this.name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // target
+            // 
+            this.target.HeaderText = "Target";
+            this.target.MaxInputLength = 50;
+            this.target.Name = "target";
+            this.target.ReadOnly = true;
+            this.target.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.target.Width = 50;
+            // 
+            // targetName
+            // 
+            this.targetName.HeaderText = "Target Name";
+            this.targetName.MaxInputLength = 250;
+            this.targetName.Name = "targetName";
+            this.targetName.ReadOnly = true;
+            this.targetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.targetName.Width = 139;
             // 
             // buttonAdd
             // 
@@ -360,6 +409,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkPercentageChange);
             this.tabPage2.Controls.Add(this.checkRefreshVisible);
             this.tabPage2.Controls.Add(this.checkStartup);
             this.tabPage2.Controls.Add(this.checkEdgeVisible);
@@ -499,6 +549,49 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Colors";
             // 
+            // buttonColorHeaderText
+            // 
+            this.buttonColorHeaderText.Location = new System.Drawing.Point(117, 133);
+            this.buttonColorHeaderText.Name = "buttonColorHeaderText";
+            this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
+            this.buttonColorHeaderText.TabIndex = 57;
+            this.buttonColorHeaderText.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 138);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(66, 13);
+            this.label13.TabIndex = 56;
+            this.label13.Text = "HeaderText:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(160, 80);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(90, 13);
+            this.label8.TabIndex = 54;
+            this.label8.Text = "NegativeRefresh:";
+            // 
+            // buttonColorNegativeRefresh
+            // 
+            this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(271, 75);
+            this.buttonColorNegativeRefresh.Name = "buttonColorNegativeRefresh";
+            this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
+            this.buttonColorNegativeRefresh.TabIndex = 55;
+            this.buttonColorNegativeRefresh.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 80);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.TabIndex = 52;
+            this.label7.Text = "PositiveRefresh:";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -507,6 +600,14 @@
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 1;
             this.label5.Text = "BackGround1:";
+            // 
+            // buttonColorPositiveRefresh
+            // 
+            this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(117, 75);
+            this.buttonColorPositiveRefresh.Name = "buttonColorPositiveRefresh";
+            this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
+            this.buttonColorPositiveRefresh.TabIndex = 53;
+            this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
             // 
             // buttonColorValues
             // 
@@ -1083,104 +1184,16 @@
             this.tabPage4.Text = "Experimental";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // checkPercentageChange
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 80);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 13);
-            this.label7.TabIndex = 52;
-            this.label7.Text = "PositiveRefresh:";
-            // 
-            // buttonColorPositiveRefresh
-            // 
-            this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(117, 75);
-            this.buttonColorPositiveRefresh.Name = "buttonColorPositiveRefresh";
-            this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
-            this.buttonColorPositiveRefresh.TabIndex = 53;
-            this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(160, 80);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 13);
-            this.label8.TabIndex = 54;
-            this.label8.Text = "NegativeRefresh:";
-            // 
-            // buttonColorNegativeRefresh
-            // 
-            this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(271, 75);
-            this.buttonColorNegativeRefresh.Name = "buttonColorNegativeRefresh";
-            this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
-            this.buttonColorNegativeRefresh.TabIndex = 55;
-            this.buttonColorNegativeRefresh.UseVisualStyleBackColor = true;
-            // 
-            // buttonColorHeaderText
-            // 
-            this.buttonColorHeaderText.Location = new System.Drawing.Point(117, 133);
-            this.buttonColorHeaderText.Name = "buttonColorHeaderText";
-            this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
-            this.buttonColorHeaderText.TabIndex = 57;
-            this.buttonColorHeaderText.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 138);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(66, 13);
-            this.label13.TabIndex = 56;
-            this.label13.Text = "HeaderText:";
-            // 
-            // img
-            // 
-            this.img.HeaderText = "";
-            this.img.MinimumWidth = 15;
-            this.img.Name = "img";
-            this.img.ReadOnly = true;
-            this.img.Width = 25;
-            // 
-            // coin
-            // 
-            this.coin.FillWeight = 69.76744F;
-            this.coin.HeaderText = "Coin";
-            this.coin.MaxInputLength = 20;
-            this.coin.MinimumWidth = 20;
-            this.coin.Name = "coin";
-            this.coin.ReadOnly = true;
-            this.coin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.coin.Width = 50;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.FillWeight = 130.2326F;
-            this.name.HeaderText = "Name";
-            this.name.MaxInputLength = 20;
-            this.name.MinimumWidth = 25;
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            this.name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // target
-            // 
-            this.target.HeaderText = "Target";
-            this.target.MaxInputLength = 50;
-            this.target.Name = "target";
-            this.target.ReadOnly = true;
-            this.target.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.target.Width = 50;
-            // 
-            // targetName
-            // 
-            this.targetName.HeaderText = "Target Name";
-            this.targetName.MaxInputLength = 250;
-            this.targetName.Name = "targetName";
-            this.targetName.ReadOnly = true;
-            this.targetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.targetName.Width = 139;
+            this.checkPercentageChange.AutoSize = true;
+            this.checkPercentageChange.Location = new System.Drawing.Point(10, 249);
+            this.checkPercentageChange.Name = "checkPercentageChange";
+            this.checkPercentageChange.Size = new System.Drawing.Size(143, 17);
+            this.checkPercentageChange.TabIndex = 52;
+            this.checkPercentageChange.Text = "Use Percentage Change";
+            this.toolTip1.SetToolTip(this.checkPercentageChange, "Show the change values in percentages instead of with flat values");
+            this.checkPercentageChange.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -1313,5 +1326,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn target;
         private System.Windows.Forms.DataGridViewTextBoxColumn targetName;
+        private System.Windows.Forms.CheckBox checkPercentageChange;
     }
 }

@@ -15113,21 +15113,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1163"
     },
-    "BNB": {
-      "Id": "60622",
-      "Url": "/coins/bnb/overview",
-      "ImageUrl": "/media/1382967/bnb.png",
-      "Name": "BNB",
-      "CoinName": "Boats and Bitches",
-      "FullName": "Boats and Bitches (BNB)",
-      "Algorithm": "X11",
-      "ProofType": "PoS",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "696969",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1164"
-    },
     "UNI": {
       "Id": "60631",
       "Url": "/coins/uni/overview",
@@ -17337,21 +17322,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1259"
     },
-    "BCAP": {
-      "Id": "72955",
-      "Url": "/coins/bcap/overview",
-      "ImageUrl": "/media/1383193/bcap.jpg",
-      "Name": "BCAP",
-      "CoinName": "Blockchain Capital",
-      "FullName": "Blockchain Capital (BCAP)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "10000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1205"
-    },
     "AHC": {
       "Id": "175611",
       "Url": "/coins/ahc/overview",
@@ -17415,6 +17385,7 @@
     "FUNC": {
       "Id": "179018",
       "Url": "/coins/func/overview",
+      "ImageUrl": "/media/1383739/func.png",
       "Name": "FUNC",
       "CoinName": "FunCoin",
       "FullName": "FunCoin (FUNC)",
@@ -18488,7 +18459,7 @@
     "GNT": {
       "Id": "33022",
       "Url": "/coins/gnt/overview",
-      "ImageUrl": "/media/351995/gnt.png",
+      "ImageUrl": "/media/351995/golem-logo.png",
       "Name": "GNT",
       "CoinName": "Golem Network Token",
       "FullName": "Golem Network Token (GNT)",
@@ -19699,21 +19670,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1405"
     },
-    "BBT": {
-      "Id": "198474",
-      "Url": "/coins/bbt/overview",
-      "ImageUrl": "/media/1383883/bbt.png",
-      "Name": "BBT",
-      "CoinName": "BrickBlock",
-      "FullName": "BrickBlock (BBT)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "N/A",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1410"
-    },
     "ONION": {
       "Id": "198967",
       "Url": "/coins/onion/overview",
@@ -20587,6 +20543,81 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1295"
     },
+    "TNT": {
+      "Id": "186309",
+      "Url": "/coins/tnt/overview",
+      "ImageUrl": "/media/1383800/tnt.png",
+      "Name": "TNT",
+      "CoinName": "Tierion",
+      "FullName": "Tierion (TNT)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "1000000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1355"
+    },
+    "8BT": {
+      "Id": "177124",
+      "Url": "/coins/8bt/overview",
+      "ImageUrl": "/media/1383698/8bt.png",
+      "Name": "8BT",
+      "CoinName": "8 Circuit Studios",
+      "FullName": "8 Circuit Studios (8BT)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "100000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1292"
+    },
+    "MYB": {
+      "Id": "179345",
+      "Url": "/coins/myb/overview",
+      "ImageUrl": "/media/1383746/myb.png",
+      "Name": "MYB",
+      "CoinName": "MyBit",
+      "FullName": "MyBit (MYB)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "5000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1311"
+    },
+    "DIM": {
+      "Id": "180678",
+      "Url": "/coins/dim/overview",
+      "ImageUrl": "/media/1383761/dim.png",
+      "Name": "DIM",
+      "CoinName": "DIMCOIN",
+      "FullName": "DIMCOIN (DIM)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "10000000 ",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1323"
+    },
+    "SDAO": {
+      "Id": "203183",
+      "Url": "/coins/sdao/overview",
+      "ImageUrl": "/media/1383933/sdao.png",
+      "Name": "SDAO",
+      "CoinName": "Solar DAO",
+      "FullName": "Solar DAO (SDAO)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "80000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1437"
+    },
     "MBI": {
       "Id": "180539",
       "Url": "/coins/mbi/overview",
@@ -20601,6 +20632,21 @@
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1321"
+    },
+    "BBT": {
+      "Id": "198474",
+      "Url": "/coins/bbt/overview",
+      "ImageUrl": "/media/1383883/bbt.png",
+      "Name": "BBT",
+      "CoinName": "BrickBlock",
+      "FullName": "BrickBlock (BBT)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "N/A",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1410"
     },
     "FEED": {
       "Id": "185669",
@@ -20646,21 +20692,6 @@
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1296"
-    },
-    "TNT": {
-      "Id": "186309",
-      "Url": "/coins/tnt/overview",
-      "ImageUrl": "/media/1383800/tnt.png",
-      "Name": "TNT",
-      "CoinName": "Tierion",
-      "FullName": "Tierion (TNT)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "1000000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1355"
     },
     "RKC": {
       "Id": "194924",
@@ -20738,21 +20769,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1310"
     },
-    "8BT": {
-      "Id": "177124",
-      "Url": "/coins/8bt/overview",
-      "ImageUrl": "/media/1383698/8bt.png",
-      "Name": "8BT",
-      "CoinName": "8 Circuit Studios",
-      "FullName": "8 Circuit Studios (8BT)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "0",
-      "TotalCoinSupply": "100000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1292"
-    },
     "PQT": {
       "Id": "179077",
       "Url": "/coins/pqt/overview",
@@ -20768,50 +20784,505 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1307"
     },
-    "MYB": {
-      "Id": "179345",
-      "Url": "/coins/myb/overview",
-      "ImageUrl": "/media/1383746/myb.png",
-      "Name": "MYB",
-      "CoinName": "MyBit",
-      "FullName": "MyBit (MYB)",
+    "NDC": {
+      "Id": "188787",
+      "Url": "/coins/ndc/overview",
+      "ImageUrl": "/media/1383827/ndc.png",
+      "Name": "NDC",
+      "CoinName": "NeverDie",
+      "FullName": "NeverDie (NDC)",
       "Algorithm": "N/A",
       "ProofType": "N/A",
       "FullyPremined": "0",
-      "TotalCoinSupply": "5000000",
+      "TotalCoinSupply": "400000000",
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1311"
+      "SortOrder": "1379"
     },
-    "DIM": {
-      "Id": "180678",
-      "Url": "/coins/dim/overview",
-      "ImageUrl": "/media/1383761/dim.png",
-      "Name": "DIM",
-      "CoinName": "DIMCOIN",
-      "FullName": "DIMCOIN (DIM)",
+    "STX": {
+      "Id": "204716",
+      "Url": "/coins/stx/overview",
+      "ImageUrl": "/media/1383946/stx.png",
+      "Name": "STX",
+      "CoinName": "Stox",
+      "FullName": "Stox (STX)",
       "Algorithm": "N/A",
       "ProofType": "N/A",
       "FullyPremined": "0",
-      "TotalCoinSupply": "10000000 ",
+      "TotalCoinSupply": "29600000",
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1323"
+      "SortOrder": "1438"
     },
-    "SDAO": {
-      "Id": "203183",
-      "Url": "/coins/sdao/overview",
-      "ImageUrl": "/media/1383933/sdao.png",
-      "Name": "SDAO",
-      "CoinName": "Solar DAO",
-      "FullName": "Solar DAO (SDAO)",
+    "BNB": {
+      "Id": "60622",
+      "Url": "/coins/bnbstar/overview",
+      "ImageUrl": "/media/1382967/bnb.png",
+      "Name": "BNB*",
+      "CoinName": "Boats and Bitches",
+      "FullName": "Boats and Bitches (BNB*)",
+      "Algorithm": "X11",
+      "ProofType": "PoS",
+      "FullyPremined": "0",
+      "TotalCoinSupply": "696969",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1164"
+    },
+    "BCAP": {
+      "Id": "72955",
+      "Url": "/coins/bcap/overview",
+      "ImageUrl": "/media/1383948/bcap1.png",
+      "Name": "BCAP",
+      "CoinName": "Blockchain Capital",
+      "FullName": "Blockchain Capital (BCAP)",
       "Algorithm": "N/A",
       "ProofType": "N/A",
       "FullyPremined": "0",
-      "TotalCoinSupply": "80000000",
+      "TotalCoinSupply": "10000000",
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1437"
+      "SortOrder": "1205"
+    },
+    "AED": {
+      "Name": "AED",
+      "CoinName": "United Arab Emirates Dirham",
+      "FullName": "United Arab Emirates Dirham (AED)"
+    },
+    "AFN": {
+      "Name": "AFN",
+      "CoinName": "Afghan Afghani",
+      "FullName": "Afghan Afghani (AFN)"
+    },
+    "ARS": {
+      "Name": "ARS",
+      "CoinName": "Argentine Peso",
+      "FullName": "Argentine Peso (ARS)"
+    },
+    "AUD": {
+      "Name": "AUD",
+      "CoinName": "Australian Dollar",
+      "FullName": "Australian Dollar (AUD)"
+    },
+    "AZN": {
+      "Name": "AZN",
+      "CoinName": "Azerbaijani Manat",
+      "FullName": "Azerbaijani Manat (AZN)"
+    },
+    "BDT": {
+      "Name": "BDT",
+      "CoinName": "Bangladeshi Taka",
+      "FullName": "Bangladeshi Taka (BDT)"
+    },
+    "BGN": {
+      "Name": "BGN",
+      "CoinName": "Bulgarian Lev",
+      "FullName": "Bulgarian Lev (BGN)"
+    },
+    "BND": {
+      "Name": "BND",
+      "CoinName": "Brunei Dollar",
+      "FullName": "Brunei Dollar (BND)"
+    },
+    "BRL": {
+      "Name": "BRL",
+      "CoinName": "Brazilian Real",
+      "FullName": "Brazilian Real (BRL)"
+    },
+    "BWP": {
+      "Name": "BWP",
+      "CoinName": "Botswana Pula",
+      "FullName": "Botswana Pula (BWP)"
+    },
+    "BYN": {
+      "Name": "BYN",
+      "CoinName": "Belarusian Ruble",
+      "FullName": "Belarusian Ruble (BYN)"
+    },
+    "BYR": {
+      "Name": "BYR",
+      "CoinName": "Belarusian Ruble",
+      "FullName": "Belarusian Ruble (BYR)"
+    },
+    "CAD": {
+      "Name": "CAD",
+      "CoinName": "Canadian Dollar",
+      "FullName": "Canadian Dollar (CAD)"
+    },
+    "CHF": {
+      "Name": "CHF",
+      "CoinName": "Swiss Franc",
+      "FullName": "Swiss Franc (CHF)"
+    },
+    "CNY": {
+      "Name": "CNY",
+      "CoinName": "Chinese Yuan Renminbi",
+      "FullName": "Chinese Yuan Renminbi (CNY)"
+    },
+    "COP": {
+      "Name": "COP",
+      "CoinName": "Colombian Peso",
+      "FullName": "Colombian Peso (COP)"
+    },
+    "CZK": {
+      "Name": "CZK",
+      "CoinName": "Czech Koruna",
+      "FullName": "Czech Koruna (CZK)"
+    },
+    "DOP": {
+      "Name": "DOP",
+      "CoinName": "Dominican Peso",
+      "FullName": "Dominican Peso (DOP)"
+    },
+    "DZD": {
+      "Name": "DZD",
+      "CoinName": "Algerian Dinar",
+      "FullName": "Algerian Dinar (DZD)"
+    },
+    "DKK": {
+      "Name": "DKK",
+      "CoinName": "Danish Krone",
+      "FullName": "Danish Krone (DKK)"
+    },
+    "EGP": {
+      "Name": "EGP",
+      "CoinName": "Egyptian Pound",
+      "FullName": "Egyptian Pound (EGP)"
+    },
+    "EUR": {
+      "Name": "EUR",
+      "CoinName": "Euro",
+      "FullName": "Euro (EUR)"
+    },
+    "GBP": {
+      "Name": "GBP",
+      "CoinName": "Great Britain Pound",
+      "FullName": "Great Britain Pound (GBP)"
+    },
+    "GEL": {
+      "Name": "GEL",
+      "CoinName": "Georgian Iari",
+      "FullName": "Georgian Iari (GEL)"
+    },
+    "GGP": {
+      "Name": "GGP",
+      "CoinName": "Guernsey Pound",
+      "FullName": "Guernsey Pound (GGP)"
+    },
+    "GIP": {
+      "Name": "GIP",
+      "CoinName": "ibraltar Pound",
+      "FullName": "ibraltar Pound (GIP)"
+    },
+    "GOLD": {
+      "Name": "GOLD",
+      "CoinName": "Gold Grams",
+      "FullName": "Gold Grams (GOLD)"
+    },
+    "GTQ": {
+      "Name": "GTQ",
+      "CoinName": "Guatemalan Quetzal",
+      "FullName": "Guatemalan Quetzal (GTQ)"
+    },
+    "HKD": {
+      "Name": "HKD",
+      "CoinName": "Hong Kong Dollar",
+      "FullName": "Hong Kong Dollar (HKD)"
+    },
+    "HNL": {
+      "Name": "HNL",
+      "CoinName": "Honduran Lempira",
+      "FullName": "Honduran Lempira (HNL)"
+    },
+    "HRK": {
+      "Name": "HRK",
+      "CoinName": "Croatian Kuna",
+      "FullName": "Croatian Kuna (HRK)"
+    },
+    "HUF": {
+      "Name": "HUF",
+      "CoinName": "Hungarian Forint",
+      "FullName": "Hungarian Forint (HUF)"
+    },
+    "IDR": {
+      "Name": "IDR",
+      "CoinName": "Indonesian Rupiah",
+      "FullName": "Indonesian Rupiah (IDR)"
+    },
+    "ILS": {
+      "Name": "ILS",
+      "CoinName": "Isreali New Shekel",
+      "FullName": "Isreali New Shekel (ILS)"
+    },
+    "INR": {
+      "Name": "INR",
+      "CoinName": "Indian Rupee",
+      "FullName": "Indian Rupee (INR)"
+    },
+    "IQD": {
+      "Name": "IQD",
+      "CoinName": "Iraqi Dinar",
+      "FullName": "Iraqi Dinar (IQD)"
+    },
+    "IRR": {
+      "Name": "IRR",
+      "CoinName": "Iranian Rial",
+      "FullName": "Iranian Rial (IRR)"
+    },
+    "ISK": {
+      "Name": "ISK",
+      "CoinName": "Icelandic Krona",
+      "FullName": "Icelandic Krona (ISK)"
+    },
+    "JMD": {
+      "Name": "JMD",
+      "CoinName": "Jamaican Dollar",
+      "FullName": "Jamaican Dollar (JMD)"
+    },
+    "JOD": {
+      "Name": "JOD",
+      "CoinName": "Jordanian Dinar",
+      "FullName": "Jordanian Dinar (JOD)"
+    },
+    "JPY": {
+      "Name": "JPY",
+      "CoinName": "Japanese Yen",
+      "FullName": "Japanese Yen (JPY)"
+    },
+    "KES": {
+      "Name": "KES",
+      "CoinName": "Kenyan Shilling",
+      "FullName": "Kenyan Shilling (KES)"
+    },
+    "KGS": {
+      "Name": "KGS",
+      "CoinName": "Kyryzstani Som",
+      "FullName": "Kyryzstani Som (KGS)"
+    },
+    "KHR": {
+      "Name": "KHR",
+      "CoinName": "Cambodian Riel",
+      "FullName": "Cambodian Riel (KHR)"
+    },
+    "KRW": {
+      "Name": "KRW",
+      "CoinName": "South Korean Won",
+      "FullName": "South Korean Won (KRW)"
+    },
+    "KWD": {
+      "Name": "KWD",
+      "CoinName": "Kuwati Dinar",
+      "FullName": "Kuwati Dinar (KWD)"
+    },
+    "KZT": {
+      "Name": "KZT",
+      "CoinName": "Kazakhstani Tenge",
+      "FullName": "Kazakhstani Tenge (KZT)"
+    },
+    "LBP": {
+      "Name": "LBP",
+      "CoinName": "Lebanese Pound",
+      "FullName": "Lebanese Pound (LBP)"
+    },
+    "LKR": {
+      "Name": "LKR",
+      "CoinName": "Sri Lankan Rupee",
+      "FullName": "Sri Lankan Rupee (LKR)"
+    },
+    "LSL": {
+      "Name": "LSL",
+      "CoinName": "Lesotho Loti",
+      "FullName": "Lesotho Loti (LSL)"
+    },
+    "MDL": {
+      "Name": "MDL",
+      "CoinName": "Moldovan Leu",
+      "FullName": "Moldovan Leu (MDL)"
+    },
+    "MUR": {
+      "Name": "MUR",
+      "CoinName": "Mauritian Rupee",
+      "FullName": "Mauritian Rupee (MUR)"
+    },
+    "MXN": {
+      "Name": "MXN",
+      "CoinName": "Mexican Peso",
+      "FullName": "Mexican Peso (MXN)"
+    },
+    "NAD": {
+      "Name": "NAD",
+      "CoinName": "Namibian Dollar",
+      "FullName": "Namibian Dollar (NAD)"
+    },
+    "NGN": {
+      "Name": "NGN",
+      "CoinName": "Nigerian Naira",
+      "FullName": "Nigerian Naira (NGN)"
+    },
+    "NHD": {
+      "Name": "NHD",
+      "CoinName": "Bahraini dinar",
+      "FullName": "Bahraini dinar (NHD)"
+    },
+    "MMK": {
+      "Name": "MMK",
+      "CoinName": "Burmese Kyat",
+      "FullName": "Burmese Kyat (MMK)"
+    },
+    "NOK": {
+      "Name": "NOK",
+      "CoinName": "Norwegian Krone",
+      "FullName": "Norwegian Krone (NOK)"
+    },
+    "NPR": {
+      "Name": "NPR",
+      "CoinName": "Napalese Rupee",
+      "FullName": "Napalese Rupee (NPR)"
+    },
+    "NZD": {
+      "Name": "NZD",
+      "CoinName": "New Zealand Dollar",
+      "FullName": "New Zealand Dollar (NZD)"
+    },
+    "OMR": {
+      "Name": "OMR",
+      "CoinName": "Omani Rial",
+      "FullName": "Omani Rial (OMR)"
+    },
+    "PAB": {
+      "Name": "PAB",
+      "CoinName": "Panamanian Balboa",
+      "FullName": "Panamanian Balboa (PAB)"
+    },
+    "PHP": {
+      "Name": "PHP",
+      "CoinName": "Philippine Peso",
+      "FullName": "Philippine Peso (PHP)"
+    },
+    "PKR": {
+      "Name": "PKR",
+      "CoinName": "Pakistani Rupee",
+      "FullName": "Pakistani Rupee (PKR)"
+    },
+    "PLN": {
+      "Name": "PLN",
+      "CoinName": "Polish zloty",
+      "FullName": "Polish zloty (PLN)"
+    },
+    "PYG": {
+      "Name": "PYG",
+      "CoinName": "Paraguayan Guarani",
+      "FullName": "Paraguayan Guarani (PYG)"
+    },
+    "QAR": {
+      "Name": "QAR",
+      "CoinName": "Qatari Riyal",
+      "FullName": "Qatari Riyal (QAR)"
+    },
+    "SEK": {
+      "Name": "SEK",
+      "CoinName": "Swedish Krona",
+      "FullName": "Swedish Krona (SEK)"
+    },
+    "SGD": {
+      "Name": "SGD",
+      "CoinName": "Singapore Dollar",
+      "FullName": "Singapore Dollar (SGD)"
+    },
+    "RON": {
+      "Name": "RON",
+      "CoinName": "Romanian Leu",
+      "FullName": "Romanian Leu (RON)"
+    },
+    "RSD": {
+      "Name": "RSD",
+      "CoinName": "Serbian Dinar",
+      "FullName": "Serbian Dinar (RSD)"
+    },
+    "RUR": {
+      "Name": "RUR",
+      "CoinName": "Russian Ruble",
+      "FullName": "Russian Ruble (RUR)"
+    },
+    "RWF": {
+      "Name": "RWF",
+      "CoinName": "Rwandan Franc",
+      "FullName": "Rwandan Franc (RWF)"
+    },
+    "THB": {
+      "Name": "THB",
+      "CoinName": "Thai Baht",
+      "FullName": "Thai Baht (THB)"
+    },
+    "TND": {
+      "Name": "TND",
+      "CoinName": "unisian Dinar",
+      "FullName": "unisian Dinar (TND)"
+    },
+    "TRY": {
+      "Name": "TRY",
+      "CoinName": "Turkish Lira",
+      "FullName": "Turkish Lira (TRY)"
+    },
+    "TTD": {
+      "Name": "TTD",
+      "CoinName": "Trinidad and Tobago Dollar",
+      "FullName": "Trinidad and Tobago Dollar (TTD)"
+    },
+    "TWD": {
+      "Name": "TWD",
+      "CoinName": "Taiwan Dollar",
+      "FullName": "Taiwan Dollar (TWD)"
+    },
+    "UAH": {
+      "Name": "UAH",
+      "CoinName": "Ukrainian Hryvnia",
+      "FullName": "Ukrainian Hryvnia (UAH)"
+    },
+    "UGX": {
+      "Name": "UGX",
+      "CoinName": "Ugandan Shilling",
+      "FullName": "Ugandan Shilling (UGX)"
+    },
+    "USD": {
+      "Name": "USD",
+      "CoinName": "United States Dollar",
+      "FullName": "United States Dollar (USD)"
+    },
+    "UYU": {
+      "Name": "UYU",
+      "CoinName": "Uruguayan Peso",
+      "FullName": "Uruguayan Peso (UYU)"
+    },
+    "VEF": {
+      "Name": "VEF",
+      "CoinName": "Venezuelan Bolivar",
+      "FullName": "Venezuelan Bolivar (VEF)"
+    },
+    "VND": {
+      "Name": "VND",
+      "CoinName": "Vietnamese Dong",
+      "FullName": "Vietnamese Dong (VND)"
+    },
+    "XAG": {
+      "Name": "XAG",
+      "CoinName": "Troy Ounce of Silver",
+      "FullName": "Troy Ounce of Silver (XAG)"
+    },
+    "XOF": {
+      "Name": "XOF",
+      "CoinName": "West African CFA Franc",
+      "FullName": "West African CFA Franc (XOF)"
+    },
+    "ZAR": {
+      "Name": "ZAR",
+      "CoinName": "South African Rand",
+      "FullName": "South African Rand (ZAR)"
+    },
+    "ZMW": {
+      "Name": "ZMW",
+      "CoinName": "Zambian Kwacha",
+      "FullName": "Zambian Kwacha (ZMW)"
     }
   },
   "Type": 100

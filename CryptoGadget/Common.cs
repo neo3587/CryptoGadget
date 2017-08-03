@@ -1,5 +1,6 @@
 ﻿
-
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Net;
@@ -8,20 +9,87 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using IniParser.Model;
 
-
-
 namespace CryptoGadget {
+
+    public struct Data {
+
+        public static List<Tuple<string, string>> converts = new List<Tuple<string, string>>();
+
+        public struct others {
+
+            public static int refreshRate = 10000;
+            public static bool openStartup = false;
+
+            public static int maxValueDigits    = 7;
+            public static int maxValueDecimals  = 6;
+            public static int maxChangeDigits   = 5;
+            public static int maxChangeDecimals = 4;
+
+        }
+
+        public struct visible {
+
+            public static bool icon    = true;
+            public static bool coin    = true;
+            public static bool value   = true;
+            public static bool change  = true;
+            public static bool header  = true;
+            public static bool edge    = true;
+            public static bool refresh = true;
+
+        }
+
+        public struct metrics {
+
+            public static int icon     = 25;
+            public static int coin     = 40;
+            public static int value    = 60;
+            public static int change   = 55;
+            public static int edge     = 2;
+            public static int header   = 15;
+            public static int rows     = 22;
+            public static int iconSize = 16;
+            public static float text    = 8.25f;
+            public static float numbers = 8.25f;
+
+        }
+
+        public struct coords {
+
+            public static int startX = 50;
+            public static int startY = 50;
+            public static bool exitSave = true;
+            public static bool lockPosition = false;
+
+        }
+
+        public struct colors {
+
+            public static Color coins            = Common.StrHexToColor("FF000000");
+            public static Color values           = Common.StrHexToColor("FF000000");
+            public static Color background1      = Common.StrHexToColor("FFF3F7F7");
+            public static Color background2      = Common.StrHexToColor("FFFFFFFF");
+            public static Color positiveRefresh  = Common.StrHexToColor("FFCEEBD3");
+            public static Color negativeRefresh  = Common.StrHexToColor("FFF6D4D1");
+            public static Color edge             = Common.StrHexToColor("FFAFAFAF");
+            public static Color positiveChange   = Common.StrHexToColor("FF27892F");
+            public static Color negativeChange   = Common.StrHexToColor("FFCF6563");
+            public static Color headerText       = Common.StrHexToColor("FF000000");
+            public static Color headerBackGround = Common.StrHexToColor("FFF0F0F0");
+
+        }
+
+    }
 
     class Common {
 
         public static string iniLocation  = Application.StartupPath + "\\settings.ini";
         public static string iconLocation = Application.StartupPath + "\\ico\\";
         public static string jsonLocation = Application.StartupPath + "\\CoinList.json";
-        public static bool advertise10 = false;
-
 
         public static IniData ini = new IniData();
-
+        public static JObject json = null;
+        
         public enum DefaultType {
             Coins = 0x01,
             Basic = 0x02,
@@ -37,14 +105,14 @@ namespace CryptoGadget {
             data = data ?? new IniData();
 
             if((dt & DefaultType.Coins) != 0) {
-                data["Coins"]["BTC"] = "USDT";
-                data["Coins"]["ETH"] = "USDT";
-                data["Coins"]["ETC"] = "USDT";
-                data["Coins"]["LTC"] = "USDT";
-                data["Coins"]["ZEC"] = "USDT";
-                data["Coins"]["XRP"] = "USDT";
-                data["Coins"]["DCR"] = "USDT";
-                data["Coins"]["XMR"] = "USDT";
+                data["Coins"]["BTC"] = "USD";
+                data["Coins"]["ETH"] = "USD";
+                data["Coins"]["ETC"] = "USD";
+                data["Coins"]["LTC"] = "USD";
+                data["Coins"]["ZEC"] = "USD";
+                data["Coins"]["XRP"] = "USD";
+                data["Coins"]["DCR"] = "USD";
+                data["Coins"]["XMR"] = "USD";
 
                 data["Others"]["RefreshRate"] = "10";
             }
@@ -125,6 +193,10 @@ namespace CryptoGadget {
         // to change
         public static JObject HttpRequest(string input_coin, string output_coin) {
             HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://api.cryptonator.com/api/ticker/" + input_coin.ToLower() + "-" + output_coin.ToLower());
+            return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
+        }
+        public static JObject HttpRequest2(string input_coin, string output_coin) {
+            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/price?fsym=" + input_coin.ToUpper() + "&tsyms=" + output_coin.ToUpper());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
         }
 

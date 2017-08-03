@@ -19,7 +19,6 @@ namespace CryptoGadget {
     public partial class SettingsForm : Form {
 
         private MainForm ptrForm;
-        private static JObject json = null;
         internal bool accept = false;
 
         public enum DataType {
@@ -30,13 +29,125 @@ namespace CryptoGadget {
             All = Coins | Basic | Colors | Advanced 
         }
 
+        private List<Tuple<string, string>> GenerateFiatCurrencies(params string[] str) {
+
+            List<Tuple<string, string>> convs = new List<Tuple<string, string>>();
+
+            for(int i = 0; i < str.Length; i += 2)
+                convs.Add(new Tuple<string, string>(str[i], str[i+1]));
+
+            return convs;
+        }
+
         private JObject DownloadCoinDB() {
+
             Enabled = false;
-            ProgressForm form = new ProgressForm();
+            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Download);
             form.ShowDialog();
             Enabled = true;
             if(form.coindb == null)
                 throw new System.Net.WebException("Couldn't download the Coin List Database");
+
+            List<Tuple<string, string>> fiat = GenerateFiatCurrencies(
+                "AED", "United Arab Emirates Dirham",
+                "AFN", "Afghan Afghani",
+                "ARS", "Argentine Peso",
+                "AUD", "Australian Dollar",
+                "AZN", "Azerbaijani Manat",
+                "BDT", "Bangladeshi Taka",
+                "BGN", "Bulgarian Lev",
+                "BND", "Brunei Dollar",
+                "BRL", "Brazilian Real",
+                "BWP", "Botswana Pula",
+                "BYN", "Belarusian Ruble",
+                "BYR", "Belarusian Ruble",
+                "CAD", "Canadian Dollar",
+                "CHF", "Swiss Franc",
+                "CNY", "Chinese Yuan Renminbi",
+                "COP", "Colombian Peso",
+                "CZK", "Czech Koruna",
+                "DOP", "Dominican Peso",
+                "DZD", "Algerian Dinar",
+                "DKK", "Danish Krone",
+                "EGP", "Egyptian Pound",
+                "ETB", "Ethiopian Birr",
+                "EUR", "Euro",
+                "GBP", "Great Britain Pound",
+                "GEL", "Georgian Iari",
+                "GGP", "Guernsey Pound",
+                "GHS", "Ghanaian Cedi",
+                "GIP", "ibraltar Pound",
+                "GOLD", "Gold Grams",
+                "GTQ", "Guatemalan Quetzal",
+                "HKD", "Hong Kong Dollar",
+                "HNL", "Honduran Lempira",
+                "HRK", "Croatian Kuna",
+                "HUF", "Hungarian Forint",
+                "IDR", "Indonesian Rupiah",
+                "ILS", "Isreali New Shekel",
+                "INR", "Indian Rupee",
+                "IQD", "Iraqi Dinar",
+                "IRR", "Iranian Rial",
+                "ISK", "Icelandic Krona",
+                "JMD", "Jamaican Dollar",
+                "JOD", "Jordanian Dinar",
+                "JPY", "Japanese Yen",
+                "KES", "Kenyan Shilling",
+                "KGS", "Kyryzstani Som",
+                "KHR", "Cambodian Riel",
+                "KRW", "South Korean Won",
+                "KWD", "Kuwati Dinar",
+                "KZT", "Kazakhstani Tenge",
+                "LBP", "Lebanese Pound",
+                "LKR", "Sri Lankan Rupee",
+                "LSL", "Lesotho Loti",
+                "MDL", "Moldovan Leu",
+                "MUR", "Mauritian Rupee",   
+                "MXN", "Mexican Peso",
+                "NAD", "Namibian Dollar",
+                "NGN", "Nigerian Naira",
+                "NHD", "Bahraini dinar",
+                "MMK", "Burmese Kyat",
+                "NOK", "Norwegian Krone",
+                "NPR", "Napalese Rupee",
+                "NZD", "New Zealand Dollar",
+                "OMR", "Omani Rial",
+                "PAB", "Panamanian Balboa",
+                "PHP", "Philippine Peso",
+                "PKR", "Pakistani Rupee",
+                "PLN", "Polish zloty",
+                "PYG", "Paraguayan Guarani",
+                "QAR", "Qatari Riyal",
+                "SAR", "Saudi Riyal",
+                "SEK", "Swedish Krona",
+                "SGD", "Singapore Dollar",
+                "RON", "Romanian Leu",
+                "RSD", "Serbian Dinar",
+                "RUR", "Russian Ruble",
+                "RWF", "Rwandan Franc",
+                "THB", "Thai Baht",
+                "TND", "unisian Dinar",
+                "TRY", "Turkish Lira",
+                "TTD", "Trinidad and Tobago Dollar",
+                "TWD", "Taiwan Dollar",
+                "UAH", "Ukrainian Hryvnia",
+                "UGX", "Ugandan Shilling",
+                "USD", "United States Dollar",
+                "UYU", "Uruguayan Peso",
+                "VEF", "Venezuelan Bolivar",
+                "VND", "Vietnamese Dong",
+                "XAG", "Troy Ounce of Silver",
+                "XOF", "West African CFA Franc",
+                "ZAR", "South African Rand",
+                "ZMW", "Zambian Kwacha"
+            );
+
+            foreach(Tuple<string, string> fcoin in fiat) {
+                try {
+                    (form.coindb["Data"] as JObject).Add(fcoin.Item1, JToken.Parse("{ \"Name\": \"" + fcoin.Item1 + "\", \"CoinName\": \"" + fcoin.Item2 + "\", \"FullName\": \"" + fcoin.Item2 + " (" + fcoin.Item1 + ")\" }"));
+                } catch(Exception) { }
+            }
+
             return form.coindb;
         }
 
@@ -57,7 +168,7 @@ namespace CryptoGadget {
             Func<JObject, bool> JObjIsValid = (jobj) => {
                 foreach(JProperty coin in jobj["Data"]) {
                     JToken val = coin.Value;
-                    if(val["Id"] == null || val["Url"] == null || val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
+                    if(val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
                         MessageBox.Show(coin.Name);
                         return false;
                     }
@@ -65,24 +176,24 @@ namespace CryptoGadget {
                 return true;
             };
 
-            if(json != null)
+            if(Common.json != null)
                 return true;
 
             try {
                 if(!File.Exists(Common.jsonLocation)) {
-                    json = DownloadCoinDB();
-                    JsonToFile(json);
+                    Common.json = DownloadCoinDB();
+                    JsonToFile(Common.json);
                     return true;
                 }
                 else {
-                    json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
-                    if(JObjIsValid(json)) {
+                    Common.json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
+                    if(JObjIsValid(Common.json)) {
                         return true;
                     }
                     else {
                         MessageBox.Show("The coin list file is corrupted, downloading a new copy...", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        json = DownloadCoinDB();
-                        JsonToFile(json);
+                        Common.json = DownloadCoinDB();
+                        JsonToFile(Common.json);
                         return true;
                     }
                 }
@@ -112,19 +223,19 @@ namespace CryptoGadget {
 
                 foreach(KeyData coin in data["Coins"]) {
                     try {
-                        coinGrid.Rows.Add(new Icon(Common.iconLocation + coin.Value + ".ico", new Size(16, 16)).ToBitmap(), coin.Value, "", coin.KeyName, "");
+                        coinGrid.Rows.Add(new Icon(Common.iconLocation + coin.KeyName + ".ico", new Size(16, 16)).ToBitmap(), coin.KeyName, "", coin.Value, "");
                     } catch(Exception) {
-                        coinGrid.Rows.Add(new Bitmap(1, 1), coin.Value, coin.KeyName);
+                        coinGrid.Rows.Add(new Bitmap(1, 1), coin.KeyName, "", coin.Value, "");
                     }
                 }
 
                 if(coinGrid.RowCount > 0)
                     coinGrid.Rows[0].Selected = true;
 
-                if(GetCoinDB()) {
+                if(GetCoinDB()) { 
                     foreach(DataGridViewRow row in coinGrid.Rows) {
-                        row.Cells[2].Value = ((JProperty)json["Data"]).Value[(string)row.Cells[1].Value];
-                        row.Cells[4].Value = ((JProperty)json["Data"]).Value[data["Coins"][(string)row.Cells[3].Value]];
+                        row.Cells[2].Value = Common.json["Data"][(string)row.Cells[1].Value]["CoinName"];
+                        //row.Cells[4].Value = Common.json["Data"][data["Coins"][row.Cells[3].Value.ToString()]]["CoinName"]; // TODO: distinguish between fiat and crypto (save fiat in the coinlist ??)
                     }
                 }
 
@@ -357,7 +468,7 @@ namespace CryptoGadget {
             foreach(DataGridViewRow row in coinGrid.Rows)
                 coinList.Add(new Tuple<string, string>(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString()));
 
-            ProgressForm form = new ProgressForm(coinList);
+            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Check);
             form.ShowDialog();
 
             string msg = "";
@@ -412,10 +523,10 @@ namespace CryptoGadget {
 
             try {
                 JObject check = DownloadCoinDB();
-                if(!JToken.DeepEquals(check, json)) {
-                    json = check;
+                if(!JToken.DeepEquals(check, Common.json)) {
+                    Common.json = check;
                     StreamWriter writer = new StreamWriter(Common.jsonLocation);
-                    writer.Write(json.ToString(Newtonsoft.Json.Formatting.None));
+                    writer.Write(Common.json.ToString(Newtonsoft.Json.Formatting.None));
                     writer.Close();
                     MessageBox.Show("New coins were added to the coin list database");
                 }

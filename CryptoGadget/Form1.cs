@@ -8,14 +8,15 @@ using System.Diagnostics;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
+using IniParser.Model;
+
 using neo;
+using static System.Resources.ResXFileRef;
+
 
 
 
 /* IDEAS:
- - Support more APIs (start with crytocompare?)
- - use struct of primitive types instead of accessing and parsing the ini file  
- - Individual target coin
  - Graphs (will require a new tab)
 */
 
@@ -48,60 +49,37 @@ namespace CryptoGadget {
                 return val.ToString("0." + new string('0', decimals <= maxDecimal ? decimals : maxDecimal));
             };
 
-            List<string> coins = new List<string>();
-            foreach(DataGridViewRow row in coinGrid.Rows)
-                coins.Add(row.Cells[1].Value.ToString());
-
             List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
 
-            int maxValDig = int.Parse(Common.ini["Others"]["MaxValueDigits"]), maxValDec = int.Parse(Common.ini["Others"]["MaxValueDecimals"]);
-            int maxChgDig = int.Parse(Common.ini["Others"]["MaxChangeDigits"]), maxChgDec = int.Parse(Common.ini["Others"]["MaxChangeDecimals"]);
-
-            int errCount = 0;
-
-            for(int i = 0; i < coins.Count;) {
-
-                if(timerDisposed)
-                    return;
-
-                if(i >= 10)
-                    Thread.Sleep(200); // the server allows up to 10 consecutive requests, then it will only allow 1 per ~200ms
+            for(int i = 0; i < coinGrid.RowCount; i++) {
 
                 if(timerDisposed)
                     return;
 
                 try {
-                    JObject json = Common.HttpRequest(coins[i], Common.ini["Others"]["TargetCoin"]);
-                    if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null) {
+                    JObject json = Common.HttpRequest(Data.converts[i].Item1, Data.converts[i].Item2);
+                    if(json == null || json["success"].ToString().ToLower() == "false" || json["ticker"] == null) { // to change
                         prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
                     }
                     else {
                         prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
-                            AdaptValue(json["ticker"]["price"].ToObject<double>(), maxValDig, maxValDec),
-                            AdaptValue(json["ticker"]["change"].ToObject<double>(), maxChgDig, maxChgDec)));
+                            AdaptValue(json["ticker"]["price"].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
+                            AdaptValue(json["ticker"]["change"].ToObject<double>(), Data.others.maxChangeDigits, Data.others.maxChangeDecimals)));
                     }
-                    i++;
-                } catch(Exception) {
-                    if(errCount++ == 10) {
-                        prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
-                        errCount = 0;
-                        i++;
-                    }
-                }
+                } catch(Exception) { }
             }
 
             for(int i = 0; i < prices.Count; i++) {
-                coinGrid.Rows[i].Cells[2].Value = AdaptValueStr(prices[i].Item2, maxValDig, maxValDec);
-                coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, maxChgDig, maxChgDec);
-                coinGrid.Rows[i].Cells[3].Style.ForeColor = Common.StrHexToColor(Common.ini["Colors"][prices[i].Item3 >= 0.0 ? "PositiveChange" : "NegativeChange"]);
+                coinGrid.Rows[i].Cells[2].Value = AdaptValueStr(prices[i].Item2, Data.others.maxValueDigits, Data.others.maxValueDecimals);
+                coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, Data.others.maxChangeDigits, Data.others.maxChangeDecimals);
+                coinGrid.Rows[i].Cells[3].Style.ForeColor = prices[i].Item3 >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
             }
 
-            if(bool.Parse(Common.ini["Visibility"]["Refresh"]))
+            if(Data.visible.refresh)
                 TimerHighlight(prices);
 
-            int period = (int)(decimal.Parse(Common.ini["Others"]["RefreshRate"]) * 1000);
             try {
-                timerRequest.Change(Math.Max(0, period - watch.ElapsedMilliseconds), period);
+                timerRequest.Change(Math.Max(0, Data.others.refreshRate - watch.ElapsedMilliseconds), Data.others.refreshRate);
             } catch(Exception) { }
 
         }
@@ -120,23 +98,21 @@ namespace CryptoGadget {
             for(float opacity = 0.0f; opacity < 0.9999f; opacity += 0.05f) {
 
                 if(timerDisposed) {
-                    for(int i = 0; i < prices.Count; i++) {
-                        Color bgcolor = Common.StrHexToColor(Common.ini["Colors"][i % 2 == 0 ? "BackGround1" : "BackGround2"]);
-                        coinGrid.Rows[i].DefaultCellStyle.BackColor = bgcolor;
-                    }
+                    for(int i = 0; i < prices.Count; i++) 
+                        coinGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Data.colors.background1 : Data.colors.background2;
                     return;
                 }
 
                 for(int i = 0; i < prices.Count; i++) {
 
-                    Color bgcolor = Common.StrHexToColor(Common.ini["Colors"][i % 2 == 0 ? "BackGround1" : "BackGround2"]);
+                    Color bgcolor = i % 2 == 0 ? Data.colors.background1 : Data.colors.background2;
 
                     if(prices[i].Item2 > prices[i].Item1) {
-                        Color color = ColorApply(Common.StrHexToColor(Common.ini["Colors"]["PositiveRefresh"]), bgcolor, opacity);
+                        Color color = ColorApply(Data.colors.positiveRefresh, bgcolor, opacity);
                         coinGrid.Rows[i].DefaultCellStyle.BackColor = color;
                     }
                     else if(prices[i].Item2 < prices[i].Item1) {
-                        Color color = ColorApply(Common.StrHexToColor(Common.ini["Colors"]["NegativeRefresh"]), bgcolor, opacity);
+                        Color color = ColorApply(Data.colors.negativeRefresh, bgcolor, opacity);
                         coinGrid.Rows[i].DefaultCellStyle.BackColor = color;
                     }
                 }
@@ -154,7 +130,7 @@ namespace CryptoGadget {
         /// true if the ini has been rewritten, false otherwise
         /// </returns>
         private bool SaveCoords() {
-            if(bool.Parse(Common.ini["Coordinates"]["ExitSave"]) && (int.Parse(Common.ini["Coordinates"]["StartX"]) != Location.X || int.Parse(Common.ini["Coordinates"]["StartY"]) != Location.Y)) {
+            if(Data.coords.exitSave && (Data.coords.startX != Location.X || Data.coords.startY != Location.Y)) {
                 Common.ini["Coordinates"]["StartX"] = Location.X.ToString();
                 Common.ini["Coordinates"]["StartY"] = Location.Y.ToString();
                 new IniParser.FileIniDataParser().WriteFile(Common.iniLocation, Common.ini);
@@ -169,7 +145,7 @@ namespace CryptoGadget {
             
             int X = 0;
             int Y = coinGrid.ColumnHeadersVisible ? coinGrid.ColumnHeadersHeight : 0;
-            int edge = bool.Parse(Common.ini["Visibility"]["Edge"]) ? int.Parse(Common.ini["Metrics"]["Edge"]) : 0;
+            int edge = Data.visible.edge ? Data.metrics.edge : 0;
 
             foreach(DataGridViewColumn col in coinGrid.Columns)
                 X += col.Visible ? col.Width : 0;
@@ -185,11 +161,11 @@ namespace CryptoGadget {
         /// </summary>
         internal void GridInit() {
 
-            Func<IniParser.Model.IniData, IniParser.Model.IniData, bool> IsIniSubset = (sub, set) => {
-                foreach(IniParser.Model.SectionData sect in set.Sections) {
+            Func<IniData, IniData, bool> IsIniSubset = (sub, set) => {
+                foreach(SectionData sect in set.Sections) {
                     if(!sub.Sections.ContainsSection(sect.SectionName))
                         return false;
-                    foreach(IniParser.Model.KeyData key in sect.Keys)
+                    foreach(KeyData key in sect.Keys)
                         if(!sub[sect.SectionName].ContainsKey(key.KeyName))
                             return false;
                 }
@@ -207,7 +183,7 @@ namespace CryptoGadget {
                 Common.ini = parser.ReadFile(Common.iniLocation);
             }
 
-            IniParser.Model.IniData checkIni = Common.DefaultIni(null, Common.DefaultType.Basic | Common.DefaultType.Advanced | Common.DefaultType.ColorsLight);
+            IniData checkIni = Common.DefaultIni(null);
             checkIni.Sections["Coins"].RemoveAllKeys();
 
             if(!IsIniSubset(Common.ini, checkIni)) {
@@ -218,54 +194,84 @@ namespace CryptoGadget {
 
             try {
 
-                #region Integrity Check 
+                #region Data Struct Init & Integrity Check 
 
-                // throw exception if cannot be converted and check if the value is correct
-                Action<string, string[], Func<string, bool>> IntegrityCheck = (strsect, strkeys, fncmp) => {
-                    IniParser.Model.KeyDataCollection sect = Common.ini[strsect];
-                    foreach(string key in strkeys)
-                        if(!fncmp(sect[key]))
+                Func<string, string, Func<T, bool>, T> AssignRule<T>() where T : IConvertible {
+                    return (sect, key, fn) => {
+                        T value = (T)Convert.ChangeType(Common.ini[sect][key], default(T).GetTypeCode());
+                        if(!fn(value))
                             throw new Exception();
-                };
-                // throw exception if cannot be converted
-                Action<string, string[], Action<string>> ConversionCheck = (strsect, strkeys, fncmp) => {
-                    IniParser.Model.KeyDataCollection sect = Common.ini[strsect];
-                    foreach(string key in strkeys)
-                        fncmp(sect[key]);
+                        return value;
+                    };
                 };
 
-                IntegrityCheck("Metrics", new string[] { "Icon", "Coin", "Value", "Change", "Edge", "Header", "Rows", "IconSize" }, (str) => int.Parse(str) >= 0);
-                IntegrityCheck("Metrics", new string[] { "Text", "Numbers" }, (str) => float.Parse(str) > 0.0f);
-                IntegrityCheck("Others", new string[] { "MaxValueDigits", "MaxValueDecimals", "MaxChangeDigits", "MaxChangeDecimals" }, (str) => int.Parse(str) >= 0);
-                IntegrityCheck("Others", new string[] { "RefreshRate" }, (str) => decimal.Parse(str) > 0);
+                foreach(KeyData conv in Common.ini["Coins"]) 
+                    Data.converts.Add(new Tuple<string, string>(conv.KeyName, conv.Value));
 
-                ConversionCheck("Visibility", new string[] { "Icon", "Coin", "Value", "Change", "Header", "Edge", "Refresh" }, (str) => bool.Parse(str));
-                ConversionCheck("Coordinates", new string[] { "StartX", "StartY" }, (str) => int.Parse(str));
-                ConversionCheck("Coordinates", new string[] { "ExitSave", "LockPosition" }, (str) => bool.Parse(str));
-                ConversionCheck("Colors", new string[] { "Coins", "Values","BackGround1", "BackGround2", "PositiveRefresh", "NegativeRefresh", "Edge",
-                                                         "PositiveChange", "NegativeChange", "HeaderText", "HeaderBackGround" }, (str) => Common.StrHexToColor(str));
-                ConversionCheck("Others", new string[] { "OpenStartup" }, (str) => bool.Parse(str));
+                Data.others.refreshRate = (int)(AssignRule<decimal>()("Others", "RefreshRate", (obj) => obj >= 0.0m) * 1000);
+                Data.others.openStartup = bool.Parse(Common.ini["Others"]["OpenStartup"]);
+
+                Data.others.maxValueDigits    = AssignRule<int>()("Others", "MaxValueDigits",    (obj) => obj >= 0);
+                Data.others.maxValueDecimals  = AssignRule<int>()("Others", "MaxValueDecimals",  (obj) => obj >= 0);
+                Data.others.maxChangeDigits   = AssignRule<int>()("Others", "MaxChangeDigits",   (obj) => obj >= 0);
+                Data.others.maxChangeDecimals = AssignRule<int>()("Others", "MaxChangeDecimals", (obj) => obj >= 0);
+
+                Data.visible.icon    = bool.Parse(Common.ini["Visibility"]["Icon"]);
+                Data.visible.coin    = bool.Parse(Common.ini["Visibility"]["Coin"]);
+                Data.visible.value   = bool.Parse(Common.ini["Visibility"]["Value"]);
+                Data.visible.change  = bool.Parse(Common.ini["Visibility"]["Change"]);
+                Data.visible.header  = bool.Parse(Common.ini["Visibility"]["Header"]);
+                Data.visible.edge    = bool.Parse(Common.ini["Visibility"]["Edge"]);
+                Data.visible.refresh = bool.Parse(Common.ini["Visibility"]["Refresh"]);
+
+                Data.metrics.icon     = AssignRule<int>()("Metrics", "Icon",     (obj) => obj >= 0);
+                Data.metrics.coin     = AssignRule<int>()("Metrics", "Coin",     (obj) => obj >= 0);
+                Data.metrics.value    = AssignRule<int>()("Metrics", "Value",    (obj) => obj >= 0);
+                Data.metrics.change   = AssignRule<int>()("Metrics", "Change",   (obj) => obj >= 0);
+                Data.metrics.edge     = AssignRule<int>()("Metrics", "Edge",     (obj) => obj >= 0);
+                Data.metrics.header   = AssignRule<int>()("Metrics", "Header",   (obj) => obj >= 0);
+                Data.metrics.rows     = AssignRule<int>()("Metrics", "Rows",     (obj) => obj >= 0);
+                Data.metrics.iconSize = AssignRule<int>()("Metrics", "IconSize", (obj) => obj >= 0);
+                Data.metrics.text     = AssignRule<float>()("Metrics", "Text",    (obj) => obj >= 0.0f);
+                Data.metrics.numbers  = AssignRule<float>()("Metrics", "Numbers", (obj) => obj >= 0.0f);
+
+                Data.coords.startX = int.Parse(Common.ini["Coordinates"]["StartX"]);
+                Data.coords.startY = int.Parse(Common.ini["Coordinates"]["StartY"]);
+                Data.coords.exitSave     = bool.Parse(Common.ini["Coordinates"]["ExitSave"]);
+                Data.coords.lockPosition = bool.Parse(Common.ini["Coordinates"]["LockPosition"]);
+
+                Data.colors.coins            = Common.StrHexToColor(Common.ini["Colors"]["Coins"]);
+                Data.colors.values           = Common.StrHexToColor(Common.ini["Colors"]["Values"]);
+                Data.colors.background1      = Common.StrHexToColor(Common.ini["Colors"]["BackGround1"]);
+                Data.colors.background2      = Common.StrHexToColor(Common.ini["Colors"]["BackGround2"]);
+                Data.colors.positiveRefresh  = Common.StrHexToColor(Common.ini["Colors"]["PositiveRefresh"]);
+                Data.colors.negativeRefresh  = Common.StrHexToColor(Common.ini["Colors"]["NegativeRefresh"]);
+                Data.colors.edge             = Common.StrHexToColor(Common.ini["Colors"]["Edge"]);
+                Data.colors.positiveChange   = Common.StrHexToColor(Common.ini["Colors"]["PositiveChange"]);
+                Data.colors.negativeChange   = Common.StrHexToColor(Common.ini["Colors"]["NegativeChange"]);
+                Data.colors.headerText       = Common.StrHexToColor(Common.ini["Colors"]["HeaderText"]);
+                Data.colors.headerBackGround = Common.StrHexToColor(Common.ini["Colors"]["HeaderBackGround"]);
 
                 #endregion
 
                 #region Coin Rows Init
 
-                foreach(var coin in Common.ini["Coins"]) {
+                foreach(var conv in Data.converts) {
                     try {
-                        int size = int.Parse(Common.ini["Metrics"]["IconSize"]);
-                        Bitmap bmp = new Bitmap(size,size);
+                        int size = Data.metrics.iconSize;
+                        Bitmap bmp = new Bitmap(size, size);
 
                         // Minimum quality loss resize
                         using(Graphics gr = Graphics.FromImage(bmp)) { 
-                            gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                            gr.SmoothingMode     = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                             gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                            gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                            gr.DrawImage(new Icon(Common.iconLocation + coin.Value + ".ico").ToBitmap(), new Rectangle(0, 0, size, size));
+                            gr.PixelOffsetMode   = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                            gr.DrawImage(new Icon(Common.iconLocation + conv.Item1 + ".ico").ToBitmap(), new Rectangle(0, 0, size, size));
                         }
 
-                        coinGrid.Rows.Add(bmp, coin.Value, 0.00, 0.00);
+                        coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
                     } catch(Exception) {
-                        coinGrid.Rows.Add(new Bitmap(1, 1), coin.Value, 0.00, 0.00);
+                        coinGrid.Rows.Add(new Bitmap(1, 1), conv.Item1, 0.00, 0.00);
                     }
                 }
 
@@ -273,49 +279,47 @@ namespace CryptoGadget {
 
                 #region Metrics & Visibility
 
-                coinGrid.Columns[0].Width = int.Parse(Common.ini["Metrics"]["Icon"]);
-                coinGrid.Columns[1].Width = int.Parse(Common.ini["Metrics"]["Coin"]);
-                coinGrid.Columns[2].Width = int.Parse(Common.ini["Metrics"]["Value"]);
-                coinGrid.Columns[3].Width = int.Parse(Common.ini["Metrics"]["Change"]);
-                coinGrid.ColumnHeadersHeight = int.Parse(Common.ini["Metrics"]["Header"]);
-                coinGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", float.Parse(Common.ini["Metrics"]["Text"]));
-                coinGrid.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", float.Parse(Common.ini["Metrics"]["Numbers"]));
+                coinGrid.Columns[0].Width = Data.metrics.icon;
+                coinGrid.Columns[1].Width = Data.metrics.coin;
+                coinGrid.Columns[2].Width = Data.metrics.value;
+                coinGrid.Columns[3].Width = Data.metrics.change;
+                coinGrid.ColumnHeadersHeight = Data.metrics.header;
+                coinGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Data.metrics.text);
+                coinGrid.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", Data.metrics.numbers);
 
                 foreach(DataGridViewRow row in coinGrid.Rows)
-                    row.Height = int.Parse(Common.ini["Metrics"]["Rows"]);
+                    row.Height = Data.metrics.rows;
 
-                coinGrid.Columns[0].Visible = bool.Parse(Common.ini["Visibility"]["Icon"]);
-                coinGrid.Columns[1].Visible = bool.Parse(Common.ini["Visibility"]["Coin"]);
-                coinGrid.Columns[2].Visible = bool.Parse(Common.ini["Visibility"]["Value"]);
-                coinGrid.Columns[3].Visible = bool.Parse(Common.ini["Visibility"]["Change"]);
-                coinGrid.ColumnHeadersVisible = bool.Parse(Common.ini["Visibility"]["Header"]);
+                coinGrid.Columns[0].Visible = Data.visible.icon;
+                coinGrid.Columns[1].Visible = Data.visible.coin;
+                coinGrid.Columns[2].Visible = Data.visible.value;
+                coinGrid.Columns[3].Visible = Data.visible.change;
+                coinGrid.ColumnHeadersVisible = Data.visible.header;
 
                 #endregion
 
                 #region Color Init
 
-                coinGrid.RowsDefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"]["BackGround1"]);
-                coinGrid.AlternatingRowsDefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"]["BackGround2"]);
-                //coinGrid.DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Coins"]);
-                coinGrid.Columns[1].DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Coins"]);
-                coinGrid.Columns[2].DefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["Values"]);
+                coinGrid.RowsDefaultCellStyle.BackColor = Data.colors.background1;
+                coinGrid.AlternatingRowsDefaultCellStyle.BackColor = Data.colors.background2;
+                coinGrid.Columns[1].DefaultCellStyle.ForeColor = Data.colors.coins;
+                coinGrid.Columns[2].DefaultCellStyle.ForeColor = Data.colors.values;
 
+                coinGrid.ColumnHeadersDefaultCellStyle.ForeColor = Data.colors.headerText;
+                coinGrid.ColumnHeadersDefaultCellStyle.BackColor = Data.colors.headerBackGround;
 
-                coinGrid.ColumnHeadersDefaultCellStyle.ForeColor = Common.StrHexToColor(Common.ini["Colors"]["HeaderText"]);
-                coinGrid.ColumnHeadersDefaultCellStyle.BackColor = Common.StrHexToColor(Common.ini["Colors"]["HeaderBackGround"]);
-
-                BackColor = Common.StrHexToColor(Common.ini["Colors"]["Edge"]);
+                BackColor = Data.colors.edge;
 
                 #endregion
 
                 #region Coordinates Init
 
                 StartPosition = FormStartPosition.Manual;
-                Location = new Point(int.Parse(Common.ini["Coordinates"]["StartX"]), int.Parse(Common.ini["Coordinates"]["StartY"]));
+                Location = new Point(Data.coords.startX, Data.coords.startY);
 
                 MouseDown -= FormUtil.DragMove;
                 coinGrid.MouseDown -= FormUtil.DragMove;
-                if(!bool.Parse(Common.ini["Coordinates"]["LockPosition"])) {
+                if(!Data.coords.lockPosition) {
                     MouseDown += FormUtil.DragMove;
                     coinGrid.MouseDown += FormUtil.DragMove;
                 }
@@ -336,8 +340,8 @@ namespace CryptoGadget {
                 }
 
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                if((regKey.GetValue("CryptoGadget", null) != null) != bool.Parse(Common.ini["Others"]["OpenStartup"])) {
-                    if(bool.Parse(Common.ini["Others"]["OpenStartup"]))
+                if((regKey.GetValue("CryptoGadget", null) != null) != Data.others.openStartup) {
+                    if(Data.others.openStartup)
                         regKey.SetValue("CryptoGadget", "\"" + Application.ExecutablePath.ToString() + "\"");
                     else
                         regKey.DeleteValue("CryptoGadget", false);
@@ -367,7 +371,7 @@ namespace CryptoGadget {
                 coinGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-                timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
+                timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, Data.others.refreshRate);
             };
         }
 
@@ -390,7 +394,7 @@ namespace CryptoGadget {
             }
 
             timerDisposed = false;
-            timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, (int)(float.Parse(Common.ini["Others"]["RefreshRate"]) * 1000));
+            timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, Data.others.refreshRate);
         }
         private void hideStripMenuItem_Click(object sender, EventArgs e) {
             Visible = !Visible;

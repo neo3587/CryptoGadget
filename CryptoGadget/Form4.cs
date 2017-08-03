@@ -18,116 +18,122 @@ namespace CryptoGadget {
 
     public partial class ProgressForm : Form {
         
-        internal List<string> badCoins = new List<string>(); // SettingsForm.buttonCheck
-        internal JObject coindb = null; // SettingsForm.GetCoinDB
+        public List<string> badCoins = new List<string>(); // FormType.Check
+        public JObject coindb = null; // FormType.Download
+
+        public enum FormType {
+            Check = 0x01,
+            Download = 0x02
+        };
 
         // SettingsForm.buttonCheck
-        public ProgressForm(List<Tuple<string, string>> coinList, string target) {
+        public ProgressForm(SettingsForm form, FormType ft) {
 
             InitializeComponent();
 
-            Text = "Cryptogadget Settings [Check]";
+            if(ft == FormType.Check) { 
 
-            string targetCoin = target.Substring(0, target.LastIndexOf('(')).Trim(' ');
-            progressBar.Maximum = coinList.Count;
+                Text = "Cryptogadget Settings [Check]";
 
-            HandleCreated += (sender, ev) => {
-                new Thread(() => {
+                progressBar.Maximum = form.coinGrid.RowCount;
 
-                    int errCount = 0;
+                HandleCreated += (sender, ev) => {
+                    new Thread(() => {
 
-                    for(int i = 0; i < coinList.Count;) {
-                        try {
-                            Invoke((MethodInvoker)delegate {
-                                labelProgress.Text = coinList[i].Item1 + " (" + coinList[i].Item2 + ") -> " + target;
-                                progressBar.Value = i;
-                            });
-                        } catch(Exception) { }
+                        int errCount = 0;
 
-                        Thread.Sleep(200);
+                        for(int i = 0; i < form.coinGrid.RowCount;) {
 
-                        try {
-                            JObject json = Common.HttpRequest(coinList[i].Item1, targetCoin);
-                            if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null)
-                                badCoins.Add(coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
-                            i++;
-                        } catch(Exception) {
-                            if(errCount++ == 10) {
-                                badCoins.Add(coinList[i].Item1 + " (" + coinList[i].Item2 + ")");
-                                errCount = 0;
+                            DataGridViewRow row = form.coinGrid.Rows[i];
+
+                            try {
+                                Invoke((MethodInvoker)delegate {
+                                    labelProgress.Text = row.Cells[1].Value + " (" + row.Cells[2].Value + ") -> " + row.Cells[3].Value + " (" + row.Cells[4].Value + ")";
+                                    progressBar.Value = i;
+                                });
+                            } catch(Exception) { }
+
+                            try {
+                                JObject json = Common.HttpRequest(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString());
+                                if(json["success"].ToString().ToLower() == "false" || json["ticker"] == null)
+                                    badCoins.Add(row.Cells[1].Value + " (" + row.Cells[2].Value + ")");
                                 i++;
+                            } catch(Exception) {
+                                if(errCount++ == 5) {
+                                    badCoins.Add(row.Cells[1].Value + " (" + row.Cells[2].Value + ")");
+                                    errCount = 0;
+                                    i++;
+                                }
                             }
+
                         }
 
-                    }
-                    Invoke((MethodInvoker)delegate {
-                        Close();
-                    });
-
-                }).Start();
-
-            };
-
-        }
-
-        // SettignsForm.GetCoinDB
-        public ProgressForm() {
-
-            InitializeComponent();
-
-            Text = "Cryptogadget Settings [Download]";
-            labelProgress.Text = "Downloading Coin List (0%)";
-            progressBar.Maximum = 100;
-
-            HandleCreated += (sender, ev) => {
-
-                new Thread(async () => {
-
-                    WebClient client = new WebClient();
-                    MemoryStream data = new MemoryStream();
-
-                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((dpc_sender, dpc_ev) => {
                         Invoke((MethodInvoker)delegate {
-                            labelProgress.Text = "Downloading Coin List (" + dpc_ev.ProgressPercentage + "%)";
-                            progressBar.Value = dpc_ev.ProgressPercentage;
+                            Close();
                         });
-                    });
-                    client.DownloadDataCompleted += new DownloadDataCompletedEventHandler((orc_sender, orc_ev) => {
+
+                    }).Start();
+
+                };
+
+            }
+
+            else if(ft == FormType.Download) {
+
+                Text = "Cryptogadget Settings [Download]";
+                labelProgress.Text = "Downloading Coin List (0%)";
+                progressBar.Maximum = 100;
+
+                HandleCreated += (sender, ev) => {
+
+                    new Thread(async () => {
+
+                        WebClient client = new WebClient();
+                        MemoryStream data = new MemoryStream();
+
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((dpc_sender, dpc_ev) => {
+                            Invoke((MethodInvoker)delegate {
+                                labelProgress.Text = "Downloading Coin List (" + dpc_ev.ProgressPercentage + "%)";
+                                progressBar.Value = dpc_ev.ProgressPercentage;
+                            });
+                        });
+                        client.DownloadDataCompleted += new DownloadDataCompletedEventHandler((orc_sender, orc_ev) => {
+                            try {
+                                data.Write(orc_ev.Result, 0, orc_ev.Result.Length);
+                            } catch(Exception) { }
+                        });
+
                         try {
-                            data.Write(orc_ev.Result, 0, orc_ev.Result.Length);
-                        } catch(Exception) { }
-                    });
+                            await client.DownloadDataTaskAsync(new Uri("https://www.cryptocompare.com/api/data/coinlist/"));
 
-                    try {
-                        await client.DownloadDataTaskAsync(new Uri("https://www.cryptocompare.com/api/data/coinlist/"));
-                        
-                    } catch(Exception) {
-                        Invoke((MethodInvoker)delegate { Close(); });
-                        return;
-                    }
-
-                    data.Position = 0;
-                    try {
-                        if(data.Length > 0) {
-                            coindb = JObject.Parse(new StreamReader(data).ReadToEnd());
-                        }
-                        else {
+                        } catch(Exception) {
                             Invoke((MethodInvoker)delegate { Close(); });
                             return;
                         }
-                    } catch(Exception) {
+
+                        data.Position = 0;
+                        try {
+                            if(data.Length > 0) {
+                                coindb = JObject.Parse(new StreamReader(data).ReadToEnd());
+                            }
+                            else {
+                                Invoke((MethodInvoker)delegate { Close(); });
+                                return;
+                            }
+                        } catch(Exception) {
+                            Invoke((MethodInvoker)delegate { Close(); });
+                            return;
+                        }
+
                         Invoke((MethodInvoker)delegate { Close(); });
-                        return;
-                    }
 
-                    Invoke((MethodInvoker)delegate { Close(); });
+                    }).Start();
 
-                }).Start();
+                };
 
-            };
+            }
 
         }
-
 
     }
 
