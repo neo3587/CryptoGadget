@@ -436,6 +436,7 @@ namespace CryptoGadget {
 
         private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
             IniData ini = (IniData)Common.ini.Clone();
+            ini["Coins"].RemoveAllKeys();
             ini.Merge(Common.DefaultIni(null, Common.DefaultType.Coins));
             LoadData(ini, DataType.Coins);
         }
