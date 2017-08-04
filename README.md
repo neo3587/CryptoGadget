@@ -8,7 +8,7 @@
 
 # <a name ="introduction"></a> Introduction
 
-CryptoGadget is a C# based 'gadget' to view the current cryptocurrencies prices for Windows with a customizable graphical user interface. CryptoGadget uses the Cryptonator API to display the prices, which supports more than 1000 different cryptocurrencies.
+CryptoGadget is a C# based 'gadget' to view the current cryptocurrencies prices for Windows with a customizable graphical user interface. CryptoGadget uses the CryptoCompare API to display the prices, which supports more than 1000 different cryptocurrencies.
 
 # <a name="features"></a> Features
 
@@ -33,8 +33,6 @@ Instructions:
 <img src="http://i.imgur.com/VhZ2AQE.png" /> <img src="http://i.imgur.com/3aOcagn.png" /> <img src="http://i.imgur.com/wfKx5BU.png" /> <img src="http://i.imgur.com/tPJX8ic.png" />
 
 # <a name="notes"></a> Additional notes
-
-Currently working on swap to the Cryptocompare API, which will allow me to completely remove the 250ms delay between requests and add new stuff.
 
 This is the first time I program in C#, also is the first time that I use Windows Forms and the first time I use GitHub to make a public project, so probably some things could be done in a better way.
 
