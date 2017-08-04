@@ -18031,22 +18031,6 @@
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1294"
     },
-    "PRO": {
-      "Id": "185695",
-      "Url": "/coins/pro/overview",
-      "ImageUrl": "/media/1383792/pro.png",
-      "Name": "PRO",
-      "CoinName": "Propy",
-      "FullName": "Propy (PRO)",
-      "Algorithm": "N/A",
-      "ProofType": "N/A",
-      "FullyPremined": "1",
-      "TotalCoinSupply": "100000000",
-      "TotalCoinsMined": "100000000",
-      "PreMinedValue": "N/A",
-      "TotalCoinsFreeFloat": "N/A",
-      "SortOrder": "1349"
-    },
     "SYC": {
       "Id": "185873",
       "Url": "/coins/syc/overview",
@@ -20889,6 +20873,22 @@
       "PreMinedValue": "N/A",
       "TotalCoinsFreeFloat": "N/A",
       "SortOrder": "1435"
+    },
+    "PRO": {
+      "Id": "185695",
+      "Url": "/coins/pro/overview",
+      "ImageUrl": "/media/1383792/pro.png",
+      "Name": "PRO",
+      "CoinName": "Propy",
+      "FullName": "Propy (PRO)",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "FullyPremined": "1",
+      "TotalCoinSupply": "100000000",
+      "TotalCoinsMined": "100000000",
+      "PreMinedValue": "N/A",
+      "TotalCoinsFreeFloat": "N/A",
+      "SortOrder": "1349"
     },
     "AED": {
       "Name": "AED",

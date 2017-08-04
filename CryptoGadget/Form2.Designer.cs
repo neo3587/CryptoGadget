@@ -1236,6 +1236,7 @@
             this.buttonDownloadMissingIcons.TabIndex = 0;
             this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
             this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
+            this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
             // 
             // SettingsForm
             // 

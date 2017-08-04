@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Drawing;
 
 using Newtonsoft.Json.Linq;
-
-
-
 
 
 
@@ -23,7 +21,8 @@ namespace CryptoGadget {
 
         public enum FormType {
             Check = 0x01,
-            Download = 0x02
+            CoinList = 0x02,
+            Icons = 0x03
         };
 
 
@@ -80,7 +79,7 @@ namespace CryptoGadget {
             }
 
             // SettingsForm.buttonDownloadList
-            else if(ft == FormType.Download) {
+            else if(ft == FormType.CoinList) {
 
                 Text = "Cryptogadget Settings [Download]";
                 labelProgress.Text = "Downloading Coin List (0%)";
@@ -121,6 +120,79 @@ namespace CryptoGadget {
                             else {
                                 Invoke((MethodInvoker)delegate { Close(); });
                                 return;
+                            }
+                        } catch(Exception) {
+                            Invoke((MethodInvoker)delegate { Close(); });
+                            return;
+                        }
+
+                        Invoke((MethodInvoker)delegate { Close(); });
+
+                    }).Start();
+
+                };
+
+            }
+
+            // SettingsForm.buttonDownloadMissingIcons
+            else if(ft == FormType.Icons) {
+
+                Text = "Cryptogadget Settings [Download]";
+                labelProgress.Text = "Searching missing icons (0/" + ((JObject)Common.json["Data"]).Count + ")";
+                progressBar.Maximum = ((JObject)Common.json["Data"]).Count;
+
+                HandleCreated += (sender, ev) => {
+
+                    new Thread(() => {
+
+                        WebClient client = new WebClient();
+                        List<Tuple<string, string>> misses = new List<Tuple<string, string>>();
+
+                        int coinCount = 0;
+                        foreach(JToken coin in Common.json["Data"].Values()) {
+                            Invoke((MethodInvoker)delegate {
+                                labelProgress.Text = "Searching missing icons (" + coinCount + "/" + ((JObject)Common.json["Data"]).Count + ")";
+                                progressBar.Value = coinCount++;
+                            });
+                            try {
+                                new Bitmap(Common.iconLocation + coin["Name"].ToString().ToLower() + ".ico");
+                            } catch(Exception e) {
+                                //MessageBox.Show(e.Message);
+                                if(coin["ImageUrl"] != null)
+                                    misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
+                            }
+                        }
+
+                        misses.Add(new Tuple<string, string>("sub", "/media/1383362/sub.png"));
+
+                        Invoke((MethodInvoker)delegate {
+                            progressBar.Maximum = misses.Count;
+                        });
+
+                        try {
+                            for(int i = 0; i < misses.Count; i++) {
+                                try {
+                                    Invoke((MethodInvoker)delegate {
+                                        labelProgress.Text = "Downloading Missing Icons (" + i + "/" + misses.Count + ")";
+                                        progressBar.Value = i;
+                                    });
+                                    using(MemoryStream data = new MemoryStream()) {
+                                        byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
+                                        data.Write(buffer, 0, buffer.Length);
+
+                                        Bitmap bmp = new Bitmap(32, 32);
+
+                                        // Minimum quality loss resize
+                                        using(Graphics gr = Graphics.FromImage(bmp)) {
+                                            gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                                            gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                                            gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                                            gr.DrawImage(Image.FromStream(data), new Rectangle(0, 0, 32, 32));
+                                        }
+
+                                        bmp.Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+                                    }
+                                } catch(Exception e) { }
                             }
                         } catch(Exception) {
                             Invoke((MethodInvoker)delegate { Close(); });

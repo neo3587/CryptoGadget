@@ -19,7 +19,7 @@ namespace CryptoGadget {
     public partial class SettingsForm : Form {
 
         private MainForm ptrForm;
-        internal bool accept = false;
+        public bool accept = false;
 
         public enum DataType {
             Coins = 0x01,
@@ -42,7 +42,7 @@ namespace CryptoGadget {
         private JObject DownloadCoinDB() {
 
             Enabled = false;
-            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Download);
+            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.CoinList);
             form.ShowDialog();
             Enabled = true;
             if(form.coindb == null)
@@ -524,7 +524,7 @@ namespace CryptoGadget {
                 if(!JToken.DeepEquals(check, Common.json)) {
                     Common.json = check;
                     StreamWriter writer = new StreamWriter(Common.jsonLocation);
-                    writer.Write(Common.json.ToString(Newtonsoft.Json.Formatting.None));
+                    writer.Write(Common.json.ToString(Newtonsoft.Json.Formatting.Indented));
                     writer.Close();
                     MessageBox.Show("New coins were added to the coin list database");
                 }
@@ -538,11 +538,21 @@ namespace CryptoGadget {
         }
 
         private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
-        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
-        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
-        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
-        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedInt(sender, e);
+        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedInt(sender, e);
+        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedFloat(sender, e);
+        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedFloat(sender, e);
 
+        private void buttonDownloadMissingIcons_Click(object sender, EventArgs e) {
+
+            Enabled = false;
+
+            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Icons);
+            form.ShowDialog();
+
+            Enabled = true;
+
+        }
     }
 
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
@@ -12,6 +13,7 @@ using Microsoft.Win32;
 using IniParser.Model;
 
 using neo;
+
 
 
 
@@ -27,6 +29,7 @@ using neo;
  - Add Use Percentage Change stuff
  - Add Download Missing Icons stuff
  - Add Only Fiat Currency stuff
+ - Fix TimerHighlight leading a tiny red/green color on rows
 */
 
 
@@ -39,7 +42,7 @@ namespace CryptoGadget {
         private System.Threading.Timer timerRequest;
         private volatile bool timerDisposed = false;
 
-        internal void TimerRoutine(object state) {
+        private void TimerRoutine(object state) {
 
             try {
                 timerRequest.Change(Timeout.Infinite, Timeout.Infinite);
@@ -150,7 +153,7 @@ namespace CryptoGadget {
         /// <summary>
         /// Resizes the MainForm objects size depending on ini["Metrics"]
         /// </summary>
-        internal void ResizeForm() {
+        private void ResizeForm() {
             
             int X = 0;
             int Y = coinGrid.ColumnHeadersVisible ? coinGrid.ColumnHeadersHeight : 0;
@@ -168,7 +171,7 @@ namespace CryptoGadget {
         /// <summary>
         /// Initializes every feature of the MainForm and checks if the ini file is correct (in case of bad manupulation from user)
         /// </summary>
-        internal void GridInit() {
+        private void GridInit() {
 
             Func<IniData, IniData, bool> IsIniSubset = (sub, set) => {
                 foreach(SectionData sect in set.Sections) {
@@ -275,10 +278,14 @@ namespace CryptoGadget {
 
                         // Minimum quality loss resize
                         using(Graphics gr = Graphics.FromImage(bmp)) { 
-                            gr.SmoothingMode     = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                            gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                            gr.PixelOffsetMode   = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                            gr.DrawImage(new Icon(Common.iconLocation + conv.Item1 + ".ico").ToBitmap(), new Rectangle(0, 0, size, size));
+                            gr.SmoothingMode     = SmoothingMode.HighQuality;
+                            gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                            gr.PixelOffsetMode   = PixelOffsetMode.HighQuality;
+                            try {
+                                gr.DrawImage(new Icon(Common.iconLocation + conv.Item1 + ".ico").ToBitmap(), new Rectangle(0, 0, size, size)); // it looks slightly better if you can load it as a icon
+                            } catch(Exception) {
+                                gr.DrawImage(new Bitmap(Common.iconLocation + conv.Item1 + ".ico"), new Rectangle(0, 0, size, size));
+                            }
                         }
 
                         coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);

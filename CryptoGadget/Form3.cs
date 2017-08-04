@@ -24,7 +24,6 @@ namespace CryptoGadget {
             HandleCreated += (sender, e) => {
 
                 if(Common.json != null) {
-                    var watch = System.Diagnostics.Stopwatch.StartNew();
                     foreach(JProperty coin in Common.json["Data"]) {
                         boxCoin.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
                         boxTarget.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
@@ -51,8 +50,8 @@ namespace CryptoGadget {
 
             string coin   = boxCoin.SelectedItem.ToString().Substring(0, boxCoin.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
             string name   = boxCoin.SelectedItem.ToString().Substring(boxCoin.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
-            string t_coin = boxCoin.SelectedItem.ToString().Substring(0, boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
-            string t_name = boxCoin.SelectedItem.ToString().Substring(boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
+            string t_coin = boxTarget.SelectedItem.ToString().Substring(0, boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
+            string t_name = boxTarget.SelectedItem.ToString().Substring(boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
 
             if(FindCoin(coin, t_coin)) {
                 MessageBox.Show(boxCoin.SelectedItem.ToString() + " -> " + boxTarget.SelectedItem.ToString() + " conversion is already being used");
@@ -65,7 +64,7 @@ namespace CryptoGadget {
             } catch(Exception) {
                 ptrGrid.Rows.Insert(insertPos, new Bitmap(1, 1), coin, name, t_coin, t_name);
             }
-
+            ptrGrid.Rows[Math.Min(ptrGrid.SelectedRows[0].Index +1, ptrGrid.RowCount-1)].Selected = true;
         }
 
         private void buttonDone_Click(object sender, EventArgs e) {
