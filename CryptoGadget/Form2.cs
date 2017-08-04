@@ -224,7 +224,11 @@ namespace CryptoGadget {
 
                 foreach(KeyData coin in data["Coins"]) {
                     try {
-                        coinGrid.Rows.Add(new Icon(Common.iconLocation + coin.KeyName + ".ico", new Size(16, 16)).ToBitmap(), coin.KeyName, "", coin.Value, "");
+                        try {
+                            coinGrid.Rows.Add(new Icon(Common.iconLocation + coin.KeyName + ".ico", new Size(16, 16)).ToBitmap(), coin.KeyName, "", coin.Value, "");
+                        } catch(Exception) {
+                            coinGrid.Rows.Add(new Bitmap(Image.FromFile(Common.iconLocation + coin.KeyName + ".ico"), new Size(16, 16)), coin.KeyName, "", coin.Value, "");
+                        }
                     } catch(Exception) {
                         coinGrid.Rows.Add(new Bitmap(1, 1), coin.KeyName, "", coin.Value, "");
                     }
@@ -495,12 +499,15 @@ namespace CryptoGadget {
 
             ofd.FileOk += (f_sender, f_ev) => {
 
-                MemoryStream stream = new MemoryStream();
-                (f_sender as OpenFileDialog).OpenFile().CopyTo(stream);
+                Stream stream = (f_sender as OpenFileDialog).OpenFile();
 
                 stream.Position = 0;
-                coinGrid.SelectedRows[0].Cells[0].Value = new Icon(stream, new Size(16, 16));
-
+                try {
+                    coinGrid.SelectedRows[0].Cells[0].Value = new Icon(stream, new Size(16, 16));
+                } catch(Exception) {
+                    coinGrid.SelectedRows[0].Cells[0].Value = new Bitmap(Image.FromStream(stream), new Size(16, 16));
+                }
+                
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
                     StreamWriter writer = new StreamWriter(Common.iconLocation + coin.ToLower() + ".ico");

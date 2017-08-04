@@ -25,10 +25,6 @@ using neo;
 */
 
 /* TODO:
- - Finish Cryptocompare transition
- - Add Use Percentage Change stuff
- - Add Download Missing Icons stuff
- - Add Only Fiat Currency stuff
  - Fix TimerHighlight leading a tiny red/green color on rows
 */
 
