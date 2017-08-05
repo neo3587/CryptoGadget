@@ -25,6 +25,7 @@ using neo;
 */
 
 /* TODO:
+ - Fix unable to have 2 instance of the same coin with differents target coins
  - Fix TimerHighlight leading a tiny red/green color on rows
 */
 
