@@ -380,6 +380,9 @@ namespace CryptoGadget {
 
             InitializeComponent();
 
+            notifyIcon.Text = typeof(MainForm).Assembly.GetName().Name + " " + typeof(MainForm).Assembly.GetName().Version;
+            notifyIcon.Text = notifyIcon.Text.Remove(notifyIcon.Text.Length - 2);
+
             Load += (sender, e) => {
                 GridInit();
                 ResizeForm();

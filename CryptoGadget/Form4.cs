@@ -156,8 +156,7 @@ namespace CryptoGadget {
                             });
                             try {
                                 new Bitmap(Common.iconLocation + coin["Name"].ToString().ToLower() + ".ico");
-                            } catch(Exception e) {
-                                //MessageBox.Show(e.Message);
+                            } catch(Exception) {
                                 if(coin["ImageUrl"] != null)
                                     misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
                             }
