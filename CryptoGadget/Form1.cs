@@ -26,7 +26,6 @@ using neo;
 
 /* TODO:
  - Fix unable to have 2 instance of the same coin with differents target coins
- - Fix TimerHighlight leading a tiny red/green color on rows
 */
 
 
@@ -100,15 +99,17 @@ namespace CryptoGadget {
                 byte[] bytebgcolor = BitConverter.GetBytes(bgcolor.ToArgb());
                 for(int i = 0; i < 4; i++)
                     bytecolor[i] = (byte)(bytebgcolor[i] * opacity + bytecolor[i] * (1 - opacity));
-                int newcolor = BitConverter.ToInt32(bytecolor, 0);
-                return Color.FromArgb(newcolor);
+                return Color.FromArgb(BitConverter.ToInt32(bytecolor, 0));
+            };
+            Action DefaultColors = () => {
+                for(int i = 0; i < prices.Count; i++)
+                    coinGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Data.colors.background1 : Data.colors.background2;
             };
 
-            for(float opacity = 0.0f; opacity < 0.9999f; opacity += 0.05f) {
+            for(float opacity = 0.0f; opacity < 1.0f; opacity += 0.05f) {
 
                 if(timerDisposed) {
-                    for(int i = 0; i < prices.Count; i++) 
-                        coinGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Data.colors.background1 : Data.colors.background2;
+                    DefaultColors();
                     return;
                 }
 
@@ -128,6 +129,8 @@ namespace CryptoGadget {
 
                 Thread.Sleep(60);
             }
+
+            DefaultColors();
 
         }
 
