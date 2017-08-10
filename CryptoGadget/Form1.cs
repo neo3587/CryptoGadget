@@ -59,20 +59,27 @@ namespace CryptoGadget {
 
             List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
 
-            string[] input  = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1)));
-            string[] output = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2)));
+            string[] inputs  = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1)));
+            string[] outputs = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2)));
             string usePercent = Data.others.showPercentage ? "CHANGEPCT24HOUR" : "CHANGE24HOUR";
 
             try {
-                JObject json = Common.HttpRequest(input, output);
+                JObject json = Common.HttpRequest(inputs, outputs, Data.visible.change);
                 if(json == null || json["Response"]?.ToString().ToLower() == "error") {
                     prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
                 }
-                else {
+                else if(Data.visible.change) {
                     for(int i = 0; i < Data.converts.Count; i++) {
                         prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
                             AdaptValue(json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["PRICE"].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
                             AdaptValue(json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2][usePercent].ToObject<double>(), Data.others.maxChangeDigits, Data.others.maxChangeDecimals)));
+                    }
+                }
+                else {
+                    for(int i = 0; i < Data.converts.Count; i++) {
+                        prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
+                            AdaptValue(json[Data.converts[i].Item1][Data.converts[i].Item2].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
+                            0));
                     }
                 }
             } catch(Exception) { }
@@ -272,26 +279,20 @@ namespace CryptoGadget {
                 #region Coin Rows Init
 
                 foreach(var conv in Data.converts) {
-                    try {
-                        int size = Data.metrics.iconSize;
-                        Bitmap bmp = new Bitmap(size, size);
+                  
+                    int size = Data.metrics.iconSize;
+                    Bitmap bmp = new Bitmap(size, size);
 
-                        // Minimum quality loss resize
-                        using(Graphics gr = Graphics.FromImage(bmp)) { 
-                            gr.SmoothingMode     = SmoothingMode.HighQuality;
-                            gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                            gr.PixelOffsetMode   = PixelOffsetMode.HighQuality;
-                            try {
-                                gr.DrawImage(new Icon(Common.iconLocation + conv.Item1 + ".ico").ToBitmap(), new Rectangle(0, 0, size, size)); // it looks slightly better if you can load it as a icon
-                            } catch(Exception) {
-                                gr.DrawImage(new Bitmap(Common.iconLocation + conv.Item1 + ".ico"), new Rectangle(0, 0, size, size));
-                            }
-                        }
-
-                        coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
-                    } catch(Exception) {
-                        coinGrid.Rows.Add(new Bitmap(1, 1), conv.Item1, 0.00, 0.00);
+                    // Minimum quality loss resize
+                    using(Graphics gr = Graphics.FromImage(bmp)) { 
+                        gr.SmoothingMode     = SmoothingMode.HighQuality;
+                        gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        gr.PixelOffsetMode   = PixelOffsetMode.HighQuality;
+                        gr.DrawImage(Common.GetIcon(conv.Item1), new Rectangle(0, 0, size, size)); 
                     }
+
+                    coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
+                    
                 }
 
                 #endregion

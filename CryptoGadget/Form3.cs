@@ -59,11 +59,7 @@ namespace CryptoGadget {
             }
 
             int insertPos = ptrGrid.SelectedRows.Count > 0 ? ptrGrid.SelectedRows[0].Index +1 : 0;
-            try {
-                ptrGrid.Rows.Insert(insertPos, new Icon(Common.iconLocation + coin + ".ico", new Size(16, 16)).ToBitmap(), coin, name, t_coin, t_name);
-            } catch(Exception) {
-                ptrGrid.Rows.Insert(insertPos, new Bitmap(1, 1), coin, name, t_coin, t_name);
-            }
+            ptrGrid.Rows.Insert(insertPos, Common.GetIcon(coin, new Size(16, 16)), coin, name, t_coin, t_name);
             ptrGrid.Rows[Math.Min(ptrGrid.SelectedRows[0].Index +1, ptrGrid.RowCount-1)].Selected = true;
         }
 

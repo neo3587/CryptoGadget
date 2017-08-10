@@ -196,9 +196,38 @@ namespace CryptoGadget {
             HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/price?fsym=" + input_coin.ToUpper() + "&tsyms=" + output_coin.ToUpper());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
         }
-        public static JObject HttpRequest(string[] input_coin, string[] output_coin) {
-            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + string.Join(",", input_coin).ToUpper() + "&tsyms=" + string.Join(",", output_coin).ToUpper());
+        public static JObject HttpRequest(string[] input_coin, string[] output_coin, bool full = true) {
+            HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create("https://min-api.cryptocompare.com/data/pricemulti" + (full ? "full" : "") + "?fsyms=" + string.Join(",", input_coin).ToUpper() + "&tsyms=" + string.Join(",", output_coin).ToUpper());
             return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
+        }
+
+        public static Bitmap GetIcon(string name, Size size = new Size()) {
+            Bitmap bmp;
+            try {
+                try {
+                    bmp = (size.IsEmpty ? new Icon(iconLocation + name + ".ico") : new Icon(iconLocation + name + ".ico", size)).ToBitmap(); // it looks slightly better if you can load it as a icon
+                }
+                catch(Exception) {
+                    bmp = size.IsEmpty ? new Bitmap(iconLocation + name + ".ico") : new Bitmap(Image.FromFile(iconLocation + name + ".ico"), size);
+                }
+            }
+            catch(Exception) {
+                bmp = new Bitmap(1, 1);
+            }
+            return bmp;
+        }
+        public static Bitmap GetIcon(Stream stream, Size size = new Size()) {
+            Bitmap bmp;
+            try {
+                try {
+                    bmp = (size.IsEmpty ? new Icon(stream) : new Icon(stream, size)).ToBitmap(); // it looks slightly better if you can load it as a icon
+                } catch(Exception) {
+                    bmp = size.IsEmpty ? new Bitmap(stream) : new Bitmap(Image.FromStream(stream), size);
+                }
+            } catch(Exception) {
+                bmp = new Bitmap(1, 1);
+            }
+            return bmp;
         }
 
     }

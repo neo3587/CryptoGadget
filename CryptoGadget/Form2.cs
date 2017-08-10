@@ -177,17 +177,8 @@ namespace CryptoGadget {
 
                 coinGrid.Rows.Clear();
 
-                foreach(KeyData coin in data["Coins"]) {
-                    try {
-                        try {
-                            coinGrid.Rows.Add(new Icon(Common.iconLocation + coin.KeyName + ".ico", new Size(16, 16)).ToBitmap(), coin.KeyName, "", coin.Value, "");
-                        } catch(Exception) {
-                            coinGrid.Rows.Add(new Bitmap(Image.FromFile(Common.iconLocation + coin.KeyName + ".ico"), new Size(16, 16)), coin.KeyName, "", coin.Value, "");
-                        }
-                    } catch(Exception) {
-                        coinGrid.Rows.Add(new Bitmap(1, 1), coin.KeyName, "", coin.Value, "");
-                    }
-                }
+                foreach(KeyData coin in data["Coins"]) 
+                    coinGrid.Rows.Add(Common.GetIcon(coin.KeyName, new Size(16, 16)), coin.KeyName, "", coin.Value, "");
 
                 if(coinGrid.RowCount > 0)
                     coinGrid.Rows[0].Selected = true;
@@ -455,13 +446,9 @@ namespace CryptoGadget {
             ofd.FileOk += (f_sender, f_ev) => {
 
                 Stream stream = (f_sender as OpenFileDialog).OpenFile();
-
+                
                 stream.Position = 0;
-                try {
-                    coinGrid.SelectedRows[0].Cells[0].Value = new Icon(stream, new Size(16, 16));
-                } catch(Exception) {
-                    coinGrid.SelectedRows[0].Cells[0].Value = new Bitmap(Image.FromStream(stream), new Size(16, 16));
-                }
+                coinGrid.SelectedRows[0].Cells[0].Value = Common.GetIcon(stream, new Size(16, 16));
                 
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
