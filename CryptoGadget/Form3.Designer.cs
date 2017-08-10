@@ -59,13 +59,13 @@
             // boxCoin
             // 
             this.boxCoin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.boxCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.boxCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.boxCoin.Location = new System.Drawing.Point(12, 25);
             this.boxCoin.Name = "boxCoin";
             this.boxCoin.Size = new System.Drawing.Size(192, 21);
             this.boxCoin.Sorted = true;
             this.boxCoin.TabIndex = 2;
-            this.boxCoin.Click += new System.EventHandler(this.boxCoins_Click);
+            this.boxCoin.Click += new System.EventHandler(this.DropDownOnClick);
             // 
             // label1
             // 
@@ -87,12 +87,14 @@
             // 
             // boxTarget
             // 
+            this.boxTarget.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.boxTarget.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.boxTarget.Location = new System.Drawing.Point(213, 25);
             this.boxTarget.Name = "boxTarget";
             this.boxTarget.Size = new System.Drawing.Size(192, 21);
             this.boxTarget.Sorted = true;
             this.boxTarget.TabIndex = 4;
-            this.boxTarget.Click += new System.EventHandler(this.boxCoins_Click);
+            this.boxTarget.Click += new System.EventHandler(this.DropDownOnClick);
             // 
             // checkOnlyFiat
             // 

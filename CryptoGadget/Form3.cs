@@ -2,11 +2,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 using Newtonsoft.Json.Linq;
-
-
-
 
 
 namespace CryptoGadget {
@@ -14,33 +13,38 @@ namespace CryptoGadget {
     public partial class AddCoinForm : Form {
 
         DataGridView ptrGrid;
+        ConcurrentDictionary<string, string> dict = new ConcurrentDictionary<string, string>();
 
         public AddCoinForm(DataGridView grid) {
 
             InitializeComponent();
-
             ptrGrid = grid;
 
             HandleCreated += (sender, e) => {
 
                 if(Common.json != null) {
-                    foreach(JProperty coin in Common.json["Data"]) {
-                        boxCoin.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
-                        boxTarget.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
-                    }
+
+                    System.Threading.Tasks.Parallel.ForEach(Common.json["Data"], coin => 
+                        dict.TryAdd((coin as JProperty).Value["Name"].ToString(), (coin as JProperty).Value["CoinName"].ToString())
+                    );
+
+                    boxCoin.DataSource = new BindingSource(dict, null);
+                    boxTarget.DataSource = new BindingSource(dict, null);
 
                     boxCoin.SelectedIndex = boxCoin.Items.Count == 0 ? -1 : 0;
                     boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
+                 
                 }
+
             };
 
         }
 
         private void buttonAdd_Click(object sender, EventArgs e) {
 
-            Func<string, string, bool> FindCoin = (l_coin, r_coin) => {
+            Func<string, bool> FindCoin = (l_coin) => {
                 foreach(DataGridViewRow row in ptrGrid.Rows)
-                    if(row.Cells[1].Value.ToString() == l_coin && row.Cells[3].Value.ToString() == r_coin)
+                    if(row.Cells[1].Value.ToString() == l_coin)
                         return true;
                 return false;
             };
@@ -48,13 +52,13 @@ namespace CryptoGadget {
             if(boxCoin.Items.Count <= 0 || boxCoin.SelectedIndex == -1)
                return;
 
-            string coin   = boxCoin.SelectedItem.ToString().Substring(0, boxCoin.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
-            string name   = boxCoin.SelectedItem.ToString().Substring(boxCoin.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
-            string t_coin = boxTarget.SelectedItem.ToString().Substring(0, boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ');
-            string t_name = boxTarget.SelectedItem.ToString().Substring(boxTarget.SelectedItem.ToString().LastIndexOf('(')).Trim(' ', ')', '(');
+            string coin   = ((KeyValuePair<string, string>)boxCoin.SelectedItem).Key.ToString();
+            string name   = ((KeyValuePair<string, string>)boxCoin.SelectedItem).Value.ToString();
+            string t_coin = ((KeyValuePair<string, string>)boxTarget.SelectedItem).Key.ToString();
+            string t_name = ((KeyValuePair<string, string>)boxTarget.SelectedItem).Value.ToString();
 
-            if(FindCoin(coin, t_coin)) {
-                MessageBox.Show(boxCoin.SelectedItem.ToString() + " -> " + boxTarget.SelectedItem.ToString() + " conversion is already being used");
+            if(FindCoin(coin)) {
+                MessageBox.Show(boxCoin.SelectedItem.ToString() +  " is already being used");
                 return;
             }
 
@@ -67,12 +71,14 @@ namespace CryptoGadget {
             Close();
         }
 
-        private void boxCoins_Click(object sender, EventArgs e) {
-            boxCoin.DroppedDown = true;
+        private void DropDownOnClick(object sender, EventArgs e) {
+            (sender as ComboBox).DroppedDown = true;
         }
 
         private void checkOnlyFiat_CheckedChanged(object sender, EventArgs e) {
+            
             boxTarget.Items.Clear();
+
             foreach(JProperty coin in Common.json["Data"]) {
                 if(checkOnlyFiat.Checked && coin.Value["FiatCurrency"] == null) 
                     continue;
