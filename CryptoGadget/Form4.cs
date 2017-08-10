@@ -191,7 +191,7 @@ namespace CryptoGadget {
 
                                         bmp.Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
                                     }
-                                } catch(Exception e) { }
+                                } catch(Exception) { }
                             }
                         } catch(Exception) {
                             Invoke((MethodInvoker)delegate { Close(); });

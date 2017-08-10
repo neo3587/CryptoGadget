@@ -31,6 +31,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.boxTarget = new System.Windows.Forms.ComboBox();
             this.checkOnlyFiat = new System.Windows.Forms.CheckBox();
+            this.checkIndexName = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonAdd
@@ -58,7 +59,7 @@
             // 
             // boxCoin
             // 
-            this.boxCoin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.boxCoin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.boxCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.boxCoin.Location = new System.Drawing.Point(12, 25);
             this.boxCoin.Name = "boxCoin";
@@ -107,6 +108,17 @@
             this.checkOnlyFiat.UseVisualStyleBackColor = true;
             this.checkOnlyFiat.CheckedChanged += new System.EventHandler(this.checkOnlyFiat_CheckedChanged);
             // 
+            // checkIndexAbbr
+            // 
+            this.checkIndexName.AutoSize = true;
+            this.checkIndexName.Location = new System.Drawing.Point(12, 53);
+            this.checkIndexName.Name = "checkIndexAbbr";
+            this.checkIndexName.Size = new System.Drawing.Size(97, 17);
+            this.checkIndexName.TabIndex = 7;
+            this.checkIndexName.Text = "Index by Name";
+            this.checkIndexName.UseVisualStyleBackColor = true;
+            this.checkIndexName.CheckedChanged += new System.EventHandler(this.checkIndexName_CheckedChanged);
+            // 
             // AddCoinForm
             // 
             this.AcceptButton = this.buttonAdd;
@@ -114,6 +126,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonDone;
             this.ClientSize = new System.Drawing.Size(417, 107);
+            this.Controls.Add(this.checkIndexName);
             this.Controls.Add(this.checkOnlyFiat);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.boxTarget);
@@ -142,5 +155,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox boxTarget;
         private System.Windows.Forms.CheckBox checkOnlyFiat;
+        private System.Windows.Forms.CheckBox checkIndexName;
     }
 }

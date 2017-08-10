@@ -3,17 +3,28 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 
 using Newtonsoft.Json.Linq;
+
+using BindList = System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>>;
 
 
 namespace CryptoGadget {
 
+    
+
     public partial class AddCoinForm : Form {
 
         DataGridView ptrGrid;
-        ConcurrentDictionary<string, string> dict = new ConcurrentDictionary<string, string>();
+        BindList pairs = new BindList();
+        BindingSource binds = new BindingSource();
+        BindingSource binds2 = new BindingSource();
+
+        private static void Swap<T>(ref T a, ref T b) {
+            T c = a;
+            a = b;
+            b = c;
+        }
 
         public AddCoinForm(DataGridView grid) {
 
@@ -22,20 +33,23 @@ namespace CryptoGadget {
 
             HandleCreated += (sender, e) => {
 
-                if(Common.json != null) {
+                if(Common.json == null)
+                    Close();
 
-                    System.Threading.Tasks.Parallel.ForEach(Common.json["Data"], coin => 
-                        dict.TryAdd((coin as JProperty).Value["Name"].ToString(), (coin as JProperty).Value["CoinName"].ToString())
-                    );
+                foreach(JProperty coin in Common.json["Data"])
+                    pairs.Add(new KeyValuePair<string, string>(coin.Value["Name"].ToString(), coin.Value["CoinName"].ToString()));
 
-                    boxCoin.DataSource = new BindingSource(dict, null);
-                    boxTarget.DataSource = new BindingSource(dict, null);
+                binds.DataSource = pairs;
+                binds2.DataSource = pairs;
+                
+                boxCoin.DataSource = binds;
+                boxTarget.DataSource = binds2;
 
-                    boxCoin.SelectedIndex = boxCoin.Items.Count == 0 ? -1 : 0;
-                    boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
-                 
-                }
+                boxCoin.SelectedIndex   = boxCoin.Items.Count == 0 ? -1 : 0;
+                boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
 
+                boxCoin.KeyPress += (ksender, ke) => boxCoin.DroppedDown = true;
+                boxTarget.KeyPress += (ksender, ke) => boxTarget.DroppedDown = true;
             };
 
         }
@@ -56,6 +70,11 @@ namespace CryptoGadget {
             string name   = ((KeyValuePair<string, string>)boxCoin.SelectedItem).Value.ToString();
             string t_coin = ((KeyValuePair<string, string>)boxTarget.SelectedItem).Key.ToString();
             string t_name = ((KeyValuePair<string, string>)boxTarget.SelectedItem).Value.ToString();
+
+            if(checkIndexName.Checked) {
+                Swap(ref coin, ref name);
+                Swap(ref t_coin, ref t_name);
+            }
 
             if(FindCoin(coin)) {
                 MessageBox.Show(boxCoin.SelectedItem.ToString() +  " is already being used");
@@ -88,6 +107,15 @@ namespace CryptoGadget {
             boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
         }
 
+        private void checkIndexName_CheckedChanged(object sender, EventArgs e) {
+            
+            BindList bl = new BindList();
+            for(int i = 0; i < pairs.Count; i++)
+                pairs[i] = new  KeyValuePair<string, string>(pairs[i].Value, pairs[i].Key);
+
+            binds.ResetBindings(false);
+            binds2.ResetBindings(false);
+        }
     }
 
 }

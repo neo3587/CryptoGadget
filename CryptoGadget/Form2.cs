@@ -331,7 +331,7 @@ namespace CryptoGadget {
                 Invoke((MethodInvoker)delegate { LoadData(Common.ini); });
             }).Start();
         }
-
+        
 
         private void buttonAccept_Click(object sender, EventArgs e) {
             if(!checkIconVisible.Checked && !checkCoinVisible.Checked && !checkValueVisible.Checked && !checkChangeVisible.Checked) {
