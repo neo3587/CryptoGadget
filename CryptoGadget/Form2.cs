@@ -487,9 +487,9 @@ namespace CryptoGadget {
 
         }
 
-        private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
-        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedInt(sender, e);
-        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedInt(sender, e);
+        private void buttonColorPick(object sender, EventArgs e)    => neo.FormUtil.buttonColorPick(sender, e);
+        private void textSint(object sender, KeyPressEventArgs e)   => neo.FormUtil.textBoxSignedInt(sender, e);
+        private void textUint(object sender, KeyPressEventArgs e)   => neo.FormUtil.textBoxUnsignedInt(sender, e);
         private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedFloat(sender, e);
         private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedFloat(sender, e);
 

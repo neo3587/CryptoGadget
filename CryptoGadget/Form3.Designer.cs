@@ -67,6 +67,7 @@
             this.boxCoin.Sorted = true;
             this.boxCoin.TabIndex = 2;
             this.boxCoin.Click += new System.EventHandler(this.DropDownOnClick);
+            this.boxCoin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
             // 
             // label1
             // 
@@ -96,6 +97,7 @@
             this.boxTarget.Sorted = true;
             this.boxTarget.TabIndex = 4;
             this.boxTarget.Click += new System.EventHandler(this.DropDownOnClick);
+            this.boxTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
             // 
             // checkOnlyFiat
             // 
@@ -108,11 +110,11 @@
             this.checkOnlyFiat.UseVisualStyleBackColor = true;
             this.checkOnlyFiat.CheckedChanged += new System.EventHandler(this.checkOnlyFiat_CheckedChanged);
             // 
-            // checkIndexAbbr
+            // checkIndexName
             // 
             this.checkIndexName.AutoSize = true;
             this.checkIndexName.Location = new System.Drawing.Point(12, 53);
-            this.checkIndexName.Name = "checkIndexAbbr";
+            this.checkIndexName.Name = "checkIndexName";
             this.checkIndexName.Size = new System.Drawing.Size(97, 17);
             this.checkIndexName.TabIndex = 7;
             this.checkIndexName.Text = "Index by Name";

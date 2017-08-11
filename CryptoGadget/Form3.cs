@@ -45,11 +45,9 @@ namespace CryptoGadget {
                 boxCoin.DataSource   = cBind;
                 boxTarget.DataSource = tBind;
 
-                boxCoin.SelectedIndex   = boxCoin.Items.Count == 0 ? -1 : 0;
+                boxCoin.SelectedIndex   = boxCoin.Items.Count   == 0 ? -1 : 0;
                 boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
 
-                boxCoin.KeyPress   += (ksender, ke) => boxCoin.DroppedDown = true;
-                boxTarget.KeyPress += (ksender, ke) => boxTarget.DroppedDown = true;
             };
 
         }
@@ -85,13 +83,8 @@ namespace CryptoGadget {
             ptrGrid.Rows.Insert(insertPos, Common.GetIcon(coin, new Size(16, 16)), coin, name, t_coin, t_name);
             ptrGrid.Rows[Math.Min(ptrGrid.SelectedRows[0].Index +1, ptrGrid.RowCount-1)].Selected = true;
         }
-
         private void buttonDone_Click(object sender, EventArgs e) {
             Close();
-        }
-
-        private void DropDownOnClick(object sender, EventArgs e) {
-            (sender as ComboBox).DroppedDown = true;
         }
 
         private void checkOnlyFiat_CheckedChanged(object sender, EventArgs e) {
@@ -114,7 +107,6 @@ namespace CryptoGadget {
             tBind.ResetBindings(false);
             boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
         }
-
         private void checkIndexName_CheckedChanged(object sender, EventArgs e) {
 
             for(int i = 0; i < pairs.Count; i++)
@@ -131,6 +123,13 @@ namespace CryptoGadget {
 
             boxCoin.SelectedIndex   = boxCoin.Items.Count == 0 ? -1 : 0;
             boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
+        }
+
+        private void DropDownOnClick(object sender, EventArgs e) {
+            (sender as ComboBox).DroppedDown = true;
+        }
+        private void DropDownOnKeyPress(object sender, KeyPressEventArgs e) {
+            (sender as ComboBox).DroppedDown = true;
         }
 
     }
