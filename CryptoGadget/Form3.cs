@@ -17,8 +17,8 @@ namespace CryptoGadget {
 
         DataGridView ptrGrid;
         BindList pairs = new BindList();
-        BindingSource binds = new BindingSource();
-        BindingSource binds2 = new BindingSource();
+        BindingSource cBind = new BindingSource();
+        BindingSource tBind = new BindingSource();
 
         private static void Swap<T>(ref T a, ref T b) {
             T c = a;
@@ -39,16 +39,16 @@ namespace CryptoGadget {
                 foreach(JProperty coin in Common.json["Data"])
                     pairs.Add(new KeyValuePair<string, string>(coin.Value["Name"].ToString(), coin.Value["CoinName"].ToString()));
 
-                binds.DataSource = pairs;
-                binds2.DataSource = pairs;
+                cBind.DataSource = pairs;
+                tBind.DataSource = pairs;
                 
-                boxCoin.DataSource = binds;
-                boxTarget.DataSource = binds2;
+                boxCoin.DataSource   = cBind;
+                boxTarget.DataSource = tBind;
 
                 boxCoin.SelectedIndex   = boxCoin.Items.Count == 0 ? -1 : 0;
                 boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
 
-                boxCoin.KeyPress += (ksender, ke) => boxCoin.DroppedDown = true;
+                boxCoin.KeyPress   += (ksender, ke) => boxCoin.DroppedDown = true;
                 boxTarget.KeyPress += (ksender, ke) => boxTarget.DroppedDown = true;
             };
 
@@ -95,27 +95,44 @@ namespace CryptoGadget {
         }
 
         private void checkOnlyFiat_CheckedChanged(object sender, EventArgs e) {
-            
-            boxTarget.Items.Clear();
 
-            foreach(JProperty coin in Common.json["Data"]) {
-                if(checkOnlyFiat.Checked && coin.Value["FiatCurrency"] == null) 
-                    continue;
-                boxTarget.Items.Add(coin.Value["Name"] + " (" + coin.Value["CoinName"] + ")");
+            if(checkOnlyFiat.Checked) {
+
+                BindList bl = new BindList();
+                string left = !checkIndexName.Checked ? "Name" : "CoinName";
+                string right = checkIndexName.Checked ? "Name" : "CoinName";
+
+                foreach(JProperty coin in Common.json["Data"]) 
+                    if(coin.Value["FiatCurrency"] != null)
+                        bl.Add(new KeyValuePair<string, string>(coin.Value[left].ToString(), coin.Value[right].ToString()));
+                tBind.DataSource = bl;
             }
-            boxCoin.SelectedIndex = boxCoin.Items.Count == 0 ? -1 : 0;
+            else {
+                tBind.DataSource = pairs;
+            }
+
+            tBind.ResetBindings(false);
             boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
         }
 
         private void checkIndexName_CheckedChanged(object sender, EventArgs e) {
-            
-            BindList bl = new BindList();
-            for(int i = 0; i < pairs.Count; i++)
-                pairs[i] = new  KeyValuePair<string, string>(pairs[i].Value, pairs[i].Key);
 
-            binds.ResetBindings(false);
-            binds2.ResetBindings(false);
+            for(int i = 0; i < pairs.Count; i++)
+                pairs[i] = new KeyValuePair<string, string>(pairs[i].Value, pairs[i].Key);
+
+            if(checkOnlyFiat.Checked) {
+                BindList ptr = (tBind.DataSource as BindList);
+                for(int i = 0; i < ptr.Count; i++)
+                    ptr[i] = new KeyValuePair<string, string>(ptr[i].Value, ptr[i].Key);
+            }
+
+            cBind.ResetBindings(false);
+            tBind.ResetBindings(false);
+
+            boxCoin.SelectedIndex   = boxCoin.Items.Count == 0 ? -1 : 0;
+            boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
         }
+
     }
 
 }
