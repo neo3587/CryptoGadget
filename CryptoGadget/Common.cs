@@ -203,6 +203,7 @@ namespace CryptoGadget {
 
         public static Bitmap GetIcon(string name, Size size = new Size()) {
             Bitmap bmp;
+            name = name.ToLower();
             try {
                 try {
                     bmp = (size.IsEmpty ? new Icon(iconLocation + name + ".ico") : new Icon(iconLocation + name + ".ico", size)).ToBitmap(); // it looks slightly better if you can load it as a icon
@@ -212,7 +213,7 @@ namespace CryptoGadget {
                 }
             }
             catch(Exception) {
-                bmp = new Bitmap(1, 1);
+                bmp = new Bitmap(1,1);
             }
             return bmp;
         }
@@ -225,7 +226,7 @@ namespace CryptoGadget {
                     bmp = size.IsEmpty ? new Bitmap(stream) : new Bitmap(Image.FromStream(stream), size);
                 }
             } catch(Exception) {
-                bmp = new Bitmap(1, 1);
+                bmp = new Bitmap(0, 0);
             }
             return bmp;
         }

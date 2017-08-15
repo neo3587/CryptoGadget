@@ -503,6 +503,7 @@ namespace CryptoGadget {
             Enabled = true;
 
         }
+
     }
 
 }

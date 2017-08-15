@@ -148,55 +148,56 @@ namespace CryptoGadget {
                         WebClient client = new WebClient();
                         List<Tuple<string, string>> misses = new List<Tuple<string, string>>();
 
-                        int coinCount = 0;
+                        int coinCount = 0, noUrl = 0, failed = 0;
                         foreach(JToken coin in Common.json["Data"].Values()) {
                             Invoke((MethodInvoker)delegate {
                                 labelProgress.Text = "Searching missing icons (" + coinCount + "/" + ((JObject)Common.json["Data"]).Count + ")";
                                 progressBar.Value = coinCount++;
                             });
-                            try {
-                                new Bitmap(Common.iconLocation + coin["Name"].ToString().ToLower() + ".ico");
-                            } catch(Exception) {
+
+                            if(Common.GetIcon(coin["Name"].ToString()).Height == 1) {
                                 if(coin["ImageUrl"] != null)
                                     misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
+                                else
+                                    noUrl++;
                             }
                         }
-
-                        misses.Add(new Tuple<string, string>("sub", "/media/1383362/sub.png"));
 
                         Invoke((MethodInvoker)delegate {
                             progressBar.Maximum = misses.Count;
                         });
+                        
+                        for(int i = 0; i < misses.Count; i++) {
+                            try {
+                                Invoke((MethodInvoker)delegate {
+                                    labelProgress.Text = "Downloading Missing Icons (" + i + "/" + misses.Count + ")";
+                                    progressBar.Value = i;
+                                });
+                                using(MemoryStream data = new MemoryStream()) {
+                                    byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
+                                    data.Write(buffer, 0, buffer.Length);
 
-                        try {
-                            for(int i = 0; i < misses.Count; i++) {
-                                try {
-                                    Invoke((MethodInvoker)delegate {
-                                        labelProgress.Text = "Downloading Missing Icons (" + i + "/" + misses.Count + ")";
-                                        progressBar.Value = i;
-                                    });
-                                    using(MemoryStream data = new MemoryStream()) {
-                                        byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
-                                        data.Write(buffer, 0, buffer.Length);
-
-                                        Bitmap bmp = new Bitmap(32, 32);
-
-                                        // Minimum quality loss resize
-                                        using(Graphics gr = Graphics.FromImage(bmp)) {
-                                            gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                                            gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                                            gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                                            gr.DrawImage(Image.FromStream(data), new Rectangle(0, 0, 32, 32));
-                                        }
-
-                                        bmp.Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+                                    Bitmap bmp = new Bitmap(32, 32);
+                                    
+                                    // Minimum quality loss resize
+                                    using(Graphics gr = Graphics.FromImage(bmp)) {
+                                        gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                                        gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                                        gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                                        gr.DrawImage(Image.FromStream(data), new Rectangle(0, 0, 32, 32));
                                     }
-                                } catch(Exception) { }
+
+                                    bmp.Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+                                }
+                            } catch(Exception) {
+                                failed++;
                             }
-                        } catch(Exception) {
-                            Invoke((MethodInvoker)delegate { Close(); });
-                            return;
                         }
+
+                        MessageBox.Show((misses.Count - failed).ToString() + " icons were downloaded\n" +
+                                        noUrl.ToString() + " coins doesn't have an associated download address\n" + 
+                                        failed.ToString() + " icons couldn't be downloaded");
+
 
                         Invoke((MethodInvoker)delegate { Close(); });
 

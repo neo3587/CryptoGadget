@@ -27,7 +27,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.buttonAccept = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.coinGrid = new System.Windows.Forms.DataGridView();
             this.img = new System.Windows.Forms.DataGridViewImageColumn();
@@ -41,11 +40,11 @@
             this.buttonDown = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
             this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
             this.buttonDownloadList = new System.Windows.Forms.Button();
             this.buttonAddIcon = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
-            this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.buttonDefaultBasic = new System.Windows.Forms.Button();
             this.checkShowPercentage = new System.Windows.Forms.CheckBox();
@@ -120,18 +119,23 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.boxValueWidth = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAccept
@@ -156,15 +160,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Refresh Rate (sec):";
             // 
             // textBox1
             // 
@@ -304,7 +299,6 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -313,15 +307,18 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.numericUpDown2);
+            this.tabPage1.Controls.Add(this.label32);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.numericUpDown1);
+            this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
             this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
             this.tabPage1.Controls.Add(this.buttonDownloadList);
             this.tabPage1.Controls.Add(this.buttonAddIcon);
             this.tabPage1.Controls.Add(this.buttonCheck);
-            this.tabPage1.Controls.Add(this.numericRefreshRate);
             this.tabPage1.Controls.Add(this.coinGrid);
             this.tabPage1.Controls.Add(this.buttonDown);
             this.tabPage1.Controls.Add(this.buttonUp);
-            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonAdd);
             this.tabPage1.Controls.Add(this.buttonSub);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -331,6 +328,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Currencies";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // buttonDownloadMissingIcons
+            // 
+            this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(214, 353);
+            this.buttonDownloadMissingIcons.Name = "buttonDownloadMissingIcons";
+            this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(153, 23);
+            this.buttonDownloadMissingIcons.TabIndex = 57;
+            this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
+            this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
+            this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
             // 
             // buttonDefaultCurrencies
             // 
@@ -379,38 +386,10 @@
             this.buttonCheck.UseVisualStyleBackColor = true;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
-            // numericRefreshRate
-            // 
-            this.numericRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericRefreshRate.DecimalPlaces = 2;
-            this.numericRefreshRate.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericRefreshRate.Location = new System.Drawing.Point(111, 6);
-            this.numericRefreshRate.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numericRefreshRate.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numericRefreshRate.Name = "numericRefreshRate";
-            this.numericRefreshRate.Size = new System.Drawing.Size(97, 20);
-            this.numericRefreshRate.TabIndex = 24;
-            this.numericRefreshRate.ThousandsSeparator = true;
-            this.numericRefreshRate.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.numericRefreshRate);
+            this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.buttonDefaultBasic);
             this.tabPage2.Controls.Add(this.checkShowPercentage);
             this.tabPage2.Controls.Add(this.checkRefreshVisible);
@@ -422,8 +401,6 @@
             this.tabPage2.Controls.Add(this.checkCoinVisible);
             this.tabPage2.Controls.Add(this.checkIconVisible);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.boxTheme);
-            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -446,7 +423,7 @@
             // checkShowPercentage
             // 
             this.checkShowPercentage.AutoSize = true;
-            this.checkShowPercentage.Location = new System.Drawing.Point(10, 240);
+            this.checkShowPercentage.Location = new System.Drawing.Point(11, 270);
             this.checkShowPercentage.Name = "checkShowPercentage";
             this.checkShowPercentage.Size = new System.Drawing.Size(165, 17);
             this.checkShowPercentage.TabIndex = 54;
@@ -557,6 +534,8 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.buttonColorHeaderBackGround);
             this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.boxTheme);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.buttonColorCoins);
             this.groupBox2.Controls.Add(this.buttonColorBackGround1);
@@ -566,16 +545,16 @@
             this.groupBox2.Controls.Add(this.buttonColorNegativeChange);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.buttonColorPositiveChange);
-            this.groupBox2.Location = new System.Drawing.Point(7, 35);
+            this.groupBox2.Location = new System.Drawing.Point(6, 33);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(322, 199);
+            this.groupBox2.Size = new System.Drawing.Size(322, 230);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Colors";
             // 
             // buttonColorHeaderText
             // 
-            this.buttonColorHeaderText.Location = new System.Drawing.Point(117, 133);
+            this.buttonColorHeaderText.Location = new System.Drawing.Point(119, 166);
             this.buttonColorHeaderText.Name = "buttonColorHeaderText";
             this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
             this.buttonColorHeaderText.TabIndex = 57;
@@ -585,7 +564,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 138);
+            this.label13.Location = new System.Drawing.Point(8, 171);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(66, 13);
             this.label13.TabIndex = 56;
@@ -594,7 +573,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(160, 80);
+            this.label8.Location = new System.Drawing.Point(162, 113);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 13);
             this.label8.TabIndex = 54;
@@ -602,7 +581,7 @@
             // 
             // buttonColorNegativeRefresh
             // 
-            this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(271, 75);
+            this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(273, 108);
             this.buttonColorNegativeRefresh.Name = "buttonColorNegativeRefresh";
             this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonColorNegativeRefresh.TabIndex = 55;
@@ -612,7 +591,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 80);
+            this.label7.Location = new System.Drawing.Point(8, 113);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 13);
             this.label7.TabIndex = 52;
@@ -621,7 +600,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 51);
+            this.label5.Location = new System.Drawing.Point(8, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 1;
@@ -629,7 +608,7 @@
             // 
             // buttonColorPositiveRefresh
             // 
-            this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(117, 75);
+            this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(119, 108);
             this.buttonColorPositiveRefresh.Name = "buttonColorPositiveRefresh";
             this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonColorPositiveRefresh.TabIndex = 53;
@@ -638,7 +617,7 @@
             // 
             // buttonColorValues
             // 
-            this.buttonColorValues.Location = new System.Drawing.Point(271, 17);
+            this.buttonColorValues.Location = new System.Drawing.Point(273, 50);
             this.buttonColorValues.Name = "buttonColorValues";
             this.buttonColorValues.Size = new System.Drawing.Size(23, 23);
             this.buttonColorValues.TabIndex = 24;
@@ -648,7 +627,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 22);
+            this.label4.Location = new System.Drawing.Point(8, 55);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 0;
@@ -657,7 +636,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(160, 22);
+            this.label31.Location = new System.Drawing.Point(162, 55);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(42, 13);
             this.label31.TabIndex = 23;
@@ -666,7 +645,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(160, 51);
+            this.label6.Location = new System.Drawing.Point(162, 84);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
             this.label6.TabIndex = 2;
@@ -674,7 +653,7 @@
             // 
             // buttonColorHeaderBackGround
             // 
-            this.buttonColorHeaderBackGround.Location = new System.Drawing.Point(271, 133);
+            this.buttonColorHeaderBackGround.Location = new System.Drawing.Point(273, 166);
             this.buttonColorHeaderBackGround.Name = "buttonColorHeaderBackGround";
             this.buttonColorHeaderBackGround.Size = new System.Drawing.Size(23, 23);
             this.buttonColorHeaderBackGround.TabIndex = 21;
@@ -684,7 +663,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(160, 138);
+            this.label14.Location = new System.Drawing.Point(162, 171);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(105, 13);
             this.label14.TabIndex = 20;
@@ -693,7 +672,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 109);
+            this.label9.Location = new System.Drawing.Point(8, 142);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(84, 13);
             this.label9.TabIndex = 5;
@@ -701,7 +680,7 @@
             // 
             // buttonColorCoins
             // 
-            this.buttonColorCoins.Location = new System.Drawing.Point(117, 17);
+            this.buttonColorCoins.Location = new System.Drawing.Point(119, 50);
             this.buttonColorCoins.Name = "buttonColorCoins";
             this.buttonColorCoins.Size = new System.Drawing.Size(23, 23);
             this.buttonColorCoins.TabIndex = 6;
@@ -710,7 +689,7 @@
             // 
             // buttonColorBackGround1
             // 
-            this.buttonColorBackGround1.Location = new System.Drawing.Point(117, 46);
+            this.buttonColorBackGround1.Location = new System.Drawing.Point(119, 79);
             this.buttonColorBackGround1.Name = "buttonColorBackGround1";
             this.buttonColorBackGround1.Size = new System.Drawing.Size(23, 23);
             this.buttonColorBackGround1.TabIndex = 7;
@@ -719,7 +698,7 @@
             // 
             // buttonColorEdge
             // 
-            this.buttonColorEdge.Location = new System.Drawing.Point(117, 162);
+            this.buttonColorEdge.Location = new System.Drawing.Point(119, 195);
             this.buttonColorEdge.Name = "buttonColorEdge";
             this.buttonColorEdge.Size = new System.Drawing.Size(23, 23);
             this.buttonColorEdge.TabIndex = 17;
@@ -728,7 +707,7 @@
             // 
             // buttonColorBackGround2
             // 
-            this.buttonColorBackGround2.Location = new System.Drawing.Point(271, 46);
+            this.buttonColorBackGround2.Location = new System.Drawing.Point(273, 79);
             this.buttonColorBackGround2.Name = "buttonColorBackGround2";
             this.buttonColorBackGround2.Size = new System.Drawing.Size(23, 23);
             this.buttonColorBackGround2.TabIndex = 8;
@@ -738,7 +717,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 167);
+            this.label12.Location = new System.Drawing.Point(8, 200);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 13);
             this.label12.TabIndex = 16;
@@ -746,7 +725,7 @@
             // 
             // buttonColorNegativeChange
             // 
-            this.buttonColorNegativeChange.Location = new System.Drawing.Point(271, 104);
+            this.buttonColorNegativeChange.Location = new System.Drawing.Point(273, 137);
             this.buttonColorNegativeChange.Name = "buttonColorNegativeChange";
             this.buttonColorNegativeChange.Size = new System.Drawing.Size(23, 23);
             this.buttonColorNegativeChange.TabIndex = 15;
@@ -756,7 +735,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(160, 109);
+            this.label11.Location = new System.Drawing.Point(162, 142);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(90, 13);
             this.label11.TabIndex = 14;
@@ -764,7 +743,7 @@
             // 
             // buttonColorPositiveChange
             // 
-            this.buttonColorPositiveChange.Location = new System.Drawing.Point(117, 104);
+            this.buttonColorPositiveChange.Location = new System.Drawing.Point(119, 137);
             this.buttonColorPositiveChange.Name = "buttonColorPositiveChange";
             this.buttonColorPositiveChange.Size = new System.Drawing.Size(23, 23);
             this.buttonColorPositiveChange.TabIndex = 11;
@@ -777,7 +756,7 @@
             this.boxTheme.Items.AddRange(new object[] {
             "Light",
             "Dark"});
-            this.boxTheme.Location = new System.Drawing.Point(55, 8);
+            this.boxTheme.Location = new System.Drawing.Point(56, 19);
             this.boxTheme.Name = "boxTheme";
             this.boxTheme.Size = new System.Drawing.Size(121, 21);
             this.boxTheme.TabIndex = 41;
@@ -786,7 +765,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 11);
+            this.label10.Location = new System.Drawing.Point(8, 22);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(46, 13);
             this.label10.TabIndex = 40;
@@ -1217,26 +1196,98 @@
             this.boxValueWidth.TabIndex = 8;
             this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
-            // tabPage4
+            // numericRefreshRate
             // 
-            this.tabPage4.Controls.Add(this.buttonDownloadMissingIcons);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(454, 382);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Experimental";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.numericRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericRefreshRate.DecimalPlaces = 2;
+            this.numericRefreshRate.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericRefreshRate.Location = new System.Drawing.Point(110, 7);
+            this.numericRefreshRate.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericRefreshRate.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericRefreshRate.Name = "numericRefreshRate";
+            this.numericRefreshRate.Size = new System.Drawing.Size(97, 20);
+            this.numericRefreshRate.TabIndex = 59;
+            this.numericRefreshRate.ThousandsSeparator = true;
+            this.numericRefreshRate.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
-            // buttonDownloadMissingIcons
+            // label1
             // 
-            this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(10, 10);
-            this.buttonDownloadMissingIcons.Name = "buttonDownloadMissingIcons";
-            this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(90, 44);
-            this.buttonDownloadMissingIcons.TabIndex = 0;
-            this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
-            this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
-            this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Refresh Rate (sec):";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 14;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            917504});
+            this.numericUpDown1.Location = new System.Drawing.Point(92, 6);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 58;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.TabIndex = 60;
+            this.label2.Text = "Min. Threshold:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(236, 8);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(83, 13);
+            this.label32.TabIndex = 61;
+            this.label32.Text = "Max. Threshold:";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DecimalPlaces = 14;
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            917504});
+            this.numericUpDown2.Location = new System.Drawing.Point(325, 6);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown2.TabIndex = 62;
             // 
             // SettingsForm
             // 
@@ -1258,7 +1309,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1267,7 +1317,9 @@
             this.tabPage3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1276,7 +1328,6 @@
         #endregion
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonSub;
@@ -1287,12 +1338,10 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         internal System.Windows.Forms.DataGridView coinGrid;
-        private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button buttonCheck;
         private System.Windows.Forms.Button buttonAddIcon;
         private System.Windows.Forms.Button buttonDownloadList;
-        private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.CheckBox checkRefreshVisible;
         private System.Windows.Forms.CheckBox checkStartup;
         private System.Windows.Forms.CheckBox checkEdgeVisible;
@@ -1367,10 +1416,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn target;
         private System.Windows.Forms.DataGridViewTextBoxColumn targetName;
-        private System.Windows.Forms.Button buttonDownloadMissingIcons;
         private System.Windows.Forms.CheckBox checkShowPercentage;
         private System.Windows.Forms.Button buttonDefaultCurrencies;
         private System.Windows.Forms.Button buttonDefaultBasic;
         private System.Windows.Forms.Button buttonDefaultAdvanced;
+        private System.Windows.Forms.Button buttonDownloadMissingIcons;
+        private System.Windows.Forms.NumericUpDown numericRefreshRate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }

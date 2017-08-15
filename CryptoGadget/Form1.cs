@@ -21,11 +21,11 @@ using neo;
 /* IDEAS:
  - Graphs (will require a new tab)
  - Independent Right-Click context for each row (visit website, show graph, dunno what else)
- - CoinName tooltip on MainForm coinGrid
+ - Alarm when a configurable threshold is passed
 */
 
 /* TODO:
- - Fix unable to have 2 instance of the same coin with differents target coins
+ - Fix unable to have 2 instance of the same coin with differents target coins (new ini library required)
 */
 
 
@@ -49,12 +49,12 @@ namespace CryptoGadget {
             Stopwatch watch = Stopwatch.StartNew();
 
             Func<double, int, int, double> AdaptValue = (val, maxDigit, maxDecimal) => {
-                int decimals = maxDigit - (int)Math.Floor(Math.Log10(Math.Abs(val) < 1.0 ? 1.0 : Math.Abs(val)) + 1);
-                return Math.Round(val, decimals <= maxDecimal ? decimals : maxDecimal);
+                int decimals = Math.Min(maxDecimal, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
+                return Math.Round(val, Math.Max(0, Math.Min(decimals, 15)));
             };
             Func<double, int, int, string> AdaptValueStr = (val, maxDigit, maxDecimal) => {
-                int decimals = maxDigit - (int)Math.Floor(Math.Log10(Math.Abs(val) < 1.0 ? 1.0 : Math.Abs(val)) + 1);
-                return val.ToString("0." + new string('0', decimals <= maxDecimal ? decimals : maxDecimal));
+                int decimals = Math.Min(maxDecimal, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
+                return val.ToString("0." + new string('0', Math.Max(0, decimals)));
             };
 
             List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
@@ -278,7 +278,7 @@ namespace CryptoGadget {
 
                 #region Coin Rows Init
 
-                foreach(var conv in Data.converts) {
+                foreach(Tuple<string, string> conv in Data.converts) {
                   
                     int size = Data.metrics.iconSize;
                     Bitmap bmp = new Bitmap(size, size);
@@ -292,7 +292,6 @@ namespace CryptoGadget {
                     }
 
                     coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
-                    
                 }
 
                 #endregion
@@ -359,6 +358,7 @@ namespace CryptoGadget {
                     }
                 }
 
+                // Open on Startup
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 if((regKey.GetValue("CryptoGadget", null) != null) != Data.others.openStartup) {
                     if(Data.others.openStartup)
@@ -366,6 +366,7 @@ namespace CryptoGadget {
                     else
                         regKey.DeleteValue("CryptoGadget", false);
                 }
+
 
                 #endregion
 
