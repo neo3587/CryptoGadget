@@ -114,8 +114,6 @@ namespace CryptoGadget {
                 data["Coins"]["XRP"] = "USD";
                 data["Coins"]["DCR"] = "USD";
                 data["Coins"]["XMR"] = "USD";
-
-                data["Others"]["RefreshRate"] = "10";
             }
 
             if((dt & DefaultType.Basic) != 0) {
@@ -127,6 +125,7 @@ namespace CryptoGadget {
                 data["Visibility"]["Edge"]    = "True";
                 data["Visibility"]["Refresh"] = "True";
 
+                data["Others"]["RefreshRate"] = "20";
                 data["Others"]["OpenStartup"] = "False";
                 data["Others"]["ShowPercentage"] = "False";
             }

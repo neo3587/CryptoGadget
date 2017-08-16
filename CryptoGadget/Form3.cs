@@ -20,21 +20,12 @@ namespace CryptoGadget {
         BindingSource cBind = new BindingSource();
         BindingSource tBind = new BindingSource();
 
-        private static void Swap<T>(ref T a, ref T b) {
-            T c = a;
-            a = b;
-            b = c;
-        }
-
         public AddCoinForm(DataGridView grid) {
 
             InitializeComponent();
             ptrGrid = grid;
 
             HandleCreated += (sender, e) => {
-
-                if(Common.json == null)
-                    Close();
 
                 foreach(JProperty coin in Common.json["Data"])
                     pairs.Add(new KeyValuePair<string, string>(coin.Value["Name"].ToString(), coin.Value["CoinName"].ToString()));
@@ -45,8 +36,8 @@ namespace CryptoGadget {
                 boxCoin.DataSource   = cBind;
                 boxTarget.DataSource = tBind;
 
-                boxCoin.SelectedIndex   = boxCoin.Items.Count   == 0 ? -1 : 0;
-                boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
+                boxCoin.SelectedIndex   = 0;
+                boxTarget.SelectedIndex = Math.Max(boxTarget.FindStringExact("[USD, United States Dollar]"), 0);
 
             };
 
@@ -61,26 +52,21 @@ namespace CryptoGadget {
                 return false;
             };
 
-            if(boxCoin.Items.Count <= 0 || boxCoin.SelectedIndex == -1)
-               return;
-
-            string coin   = ((KeyValuePair<string, string>)boxCoin.SelectedItem).Key.ToString();
-            string name   = ((KeyValuePair<string, string>)boxCoin.SelectedItem).Value.ToString();
-            string t_coin = ((KeyValuePair<string, string>)boxTarget.SelectedItem).Key.ToString();
-            string t_name = ((KeyValuePair<string, string>)boxTarget.SelectedItem).Value.ToString();
+            KeyValuePair<string, string> left = (KeyValuePair<string, string>)boxCoin.SelectedItem;
+            KeyValuePair<string, string> right = (KeyValuePair<string, string>)boxTarget.SelectedItem;
 
             if(checkIndexName.Checked) {
-                Swap(ref coin, ref name);
-                Swap(ref t_coin, ref t_name);
+                left = new KeyValuePair<string, string>(left.Value, left.Key);
+                right = new KeyValuePair<string, string>(right.Value, right.Key);
             }
 
-            if(FindCoin(coin)) {
+            if(FindCoin(left.Key)) {
                 MessageBox.Show(boxCoin.SelectedItem.ToString() +  " is already being used");
                 return;
             }
 
             int insertPos = ptrGrid.SelectedRows.Count > 0 ? ptrGrid.SelectedRows[0].Index +1 : 0;
-            ptrGrid.Rows.Insert(insertPos, Common.GetIcon(coin, new Size(16, 16)), coin, name, t_coin, t_name);
+            ptrGrid.Rows.Insert(insertPos, Common.GetIcon(left.Key, new Size(16, 16)), left.Key, left.Value, right.Key, right.Value);
             ptrGrid.Rows[Math.Min(ptrGrid.SelectedRows[0].Index +1, ptrGrid.RowCount-1)].Selected = true;
         }
         private void buttonDone_Click(object sender, EventArgs e) {
@@ -105,9 +91,12 @@ namespace CryptoGadget {
             }
 
             tBind.ResetBindings(false);
-            boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
+            boxTarget.SelectedIndex = 0;
         }
         private void checkIndexName_CheckedChanged(object sender, EventArgs e) {
+
+            string i_left =  "[" + ((KeyValuePair<string, string>)boxCoin.SelectedItem).Value   + ", " + ((KeyValuePair<string, string>)boxCoin.SelectedItem).Key   + "]";
+            string i_right = "[" + ((KeyValuePair<string, string>)boxTarget.SelectedItem).Value + ", " + ((KeyValuePair<string, string>)boxTarget.SelectedItem).Key + "]";
 
             for(int i = 0; i < pairs.Count; i++)
                 pairs[i] = new KeyValuePair<string, string>(pairs[i].Value, pairs[i].Key);
@@ -121,8 +110,8 @@ namespace CryptoGadget {
             cBind.ResetBindings(false);
             tBind.ResetBindings(false);
 
-            boxCoin.SelectedIndex   = boxCoin.Items.Count == 0 ? -1 : 0;
-            boxTarget.SelectedIndex = boxTarget.Items.Count == 0 ? -1 : 0;
+            boxCoin.SelectedIndex   = boxCoin.FindStringExact(i_left);
+            boxTarget.SelectedIndex = boxTarget.FindStringExact(i_right);
         }
 
         private void DropDownOnClick(object sender, EventArgs e) {

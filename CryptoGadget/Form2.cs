@@ -349,6 +349,10 @@ namespace CryptoGadget {
 
         
         private void buttonAdd_Click(object sender, EventArgs e) {
+            if(Common.json == null) {
+                MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
+                return;
+            }
             AddCoinForm form = new AddCoinForm(coinGrid);
             form.ShowDialog();
         }

@@ -46,6 +46,8 @@
             this.buttonAddIcon = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.buttonDefaultBasic = new System.Windows.Forms.Button();
             this.checkShowPercentage = new System.Windows.Forms.CheckBox();
             this.checkRefreshVisible = new System.Windows.Forms.CheckBox();
@@ -70,6 +72,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.buttonColorHeaderBackGround = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
+            this.boxTheme = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonColorCoins = new System.Windows.Forms.Button();
             this.buttonColorBackGround1 = new System.Windows.Forms.Button();
@@ -79,8 +83,6 @@
             this.buttonColorNegativeChange = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonColorPositiveChange = new System.Windows.Forms.Button();
-            this.boxTheme = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.checkLockPosition = new System.Windows.Forms.CheckBox();
@@ -120,28 +122,20 @@
             this.label17 = new System.Windows.Forms.Label();
             this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAccept
             // 
             this.buttonAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAccept.Location = new System.Drawing.Point(307, 414);
+            this.buttonAccept.Location = new System.Drawing.Point(307, 468);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 4;
@@ -153,7 +147,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(387, 414);
+            this.buttonCancel.Location = new System.Drawing.Point(387, 468);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -165,7 +159,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(9, 419);
+            this.textBox1.Location = new System.Drawing.Point(9, 473);
             this.textBox1.MaxLength = 100;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -181,8 +175,9 @@
             this.coinGrid.AllowUserToDeleteRows = false;
             this.coinGrid.AllowUserToResizeColumns = false;
             this.coinGrid.AllowUserToResizeRows = false;
-            this.coinGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.coinGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.coinGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.img,
@@ -190,13 +185,13 @@
             this.name,
             this.target,
             this.targetName});
-            this.coinGrid.Location = new System.Drawing.Point(6, 32);
+            this.coinGrid.Location = new System.Drawing.Point(7, 6);
             this.coinGrid.MultiSelect = false;
             this.coinGrid.Name = "coinGrid";
             this.coinGrid.ReadOnly = true;
             this.coinGrid.RowHeadersVisible = false;
             this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.coinGrid.Size = new System.Drawing.Size(407, 315);
+            this.coinGrid.Size = new System.Drawing.Size(407, 395);
             this.coinGrid.TabIndex = 10;
             // 
             // img
@@ -302,15 +297,11 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(462, 408);
+            this.tabControl1.Size = new System.Drawing.Size(462, 462);
             this.tabControl1.TabIndex = 19;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.numericUpDown2);
-            this.tabPage1.Controls.Add(this.label32);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.numericUpDown1);
             this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
             this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
             this.tabPage1.Controls.Add(this.buttonDownloadList);
@@ -324,25 +315,27 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(454, 382);
+            this.tabPage1.Size = new System.Drawing.Size(454, 436);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Currencies";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonDownloadMissingIcons
             // 
-            this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(214, 353);
+            this.buttonDownloadMissingIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(214, 407);
             this.buttonDownloadMissingIcons.Name = "buttonDownloadMissingIcons";
             this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(153, 23);
             this.buttonDownloadMissingIcons.TabIndex = 57;
             this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
+            this.toolTip1.SetToolTip(this.buttonDownloadMissingIcons, "Downloads any missing icon if possible, note that this may take a while");
             this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
             this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
             // 
             // buttonDefaultCurrencies
             // 
             this.buttonDefaultCurrencies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaultCurrencies.Location = new System.Drawing.Point(373, 353);
+            this.buttonDefaultCurrencies.Location = new System.Drawing.Point(373, 407);
             this.buttonDefaultCurrencies.Name = "buttonDefaultCurrencies";
             this.buttonDefaultCurrencies.Size = new System.Drawing.Size(75, 23);
             this.buttonDefaultCurrencies.TabIndex = 56;
@@ -353,7 +346,7 @@
             // buttonDownloadList
             // 
             this.buttonDownloadList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDownloadList.Location = new System.Drawing.Point(6, 353);
+            this.buttonDownloadList.Location = new System.Drawing.Point(6, 407);
             this.buttonDownloadList.Name = "buttonDownloadList";
             this.buttonDownloadList.Size = new System.Drawing.Size(121, 23);
             this.buttonDownloadList.TabIndex = 27;
@@ -377,7 +370,7 @@
             // buttonCheck
             // 
             this.buttonCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCheck.Location = new System.Drawing.Point(133, 353);
+            this.buttonCheck.Location = new System.Drawing.Point(133, 407);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(75, 23);
             this.buttonCheck.TabIndex = 25;
@@ -404,10 +397,49 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(454, 382);
+            this.tabPage2.Size = new System.Drawing.Size(454, 436);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Basic";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // numericRefreshRate
+            // 
+            this.numericRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericRefreshRate.DecimalPlaces = 2;
+            this.numericRefreshRate.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericRefreshRate.Location = new System.Drawing.Point(110, 7);
+            this.numericRefreshRate.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericRefreshRate.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericRefreshRate.Name = "numericRefreshRate";
+            this.numericRefreshRate.Size = new System.Drawing.Size(97, 20);
+            this.numericRefreshRate.TabIndex = 59;
+            this.numericRefreshRate.ThousandsSeparator = true;
+            this.numericRefreshRate.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Refresh Rate (sec):";
             // 
             // buttonDefaultBasic
             // 
@@ -669,6 +701,27 @@
             this.label14.TabIndex = 20;
             this.label14.Text = "HeaderBackGround:";
             // 
+            // boxTheme
+            // 
+            this.boxTheme.FormattingEnabled = true;
+            this.boxTheme.Items.AddRange(new object[] {
+            "Light",
+            "Dark"});
+            this.boxTheme.Location = new System.Drawing.Point(56, 19);
+            this.boxTheme.Name = "boxTheme";
+            this.boxTheme.Size = new System.Drawing.Size(121, 21);
+            this.boxTheme.TabIndex = 41;
+            this.boxTheme.SelectedIndexChanged += new System.EventHandler(this.boxTheme_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 13);
+            this.label10.TabIndex = 40;
+            this.label10.Text = "Theme: ";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -750,27 +803,6 @@
             this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
             this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
             // 
-            // boxTheme
-            // 
-            this.boxTheme.FormattingEnabled = true;
-            this.boxTheme.Items.AddRange(new object[] {
-            "Light",
-            "Dark"});
-            this.boxTheme.Location = new System.Drawing.Point(56, 19);
-            this.boxTheme.Name = "boxTheme";
-            this.boxTheme.Size = new System.Drawing.Size(121, 21);
-            this.boxTheme.TabIndex = 41;
-            this.boxTheme.SelectedIndexChanged += new System.EventHandler(this.boxTheme_SelectedIndexChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 22);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(46, 13);
-            this.label10.TabIndex = 40;
-            this.label10.Text = "Theme: ";
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
@@ -792,7 +824,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(454, 382);
+            this.tabPage3.Size = new System.Drawing.Size(454, 436);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Advanced";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1196,106 +1228,13 @@
             this.boxValueWidth.TabIndex = 8;
             this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
-            // numericRefreshRate
-            // 
-            this.numericRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericRefreshRate.DecimalPlaces = 2;
-            this.numericRefreshRate.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericRefreshRate.Location = new System.Drawing.Point(110, 7);
-            this.numericRefreshRate.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numericRefreshRate.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numericRefreshRate.Name = "numericRefreshRate";
-            this.numericRefreshRate.Size = new System.Drawing.Size(97, 20);
-            this.numericRefreshRate.TabIndex = 59;
-            this.numericRefreshRate.ThousandsSeparator = true;
-            this.numericRefreshRate.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 58;
-            this.label1.Text = "Refresh Rate (sec):";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DecimalPlaces = 14;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            917504});
-            this.numericUpDown1.Location = new System.Drawing.Point(92, 6);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 58;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
-            this.label2.TabIndex = 60;
-            this.label2.Text = "Min. Threshold:";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(236, 8);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(83, 13);
-            this.label32.TabIndex = 61;
-            this.label32.Text = "Max. Threshold:";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.DecimalPlaces = 14;
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            917504});
-            this.numericUpDown2.Location = new System.Drawing.Point(325, 6);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 62;
-            // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(467, 442);
+            this.ClientSize = new System.Drawing.Size(467, 496);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonCancel);
@@ -1308,18 +1247,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1423,9 +1359,5 @@
         private System.Windows.Forms.Button buttonDownloadMissingIcons;
         private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
