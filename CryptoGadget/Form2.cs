@@ -190,9 +190,6 @@ namespace CryptoGadget {
                     }
                 }
 
-                numericRefreshRate.Minimum = 3.00m + (coinGrid.RowCount <= 10 ? 0 : (coinGrid.RowCount - 10) * 0.25m);
-                numericRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
-
             }
 
             if((dt & DataType.Basic) != 0) {
@@ -206,6 +203,9 @@ namespace CryptoGadget {
                 checkRefreshVisible.Checked = bool.Parse(data["Visibility"]["Refresh"]);
                 checkStartup.Checked        = bool.Parse(data["Others"]["OpenStartup"]);
                 checkShowPercentage.Checked = bool.Parse(data["Others"]["ShowPercentage"]);
+
+                numericRefreshRate.Minimum = 3.00m;
+                numericRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
             }
 
             if((dt & DataType.Colors) != 0) {
