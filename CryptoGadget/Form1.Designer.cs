@@ -62,6 +62,7 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.coinGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            this.coinGrid.Enabled = false;
             this.coinGrid.EnableHeadersVisualStyles = false;
             this.coinGrid.Location = new System.Drawing.Point(0, 0);
             this.coinGrid.MultiSelect = false;
@@ -71,6 +72,7 @@
             this.coinGrid.RowHeadersVisible = false;
             this.coinGrid.RowTemplate.ReadOnly = true;
             this.coinGrid.ShowCellErrors = false;
+            this.coinGrid.ShowCellToolTips = false;
             this.coinGrid.ShowEditingIcon = false;
             this.coinGrid.ShowRowErrors = false;
             this.coinGrid.Size = new System.Drawing.Size(182, 22);

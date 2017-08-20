@@ -30,3 +30,4 @@ F:\Projects\CryptoGadget\CryptoGadget\obj\Release\CryptoGadget.Properties.Resour
 F:\Projects\CryptoGadget\CryptoGadget\obj\Release\CryptoGadget.csproj.GenerateResource.Cache
 F:\Projects\CryptoGadget\CryptoGadget\obj\Release\CryptoGadget.exe
 F:\Projects\CryptoGadget\CryptoGadget\obj\Release\CryptoGadget.pdb
+F:\Projects\CryptoGadget\CryptoGadget\obj\Release\CryptoGadget.SettingsCoinForm.resources

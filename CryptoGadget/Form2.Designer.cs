@@ -122,12 +122,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.groupWarning = new System.Windows.Forms.GroupBox();
+            this.buttonCoinSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -136,9 +131,6 @@
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            this.groupWarning.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAccept
@@ -200,7 +192,7 @@
             this.coinGrid.ReadOnly = true;
             this.coinGrid.RowHeadersVisible = false;
             this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.coinGrid.Size = new System.Drawing.Size(407, 329);
+            this.coinGrid.Size = new System.Drawing.Size(407, 395);
             this.coinGrid.TabIndex = 10;
             // 
             // img
@@ -311,7 +303,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupWarning);
+            this.tabPage1.Controls.Add(this.buttonCoinSettings);
             this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
             this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
             this.tabPage1.Controls.Add(this.buttonDownloadList);
@@ -1238,87 +1230,15 @@
             this.boxValueWidth.TabIndex = 8;
             this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
-            // numericUpDown1
+            // buttonCoinSettings
             // 
-            this.numericUpDown1.DecimalPlaces = 14;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            917504});
-            this.numericUpDown1.Location = new System.Drawing.Point(92, 35);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 63;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
-            this.label2.TabIndex = 64;
-            this.label2.Text = "Min. Threshold:";
-            this.toolTip1.SetToolTip(this.label2, "A warning will be set at the time that the conversion\r\nvalue goes below the set v" +
-        "alue");
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(222, 37);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(83, 13);
-            this.label32.TabIndex = 65;
-            this.label32.Text = "Max. Threshold:";
-            this.toolTip1.SetToolTip(this.label32, "A warning will be set at the time that the conversion\r\ngoes above the set value\r\n" +
-        "");
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.DecimalPlaces = 14;
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            917504});
-            this.numericUpDown2.Location = new System.Drawing.Point(311, 35);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 66;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(92, 12);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(281, 17);
-            this.checkBox1.TabIndex = 67;
-            this.checkBox1.Text = "Trigger a warning when a threshold value is exceeded";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // groupWarning
-            // 
-            this.groupWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupWarning.Controls.Add(this.checkBox1);
-            this.groupWarning.Controls.Add(this.numericUpDown2);
-            this.groupWarning.Controls.Add(this.label32);
-            this.groupWarning.Controls.Add(this.label2);
-            this.groupWarning.Controls.Add(this.numericUpDown1);
-            this.groupWarning.Location = new System.Drawing.Point(8, 338);
-            this.groupWarning.Name = "groupWarning";
-            this.groupWarning.Size = new System.Drawing.Size(437, 63);
-            this.groupWarning.TabIndex = 59;
-            this.groupWarning.TabStop = false;
+            this.buttonCoinSettings.Location = new System.Drawing.Point(420, 282);
+            this.buttonCoinSettings.Name = "buttonCoinSettings";
+            this.buttonCoinSettings.Size = new System.Drawing.Size(25, 25);
+            this.buttonCoinSettings.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.buttonCoinSettings, "Add or Swap the Icon");
+            this.buttonCoinSettings.UseVisualStyleBackColor = true;
+            this.buttonCoinSettings.Click += new System.EventHandler(this.buttonCoinSettings_Click);
             // 
             // SettingsForm
             // 
@@ -1348,10 +1268,6 @@
             this.tabPage3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            this.groupWarning.ResumeLayout(false);
-            this.groupWarning.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1455,11 +1371,6 @@
         private System.Windows.Forms.Button buttonDownloadMissingIcons;
         private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupWarning;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button buttonCoinSettings;
     }
 }

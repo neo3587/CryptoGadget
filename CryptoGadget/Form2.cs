@@ -333,21 +333,8 @@ namespace CryptoGadget {
         }
         
 
-        private void buttonAccept_Click(object sender, EventArgs e) {
-            if(!checkIconVisible.Checked && !checkCoinVisible.Checked && !checkValueVisible.Checked && !checkChangeVisible.Checked) {
-                MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else {
-                SaveData();
-                accept = true;
-                Close();
-            }
-        }
-        private void buttonCancel_Click(object sender, EventArgs e) {
-            Close();
-        }
+        #region Currencies Tab
 
-        
         private void buttonAdd_Click(object sender, EventArgs e) {
             if(Common.json == null) {
                 MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
@@ -358,7 +345,7 @@ namespace CryptoGadget {
         }
         private void buttonSub_Click(object sender, EventArgs e) {
             if(coinGrid.SelectedRows.Count > 0) {
-                 coinGrid.Rows.Remove(coinGrid.SelectedRows[0]);
+                coinGrid.Rows.Remove(coinGrid.SelectedRows[0]);
             }
         }
         private void buttonUp_Click(object sender, EventArgs e) {
@@ -375,7 +362,7 @@ namespace CryptoGadget {
             }
         }
         private void buttonDown_Click(object sender, EventArgs e) {
-            if(coinGrid.SelectedRows.Count > 0  && coinGrid.SelectedRows[0].Index < coinGrid.RowCount-1) {
+            if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index < coinGrid.RowCount - 1) {
                 int index1 = coinGrid.SelectedRows[0].Index;
                 int index2 = coinGrid.SelectedRows[0].Index + 1;
                 DataGridViewRow tmp1 = coinGrid.Rows[index1];
@@ -388,52 +375,6 @@ namespace CryptoGadget {
             }
         }
 
-        private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini["Coins"].RemoveAllKeys();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Coins));
-            LoadData(ini, DataType.Coins);
-        }
-        private void buttonDefaultBasic_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Basic));
-            LoadData(ini, DataType.Basic);
-        }
-        private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Advanced));
-            LoadData(ini, DataType.Advanced);
-        }
-
-        private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, boxTheme.SelectedIndex == 0 ? Common.DefaultType.ColorsLight : Common.DefaultType.ColorsDark));
-            LoadData(ini, DataType.Colors);
-        }
-
-        /// <summary>
-        /// Event method that checks if the API doesn't reject any coin conversion
-        /// </summary>
-        private void buttonCheck_Click(object sender, EventArgs e) {
-
-            if(coinGrid.RowCount <= 0) {
-                MessageBox.Show("You need to provide at least one coin to compare", "Error");
-                return;
-            }
-
-            List<Tuple<string, string>> coinList = new List<Tuple<string, string>>(); // < coin, target >
-            foreach(DataGridViewRow row in coinGrid.Rows)
-                coinList.Add(new Tuple<string, string>(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString()));
-
-            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Check);
-            form.ShowDialog();
-
-            MessageBox.Show(form.badConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.badConvs));
-        }
-
-        /// <summary>
-        /// Event method to add or swap the icon of the selected coin
-        /// </summary>
         private void buttonAddIcon_Click(object sender, EventArgs e) {
 
             if(coinGrid.Rows.Count <= 0 || coinGrid.SelectedRows.Count == -1)
@@ -450,10 +391,10 @@ namespace CryptoGadget {
             ofd.FileOk += (f_sender, f_ev) => {
 
                 Stream stream = (f_sender as OpenFileDialog).OpenFile();
-                
+
                 stream.Position = 0;
                 coinGrid.SelectedRows[0].Cells[0].Value = Common.GetIcon(stream, new Size(16, 16));
-                
+
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
                     StreamWriter writer = new StreamWriter(Common.iconLocation + coin.ToLower() + ".ico");
@@ -467,10 +408,17 @@ namespace CryptoGadget {
             ofd.ShowDialog();
 
         }
+        private void buttonCoinSettings_Click(object sender, EventArgs e) {
 
-        /// <summary>
-        /// Event method to re-download the coin list database
-        /// </summary>
+            if(coinGrid.Rows.Count <= 0 || coinGrid.SelectedRows.Count == -1)
+                return;
+
+            SettingsCoinForm form = new SettingsCoinForm();
+            form.ShowDialog();
+
+
+        }
+
         private void buttonDownloadList_Click(object sender, EventArgs e) {
 
             try {
@@ -490,13 +438,22 @@ namespace CryptoGadget {
             }
 
         }
+        private void buttonCheck_Click(object sender, EventArgs e) {
 
-        private void buttonColorPick(object sender, EventArgs e)    => neo.FormUtil.buttonColorPick(sender, e);
-        private void textSint(object sender, KeyPressEventArgs e)   => neo.FormUtil.textBoxSignedInt(sender, e);
-        private void textUint(object sender, KeyPressEventArgs e)   => neo.FormUtil.textBoxUnsignedInt(sender, e);
-        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedFloat(sender, e);
-        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedFloat(sender, e);
+            if(coinGrid.RowCount <= 0) {
+                MessageBox.Show("You need to provide at least one coin to compare", "Error");
+                return;
+            }
 
+            List<Tuple<string, string>> coinList = new List<Tuple<string, string>>(); // < coin, target >
+            foreach(DataGridViewRow row in coinGrid.Rows)
+                coinList.Add(new Tuple<string, string>(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString()));
+
+            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Check);
+            form.ShowDialog();
+
+            MessageBox.Show(form.badConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.badConvs));
+        }
         private void buttonDownloadMissingIcons_Click(object sender, EventArgs e) {
 
             Enabled = false;
@@ -507,6 +464,66 @@ namespace CryptoGadget {
             Enabled = true;
 
         }
+
+        private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
+            IniData ini = (IniData)Common.ini.Clone();
+            ini["Coins"].RemoveAllKeys();
+            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Coins));
+            LoadData(ini, DataType.Coins);
+        }
+
+        #endregion
+
+        #region Basic Tab
+
+        private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
+            IniData ini = (IniData)Common.ini.Clone();
+            ini.Merge(Common.DefaultIni(null, boxTheme.SelectedIndex == 0 ? Common.DefaultType.ColorsLight : Common.DefaultType.ColorsDark));
+            LoadData(ini, DataType.Colors);
+        }
+
+        private void buttonDefaultBasic_Click(object sender, EventArgs e) {
+            IniData ini = (IniData)Common.ini.Clone();
+            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Basic));
+            LoadData(ini, DataType.Basic);
+        }
+
+        #endregion
+
+        #region Advanced Tab
+
+        private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
+            IniData ini = (IniData)Common.ini.Clone();
+            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Advanced));
+            LoadData(ini, DataType.Advanced);
+        }
+
+        #endregion
+
+        #region Shared on all Tabs
+
+        private void buttonAccept_Click(object sender, EventArgs e) {
+            if(!checkIconVisible.Checked && !checkCoinVisible.Checked && !checkValueVisible.Checked && !checkChangeVisible.Checked) {
+                MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else {
+                SaveData();
+                accept = true;
+                Close();
+            }
+        }
+        private void buttonCancel_Click(object sender, EventArgs e) {
+            Close();
+        }
+
+        private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedInt(sender, e);
+        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedInt(sender, e);
+        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedFloat(sender, e);
+        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedFloat(sender, e);
+
+        #endregion
+
 
     }
 
