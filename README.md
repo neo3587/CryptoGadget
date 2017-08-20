@@ -36,7 +36,7 @@ Instructions:
 
 This is the first time I program in C#, also is the first time that I use Windows Forms and the first time I use GitHub to make a public project, so probably some things could be done in a better way.
 
-Also my english is far from perfect, so expect some grammatical errors if you read the tooltips (by holding the mouse on almost any thing in the settings).
+Also my english is far from perfect, so expect some minimal grammatical errors if you read the tooltips (by holding the mouse on almost anything in the settings).
 
 
 
@@ -44,3 +44,5 @@ Also my english is far from perfect, so expect some grammatical errors if you re
 **BTC Donations:** 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv
 
 **ETH Donations:** 0x7b60ac39d10567229fe5e1166cdb667d04c949e2
+
+**LTC Donations:** LMMhPzFLLbdfbxdLRiK2Rh4mtSNpQbag2r
