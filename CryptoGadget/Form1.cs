@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.IO;
 using System.Linq;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -13,6 +14,7 @@ using Microsoft.Win32;
 using IniParser.Model;
 
 using neo;
+
 
 
 
@@ -277,7 +279,27 @@ namespace CryptoGadget {
 
                 #region Coin Rows Init
 
-                for(int i = 0; i < Data.converts.Count; i++) {
+                if(Common.json == null && File.Exists(Common.jsonLocation)) {
+
+                    Func<JObject, bool> JObjIsValid = (jobj) => {
+                        foreach(JProperty coin in jobj["Data"]) {
+                            JToken val = coin.Value;
+                            if(val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
+                                MessageBox.Show(coin.Name);
+                                return false;
+                            }
+                        }
+                        return true;
+                    };
+
+                    Common.json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
+                    if(!JObjIsValid(Common.json))
+                        Common.json = null;
+                    
+
+                }
+
+                foreach(Tuple<string, string> conv in Data.converts) {
                   
                     int size = Data.metrics.iconSize;
                     Bitmap bmp = new Bitmap(size, size);
@@ -287,20 +309,27 @@ namespace CryptoGadget {
                         gr.SmoothingMode     = SmoothingMode.HighQuality;
                         gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
                         gr.PixelOffsetMode   = PixelOffsetMode.HighQuality;
-                        gr.DrawImage(Common.GetIcon(Data.converts[i].Item1), new Rectangle(0, 0, size, size)); 
+                        gr.DrawImage(Common.GetIcon(conv.Item1), new Rectangle(0, 0, size, size)); 
                     }
 
-                    coinGrid.Rows.Add(bmp, Data.converts[i].Item1, 0.00, 0.00);
-
-                    ContextMenuStrip buff = new ContextMenuStrip();
-                    //buff.Items.AddRange(contextMenu.Items);
-                    buff.Items.Add(Data.converts[i].Item1, null, (sender, e) => {
-
-                    });
-                    //buff.Items.Add(contextMenu.Items[1]);
-                    //buff.Items.Add(contextMenu.Items[2]);
+                    int index = coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
+                    DataGridViewRow dgvr = new DataGridViewRow();
                     
-                    coinGrid.Rows[i].ContextMenuStrip = buff;
+                    ContextMenuStrip cm = new ContextMenuStrip();
+                    cm.Items.Add("Settings", null, contextMenuSettings_Click);
+                    cm.Items.Add("Hide", null, contextMenuHide_Click);
+                    cm.Items.Add("Exit", null, contextMenuExit_Click);
+                    
+                    if(Common.json != null) {
+                        JToken coin = Common.json["Data"][conv.Item1];
+                        if(coin != null && coin["Url"] != null) {
+                            cm.Items.Insert(1, new ToolStripMenuItem(conv.Item1 + " website", null, (sender, e) => {
+                                Process.Start("https://www.cryptocompare.com" + coin["Url"]);
+                            }));
+                        }
+                    }
+
+                    coinGrid.Rows[index].ContextMenuStrip = cm;
                 }
 
                 #endregion
@@ -356,17 +385,6 @@ namespace CryptoGadget {
 
                 #region Other Stuff Init
 
-                // bandaid for initial selection (clearSelection isn't working at all)
-                if(coinGrid.RowCount > 0) { 
-                    for(int i = 0; i < coinGrid.Rows[0].Cells.Count; i++) {
-                        if(coinGrid.Rows[0].Cells[i].Visible) {
-                            coinGrid.Rows[0].Cells[i].Selected = true;
-                            coinGrid.Rows[0].Cells[i].Selected = false;
-                            break;
-                        }
-                    }
-                }
-
                 // Open on Startup
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 if((regKey.GetValue("CryptoGadget", null) != null) != Data.others.openStartup) {
@@ -375,7 +393,6 @@ namespace CryptoGadget {
                     else
                         regKey.DeleteValue("CryptoGadget", false);
                 }
-
 
                 #endregion
 
@@ -445,7 +462,9 @@ namespace CryptoGadget {
             SaveCoords();
         }
 
-
+        private void coinGrid_SelectionChanged(object sender, EventArgs e) {
+            coinGrid.ClearSelection();
+        }
     }
 
     /// <summary>

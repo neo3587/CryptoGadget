@@ -26,7 +26,7 @@ namespace neo {
         public static void DragMove(object sender, MouseEventArgs e) {
             if(e.Button == MouseButtons.Left) {
                 ReleaseCapture();
-                SendMessage((sender as Control).Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                SendMessage((sender as Control).FindForm().Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
 
