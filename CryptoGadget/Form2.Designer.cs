@@ -122,7 +122,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonCoinSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -303,7 +302,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.buttonCoinSettings);
             this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
             this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
             this.tabPage1.Controls.Add(this.buttonDownloadList);
@@ -1230,16 +1228,6 @@
             this.boxValueWidth.TabIndex = 8;
             this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
-            // buttonCoinSettings
-            // 
-            this.buttonCoinSettings.Location = new System.Drawing.Point(420, 282);
-            this.buttonCoinSettings.Name = "buttonCoinSettings";
-            this.buttonCoinSettings.Size = new System.Drawing.Size(25, 25);
-            this.buttonCoinSettings.TabIndex = 58;
-            this.toolTip1.SetToolTip(this.buttonCoinSettings, "Add or Swap the Icon");
-            this.buttonCoinSettings.UseVisualStyleBackColor = true;
-            this.buttonCoinSettings.Click += new System.EventHandler(this.buttonCoinSettings_Click);
-            // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonAccept;
@@ -1371,6 +1359,5 @@
         private System.Windows.Forms.Button buttonDownloadMissingIcons;
         private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonCoinSettings;
     }
 }

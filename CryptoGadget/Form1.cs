@@ -20,7 +20,6 @@ using neo;
 
 /* IDEAS:
  - Graphs (will require a new tab)
- - Independent Right-Click context for each row (visit website, show graph, dunno what else)
  - Alarm when a configurable threshold is passed
 */
 
@@ -278,7 +277,7 @@ namespace CryptoGadget {
 
                 #region Coin Rows Init
 
-                foreach(Tuple<string, string> conv in Data.converts) {
+                for(int i = 0; i < Data.converts.Count; i++) {
                   
                     int size = Data.metrics.iconSize;
                     Bitmap bmp = new Bitmap(size, size);
@@ -288,10 +287,13 @@ namespace CryptoGadget {
                         gr.SmoothingMode     = SmoothingMode.HighQuality;
                         gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
                         gr.PixelOffsetMode   = PixelOffsetMode.HighQuality;
-                        gr.DrawImage(Common.GetIcon(conv.Item1), new Rectangle(0, 0, size, size)); 
+                        gr.DrawImage(Common.GetIcon(Data.converts[i].Item1), new Rectangle(0, 0, size, size)); 
                     }
 
-                    coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
+                    coinGrid.Rows.Add(bmp, Data.converts[i].Item1, 0.00, 0.00);
+
+                    //ContextMenuStrip buff = new ContextMenuStrip();
+                    //coinGrid.Rows[i].ContextMenuStrip = buff;
                 }
 
                 #endregion
@@ -399,7 +401,7 @@ namespace CryptoGadget {
             };
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void contextMenuSettings_Click(object sender, EventArgs e) {
 
             WaitHandle wait = new AutoResetEvent(false);
             timerRequest.Dispose(wait);
@@ -420,11 +422,11 @@ namespace CryptoGadget {
             timerDisposed = false;
             timerRequest = new System.Threading.Timer(TimerRoutine, null, 0, Data.others.refreshRate);
         }
-        private void hideStripMenuItem_Click(object sender, EventArgs e) {
+        private void contextMenuHide_Click(object sender, EventArgs e) {
             Visible = !Visible;
             hideStripMenuItem.Text = Visible ? "Hide" : "Show";
         }
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void contextMenuExit_Click(object sender, EventArgs e) {
             Close();
         }
 

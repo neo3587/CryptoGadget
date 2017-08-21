@@ -11,8 +11,6 @@ using BindList = System.Collections.Generic.List<System.Collections.Generic.KeyV
 
 namespace CryptoGadget {
 
-    
-
     public partial class AddCoinForm : Form {
 
         DataGridView ptrGrid;

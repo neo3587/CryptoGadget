@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+// Placeholder for 1.2.0 
+
 namespace CryptoGadget {
 
     public partial class SettingsCoinForm : Form {

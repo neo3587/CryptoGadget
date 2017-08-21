@@ -9,6 +9,8 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using IniParser.Model;
 
+
+
 namespace CryptoGadget {
 
     public struct Data {
