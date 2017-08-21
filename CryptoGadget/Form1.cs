@@ -292,8 +292,15 @@ namespace CryptoGadget {
 
                     coinGrid.Rows.Add(bmp, Data.converts[i].Item1, 0.00, 0.00);
 
-                    //ContextMenuStrip buff = new ContextMenuStrip();
-                    //coinGrid.Rows[i].ContextMenuStrip = buff;
+                    ContextMenuStrip buff = new ContextMenuStrip();
+                    //buff.Items.AddRange(contextMenu.Items);
+                    buff.Items.Add(Data.converts[i].Item1, null, (sender, e) => {
+
+                    });
+                    //buff.Items.Add(contextMenu.Items[1]);
+                    //buff.Items.Add(contextMenu.Items[2]);
+                    
+                    coinGrid.Rows[i].ContextMenuStrip = buff;
                 }
 
                 #endregion
@@ -424,7 +431,7 @@ namespace CryptoGadget {
         }
         private void contextMenuHide_Click(object sender, EventArgs e) {
             Visible = !Visible;
-            hideStripMenuItem.Text = Visible ? "Hide" : "Show";
+            contextMenuHide.Text = Visible ? "Hide" : "Show";
         }
         private void contextMenuExit_Click(object sender, EventArgs e) {
             Close();

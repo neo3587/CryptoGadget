@@ -27,15 +27,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.coinGrid = new System.Windows.Forms.DataGridView();
-            this.img = new System.Windows.Forms.DataGridViewImageColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.change = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
+            this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.coinGridValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.coinGridChange = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -50,10 +50,10 @@
             this.coinGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.coinGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.img,
-            this.name,
-            this.value,
-            this.change});
+            this.coinGridImg,
+            this.coinGridName,
+            this.coinGridValue,
+            this.coinGridChange});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -78,71 +78,35 @@
             this.coinGrid.Size = new System.Drawing.Size(182, 22);
             this.coinGrid.TabIndex = 0;
             // 
-            // img
-            // 
-            this.img.FillWeight = 78.32401F;
-            this.img.HeaderText = "";
-            this.img.Name = "img";
-            this.img.ReadOnly = true;
-            this.img.Width = 25;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.name.FillWeight = 91.44361F;
-            this.name.HeaderText = "Coin";
-            this.name.MaxInputLength = 10;
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            this.name.Width = 44;
-            // 
-            // value
-            // 
-            this.value.FillWeight = 128.7096F;
-            this.value.HeaderText = "Value";
-            this.value.MaxInputLength = 10;
-            this.value.Name = "value";
-            this.value.ReadOnly = true;
-            this.value.Width = 63;
-            // 
-            // change
-            // 
-            this.change.FillWeight = 101.5228F;
-            this.change.HeaderText = "Change";
-            this.change.MaxInputLength = 10;
-            this.change.Name = "change";
-            this.change.ReadOnly = true;
-            this.change.Width = 50;
-            // 
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem,
-            this.hideStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.contextMenuSettings,
+            this.contextMenuHide,
+            this.contextMenuExit});
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.Size = new System.Drawing.Size(117, 70);
             // 
-            // settingsToolStripMenuItem
+            // contextMenuSettings
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.contextMenuSettings_Click);
+            this.contextMenuSettings.Name = "contextMenuSettings";
+            this.contextMenuSettings.Size = new System.Drawing.Size(116, 22);
+            this.contextMenuSettings.Text = "Settings";
+            this.contextMenuSettings.Click += new System.EventHandler(this.contextMenuSettings_Click);
             // 
-            // hideStripMenuItem
+            // contextMenuHide
             // 
-            this.hideStripMenuItem.Name = "hideStripMenuItem";
-            this.hideStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.hideStripMenuItem.Text = "Hide";
-            this.hideStripMenuItem.Click += new System.EventHandler(this.contextMenuHide_Click);
+            this.contextMenuHide.Name = "contextMenuHide";
+            this.contextMenuHide.Size = new System.Drawing.Size(116, 22);
+            this.contextMenuHide.Text = "Hide";
+            this.contextMenuHide.Click += new System.EventHandler(this.contextMenuHide_Click);
             // 
-            // exitToolStripMenuItem
+            // contextMenuExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.contextMenuExit_Click);
+            this.contextMenuExit.Name = "contextMenuExit";
+            this.contextMenuExit.Size = new System.Drawing.Size(116, 22);
+            this.contextMenuExit.Text = "Exit";
+            this.contextMenuExit.Click += new System.EventHandler(this.contextMenuExit_Click);
             // 
             // notifyIcon
             // 
@@ -151,6 +115,42 @@
             this.notifyIcon.Text = "CryptoGadget";
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // coinGridImg
+            // 
+            this.coinGridImg.FillWeight = 78.32401F;
+            this.coinGridImg.HeaderText = "";
+            this.coinGridImg.Name = "coinGridImg";
+            this.coinGridImg.ReadOnly = true;
+            this.coinGridImg.Width = 25;
+            // 
+            // coinGridName
+            // 
+            this.coinGridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.coinGridName.FillWeight = 91.44361F;
+            this.coinGridName.HeaderText = "Coin";
+            this.coinGridName.MaxInputLength = 10;
+            this.coinGridName.Name = "coinGridName";
+            this.coinGridName.ReadOnly = true;
+            this.coinGridName.Width = 44;
+            // 
+            // coinGridValue
+            // 
+            this.coinGridValue.FillWeight = 128.7096F;
+            this.coinGridValue.HeaderText = "Value";
+            this.coinGridValue.MaxInputLength = 10;
+            this.coinGridValue.Name = "coinGridValue";
+            this.coinGridValue.ReadOnly = true;
+            this.coinGridValue.Width = 63;
+            // 
+            // coinGridChange
+            // 
+            this.coinGridChange.FillWeight = 101.5228F;
+            this.coinGridChange.HeaderText = "Change";
+            this.coinGridChange.MaxInputLength = 10;
+            this.coinGridChange.Name = "coinGridChange";
+            this.coinGridChange.ReadOnly = true;
+            this.coinGridChange.Width = 50;
             // 
             // MainForm
             // 
@@ -176,14 +176,14 @@
 
         private System.Windows.Forms.DataGridView coinGrid;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuSettings;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuExit;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
-        private System.Windows.Forms.DataGridViewImageColumn img;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn value;
-        private System.Windows.Forms.DataGridViewTextBoxColumn change;
+        private System.Windows.Forms.DataGridViewImageColumn coinGridImg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn coinGridValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn coinGridChange;
     }
 }
 
