@@ -26,12 +26,14 @@ namespace CryptoGadget {
         };
 
 
-        public ProgressForm(SettingsForm form, FormType ft) {
+        public ProgressForm(object param, FormType ft) {
 
             InitializeComponent();
 
             // SettingsForm.buttonCheck
-            if(ft == FormType.Check) { 
+            if(ft == FormType.Check) {
+
+                SettingsForm form = (SettingsForm)param;
 
                 Text = "Cryptogadget Settings [Check]";
 

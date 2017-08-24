@@ -57,42 +57,43 @@ namespace CryptoGadget {
                 int decimals = Math.Min(maxDecimal, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
                 return val.ToString("0." + new string('0', Math.Max(0, decimals)));
             };
+            Action<int, double, double, double> UpdateRow = (row, val, chg, per) => {
+                val = AdaptValue(val, Data.others.maxValueDigits, Data.others.maxValueDecimals);
+                chg = AdaptValue(chg, Data.others.maxChangeDigits, Data.others.maxChangeDecimals);
+                per = AdaptValue(per, Data.others.maxChangeDigits, Data.others.maxChangeDecimals); // add new max value
 
-            List<Tuple<double, double, double>> prices = new List<Tuple<double, double, double>>(); // < last_price, new_price, change >
+                coinGrid.Rows[row].Cells[2].Value = AdaptValueStr(val, Data.others.maxValueDigits, Data.others.maxValueDecimals);
+                coinGrid.Rows[row].Cells[3].Value = (chg >= 0 ? "+" : "") + AdaptValueStr(chg, Data.others.maxChangeDigits, Data.others.maxChangeDecimals);
+                coinGrid.Rows[row].Cells[4].Value = (per >= 0 ? "+" : "") + AdaptValueStr(per, Data.others.maxChangeDigits, Data.others.maxChangeDecimals) + "%"; // add new max value
+                coinGrid.Rows[row].Cells[3].Style.ForeColor = chg >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
+                coinGrid.Rows[row].Cells[4].Style.ForeColor = per >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
+            };
 
-            string[] inputs  = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1)));
-            string[] outputs = Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2)));
-            string usePercent = Data.others.showPercentage ? "CHANGEPCT24HOUR" : "CHANGE24HOUR";
-
+            List<double> lastValues = new List<double>();
+            foreach(DataGridViewRow row in coinGrid.Rows)
+                lastValues.Add(double.Parse(row.Cells[2].Value.ToString()));
+            
             try {
-                JObject json = Common.HttpRequest(inputs, outputs, Data.visible.change);
+                JObject json = Common.HttpRequest(Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1))), Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2))), Data.visible.change);
                 if(json == null || json["Response"]?.ToString().ToLower() == "error") {
-                    prices.Add(new Tuple<double, double, double>(0.00, 0.00, 0.00));
+                    for(int i = 0; i < Data.converts.Count; i++)
+                        UpdateRow(i, 0.00, 0.00, 0.00);
                 }
-                else if(Data.visible.change) {
+                else if(Data.visible.change || false) { // add % visible
                     for(int i = 0; i < Data.converts.Count; i++) {
-                        prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
-                            AdaptValue(json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["PRICE"].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
-                            AdaptValue(json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2][usePercent].ToObject<double>(), Data.others.maxChangeDigits, Data.others.maxChangeDecimals)));
+                        UpdateRow(i, json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["PRICE"].ToObject<double>(),
+                                     json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["CHANGE24HOUR"].ToObject<double>(),
+                                     json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["CHANGEPCT24HOUR"].ToObject<double>());
                     }
                 }
                 else {
-                    for(int i = 0; i < Data.converts.Count; i++) {
-                        prices.Add(new Tuple<double, double, double>(double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString()),
-                            AdaptValue(json[Data.converts[i].Item1][Data.converts[i].Item2].ToObject<double>(), Data.others.maxValueDigits, Data.others.maxValueDecimals),
-                            0));
-                    }
+                    for(int i = 0; i < Data.converts.Count; i++) 
+                        UpdateRow(i, json[Data.converts[i].Item1][Data.converts[i].Item2].ToObject<double>(), 0.00, 0.00);
                 }
             } catch(Exception) { }
 
-            for(int i = 0; i < prices.Count; i++) {
-                coinGrid.Rows[i].Cells[2].Value = AdaptValueStr(prices[i].Item2, Data.others.maxValueDigits, Data.others.maxValueDecimals);
-                coinGrid.Rows[i].Cells[3].Value = (prices[i].Item3 >= 0 ? "+" : "") + AdaptValueStr(prices[i].Item3, Data.others.maxChangeDigits, Data.others.maxChangeDecimals) + (Data.others.showPercentage ? "%" : "");
-                coinGrid.Rows[i].Cells[3].Style.ForeColor = prices[i].Item3 >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
-            }
-
             if(Data.visible.refresh)
-                TimerHighlight(prices);
+                TimerHighlight(lastValues);
 
             try {
                 timerRequest.Change(Math.Max(0, Data.others.refreshRate - watch.ElapsedMilliseconds), Data.others.refreshRate);
@@ -100,7 +101,7 @@ namespace CryptoGadget {
 
         }
 
-        private void TimerHighlight(List<Tuple<double, double, double>> prices) {
+        private void TimerHighlight(List<double> lastValues) {
 
             Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
                 byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
@@ -110,7 +111,7 @@ namespace CryptoGadget {
                 return Color.FromArgb(BitConverter.ToInt32(bytecolor, 0));
             };
             Action DefaultColors = () => {
-                for(int i = 0; i < prices.Count; i++)
+                for(int i = 0; i < lastValues.Count; i++)
                     coinGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Data.colors.background1 : Data.colors.background2;
             };
 
@@ -121,15 +122,16 @@ namespace CryptoGadget {
                     return;
                 }
 
-                for(int i = 0; i < prices.Count; i++) {
+                for(int i = 0; i < lastValues.Count; i++) {
 
                     Color bgcolor = i % 2 == 0 ? Data.colors.background1 : Data.colors.background2;
+                    double currentValue = double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString());
 
-                    if(prices[i].Item2 > prices[i].Item1) {
+                    if(currentValue > lastValues[i]) {
                         Color color = ColorApply(Data.colors.positiveRefresh, bgcolor, opacity);
                         coinGrid.Rows[i].DefaultCellStyle.BackColor = color;
                     }
-                    else if(prices[i].Item2 < prices[i].Item1) {
+                    else if(currentValue < lastValues[i]) {
                         Color color = ColorApply(Data.colors.negativeRefresh, bgcolor, opacity);
                         coinGrid.Rows[i].DefaultCellStyle.BackColor = color;
                     }
