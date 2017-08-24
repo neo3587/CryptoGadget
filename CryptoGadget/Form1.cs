@@ -282,37 +282,15 @@ namespace CryptoGadget {
                 #region Coin Rows Init
 
                 if(Common.json == null && File.Exists(Common.jsonLocation)) {
-
-                    Func<JObject, bool> JObjIsValid = (jobj) => {
-                        foreach(JProperty coin in jobj["Data"]) {
-                            JToken val = coin.Value;
-                            if(val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
-                                MessageBox.Show(coin.Name);
-                                return false;
-                            }
-                        }
-                        return true;
-                    };
-
                     Common.json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
-                    if(!JObjIsValid(Common.json))
+                    if(!Common.JsonIsValid(Common.json))
                         Common.json = null;
-                    
-
                 }
 
                 foreach(Tuple<string, string> conv in Data.converts) {
                   
                     int size = Data.metrics.iconSize;
-                    Bitmap bmp = new Bitmap(size, size);
-
-                    // Minimum quality loss resize
-                    using(Graphics gr = Graphics.FromImage(bmp)) { 
-                        gr.SmoothingMode     = SmoothingMode.HighQuality;
-                        gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        gr.PixelOffsetMode   = PixelOffsetMode.HighQuality;
-                        gr.DrawImage(Common.GetIcon(conv.Item1), new Rectangle(0, 0, size, size)); 
-                    }
+                    Bitmap bmp = Common.IconResize(Common.GetIcon(conv.Item1), size, size);
 
                     int index = coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
                     DataGridViewRow dgvr = new DataGridViewRow();
@@ -324,12 +302,12 @@ namespace CryptoGadget {
                     
                     if(Common.json != null) {
                         JToken coin = Common.json["Data"][conv.Item1];
-                        if(coin != null && coin["Url"] != null) {
-                            cm.Items.Insert(1, new ToolStripMenuItem(conv.Item1 + " website", null, (sender, e) => {
-                                Process.Start("https://www.cryptocompare.com" + coin["Url"]);
-                            }));
-                        }
+                        if(coin != null && coin["Url"] != null) 
+                            cm.Items.Insert(0, new ToolStripMenuItem(conv.Item1 + " website", null, (sender, e) => Process.Start("https://www.cryptocompare.com" + coin["Url"])));
                     }
+
+                    if(cm.Items.Count > 3)
+                        cm.Items.Insert(cm.Items.Count - 3, new ToolStripSeparator());
 
                     coinGrid.Rows[index].ContextMenuStrip = cm;
                 }

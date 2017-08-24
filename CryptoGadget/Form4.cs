@@ -178,18 +178,7 @@ namespace CryptoGadget {
                                 using(MemoryStream data = new MemoryStream()) {
                                     byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
                                     data.Write(buffer, 0, buffer.Length);
-
-                                    Bitmap bmp = new Bitmap(32, 32);
-                                    
-                                    // Minimum quality loss resize
-                                    using(Graphics gr = Graphics.FromImage(bmp)) {
-                                        gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                                        gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                                        gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                                        gr.DrawImage(Image.FromStream(data), new Rectangle(0, 0, 32, 32));
-                                    }
-
-                                    bmp.Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+                                    Common.IconResize(Image.FromStream(data), 32, 32).Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
                                 }
                             } catch(Exception) {
                                 failed++;

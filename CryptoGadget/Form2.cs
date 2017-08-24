@@ -121,16 +121,6 @@ namespace CryptoGadget {
                 writer.Write(data.ToString(Newtonsoft.Json.Formatting.Indented));
                 writer.Close();
             };
-            Func<JObject, bool> JObjIsValid = (jobj) => {
-                foreach(JProperty coin in jobj["Data"]) {
-                    JToken val = coin.Value;
-                    if(val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
-                        MessageBox.Show(coin.Name);
-                        return false;
-                    }
-                }
-                return true;
-            };
 
             if(Common.json != null)
                 return true;
@@ -143,7 +133,7 @@ namespace CryptoGadget {
                 }
                 else {
                     Common.json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
-                    if(JObjIsValid(Common.json)) {
+                    if(Common.JsonIsValid(Common.json)) {
                         return true;
                     }
                     else {

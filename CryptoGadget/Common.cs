@@ -232,6 +232,28 @@ namespace CryptoGadget {
             return bmp;
         }
 
+        public static bool JsonIsValid(JObject js) {
+            System.Threading.Tasks.ParallelLoopResult result = System.Threading.Tasks.Parallel.ForEach(js["Data"], (coin, state) => {
+                JToken val = (coin as JProperty).Value;
+                if(val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
+                    state.Break();
+                    return;
+                }
+            });
+            return result.IsCompleted && !result.LowestBreakIteration.HasValue;
+        }
+
+        public static Bitmap IconResize(Image img, int x, int y) {
+            Bitmap bmp = new Bitmap(x, y);
+            using(Graphics gr = Graphics.FromImage(bmp)) {
+                gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                gr.DrawImage(img, new Rectangle(0, 0, x, y));
+            }
+            return bmp;
+        }
+
     }
 
 }
