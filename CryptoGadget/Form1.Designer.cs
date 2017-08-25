@@ -27,16 +27,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.coinGrid = new System.Windows.Forms.DataGridView();
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuHide = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
             this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coinGridValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coinGridChange = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -74,50 +74,11 @@
             this.coinGrid.RowHeadersVisible = false;
             this.coinGrid.RowTemplate.ReadOnly = true;
             this.coinGrid.ShowCellErrors = false;
-            this.coinGrid.ShowCellToolTips = false;
             this.coinGrid.ShowEditingIcon = false;
             this.coinGrid.ShowRowErrors = false;
             this.coinGrid.Size = new System.Drawing.Size(182, 22);
             this.coinGrid.TabIndex = 0;
             this.coinGrid.SelectionChanged += new System.EventHandler(this.coinGrid_SelectionChanged);
-            // 
-            // notifyIcon
-            // 
-            this.notifyIcon.ContextMenuStrip = this.contextMenu;
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "CryptoGadget";
-            this.notifyIcon.Visible = true;
-            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
-            // 
-            // contextMenu
-            // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextMenuSettings,
-            this.contextMenuHide,
-            this.contextMenuExit});
-            this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(117, 70);
-            // 
-            // contextMenuSettings
-            // 
-            this.contextMenuSettings.Name = "contextMenuSettings";
-            this.contextMenuSettings.Size = new System.Drawing.Size(116, 22);
-            this.contextMenuSettings.Text = "Settings";
-            this.contextMenuSettings.Click += new System.EventHandler(this.contextMenuSettings_Click);
-            // 
-            // contextMenuHide
-            // 
-            this.contextMenuHide.Name = "contextMenuHide";
-            this.contextMenuHide.Size = new System.Drawing.Size(116, 22);
-            this.contextMenuHide.Text = "Hide";
-            this.contextMenuHide.Click += new System.EventHandler(this.contextMenuHide_Click);
-            // 
-            // contextMenuExit
-            // 
-            this.contextMenuExit.Name = "contextMenuExit";
-            this.contextMenuExit.Size = new System.Drawing.Size(116, 22);
-            this.contextMenuExit.Text = "Exit";
-            this.contextMenuExit.Click += new System.EventHandler(this.contextMenuExit_Click);
             // 
             // coinGridImg
             // 
@@ -160,6 +121,44 @@
             this.Percent.HeaderText = "Change(%)";
             this.Percent.Name = "Percent";
             this.Percent.ReadOnly = true;
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.ContextMenuStrip = this.contextMenu;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "CryptoGadget";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuSettings,
+            this.contextMenuHide,
+            this.contextMenuExit});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(117, 70);
+            // 
+            // contextMenuSettings
+            // 
+            this.contextMenuSettings.Name = "contextMenuSettings";
+            this.contextMenuSettings.Size = new System.Drawing.Size(116, 22);
+            this.contextMenuSettings.Text = "Settings";
+            this.contextMenuSettings.Click += new System.EventHandler(this.contextMenuSettings_Click);
+            // 
+            // contextMenuHide
+            // 
+            this.contextMenuHide.Name = "contextMenuHide";
+            this.contextMenuHide.Size = new System.Drawing.Size(116, 22);
+            this.contextMenuHide.Text = "Hide";
+            this.contextMenuHide.Click += new System.EventHandler(this.contextMenuHide_Click);
+            // 
+            // contextMenuExit
+            // 
+            this.contextMenuExit.Name = "contextMenuExit";
+            this.contextMenuExit.Size = new System.Drawing.Size(116, 22);
+            this.contextMenuExit.Text = "Exit";
+            this.contextMenuExit.Click += new System.EventHandler(this.contextMenuExit_Click);
             // 
             // MainForm
             // 

@@ -19,15 +19,17 @@ namespace CryptoGadget {
 
         public struct others {
 
-            public static int refreshRate = 10000;
+            public static int refreshRate = 20000;
             public static bool openStartup = false;
 
-            public static int maxValueDigits    = 7;
-            public static int maxValueDecimals  = 6;
-            public static int maxChangeDigits   = 5;
-            public static int maxChangeDecimals = 4;
+            public static int maxValueDigits     = 7;
+            public static int maxValueDecimals   = 6;
+            public static int maxChangeDigits    = 5;
+            public static int maxChangeDecimals  = 4;
+            public static int maxPercentDigits   = 5;
+            public static int maxPercentDecimals = 2;
 
-            public static bool showPercentage = false;
+            public static bool showTooltipName = true;
         }
 
         public struct visible {
@@ -36,6 +38,7 @@ namespace CryptoGadget {
             public static bool coin    = true;
             public static bool value   = true;
             public static bool change  = true;
+            public static bool percent = false;
             public static bool header  = true;
             public static bool edge    = true;
             public static bool refresh = true;
@@ -48,6 +51,7 @@ namespace CryptoGadget {
             public static int coin     = 40;
             public static int value    = 60;
             public static int change   = 55;
+            public static int percent  = 55;
             public static int edge     = 2;
             public static int header   = 15;
             public static int rows     = 22;
@@ -123,13 +127,14 @@ namespace CryptoGadget {
                 data["Visibility"]["Coin"]    = "True";
                 data["Visibility"]["Value"]   = "True";
                 data["Visibility"]["Change"]  = "True";
+                data["Visibility"]["Percent"] = "False";
                 data["Visibility"]["Header"]  = "True";
                 data["Visibility"]["Edge"]    = "True";
                 data["Visibility"]["Refresh"] = "True";
 
                 data["Others"]["RefreshRate"] = "20";
                 data["Others"]["OpenStartup"] = "False";
-                data["Others"]["ShowPercentage"] = "False";
+                data["Others"]["ShowTooltipName"] = "True";
             }
 
             if((dt & DefaultType.Advanced) != 0) {
@@ -137,6 +142,7 @@ namespace CryptoGadget {
                 data["Metrics"]["Coin"]     = "40";
                 data["Metrics"]["Value"]    = "60";
                 data["Metrics"]["Change"]   = "55";
+                data["Metrics"]["Percent"]  = "60";
                 data["Metrics"]["Edge"]     = "2";
                 data["Metrics"]["Header"]   = "15";
                 data["Metrics"]["Rows"]     = "22";
@@ -149,10 +155,12 @@ namespace CryptoGadget {
                 data["Coordinates"]["ExitSave"]     = "True";
                 data["Coordinates"]["LockPosition"] = "False";
 
-                data["Others"]["MaxValueDigits"]    = "7";
-                data["Others"]["MaxValueDecimals"]  = "6";
-                data["Others"]["MaxChangeDigits"]   = "5";
-                data["Others"]["MaxChangeDecimals"] = "4";
+                data["Others"]["MaxValueDigits"]     = "7";
+                data["Others"]["MaxValueDecimals"]   = "6";
+                data["Others"]["MaxChangeDigits"]    = "5";
+                data["Others"]["MaxChangeDecimals"]  = "4";
+                data["Others"]["MaxPercentDigits"]   = "5";
+                data["Others"]["MaxPercentDecimals"] = "2";
             }
 
             if((dt & DefaultType.ColorsLight) != 0) {
@@ -243,13 +251,13 @@ namespace CryptoGadget {
             return result.IsCompleted && !result.LowestBreakIteration.HasValue;
         }
 
-        public static Bitmap IconResize(Image img, int x, int y) {
-            Bitmap bmp = new Bitmap(x, y);
+        public static Bitmap IconResize(Image img, int size) {
+            Bitmap bmp = new Bitmap(size, size);
             using(Graphics gr = Graphics.FromImage(bmp)) {
                 gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                gr.DrawImage(img, new Rectangle(0, 0, x, y));
+                gr.DrawImage(img, new Rectangle(0, 0, size, size));
             }
             return bmp;
         }

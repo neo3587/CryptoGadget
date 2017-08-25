@@ -188,13 +188,15 @@ namespace CryptoGadget {
                 checkCoinVisible.Checked    = bool.Parse(data["Visibility"]["Coin"]);
                 checkValueVisible.Checked   = bool.Parse(data["Visibility"]["Value"]);
                 checkChangeVisible.Checked  = bool.Parse(data["Visibility"]["Change"]);
+                checkPercentVisible.Checked = bool.Parse(data["Visibility"]["Percent"]);
                 checkHeaderVisible.Checked  = bool.Parse(data["Visibility"]["Header"]);
                 checkEdgeVisible.Checked    = bool.Parse(data["Visibility"]["Edge"]);
                 checkRefreshVisible.Checked = bool.Parse(data["Visibility"]["Refresh"]);
-                checkStartup.Checked        = bool.Parse(data["Others"]["OpenStartup"]);
-                checkShowPercentage.Checked = bool.Parse(data["Others"]["ShowPercentage"]);
 
-                numericRefreshRate.Minimum = 3.00m;
+                checkStartup.Checked        = bool.Parse(data["Others"]["OpenStartup"]);
+
+                checkTooltipName.Checked    = bool.Parse(data["Others"]["ShowTooltipName"]);
+                
                 numericRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
             }
 
@@ -220,6 +222,7 @@ namespace CryptoGadget {
                 boxCoinWidth.Text    = data["Metrics"]["Coin"];
                 boxValueWidth.Text   = data["Metrics"]["Value"];
                 boxChangeWidth.Text  = data["Metrics"]["Change"];
+                boxPercentWidth.Text = data["Metrics"]["Percent"];
                 boxEdgeWidth.Text    = data["Metrics"]["Edge"];
                 boxHeaderHeight.Text = data["Metrics"]["Header"];
                 boxRowsHeight.Text   = data["Metrics"]["Rows"];
@@ -227,10 +230,12 @@ namespace CryptoGadget {
                 boxTextSize.Text     = data["Metrics"]["Text"];
                 boxNumbersSize.Text  = data["Metrics"]["Numbers"];
 
-                boxMaxValueDigits.Text    = data["Others"]["MaxValueDigits"];
-                boxMaxValueDecimals.Text  = data["Others"]["MaxValueDecimals"];
-                boxMaxChangeDigits.Text   = data["Others"]["MaxChangeDigits"];
-                boxMaxChangeDecimals.Text = data["Others"]["MaxChangeDecimals"];
+                boxMaxValueDigits.Text     = data["Others"]["MaxValueDigits"];
+                boxMaxValueDecimals.Text   = data["Others"]["MaxValueDecimals"];
+                boxMaxChangeDigits.Text    = data["Others"]["MaxChangeDigits"];
+                boxMaxChangeDecimals.Text  = data["Others"]["MaxChangeDecimals"];
+                boxMaxPercentDigits.Text   = data["Others"]["MaxPercentDigits"];
+                boxMaxPercentDecimals.Text = data["Others"]["MaxPercentDecimals"];
 
                 boxStartX.Text = data["Coordinates"]["StartX"];
                 boxStartY.Text = data["Coordinates"]["StartY"];
@@ -259,12 +264,13 @@ namespace CryptoGadget {
 
                 Common.ini["Others"]["RefreshRate"] = numericRefreshRate.Value.ToString();
                 Common.ini["Others"]["OpenStartup"] = checkStartup.Checked.ToString();
-                Common.ini["Others"]["ShowPercentage"] = checkShowPercentage.Checked.ToString();
+                Common.ini["Others"]["ShowTooltipName"] = checkTooltipName.Checked.ToString();
 
                 Common.ini["Visibility"]["Icon"]    = checkIconVisible.Checked.ToString();
                 Common.ini["Visibility"]["Coin"]    = checkCoinVisible.Checked.ToString();
                 Common.ini["Visibility"]["Value"]   = checkValueVisible.Checked.ToString();
                 Common.ini["Visibility"]["Change"]  = checkChangeVisible.Checked.ToString();
+                Common.ini["Visibility"]["Percent"] = checkPercentVisible.Checked.ToString();
                 Common.ini["Visibility"]["Header"]  = checkHeaderVisible.Checked.ToString();
                 Common.ini["Visibility"]["Edge"]    = checkEdgeVisible.Checked.ToString();
                 Common.ini["Visibility"]["Refresh"] = checkRefreshVisible.Checked.ToString();
@@ -292,6 +298,7 @@ namespace CryptoGadget {
                 AssignIfValue("Metrics", "Coin",     boxCoinWidth.Text);
                 AssignIfValue("Metrics", "Value",    boxValueWidth.Text);
                 AssignIfValue("Metrics", "Change",   boxChangeWidth.Text);
+                AssignIfValue("Metrics", "Percent",  boxPercentWidth.Text);
                 AssignIfValue("Metrics", "Edge",     boxEdgeWidth.Text);
                 AssignIfValue("Metrics", "Header",   boxHeaderHeight.Text);
                 AssignIfValue("Metrics", "Rows",     boxRowsHeight.Text);
@@ -299,10 +306,12 @@ namespace CryptoGadget {
                 AssignIfValue("Metrics", "Text",     boxTextSize.Text);
                 AssignIfValue("Metrics", "Numbers",  boxNumbersSize.Text);
 
-                AssignIfValue("Others", "MaxValueDigits",    boxMaxValueDigits.Text);
-                AssignIfValue("Others", "MaxValueDecimals",  boxMaxValueDecimals.Text);
-                AssignIfValue("Others", "MaxChangeDigits",   boxMaxChangeDigits.Text);
-                AssignIfValue("Others", "MaxChangeDecimals", boxMaxChangeDecimals.Text);
+                AssignIfValue("Others", "MaxValueDigits",     boxMaxValueDigits.Text);
+                AssignIfValue("Others", "MaxValueDecimals",   boxMaxValueDecimals.Text);
+                AssignIfValue("Others", "MaxChangeDigits",    boxMaxChangeDigits.Text);
+                AssignIfValue("Others", "MaxChangeDecimals",  boxMaxChangeDecimals.Text);
+                AssignIfValue("Others", "MaxPercentDigits",   boxMaxPercentDigits.Text);
+                AssignIfValue("Others", "MaxPercentDecimals", boxMaxPercentDecimals.Text);
 
                 AssignIfValue("Coordinates", "StartX", boxStartX.Text);
                 AssignIfValue("Coordinates", "StartY", boxStartY.Text);

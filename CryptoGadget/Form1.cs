@@ -27,6 +27,7 @@ using neo;
 
 /* TODO:
  - Fix unable to have 2 instance of the same coin with differents target coins (new ini library required)
+ - Change Data primitives to property<T> {get set}, bind(string)
 */
 
 
@@ -60,11 +61,11 @@ namespace CryptoGadget {
             Action<int, double, double, double> UpdateRow = (row, val, chg, per) => {
                 val = AdaptValue(val, Data.others.maxValueDigits, Data.others.maxValueDecimals);
                 chg = AdaptValue(chg, Data.others.maxChangeDigits, Data.others.maxChangeDecimals);
-                per = AdaptValue(per, Data.others.maxChangeDigits, Data.others.maxChangeDecimals); // add new max value
+                per = AdaptValue(per, Data.others.maxPercentDigits, Data.others.maxPercentDecimals);
 
                 coinGrid.Rows[row].Cells[2].Value = AdaptValueStr(val, Data.others.maxValueDigits, Data.others.maxValueDecimals);
                 coinGrid.Rows[row].Cells[3].Value = (chg >= 0 ? "+" : "") + AdaptValueStr(chg, Data.others.maxChangeDigits, Data.others.maxChangeDecimals);
-                coinGrid.Rows[row].Cells[4].Value = (per >= 0 ? "+" : "") + AdaptValueStr(per, Data.others.maxChangeDigits, Data.others.maxChangeDecimals) + "%"; // add new max value
+                coinGrid.Rows[row].Cells[4].Value = (per >= 0 ? "+" : "") + AdaptValueStr(per, Data.others.maxPercentDigits, Data.others.maxPercentDecimals) + "%";
                 coinGrid.Rows[row].Cells[3].Style.ForeColor = chg >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
                 coinGrid.Rows[row].Cells[4].Style.ForeColor = per >= 0.0 ? Data.colors.positiveChange : Data.colors.negativeChange;
             };
@@ -74,12 +75,12 @@ namespace CryptoGadget {
                 lastValues.Add(double.Parse(row.Cells[2].Value.ToString()));
             
             try {
-                JObject json = Common.HttpRequest(Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1))), Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2))), Data.visible.change);
+                JObject json = Common.HttpRequest(Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item1))), Enumerable.ToArray(Enumerable.Select(Data.converts, (t => t.Item2))), Data.visible.change || Data.visible.percent);
                 if(json == null || json["Response"]?.ToString().ToLower() == "error") {
                     for(int i = 0; i < Data.converts.Count; i++)
                         UpdateRow(i, 0.00, 0.00, 0.00);
                 }
-                else if(Data.visible.change || false) { // add % visible
+                else if(Data.visible.change || Data.visible.percent) {
                     for(int i = 0; i < Data.converts.Count; i++) {
                         UpdateRow(i, json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["PRICE"].ToObject<double>(),
                                      json["RAW"][Data.converts[i].Item1][Data.converts[i].Item2]["CHANGE24HOUR"].ToObject<double>(),
@@ -90,7 +91,11 @@ namespace CryptoGadget {
                     for(int i = 0; i < Data.converts.Count; i++) 
                         UpdateRow(i, json[Data.converts[i].Item1][Data.converts[i].Item2].ToObject<double>(), 0.00, 0.00);
                 }
-            } catch(Exception) { }
+            } catch(Exception e) {
+                #if DEBUG
+                MessageBox.Show("TimerRoutine: " + e);
+                #endif
+            }
 
             if(Data.visible.refresh)
                 TimerHighlight(lastValues);
@@ -234,17 +239,20 @@ namespace CryptoGadget {
                 Data.others.refreshRate = (int)(AssignRule<decimal>()("Others", "RefreshRate", (obj) => obj >= 0.0m) * 1000);
                 Data.others.openStartup = bool.Parse(Common.ini["Others"]["OpenStartup"]);
 
-                Data.others.maxValueDigits    = AssignRule<int>()("Others", "MaxValueDigits",    (obj) => obj >= 0);
-                Data.others.maxValueDecimals  = AssignRule<int>()("Others", "MaxValueDecimals",  (obj) => obj >= 0);
-                Data.others.maxChangeDigits   = AssignRule<int>()("Others", "MaxChangeDigits",   (obj) => obj >= 0);
-                Data.others.maxChangeDecimals = AssignRule<int>()("Others", "MaxChangeDecimals", (obj) => obj >= 0);
+                Data.others.maxValueDigits     = AssignRule<int>()("Others", "MaxValueDigits",     (obj) => obj >= 0);
+                Data.others.maxValueDecimals   = AssignRule<int>()("Others", "MaxValueDecimals",   (obj) => obj >= 0);
+                Data.others.maxChangeDigits    = AssignRule<int>()("Others", "MaxChangeDigits",    (obj) => obj >= 0);
+                Data.others.maxChangeDecimals  = AssignRule<int>()("Others", "MaxChangeDecimals",  (obj) => obj >= 0);
+                Data.others.maxPercentDigits   = AssignRule<int>()("Others", "MaxPercentDigits",   (obj) => obj >= 0);
+                Data.others.maxPercentDecimals = AssignRule<int>()("Others", "MaxPercentDecimals", (obj) => obj >= 0);
 
-                Data.others.showPercentage = bool.Parse(Common.ini["Others"]["ShowPercentage"]);
+                Data.others.showTooltipName = bool.Parse(Common.ini["Others"]["ShowTooltipName"]);
 
                 Data.visible.icon    = bool.Parse(Common.ini["Visibility"]["Icon"]);
                 Data.visible.coin    = bool.Parse(Common.ini["Visibility"]["Coin"]);
                 Data.visible.value   = bool.Parse(Common.ini["Visibility"]["Value"]);
                 Data.visible.change  = bool.Parse(Common.ini["Visibility"]["Change"]);
+                Data.visible.percent = bool.Parse(Common.ini["Visibility"]["Percent"]);
                 Data.visible.header  = bool.Parse(Common.ini["Visibility"]["Header"]);
                 Data.visible.edge    = bool.Parse(Common.ini["Visibility"]["Edge"]);
                 Data.visible.refresh = bool.Parse(Common.ini["Visibility"]["Refresh"]);
@@ -253,6 +261,7 @@ namespace CryptoGadget {
                 Data.metrics.coin     = AssignRule<int>()("Metrics", "Coin",     (obj) => obj >= 0);
                 Data.metrics.value    = AssignRule<int>()("Metrics", "Value",    (obj) => obj >= 0);
                 Data.metrics.change   = AssignRule<int>()("Metrics", "Change",   (obj) => obj >= 0);
+                Data.metrics.percent  = AssignRule<int>()("Metrics", "Percent",  (obj) => obj >= 0);
                 Data.metrics.edge     = AssignRule<int>()("Metrics", "Edge",     (obj) => obj >= 0);
                 Data.metrics.header   = AssignRule<int>()("Metrics", "Header",   (obj) => obj >= 0);
                 Data.metrics.rows     = AssignRule<int>()("Metrics", "Rows",     (obj) => obj >= 0);
@@ -289,12 +298,10 @@ namespace CryptoGadget {
 
                 foreach(Tuple<string, string> conv in Data.converts) {
                   
-                    int size = Data.metrics.iconSize;
-                    Bitmap bmp = Common.IconResize(Common.GetIcon(conv.Item1), size, size);
+                    int index = coinGrid.Rows.Add(Common.IconResize(Common.GetIcon(conv.Item1), Data.metrics.iconSize), conv.Item1, 0.00, 0.00);
 
-                    int index = coinGrid.Rows.Add(bmp, conv.Item1, 0.00, 0.00);
-                    DataGridViewRow dgvr = new DataGridViewRow();
-                    
+                    #region Context Menu
+
                     ContextMenuStrip cm = new ContextMenuStrip();
                     cm.Items.Add("Settings", null, contextMenuSettings_Click);
                     cm.Items.Add("Hide", null, contextMenuHide_Click);
@@ -310,6 +317,19 @@ namespace CryptoGadget {
                         cm.Items.Insert(cm.Items.Count - 3, new ToolStripSeparator());
 
                     coinGrid.Rows[index].ContextMenuStrip = cm;
+
+                    #endregion
+
+                    #region Name Tooltip
+
+                    if(Common.json != null && Data.others.showTooltipName) {
+                        string name = Common.json["Data"][conv.Item1]["CoinName"].ToString();
+                        foreach(DataGridViewCell cell in coinGrid.Rows[index].Cells)
+                            cell.ToolTipText = name;
+                    }
+
+                    #endregion
+
                 }
 
                 #endregion
@@ -320,6 +340,7 @@ namespace CryptoGadget {
                 coinGrid.Columns[1].Width = Data.metrics.coin;
                 coinGrid.Columns[2].Width = Data.metrics.value;
                 coinGrid.Columns[3].Width = Data.metrics.change;
+                coinGrid.Columns[4].Width = Data.metrics.percent;
                 coinGrid.ColumnHeadersHeight = Data.metrics.header;
                 coinGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Data.metrics.text);
                 coinGrid.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", Data.metrics.numbers);
@@ -331,6 +352,7 @@ namespace CryptoGadget {
                 coinGrid.Columns[1].Visible = Data.visible.coin;
                 coinGrid.Columns[2].Visible = Data.visible.value;
                 coinGrid.Columns[3].Visible = Data.visible.change;
+                coinGrid.Columns[4].Visible = Data.visible.percent;
                 coinGrid.ColumnHeadersVisible = Data.visible.header;
 
                 #endregion
@@ -376,8 +398,12 @@ namespace CryptoGadget {
 
                 #endregion
 
-            } catch(Exception) {
+            } catch(Exception e) {
+                #if DEBUG
+                MessageBox.Show("GridInit: " + e);
+                #else
                 MessageBox.Show("Corrupted settings.ini file, default values will be used", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                #endif
                 parser.WriteFile(Common.iniLocation, Common.DefaultIni());
                 Common.ini = parser.ReadFile(Common.iniLocation);
                 GridInit();

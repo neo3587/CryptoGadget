@@ -49,7 +49,6 @@
             this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonDefaultBasic = new System.Windows.Forms.Button();
-            this.checkShowPercentage = new System.Windows.Forms.CheckBox();
             this.checkRefreshVisible = new System.Windows.Forms.CheckBox();
             this.checkStartup = new System.Windows.Forms.CheckBox();
             this.checkEdgeVisible = new System.Windows.Forms.CheckBox();
@@ -122,6 +121,14 @@
             this.label17 = new System.Windows.Forms.Label();
             this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkPercentVisible = new System.Windows.Forms.CheckBox();
+            this.boxMaxPercentDecimals = new System.Windows.Forms.TextBox();
+            this.boxMaxPercentDigits = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.boxPercentWidth = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.checkTooltipName = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -381,10 +388,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkTooltipName);
+            this.tabPage2.Controls.Add(this.checkPercentVisible);
             this.tabPage2.Controls.Add(this.numericRefreshRate);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.buttonDefaultBasic);
-            this.tabPage2.Controls.Add(this.checkShowPercentage);
             this.tabPage2.Controls.Add(this.checkRefreshVisible);
             this.tabPage2.Controls.Add(this.checkStartup);
             this.tabPage2.Controls.Add(this.checkEdgeVisible);
@@ -452,22 +460,11 @@
             this.buttonDefaultBasic.UseVisualStyleBackColor = true;
             this.buttonDefaultBasic.Click += new System.EventHandler(this.buttonDefaultBasic_Click);
             // 
-            // checkShowPercentage
-            // 
-            this.checkShowPercentage.AutoSize = true;
-            this.checkShowPercentage.Location = new System.Drawing.Point(11, 270);
-            this.checkShowPercentage.Name = "checkShowPercentage";
-            this.checkShowPercentage.Size = new System.Drawing.Size(165, 17);
-            this.checkShowPercentage.TabIndex = 54;
-            this.checkShowPercentage.Text = "Show Change as Percentage";
-            this.toolTip1.SetToolTip(this.checkShowPercentage, "Show the change values in percentages instead of with flat values");
-            this.checkShowPercentage.UseVisualStyleBackColor = true;
-            // 
             // checkRefreshVisible
             // 
             this.checkRefreshVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkRefreshVisible.AutoSize = true;
-            this.checkRefreshVisible.Location = new System.Drawing.Point(339, 149);
+            this.checkRefreshVisible.Location = new System.Drawing.Point(339, 172);
             this.checkRefreshVisible.Name = "checkRefreshVisible";
             this.checkRefreshVisible.Size = new System.Drawing.Size(102, 17);
             this.checkRefreshVisible.TabIndex = 51;
@@ -478,7 +475,7 @@
             // 
             this.checkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkStartup.AutoSize = true;
-            this.checkStartup.Location = new System.Drawing.Point(339, 203);
+            this.checkStartup.Location = new System.Drawing.Point(339, 226);
             this.checkStartup.Name = "checkStartup";
             this.checkStartup.Size = new System.Drawing.Size(104, 17);
             this.checkStartup.TabIndex = 50;
@@ -489,7 +486,7 @@
             // 
             this.checkEdgeVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkEdgeVisible.AutoSize = true;
-            this.checkEdgeVisible.Location = new System.Drawing.Point(339, 126);
+            this.checkEdgeVisible.Location = new System.Drawing.Point(339, 149);
             this.checkEdgeVisible.Name = "checkEdgeVisible";
             this.checkEdgeVisible.Size = new System.Drawing.Size(90, 17);
             this.checkEdgeVisible.TabIndex = 49;
@@ -500,7 +497,7 @@
             // 
             this.checkHeaderVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkHeaderVisible.AutoSize = true;
-            this.checkHeaderVisible.Location = new System.Drawing.Point(339, 102);
+            this.checkHeaderVisible.Location = new System.Drawing.Point(339, 125);
             this.checkHeaderVisible.Name = "checkHeaderVisible";
             this.checkHeaderVisible.Size = new System.Drawing.Size(100, 17);
             this.checkHeaderVisible.TabIndex = 48;
@@ -513,9 +510,9 @@
             this.checkChangeVisible.AutoSize = true;
             this.checkChangeVisible.Location = new System.Drawing.Point(339, 79);
             this.checkChangeVisible.Name = "checkChangeVisible";
-            this.checkChangeVisible.Size = new System.Drawing.Size(107, 17);
+            this.checkChangeVisible.Size = new System.Drawing.Size(102, 17);
             this.checkChangeVisible.TabIndex = 47;
-            this.checkChangeVisible.Text = "Changes Visibility";
+            this.checkChangeVisible.Text = "Change Visibility";
             this.checkChangeVisible.UseVisualStyleBackColor = true;
             // 
             // checkValueVisible
@@ -805,6 +802,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.boxMaxPercentDecimals);
+            this.tabPage3.Controls.Add(this.boxMaxPercentDigits);
+            this.tabPage3.Controls.Add(this.label2);
+            this.tabPage3.Controls.Add(this.label32);
             this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
             this.tabPage3.Controls.Add(this.checkLockPosition);
             this.tabPage3.Controls.Add(this.checkExitSave);
@@ -948,8 +949,8 @@
             this.label22.TabIndex = 53;
             this.label22.Text = "Max Change decimals:";
             this.toolTip1.SetToolTip(this.label22, "Maximimum number of decimal digits that will be shown,\r\nthe actual number of deci" +
-        "mal digits shown depends on\r\n\'Max Decimal total digits\' (put the cursor in that " +
-        "feature for\r\nmore info).");
+        "mal digits shown depends on\r\n\'Max Change total digits\' (put the cursor in that f" +
+        "eature for\r\nmore info).");
             // 
             // label23
             // 
@@ -988,6 +989,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.boxPercentWidth);
+            this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Controls.Add(this.label30);
             this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Controls.Add(this.boxNumbersSize);
@@ -1009,9 +1012,9 @@
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.boxValueWidth);
-            this.groupBox1.Location = new System.Drawing.Point(5, 234);
+            this.groupBox1.Location = new System.Drawing.Point(5, 213);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(442, 166);
+            this.groupBox1.Size = new System.Drawing.Size(442, 187);
             this.groupBox1.TabIndex = 46;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "                                        ";
@@ -1030,7 +1033,7 @@
             // 
             // label29
             // 
-            this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(251, 133);
             this.label29.Name = "label29";
@@ -1042,7 +1045,7 @@
             // 
             // boxNumbersSize
             // 
-            this.boxNumbersSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxNumbersSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boxNumbersSize.Location = new System.Drawing.Point(336, 131);
             this.boxNumbersSize.Name = "boxNumbersSize";
             this.boxNumbersSize.Size = new System.Drawing.Size(100, 20);
@@ -1051,7 +1054,7 @@
             // 
             // label28
             // 
-            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(251, 107);
             this.label28.Name = "label28";
@@ -1063,7 +1066,7 @@
             // 
             // boxTextSize
             // 
-            this.boxTextSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxTextSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boxTextSize.Location = new System.Drawing.Point(336, 105);
             this.boxTextSize.Name = "boxTextSize";
             this.boxTextSize.Size = new System.Drawing.Size(100, 20);
@@ -1072,7 +1075,7 @@
             // 
             // label27
             // 
-            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(251, 81);
             this.label27.Name = "label27";
@@ -1084,7 +1087,7 @@
             // 
             // boxIconSize
             // 
-            this.boxIconSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxIconSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boxIconSize.Location = new System.Drawing.Point(336, 79);
             this.boxIconSize.Name = "boxIconSize";
             this.boxIconSize.Size = new System.Drawing.Size(100, 20);
@@ -1093,7 +1096,7 @@
             // 
             // label26
             // 
-            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(251, 56);
             this.label26.Name = "label26";
@@ -1105,7 +1108,7 @@
             // 
             // boxRowsHeight
             // 
-            this.boxRowsHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxRowsHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boxRowsHeight.Location = new System.Drawing.Point(336, 53);
             this.boxRowsHeight.Name = "boxRowsHeight";
             this.boxRowsHeight.Size = new System.Drawing.Size(100, 20);
@@ -1114,7 +1117,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(251, 30);
             this.label3.Name = "label3";
@@ -1126,7 +1129,7 @@
             // 
             // boxHeaderHeight
             // 
-            this.boxHeaderHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxHeaderHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boxHeaderHeight.Location = new System.Drawing.Point(336, 27);
             this.boxHeaderHeight.Name = "boxHeaderHeight";
             this.boxHeaderHeight.Size = new System.Drawing.Size(100, 20);
@@ -1143,7 +1146,7 @@
             // 
             // boxEdgeWidth
             // 
-            this.boxEdgeWidth.Location = new System.Drawing.Point(90, 131);
+            this.boxEdgeWidth.Location = new System.Drawing.Point(90, 157);
             this.boxEdgeWidth.Name = "boxEdgeWidth";
             this.boxEdgeWidth.Size = new System.Drawing.Size(100, 20);
             this.boxEdgeWidth.TabIndex = 12;
@@ -1163,7 +1166,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 134);
+            this.label19.Location = new System.Drawing.Point(6, 160);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(66, 13);
             this.label19.TabIndex = 11;
@@ -1227,6 +1230,88 @@
             this.boxValueWidth.Size = new System.Drawing.Size(100, 20);
             this.boxValueWidth.TabIndex = 8;
             this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // checkPercentVisible
+            // 
+            this.checkPercentVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkPercentVisible.AutoSize = true;
+            this.checkPercentVisible.Location = new System.Drawing.Point(339, 102);
+            this.checkPercentVisible.Name = "checkPercentVisible";
+            this.checkPercentVisible.Size = new System.Drawing.Size(102, 17);
+            this.checkPercentVisible.TabIndex = 60;
+            this.checkPercentVisible.Text = "Percent Visibility";
+            this.toolTip1.SetToolTip(this.checkPercentVisible, "Percent refers to change in percentage instead of flat values");
+            this.checkPercentVisible.UseVisualStyleBackColor = true;
+            // 
+            // boxMaxPercentDecimals
+            // 
+            this.boxMaxPercentDecimals.Location = new System.Drawing.Point(132, 138);
+            this.boxMaxPercentDecimals.Name = "boxMaxPercentDecimals";
+            this.boxMaxPercentDecimals.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxPercentDecimals.TabIndex = 63;
+            this.boxMaxPercentDecimals.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxMaxPercentDigits
+            // 
+            this.boxMaxPercentDigits.Location = new System.Drawing.Point(132, 112);
+            this.boxMaxPercentDigits.Name = "boxMaxPercentDigits";
+            this.boxMaxPercentDigits.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxPercentDigits.TabIndex = 61;
+            this.boxMaxPercentDigits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 141);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(114, 13);
+            this.label2.TabIndex = 64;
+            this.label2.Text = "Max Percent decimals:";
+            this.toolTip1.SetToolTip(this.label2, "Maximimum number of decimal digits that will be shown,\r\nthe actual number of deci" +
+        "mal digits shown depends on\r\n\'Max percent total digits\' (put the cursor in that " +
+        "feature for\r\nmore info).");
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 115);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(120, 13);
+            this.label32.TabIndex = 62;
+            this.label32.Text = "Max Percent total digits:";
+            this.toolTip1.SetToolTip(this.label32, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
+        "e scheme as the \'Max Value total digits\'.");
+            // 
+            // boxPercentWidth
+            // 
+            this.boxPercentWidth.Location = new System.Drawing.Point(90, 131);
+            this.boxPercentWidth.Name = "boxPercentWidth";
+            this.boxPercentWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxPercentWidth.TabIndex = 25;
+            this.boxPercentWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 134);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(78, 13);
+            this.label33.TabIndex = 24;
+            this.label33.Text = "Percent Width:";
+            this.toolTip1.SetToolTip(this.label33, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+            // 
+            // checkTooltipName
+            // 
+            this.checkTooltipName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkTooltipName.AutoSize = true;
+            this.checkTooltipName.Location = new System.Drawing.Point(8, 269);
+            this.checkTooltipName.Name = "checkTooltipName";
+            this.checkTooltipName.Size = new System.Drawing.Size(119, 17);
+            this.checkTooltipName.TabIndex = 61;
+            this.checkTooltipName.Text = "Show Tooltip Name";
+            this.toolTip1.SetToolTip(this.checkTooltipName, "Shows the name of the coin when the mouse is over the \r\ncorresponding row");
+            this.checkTooltipName.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -1352,12 +1437,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn target;
         private System.Windows.Forms.DataGridViewTextBoxColumn targetName;
-        private System.Windows.Forms.CheckBox checkShowPercentage;
         private System.Windows.Forms.Button buttonDefaultCurrencies;
         private System.Windows.Forms.Button buttonDefaultBasic;
         private System.Windows.Forms.Button buttonDefaultAdvanced;
         private System.Windows.Forms.Button buttonDownloadMissingIcons;
         private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkPercentVisible;
+        private System.Windows.Forms.TextBox boxMaxPercentDecimals;
+        private System.Windows.Forms.TextBox boxMaxPercentDigits;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox boxPercentWidth;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.CheckBox checkTooltipName;
     }
 }
