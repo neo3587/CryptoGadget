@@ -197,7 +197,7 @@ namespace CryptoGadget {
 
                 checkTooltipName.Checked    = bool.Parse(data["Others"]["ShowTooltipName"]);
                 
-                numRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
+                numericRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
             }
 
             if((dt & DataType.Colors) != 0) {
@@ -218,27 +218,27 @@ namespace CryptoGadget {
 
             if((dt & DataType.Advanced) != 0) {
 
-                numIconWidth.Value = int.Parse(data["Metrics"]["Icon"]);
-                numCoinWidth.Value    = int.Parse(data["Metrics"]["Coin"]);
-                numValueWidth.Value   = int.Parse(data["Metrics"]["Value"]);
-                numChangeWidth.Value  = int.Parse(data["Metrics"]["Change"]);
-                numPercentWidth.Value = int.Parse(data["Metrics"]["Percent"]);
-                numEdgeWidth.Value    = int.Parse(data["Metrics"]["Edge"]);
-                numHeaderHeight.Value = int.Parse(data["Metrics"]["Header"]);
-                numRowsHeight.Value   = int.Parse(data["Metrics"]["Rows"]);
-                numIconSize.Value     = int.Parse(data["Metrics"]["IconSize"]);
-                numTextSize.Value     = decimal.Parse(data["Metrics"]["Text"]);
-                numNumbersSize.Value  = decimal.Parse(data["Metrics"]["Numbers"]);
+                boxIconWidth.Text    = data["Metrics"]["Icon"];
+                boxCoinWidth.Text    = data["Metrics"]["Coin"];
+                boxValueWidth.Text   = data["Metrics"]["Value"];
+                boxChangeWidth.Text  = data["Metrics"]["Change"];
+                boxPercentWidth.Text = data["Metrics"]["Percent"];
+                boxEdgeWidth.Text    = data["Metrics"]["Edge"];
+                boxHeaderHeight.Text = data["Metrics"]["Header"];
+                boxRowsHeight.Text   = data["Metrics"]["Rows"];
+                boxIconSize.Text     = data["Metrics"]["IconSize"];
+                boxTextSize.Text     = data["Metrics"]["Text"];
+                boxNumbersSize.Text  = data["Metrics"]["Numbers"];
 
-                numMaxValueDigits.Value    = int.Parse(data["Others"]["MaxValueDigits"]);
-                numMaxValueDecimals.Value  = int.Parse(data["Others"]["MaxValueDecimals"]);
-                numMaxChangeDigits.Value    = int.Parse(data["Others"]["MaxChangeDigits"]);
-                numMaxChangeDecimals.Value  = int.Parse(data["Others"]["MaxChangeDecimals"]);
-                numMaxPercentDigits.Value   = int.Parse(data["Others"]["MaxPercentDigits"]);
-                numMaxPercentDecimals.Value = int.Parse(data["Others"]["MaxPercentDecimals"]);
+                boxMaxValueDigits.Text     = data["Others"]["MaxValueDigits"];
+                boxMaxValueDecimals.Text   = data["Others"]["MaxValueDecimals"];
+                boxMaxChangeDigits.Text    = data["Others"]["MaxChangeDigits"];
+                boxMaxChangeDecimals.Text  = data["Others"]["MaxChangeDecimals"];
+                boxMaxPercentDigits.Text   = data["Others"]["MaxPercentDigits"];
+                boxMaxPercentDecimals.Text = data["Others"]["MaxPercentDecimals"];
 
-                numStartX.Value = int.Parse(data["Coordinates"]["StartX"]);
-                numStartY.Value = int.Parse(data["Coordinates"]["StartY"]);
+                boxStartX.Text = data["Coordinates"]["StartX"];
+                boxStartY.Text = data["Coordinates"]["StartY"];
                 checkExitSave.Checked     = bool.Parse(data["Coordinates"]["ExitSave"]);
                 checkLockPosition.Checked = bool.Parse(data["Coordinates"]["LockPosition"]);
 
@@ -247,6 +247,11 @@ namespace CryptoGadget {
         }
         private void SaveData(DataType dt = DataType.All) {
             
+            Action<string, string, string> AssignIfValue = (sect, key, text) => {
+                if(text != "")
+                    Common.ini[sect][key] = text;
+            };
+
             if((dt & DataType.Coins) != 0) {
 
                 Common.ini["Coins"].RemoveAllKeys();
@@ -256,7 +261,8 @@ namespace CryptoGadget {
             }
 
             if((dt & DataType.Basic) != 0) {
-                Common.ini["Others"]["RefreshRate"] = numRefreshRate.Value.ToString();
+
+                Common.ini["Others"]["RefreshRate"] = numericRefreshRate.Value.ToString();
                 Common.ini["Others"]["OpenStartup"] = checkStartup.Checked.ToString();
                 Common.ini["Others"]["ShowTooltipName"] = checkTooltipName.Checked.ToString();
 
@@ -268,9 +274,11 @@ namespace CryptoGadget {
                 Common.ini["Visibility"]["Header"]  = checkHeaderVisible.Checked.ToString();
                 Common.ini["Visibility"]["Edge"]    = checkEdgeVisible.Checked.ToString();
                 Common.ini["Visibility"]["Refresh"] = checkRefreshVisible.Checked.ToString();
+
             }
 
             if((dt & DataType.Colors) != 0) {
+
                 Common.ini["Colors"]["Coins"]            = Common.ColorToStrHex(buttonColorCoins.BackColor);
                 Common.ini["Colors"]["Values"]           = Common.ColorToStrHex(buttonColorValues.BackColor);
                 Common.ini["Colors"]["BackGround1"]      = Common.ColorToStrHex(buttonColorBackGround1.BackColor);
@@ -282,30 +290,31 @@ namespace CryptoGadget {
                 Common.ini["Colors"]["NegativeChange"]   = Common.ColorToStrHex(buttonColorNegativeChange.BackColor);
                 Common.ini["Colors"]["HeaderText"]       = Common.ColorToStrHex(buttonColorHeaderText.BackColor);
                 Common.ini["Colors"]["HeaderBackGround"] = Common.ColorToStrHex(buttonColorHeaderBackGround.BackColor);
+
             }
 
             if((dt & DataType.Advanced) != 0) {
-                Common.ini["Metrics"]["Icon"]     = numIconWidth.Value.ToString();
-                Common.ini["Metrics"]["Coin"]     = numCoinWidth.Value.ToString();
-                Common.ini["Metrics"]["Value"]    = numValueWidth.Value.ToString();
-                Common.ini["Metrics"]["Change"]   = numChangeWidth.Value.ToString();
-                Common.ini["Metrics"]["Percent"]  = numPercentWidth.Value.ToString();
-                Common.ini["Metrics"]["Edge"]     = numEdgeWidth.Value.ToString();
-                Common.ini["Metrics"]["Header"]   = numHeaderHeight.Value.ToString();
-                Common.ini["Metrics"]["Rows"]     = numRowsHeight.Value.ToString();
-                Common.ini["Metrics"]["IconSize"] = numIconSize.Value.ToString();
-                Common.ini["Metrics"]["Text"]     = numTextSize.Value.ToString();
-                Common.ini["Metrics"]["Numbers"]  = numNumbersSize.Value.ToString();
+                AssignIfValue("Metrics", "Icon",     boxIconWidth.Text);
+                AssignIfValue("Metrics", "Coin",     boxCoinWidth.Text);
+                AssignIfValue("Metrics", "Value",    boxValueWidth.Text);
+                AssignIfValue("Metrics", "Change",   boxChangeWidth.Text);
+                AssignIfValue("Metrics", "Percent",  boxPercentWidth.Text);
+                AssignIfValue("Metrics", "Edge",     boxEdgeWidth.Text);
+                AssignIfValue("Metrics", "Header",   boxHeaderHeight.Text);
+                AssignIfValue("Metrics", "Rows",     boxRowsHeight.Text);
+                AssignIfValue("Metrics", "IconSize", boxIconSize.Text);
+                AssignIfValue("Metrics", "Text",     boxTextSize.Text);
+                AssignIfValue("Metrics", "Numbers",  boxNumbersSize.Text);
 
-                Common.ini["Others"]["MaxValueDigits"]     = numMaxValueDigits.Value.ToString();
-                Common.ini["Others"]["MaxValueDecimals"]   = numMaxValueDecimals.Value.ToString();
-                Common.ini["Others"]["MaxChangeDigits"]    = numMaxChangeDigits.Value.ToString();
-                Common.ini["Others"]["MaxChangeDecimals"]  = numMaxChangeDecimals.Value.ToString();
-                Common.ini["Others"]["MaxPercentDigits"]   = numMaxPercentDigits.Value.ToString();
-                Common.ini["Others"]["MaxPercentDecimals"] = numMaxPercentDecimals.Value.ToString();
+                AssignIfValue("Others", "MaxValueDigits",     boxMaxValueDigits.Text);
+                AssignIfValue("Others", "MaxValueDecimals",   boxMaxValueDecimals.Text);
+                AssignIfValue("Others", "MaxChangeDigits",    boxMaxChangeDigits.Text);
+                AssignIfValue("Others", "MaxChangeDecimals",  boxMaxChangeDecimals.Text);
+                AssignIfValue("Others", "MaxPercentDigits",   boxMaxPercentDigits.Text);
+                AssignIfValue("Others", "MaxPercentDecimals", boxMaxPercentDecimals.Text);
 
-                Common.ini["Coordinates"]["StartX"] = numStartX.Value.ToString();
-                Common.ini["Coordinates"]["StartY"] = numStartY.Value.ToString();
+                AssignIfValue("Coordinates", "StartX", boxStartX.Text);
+                AssignIfValue("Coordinates", "StartY", boxStartY.Text);
                 Common.ini["Coordinates"]["ExitSave"]     = checkExitSave.Checked.ToString();
                 Common.ini["Coordinates"]["LockPosition"] = checkLockPosition.Checked.ToString();
             }
@@ -507,6 +516,10 @@ namespace CryptoGadget {
         }
 
         private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedInt(sender, e);
+        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedInt(sender, e);
+        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedFloat(sender, e);
+        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedFloat(sender, e);
 
         #endregion
 

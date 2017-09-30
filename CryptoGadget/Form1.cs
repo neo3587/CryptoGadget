@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
@@ -21,13 +20,16 @@ using neo;
 
 
 /* IDEAS:
- - Graphs (will require a new tab)
+ - Graphs (no idea of how to do it yet)
  - Alarm when a configurable threshold is passed
+ - Option to swap icon, coin, value, change and % position 
+ - Multiple instances (individual .ini for each instance)
+ - Add hashrate option in coin settings to check what coin is most profitable to mine (use whattomine ?)
 */
 
 /* TODO:
- - Fix unable to have 2 instance of the same coin with differents target coins (new ini library required)
- - Change Data primitives to property<T> {get set}, bind(string)
+ - Fix unable to have 2 instance of the same coin with differents target coins (new ini library required)... or just use multiple instances
+ - Change Data primitives to property<T> {get set}, bind(string)... not sure at all if it will be worth
 */
 
 
@@ -443,10 +445,12 @@ namespace CryptoGadget {
             wait.WaitOne();
 
             if(form2.accept) {
-                if(!SaveCoords())
+                Point currLoc = Location; // avoid the form rellocation when GridInit is called and Save coordinate on exit is not checked
+                if (!SaveCoords())
                     new IniParser.FileIniDataParser().WriteFile(Common.iniLocation, Common.ini);
                 GridInit();
                 ResizeForm();
+                Location = currLoc;
             }
 
             timerDisposed = false;

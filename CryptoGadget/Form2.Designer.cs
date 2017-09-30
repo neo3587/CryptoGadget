@@ -46,9 +46,7 @@
             this.buttonAddIcon = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkTooltipName = new System.Windows.Forms.CheckBox();
-            this.checkPercentVisible = new System.Windows.Forms.CheckBox();
-            this.numRefreshRate = new System.Windows.Forms.NumericUpDown();
+            this.numericRefreshRate = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonDefaultBasic = new System.Windows.Forms.Button();
             this.checkRefreshVisible = new System.Windows.Forms.CheckBox();
@@ -85,19 +83,15 @@
             this.label11 = new System.Windows.Forms.Label();
             this.buttonColorPositiveChange = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.numStartY = new System.Windows.Forms.NumericUpDown();
-            this.numStartX = new System.Windows.Forms.NumericUpDown();
-            this.numMaxPercentDecimals = new System.Windows.Forms.NumericUpDown();
-            this.numMaxPercentDigits = new System.Windows.Forms.NumericUpDown();
-            this.numMaxChangeDecimals = new System.Windows.Forms.NumericUpDown();
-            this.numMaxChangeDigits = new System.Windows.Forms.NumericUpDown();
-            this.numMaxValueDecimals = new System.Windows.Forms.NumericUpDown();
-            this.numMaxValueDigits = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
             this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
             this.checkLockPosition = new System.Windows.Forms.CheckBox();
             this.checkExitSave = new System.Windows.Forms.CheckBox();
+            this.boxStartY = new System.Windows.Forms.TextBox();
+            this.boxStartX = new System.Windows.Forms.TextBox();
+            this.boxMaxChangeDecimals = new System.Windows.Forms.TextBox();
+            this.boxMaxChangeDigits = new System.Windows.Forms.TextBox();
+            this.boxMaxValueDecimals = new System.Windows.Forms.TextBox();
+            this.boxMaxValueDigits = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -105,57 +99,44 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numNumbersSize = new System.Windows.Forms.NumericUpDown();
-            this.numTextSize = new System.Windows.Forms.NumericUpDown();
-            this.numIconSize = new System.Windows.Forms.NumericUpDown();
-            this.numRowsHeight = new System.Windows.Forms.NumericUpDown();
-            this.numEdgeWidth = new System.Windows.Forms.NumericUpDown();
-            this.numCoinWidth = new System.Windows.Forms.NumericUpDown();
-            this.numValueWidth = new System.Windows.Forms.NumericUpDown();
-            this.numPercentWidth = new System.Windows.Forms.NumericUpDown();
-            this.numChangeWidth = new System.Windows.Forms.NumericUpDown();
-            this.numHeaderHeight = new System.Windows.Forms.NumericUpDown();
-            this.numIconWidth = new System.Windows.Forms.NumericUpDown();
-            this.label33 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.boxNumbersSize = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
+            this.boxTextSize = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.boxIconSize = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.boxRowsHeight = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.boxHeaderHeight = new System.Windows.Forms.TextBox();
+            this.boxCoinWidth = new System.Windows.Forms.TextBox();
+            this.boxEdgeWidth = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.boxIconWidth = new System.Windows.Forms.TextBox();
+            this.boxChangeWidth = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.boxValueWidth = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkPercentVisible = new System.Windows.Forms.CheckBox();
+            this.boxMaxPercentDecimals = new System.Windows.Forms.TextBox();
+            this.boxMaxPercentDigits = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.boxPercentWidth = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.checkTooltipName = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numStartY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numStartX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxPercentDecimals)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxPercentDigits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxChangeDecimals)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxChangeDigits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxValueDecimals)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxValueDigits)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNumbersSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTextSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numIconSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRowsHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdgeWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCoinWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numValueWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPercentWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChangeWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHeaderHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numIconWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAccept
@@ -409,7 +390,7 @@
             // 
             this.tabPage2.Controls.Add(this.checkTooltipName);
             this.tabPage2.Controls.Add(this.checkPercentVisible);
-            this.tabPage2.Controls.Add(this.numRefreshRate);
+            this.tabPage2.Controls.Add(this.numericRefreshRate);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.buttonDefaultBasic);
             this.tabPage2.Controls.Add(this.checkRefreshVisible);
@@ -429,55 +410,31 @@
             this.tabPage2.Text = "Basic";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // checkTooltipName
+            // numericRefreshRate
             // 
-            this.checkTooltipName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkTooltipName.AutoSize = true;
-            this.checkTooltipName.Location = new System.Drawing.Point(8, 269);
-            this.checkTooltipName.Name = "checkTooltipName";
-            this.checkTooltipName.Size = new System.Drawing.Size(119, 17);
-            this.checkTooltipName.TabIndex = 61;
-            this.checkTooltipName.Text = "Show Tooltip Name";
-            this.toolTip1.SetToolTip(this.checkTooltipName, "Shows the name of the coin when the mouse is over the \r\ncorresponding row");
-            this.checkTooltipName.UseVisualStyleBackColor = true;
-            // 
-            // checkPercentVisible
-            // 
-            this.checkPercentVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkPercentVisible.AutoSize = true;
-            this.checkPercentVisible.Location = new System.Drawing.Point(339, 102);
-            this.checkPercentVisible.Name = "checkPercentVisible";
-            this.checkPercentVisible.Size = new System.Drawing.Size(102, 17);
-            this.checkPercentVisible.TabIndex = 60;
-            this.checkPercentVisible.Text = "Percent Visibility";
-            this.toolTip1.SetToolTip(this.checkPercentVisible, "Percent refers to change in percentage instead of flat values");
-            this.checkPercentVisible.UseVisualStyleBackColor = true;
-            // 
-            // numRefreshRate
-            // 
-            this.numRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numRefreshRate.DecimalPlaces = 2;
-            this.numRefreshRate.Increment = new decimal(new int[] {
+            this.numericRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericRefreshRate.DecimalPlaces = 2;
+            this.numericRefreshRate.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.numRefreshRate.Location = new System.Drawing.Point(110, 7);
-            this.numRefreshRate.Maximum = new decimal(new int[] {
+            this.numericRefreshRate.Location = new System.Drawing.Point(110, 7);
+            this.numericRefreshRate.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
-            this.numRefreshRate.Minimum = new decimal(new int[] {
+            this.numericRefreshRate.Minimum = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            this.numRefreshRate.Name = "numRefreshRate";
-            this.numRefreshRate.Size = new System.Drawing.Size(97, 20);
-            this.numRefreshRate.TabIndex = 59;
-            this.numRefreshRate.ThousandsSeparator = true;
-            this.numRefreshRate.Value = new decimal(new int[] {
+            this.numericRefreshRate.Name = "numericRefreshRate";
+            this.numericRefreshRate.Size = new System.Drawing.Size(97, 20);
+            this.numericRefreshRate.TabIndex = 59;
+            this.numericRefreshRate.ThousandsSeparator = true;
+            this.numericRefreshRate.Value = new decimal(new int[] {
             3,
             0,
             0,
@@ -845,19 +802,19 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.numStartY);
-            this.tabPage3.Controls.Add(this.numStartX);
-            this.tabPage3.Controls.Add(this.numMaxPercentDecimals);
-            this.tabPage3.Controls.Add(this.numMaxPercentDigits);
-            this.tabPage3.Controls.Add(this.numMaxChangeDecimals);
-            this.tabPage3.Controls.Add(this.numMaxChangeDigits);
-            this.tabPage3.Controls.Add(this.numMaxValueDecimals);
-            this.tabPage3.Controls.Add(this.numMaxValueDigits);
+            this.tabPage3.Controls.Add(this.boxMaxPercentDecimals);
+            this.tabPage3.Controls.Add(this.boxMaxPercentDigits);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.label32);
             this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
             this.tabPage3.Controls.Add(this.checkLockPosition);
             this.tabPage3.Controls.Add(this.checkExitSave);
+            this.tabPage3.Controls.Add(this.boxStartY);
+            this.tabPage3.Controls.Add(this.boxStartX);
+            this.tabPage3.Controls.Add(this.boxMaxChangeDecimals);
+            this.tabPage3.Controls.Add(this.boxMaxChangeDigits);
+            this.tabPage3.Controls.Add(this.boxMaxValueDecimals);
+            this.tabPage3.Controls.Add(this.boxMaxValueDigits);
             this.tabPage3.Controls.Add(this.label25);
             this.tabPage3.Controls.Add(this.label24);
             this.tabPage3.Controls.Add(this.label22);
@@ -872,105 +829,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Advanced";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // numStartY
-            // 
-            this.numStartY.Location = new System.Drawing.Point(347, 35);
-            this.numStartY.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.numStartY.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.numStartY.Name = "numStartY";
-            this.numStartY.Size = new System.Drawing.Size(100, 20);
-            this.numStartY.TabIndex = 72;
-            // 
-            // numStartX
-            // 
-            this.numStartX.Location = new System.Drawing.Point(347, 9);
-            this.numStartX.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.numStartX.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.numStartX.Name = "numStartX";
-            this.numStartX.Size = new System.Drawing.Size(100, 20);
-            this.numStartX.TabIndex = 71;
-            // 
-            // numMaxPercentDecimals
-            // 
-            this.numMaxPercentDecimals.Location = new System.Drawing.Point(132, 139);
-            this.numMaxPercentDecimals.Name = "numMaxPercentDecimals";
-            this.numMaxPercentDecimals.Size = new System.Drawing.Size(100, 20);
-            this.numMaxPercentDecimals.TabIndex = 70;
-            // 
-            // numMaxPercentDigits
-            // 
-            this.numMaxPercentDigits.Location = new System.Drawing.Point(132, 113);
-            this.numMaxPercentDigits.Name = "numMaxPercentDigits";
-            this.numMaxPercentDigits.Size = new System.Drawing.Size(100, 20);
-            this.numMaxPercentDigits.TabIndex = 69;
-            // 
-            // numMaxChangeDecimals
-            // 
-            this.numMaxChangeDecimals.Location = new System.Drawing.Point(132, 87);
-            this.numMaxChangeDecimals.Name = "numMaxChangeDecimals";
-            this.numMaxChangeDecimals.Size = new System.Drawing.Size(100, 20);
-            this.numMaxChangeDecimals.TabIndex = 68;
-            // 
-            // numMaxChangeDigits
-            // 
-            this.numMaxChangeDigits.Location = new System.Drawing.Point(132, 61);
-            this.numMaxChangeDigits.Name = "numMaxChangeDigits";
-            this.numMaxChangeDigits.Size = new System.Drawing.Size(100, 20);
-            this.numMaxChangeDigits.TabIndex = 67;
-            // 
-            // numMaxValueDecimals
-            // 
-            this.numMaxValueDecimals.Location = new System.Drawing.Point(132, 35);
-            this.numMaxValueDecimals.Name = "numMaxValueDecimals";
-            this.numMaxValueDecimals.Size = new System.Drawing.Size(100, 20);
-            this.numMaxValueDecimals.TabIndex = 66;
-            // 
-            // numMaxValueDigits
-            // 
-            this.numMaxValueDigits.Location = new System.Drawing.Point(132, 9);
-            this.numMaxValueDigits.Name = "numMaxValueDigits";
-            this.numMaxValueDigits.Size = new System.Drawing.Size(100, 20);
-            this.numMaxValueDigits.TabIndex = 65;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 141);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 13);
-            this.label2.TabIndex = 64;
-            this.label2.Text = "Max Percent decimals:";
-            this.toolTip1.SetToolTip(this.label2, "Maximimum number of decimal digits that will be shown,\r\nthe actual number of deci" +
-        "mal digits shown depends on\r\n\'Max percent total digits\' (put the cursor in that " +
-        "feature for\r\nmore info).");
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 115);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(120, 13);
-            this.label32.TabIndex = 62;
-            this.label32.Text = "Max Percent total digits:";
-            this.toolTip1.SetToolTip(this.label32, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
-        "e scheme as the \'Max Value total digits\'.");
             // 
             // buttonDefaultAdvanced
             // 
@@ -1007,6 +865,60 @@
             this.toolTip1.SetToolTip(this.checkExitSave, "Allows the gadget to remember the last XY position \r\nbefore closing or reloading." +
         "");
             this.checkExitSave.UseVisualStyleBackColor = true;
+            // 
+            // boxStartY
+            // 
+            this.boxStartY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxStartY.Location = new System.Drawing.Point(348, 34);
+            this.boxStartY.Name = "boxStartY";
+            this.boxStartY.Size = new System.Drawing.Size(100, 20);
+            this.boxStartY.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.boxStartY, "Pixel coordinate that poins to the Y position where the \r\ngadget will be shown wh" +
+        "en opened.");
+            this.boxStartY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSint);
+            // 
+            // boxStartX
+            // 
+            this.boxStartX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxStartX.Location = new System.Drawing.Point(348, 8);
+            this.boxStartX.Name = "boxStartX";
+            this.boxStartX.Size = new System.Drawing.Size(100, 20);
+            this.boxStartX.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.boxStartX, "Pixel coordinate that poins to the X position where the \r\ngadget will be shown wh" +
+        "en opened.");
+            this.boxStartX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSint);
+            // 
+            // boxMaxChangeDecimals
+            // 
+            this.boxMaxChangeDecimals.Location = new System.Drawing.Point(132, 86);
+            this.boxMaxChangeDecimals.Name = "boxMaxChangeDecimals";
+            this.boxMaxChangeDecimals.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxChangeDecimals.TabIndex = 52;
+            this.boxMaxChangeDecimals.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxMaxChangeDigits
+            // 
+            this.boxMaxChangeDigits.Location = new System.Drawing.Point(132, 60);
+            this.boxMaxChangeDigits.Name = "boxMaxChangeDigits";
+            this.boxMaxChangeDigits.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxChangeDigits.TabIndex = 50;
+            this.boxMaxChangeDigits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxMaxValueDecimals
+            // 
+            this.boxMaxValueDecimals.Location = new System.Drawing.Point(132, 34);
+            this.boxMaxValueDecimals.Name = "boxMaxValueDecimals";
+            this.boxMaxValueDecimals.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxValueDecimals.TabIndex = 48;
+            this.boxMaxValueDecimals.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxMaxValueDigits
+            // 
+            this.boxMaxValueDigits.Location = new System.Drawing.Point(132, 8);
+            this.boxMaxValueDigits.Name = "boxMaxValueDigits";
+            this.boxMaxValueDigits.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxValueDigits.TabIndex = 45;
+            this.boxMaxValueDigits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label25
             // 
@@ -1077,195 +989,35 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.numNumbersSize);
-            this.groupBox1.Controls.Add(this.numTextSize);
-            this.groupBox1.Controls.Add(this.numIconSize);
-            this.groupBox1.Controls.Add(this.numRowsHeight);
-            this.groupBox1.Controls.Add(this.numEdgeWidth);
-            this.groupBox1.Controls.Add(this.numCoinWidth);
-            this.groupBox1.Controls.Add(this.numValueWidth);
-            this.groupBox1.Controls.Add(this.numPercentWidth);
-            this.groupBox1.Controls.Add(this.numChangeWidth);
-            this.groupBox1.Controls.Add(this.numHeaderHeight);
-            this.groupBox1.Controls.Add(this.numIconWidth);
+            this.groupBox1.Controls.Add(this.boxPercentWidth);
             this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Controls.Add(this.label30);
             this.groupBox1.Controls.Add(this.label29);
+            this.groupBox1.Controls.Add(this.boxNumbersSize);
             this.groupBox1.Controls.Add(this.label28);
+            this.groupBox1.Controls.Add(this.boxTextSize);
             this.groupBox1.Controls.Add(this.label27);
+            this.groupBox1.Controls.Add(this.boxIconSize);
             this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.boxRowsHeight);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.boxHeaderHeight);
+            this.groupBox1.Controls.Add(this.boxCoinWidth);
+            this.groupBox1.Controls.Add(this.boxEdgeWidth);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.boxIconWidth);
+            this.groupBox1.Controls.Add(this.boxChangeWidth);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.boxValueWidth);
             this.groupBox1.Location = new System.Drawing.Point(5, 213);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(442, 187);
             this.groupBox1.TabIndex = 46;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "                                        ";
-            // 
-            // numNumbersSize
-            // 
-            this.numNumbersSize.DecimalPlaces = 2;
-            this.numNumbersSize.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            this.numNumbersSize.Location = new System.Drawing.Point(336, 131);
-            this.numNumbersSize.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numNumbersSize.Name = "numNumbersSize";
-            this.numNumbersSize.Size = new System.Drawing.Size(100, 20);
-            this.numNumbersSize.TabIndex = 76;
-            this.numNumbersSize.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            // 
-            // numTextSize
-            // 
-            this.numTextSize.DecimalPlaces = 2;
-            this.numTextSize.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            this.numTextSize.Location = new System.Drawing.Point(336, 105);
-            this.numTextSize.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numTextSize.Name = "numTextSize";
-            this.numTextSize.Size = new System.Drawing.Size(100, 20);
-            this.numTextSize.TabIndex = 75;
-            // 
-            // numIconSize
-            // 
-            this.numIconSize.Location = new System.Drawing.Point(336, 79);
-            this.numIconSize.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numIconSize.Name = "numIconSize";
-            this.numIconSize.Size = new System.Drawing.Size(100, 20);
-            this.numIconSize.TabIndex = 74;
-            // 
-            // numRowsHeight
-            // 
-            this.numRowsHeight.Location = new System.Drawing.Point(336, 54);
-            this.numRowsHeight.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numRowsHeight.Name = "numRowsHeight";
-            this.numRowsHeight.Size = new System.Drawing.Size(100, 20);
-            this.numRowsHeight.TabIndex = 73;
-            // 
-            // numEdgeWidth
-            // 
-            this.numEdgeWidth.Location = new System.Drawing.Point(90, 158);
-            this.numEdgeWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numEdgeWidth.Name = "numEdgeWidth";
-            this.numEdgeWidth.Size = new System.Drawing.Size(100, 20);
-            this.numEdgeWidth.TabIndex = 72;
-            // 
-            // numCoinWidth
-            // 
-            this.numCoinWidth.Location = new System.Drawing.Point(90, 54);
-            this.numCoinWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numCoinWidth.Name = "numCoinWidth";
-            this.numCoinWidth.Size = new System.Drawing.Size(100, 20);
-            this.numCoinWidth.TabIndex = 71;
-            // 
-            // numValueWidth
-            // 
-            this.numValueWidth.Location = new System.Drawing.Point(90, 80);
-            this.numValueWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numValueWidth.Name = "numValueWidth";
-            this.numValueWidth.Size = new System.Drawing.Size(100, 20);
-            this.numValueWidth.TabIndex = 70;
-            // 
-            // numPercentWidth
-            // 
-            this.numPercentWidth.Location = new System.Drawing.Point(90, 132);
-            this.numPercentWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numPercentWidth.Name = "numPercentWidth";
-            this.numPercentWidth.Size = new System.Drawing.Size(100, 20);
-            this.numPercentWidth.TabIndex = 69;
-            // 
-            // numChangeWidth
-            // 
-            this.numChangeWidth.Location = new System.Drawing.Point(90, 106);
-            this.numChangeWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numChangeWidth.Name = "numChangeWidth";
-            this.numChangeWidth.Size = new System.Drawing.Size(100, 20);
-            this.numChangeWidth.TabIndex = 68;
-            // 
-            // numHeaderHeight
-            // 
-            this.numHeaderHeight.Location = new System.Drawing.Point(336, 28);
-            this.numHeaderHeight.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numHeaderHeight.Name = "numHeaderHeight";
-            this.numHeaderHeight.Size = new System.Drawing.Size(100, 20);
-            this.numHeaderHeight.TabIndex = 67;
-            // 
-            // numIconWidth
-            // 
-            this.numIconWidth.Location = new System.Drawing.Point(90, 28);
-            this.numIconWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numIconWidth.Name = "numIconWidth";
-            this.numIconWidth.Size = new System.Drawing.Size(100, 20);
-            this.numIconWidth.TabIndex = 66;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(6, 134);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(78, 13);
-            this.label33.TabIndex = 24;
-            this.label33.Text = "Percent Width:";
-            this.toolTip1.SetToolTip(this.label33, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
             // 
             // label30
             // 
@@ -1291,6 +1043,15 @@
             this.toolTip1.SetToolTip(this.label29, "Size in pixels of the Value and Change numbers of the gadget\r\n(supposing that any" +
         " of both are enabled in the \'Basic\' tab).");
             // 
+            // boxNumbersSize
+            // 
+            this.boxNumbersSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxNumbersSize.Location = new System.Drawing.Point(336, 131);
+            this.boxNumbersSize.Name = "boxNumbersSize";
+            this.boxNumbersSize.Size = new System.Drawing.Size(100, 20);
+            this.boxNumbersSize.TabIndex = 22;
+            this.boxNumbersSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSfloat);
+            // 
             // label28
             // 
             this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1302,6 +1063,15 @@
             this.label28.Text = "Text Size:";
             this.toolTip1.SetToolTip(this.label28, "Size in pixels of the header text of the gadget\r\n(supposing that it is enabled in" +
         " the \'Basic\' tab).");
+            // 
+            // boxTextSize
+            // 
+            this.boxTextSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxTextSize.Location = new System.Drawing.Point(336, 105);
+            this.boxTextSize.Name = "boxTextSize";
+            this.boxTextSize.Size = new System.Drawing.Size(100, 20);
+            this.boxTextSize.TabIndex = 20;
+            this.boxTextSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSfloat);
             // 
             // label27
             // 
@@ -1315,6 +1085,15 @@
             this.toolTip1.SetToolTip(this.label27, "Size in pixels of each icon of the gadget\r\n(supposing that it is enabled in the \'" +
         "Basic\' tab).");
             // 
+            // boxIconSize
+            // 
+            this.boxIconSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxIconSize.Location = new System.Drawing.Point(336, 79);
+            this.boxIconSize.Name = "boxIconSize";
+            this.boxIconSize.Size = new System.Drawing.Size(100, 20);
+            this.boxIconSize.TabIndex = 18;
+            this.boxIconSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
             // label26
             // 
             this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1327,6 +1106,15 @@
             this.toolTip1.SetToolTip(this.label26, "Size in pixels of each coin row of the gadget\r\n(supposing that it is enabled in t" +
         "he \'Basic\' tab).");
             // 
+            // boxRowsHeight
+            // 
+            this.boxRowsHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxRowsHeight.Location = new System.Drawing.Point(336, 53);
+            this.boxRowsHeight.Name = "boxRowsHeight";
+            this.boxRowsHeight.Size = new System.Drawing.Size(100, 20);
+            this.boxRowsHeight.TabIndex = 16;
+            this.boxRowsHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1338,6 +1126,31 @@
             this.label3.Text = "Header Height:";
             this.toolTip1.SetToolTip(this.label3, "Size in pixels of the Header row of the gadget\r\n(supposing that it is enabled in " +
         "the \'Basic\' tab).");
+            // 
+            // boxHeaderHeight
+            // 
+            this.boxHeaderHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxHeaderHeight.Location = new System.Drawing.Point(336, 27);
+            this.boxHeaderHeight.Name = "boxHeaderHeight";
+            this.boxHeaderHeight.Size = new System.Drawing.Size(100, 20);
+            this.boxHeaderHeight.TabIndex = 14;
+            this.boxHeaderHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxCoinWidth
+            // 
+            this.boxCoinWidth.Location = new System.Drawing.Point(90, 53);
+            this.boxCoinWidth.Name = "boxCoinWidth";
+            this.boxCoinWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxCoinWidth.TabIndex = 6;
+            this.boxCoinWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxEdgeWidth
+            // 
+            this.boxEdgeWidth.Location = new System.Drawing.Point(90, 157);
+            this.boxEdgeWidth.Name = "boxEdgeWidth";
+            this.boxEdgeWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxEdgeWidth.TabIndex = 12;
+            this.boxEdgeWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label15
             // 
@@ -1360,6 +1173,22 @@
             this.label19.Text = "Edge Width:";
             this.toolTip1.SetToolTip(this.label19, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
         "asic\' tab).");
+            // 
+            // boxIconWidth
+            // 
+            this.boxIconWidth.Location = new System.Drawing.Point(90, 27);
+            this.boxIconWidth.Name = "boxIconWidth";
+            this.boxIconWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxIconWidth.TabIndex = 4;
+            this.boxIconWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxChangeWidth
+            // 
+            this.boxChangeWidth.Location = new System.Drawing.Point(90, 105);
+            this.boxChangeWidth.Name = "boxChangeWidth";
+            this.boxChangeWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxChangeWidth.TabIndex = 10;
+            this.boxChangeWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
             // 
             // label16
             // 
@@ -1394,6 +1223,96 @@
             this.toolTip1.SetToolTip(this.label17, "Size in pixels of the Values column of the gadget\r\n(supposing that it is enabled " +
         "in the \'Basic\' tab).");
             // 
+            // boxValueWidth
+            // 
+            this.boxValueWidth.Location = new System.Drawing.Point(90, 79);
+            this.boxValueWidth.Name = "boxValueWidth";
+            this.boxValueWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxValueWidth.TabIndex = 8;
+            this.boxValueWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // checkPercentVisible
+            // 
+            this.checkPercentVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkPercentVisible.AutoSize = true;
+            this.checkPercentVisible.Location = new System.Drawing.Point(339, 102);
+            this.checkPercentVisible.Name = "checkPercentVisible";
+            this.checkPercentVisible.Size = new System.Drawing.Size(102, 17);
+            this.checkPercentVisible.TabIndex = 60;
+            this.checkPercentVisible.Text = "Percent Visibility";
+            this.toolTip1.SetToolTip(this.checkPercentVisible, "Percent refers to change in percentage instead of flat values");
+            this.checkPercentVisible.UseVisualStyleBackColor = true;
+            // 
+            // boxMaxPercentDecimals
+            // 
+            this.boxMaxPercentDecimals.Location = new System.Drawing.Point(132, 138);
+            this.boxMaxPercentDecimals.Name = "boxMaxPercentDecimals";
+            this.boxMaxPercentDecimals.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxPercentDecimals.TabIndex = 63;
+            this.boxMaxPercentDecimals.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // boxMaxPercentDigits
+            // 
+            this.boxMaxPercentDigits.Location = new System.Drawing.Point(132, 112);
+            this.boxMaxPercentDigits.Name = "boxMaxPercentDigits";
+            this.boxMaxPercentDigits.Size = new System.Drawing.Size(100, 20);
+            this.boxMaxPercentDigits.TabIndex = 61;
+            this.boxMaxPercentDigits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 141);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(114, 13);
+            this.label2.TabIndex = 64;
+            this.label2.Text = "Max Percent decimals:";
+            this.toolTip1.SetToolTip(this.label2, "Maximimum number of decimal digits that will be shown,\r\nthe actual number of deci" +
+        "mal digits shown depends on\r\n\'Max percent total digits\' (put the cursor in that " +
+        "feature for\r\nmore info).");
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 115);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(120, 13);
+            this.label32.TabIndex = 62;
+            this.label32.Text = "Max Percent total digits:";
+            this.toolTip1.SetToolTip(this.label32, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
+        "e scheme as the \'Max Value total digits\'.");
+            // 
+            // boxPercentWidth
+            // 
+            this.boxPercentWidth.Location = new System.Drawing.Point(90, 131);
+            this.boxPercentWidth.Name = "boxPercentWidth";
+            this.boxPercentWidth.Size = new System.Drawing.Size(100, 20);
+            this.boxPercentWidth.TabIndex = 25;
+            this.boxPercentWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUint);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 134);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(78, 13);
+            this.label33.TabIndex = 24;
+            this.label33.Text = "Percent Width:";
+            this.toolTip1.SetToolTip(this.label33, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+            // 
+            // checkTooltipName
+            // 
+            this.checkTooltipName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkTooltipName.AutoSize = true;
+            this.checkTooltipName.Location = new System.Drawing.Point(8, 269);
+            this.checkTooltipName.Name = "checkTooltipName";
+            this.checkTooltipName.Size = new System.Drawing.Size(119, 17);
+            this.checkTooltipName.TabIndex = 61;
+            this.checkTooltipName.Text = "Show Tooltip Name";
+            this.toolTip1.SetToolTip(this.checkTooltipName, "Shows the name of the coin when the mouse is over the \r\ncorresponding row");
+            this.checkTooltipName.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonAccept;
@@ -1415,32 +1334,13 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRefreshRate)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numStartY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numStartX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxPercentDecimals)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxPercentDigits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxChangeDecimals)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxChangeDigits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxValueDecimals)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxValueDigits)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNumbersSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTextSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numIconSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRowsHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdgeWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCoinWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numValueWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPercentWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChangeWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHeaderHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numIconWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1492,6 +1392,12 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkLockPosition;
         private System.Windows.Forms.CheckBox checkExitSave;
+        private System.Windows.Forms.TextBox boxStartY;
+        private System.Windows.Forms.TextBox boxStartX;
+        private System.Windows.Forms.TextBox boxMaxChangeDecimals;
+        private System.Windows.Forms.TextBox boxMaxChangeDigits;
+        private System.Windows.Forms.TextBox boxMaxValueDecimals;
+        private System.Windows.Forms.TextBox boxMaxValueDigits;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label22;
@@ -1501,15 +1407,25 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox boxNumbersSize;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox boxTextSize;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox boxIconSize;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox boxRowsHeight;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox boxHeaderHeight;
+        private System.Windows.Forms.TextBox boxCoinWidth;
+        private System.Windows.Forms.TextBox boxEdgeWidth;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox boxIconWidth;
+        private System.Windows.Forms.TextBox boxChangeWidth;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox boxValueWidth;
         private System.Windows.Forms.Button buttonColorHeaderText;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label8;
@@ -1525,31 +1441,15 @@
         private System.Windows.Forms.Button buttonDefaultBasic;
         private System.Windows.Forms.Button buttonDefaultAdvanced;
         private System.Windows.Forms.Button buttonDownloadMissingIcons;
-        private System.Windows.Forms.NumericUpDown numRefreshRate;
+        private System.Windows.Forms.NumericUpDown numericRefreshRate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkPercentVisible;
+        private System.Windows.Forms.TextBox boxMaxPercentDecimals;
+        private System.Windows.Forms.TextBox boxMaxPercentDigits;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox boxPercentWidth;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.CheckBox checkTooltipName;
-        private System.Windows.Forms.NumericUpDown numMaxValueDigits;
-        private System.Windows.Forms.NumericUpDown numMaxValueDecimals;
-        private System.Windows.Forms.NumericUpDown numMaxPercentDecimals;
-        private System.Windows.Forms.NumericUpDown numMaxPercentDigits;
-        private System.Windows.Forms.NumericUpDown numMaxChangeDecimals;
-        private System.Windows.Forms.NumericUpDown numMaxChangeDigits;
-        private System.Windows.Forms.NumericUpDown numStartY;
-        private System.Windows.Forms.NumericUpDown numStartX;
-        private System.Windows.Forms.NumericUpDown numNumbersSize;
-        private System.Windows.Forms.NumericUpDown numTextSize;
-        private System.Windows.Forms.NumericUpDown numIconSize;
-        private System.Windows.Forms.NumericUpDown numRowsHeight;
-        private System.Windows.Forms.NumericUpDown numEdgeWidth;
-        private System.Windows.Forms.NumericUpDown numCoinWidth;
-        private System.Windows.Forms.NumericUpDown numValueWidth;
-        private System.Windows.Forms.NumericUpDown numPercentWidth;
-        private System.Windows.Forms.NumericUpDown numChangeWidth;
-        private System.Windows.Forms.NumericUpDown numHeaderHeight;
-        private System.Windows.Forms.NumericUpDown numIconWidth;
     }
 }
