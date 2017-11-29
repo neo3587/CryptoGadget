@@ -34,10 +34,7 @@ Instructions:
 
 # <a name="notes"></a> Additional notes
 
-This is the first time I program in C#, also is the first time that I use Windows Forms and the first time I use GitHub to make a public project, so probably some things could be done in a better way.
-
-Also my english is far from perfect, so expect some minimal grammatical errors if you read the tooltips (by holding the mouse on almost anything in the settings).
-
+In a few months I will do some improvements to this project, right now I don't have enough free time, please be patient.
 
 
 
