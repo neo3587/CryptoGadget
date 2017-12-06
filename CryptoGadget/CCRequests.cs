@@ -1,0 +1,40 @@
+﻿using System.Net;
+using System.IO;
+using System.Collections.Generic;
+
+using Newtonsoft.Json.Linq;
+
+
+namespace CryptoGadget {
+
+	class CCRequest { // CryptoCompareRequest
+
+		public enum HistoType {
+			Minute = 0x00,
+			Hour = 0x01,
+			Day = 0x02
+		}
+
+		public static string ConvertQuery(List<Settings.StCoin> list_st) {
+			string input = "";
+			string output = "";
+			foreach(Settings.StCoin st in list_st) {
+				input += st.Coin + ",";
+				output += st.Target + ",";
+			}
+			return "https://min-api.cryptocompare.com/data/pricemultifull?fsysms=" + input + "&tsyms=" + output;
+		}
+		public static string HistoQuery(Settings.StCoin st, HistoType type, int size = 60, int step = 1, int time = -1) {
+			string str_type = type == HistoType.Minute ? "Minute" : (type == HistoType.Hour ? "Hour" : "Day");
+			return "https://min-api.cryptocompare.com/data/histo" + str_type + "?fsym=" + st.Coin + "&tsym=" + st.Target + 
+				   "&limit=" + size.ToString() + "&aggregate=" + step.ToString() + (time < 0 ? "" : "&toTs=" + time.ToString());
+		}
+
+		public static JObject HttpRequest(string query) {
+			HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create(query);
+			return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
+		}
+
+	}
+
+}
