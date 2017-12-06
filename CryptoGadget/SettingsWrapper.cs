@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 using IniParser.Model;
 
@@ -10,156 +11,156 @@ namespace CryptoGadget {
     class SettingsWrapper {
 
         public struct StCoin {
-            public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphLockPos",
-                                            "GraphExitSave", "GraphSizeX", "GraphSizeY", "GraphSizeSave", "GraphStartup"};
+            public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphSizeX", "GraphSizeY",
+                                            "GraphLockPos", "GraphExitSave", "GraphStartup"};
             public struct StAlarm {
-                public float Up;
-                public float Down;
+                public float Up { get; set; }
+                public float Down { get; set; }
             }
             public struct StGraph {
-                public int PosX;
-                public int PosY;
-                public int SizeX;
-                public int SizeY;
-                public bool LockPos;
-                public bool ExitSave; // saves pos & size
-                public bool Startup;
+                public int PosX { get; set; }
+                public int PosY { get; set; }
+                public int SizeX { get; set; }
+                public int SizeY { get; set; }
+                public bool LockPos { get; set; }
+                public bool ExitSave { get; set; } // saves pos & size
+                public bool Startup { get; set; }
             }
-            public string Coin;
-            public string Target;
+            public string Coin { get; set; }
+            public string Target { get; set; }
             public StAlarm Alarm;
             public StGraph Graph;
         }
         public struct StBasic {
-            public float RefreshRate;
-            public bool ShowTooltipConv;
-            public bool Startup;
+            public float RefreshRate { get; set; }
+            public bool ShowTooltipConv { get; set; }
+            public bool Startup { get; set; }
         }
         public struct StVisibility {
             public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
-                                            "VolumeDay", "ColumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
+                                            "VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
                                             "LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Refresh"};
             public bool this[string prop] {
-                get { return (bool)this.GetType().GetProperty(prop).GetValue(this, null); }
-                set { this.GetType().GetProperty(prop).SetValue(this, value, null); }
+                get { return (bool)GetType().GetProperty(prop).GetValue(this, null); }
+                set { GetType().GetProperty(prop).SetValue(this, value, null); }
             }
-            public bool Icon;
-            public bool Coin;
-            public bool Value;
-            public bool ChangeDay;
-            public bool ChangeDayPct;
-            public bool Change24;
-            public bool Change24Pct;
-            public bool VolumeDay;
-            public bool Volume24;
-            public bool TotalVolume24;
-            public bool OpenDay;
-            public bool Open24;
-            public bool HighDay;
-            public bool High24;
-            public bool LowDay;
-            public bool Low24;
-            public bool Supply;
-            public bool MktCap;
-            public bool Header;
-            public bool Edge;
-            public bool Refresh;
+            public bool Icon { get; set; }
+            public bool Coin { get; set; }
+            public bool Value { get; set; }
+            public bool ChangeDay { get; set; }
+            public bool ChangeDayPct { get; set; }
+            public bool Change24 { get; set; }
+            public bool Change24Pct { get; set; }
+            public bool VolumeDay { get; set; }
+            public bool Volume24 { get; set; }
+            public bool TotalVolume24 { get; set; }
+            public bool OpenDay { get; set; }
+            public bool Open24 { get; set; }
+            public bool HighDay { get; set; }
+            public bool High24 { get; set; }
+            public bool LowDay { get; set; }
+            public bool Low24 { get; set; }
+            public bool Supply { get; set; }
+            public bool MktCap { get; set; }
+            public bool Header { get; set; }
+            public bool Edge { get; set; }
+            public bool Refresh { get; set; }
         }
         public struct StColor {
             public static string[] props = {"Coin", "Value", "PositiveChange", "NegativeChange", "Volume", "Open", "High", "Low",
                                             "Supply", "MktCap", "Background1", "Background2", "PositiveRefresh", "NegativeRefresh",
                                             "HeaderText", "HeaderBackground", "Edge"};
             public Color this[string prop] {
-                get { return (Color)this.GetType().GetProperty(prop).GetValue(this, null); }
-                set { this.GetType().GetProperty(prop).SetValue(this, value, null); }
+                get { return (Color)GetType().GetProperty(prop).GetValue(this, null); }
+                set { GetType().GetProperty(prop).SetValue(this, value, null); }
             }
-            public Color Coin;
-            public Color Value;
-            public Color PositiveChange;
-            public Color NegativeChange;
-            public Color Volume;
-            public Color Open;
-            public Color High;
-            public Color Low;
-            public Color Supply;
-            public Color MktCap;
-            public Color Background1;
-            public Color Background2;
-            public Color PositiveRefresh;
-            public Color NegativeRefresh;
-            public Color HeaderText;
-            public Color HeaderBackground;
-            public Color Edge;
+            public Color Coin { get; set; }
+            public Color Value { get; set; }
+            public Color PositiveChange { get; set; }
+            public Color NegativeChange { get; set; }
+            public Color Volume { get; set; }
+            public Color Open { get; set; }
+            public Color High { get; set; }
+            public Color Low { get; set; }
+            public Color Supply { get; set; }
+            public Color MktCap { get; set; }
+            public Color Background1 { get; set; }
+            public Color Background2 { get; set; }
+            public Color PositiveRefresh { get; set; }
+            public Color NegativeRefresh { get; set; }
+            public Color HeaderText { get; set; }
+            public Color HeaderBackground { get; set; }
+            public Color Edge { get; set; }
         }
         public struct StCoords {
-            public int PosX;
-            public int PosY;
-            public bool ExitSave;
-            public bool LockPos;
+            public int PosX { get; set; }
+            public int PosY { get; set; }
+            public bool ExitSave { get; set; }
+            public bool LockPos { get; set; }
         }
         public struct StDigits {
             public static string[] props = {"Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct", "VolumeDay", "Volume24", "TotalVolume24",
                                             "OpenDay", "Open24", "HighDay", "High24", "LowDay", "Low24", "Supply", "MktCap"};
             public int this[string prop] {
-                get { return (int)this.GetType().GetProperty(prop).GetValue(this, null); }
-                set { this.GetType().GetProperty(prop).SetValue(this, value, null); }
+                get { return (int)GetType().GetProperty(prop).GetValue(this, null); }
+                set { GetType().GetProperty(prop).SetValue(this, value, null); }
             }
-            public int Value;
-            public int ChangeDay;
-            public int ChangeDayPct;
-            public int Change24;
-            public int Change24Pct;
-            public int VolumeDay;
-            public int Volume24;
-            public int TotalVolume24;
-            public int OpenDay;
-            public int Open24;
-            public int HighDay;
-            public int High24;
-            public int LowDay;
-            public int Low24;
-            public int Supply;
-            public int MktCap;
+            public int Value { get; set; }
+            public int ChangeDay { get; set; }
+            public int ChangeDayPct { get; set; }
+            public int Change24 { get; set; }
+            public int Change24Pct { get; set; }
+            public int VolumeDay { get; set; }
+            public int Volume24 { get; set; }
+            public int TotalVolume24 { get; set; }
+            public int OpenDay { get; set; }
+            public int Open24 { get; set; }
+            public int HighDay { get; set; }
+            public int High24 { get; set; }
+            public int LowDay { get; set; }
+            public int Low24 { get; set; }
+            public int Supply { get; set; }
+            public int MktCap { get; set; }
         }
         public struct StMetrics {
             public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
                                             "VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
                                             "LowDay", "Low24", "Supply", "MktCap", "Header", "HeaderText", "Edge", "Rows",
-                                            "IconSize", "Text", "Number"};
+                                            "IconSize", "Text", "Numbers"};
             public int this[string prop] {
-                get { return (int)this.GetType().GetProperty(prop).GetValue(this, null); }
-                set { this.GetType().GetProperty(prop).SetValue(this, value, null); }
+                get { return (int)GetType().GetProperty(prop).GetValue(this, null); }
+                set { GetType().GetProperty(prop).SetValue(this, value, null); }
             }
-            public int Icon;
-            public int Coin;
-            public int Value;
-            public int ChangeDay;
-            public int ChangeDayPct;
-            public int Change24;
-            public int Change24Pct;
-            public int VolumeDay;
-            public int Volume24;
-            public int TotalVolume24;
-            public int OpenDay;
-            public int Open24;
-            public int HighDay;
-            public int High24;
-            public int LowDay;
-            public int Low24;
-            public int Supply;
-            public int MktCap;
-            public int Header;
-            public int HeaderText;
-            public int Edge;
-            public int Rows;
-            public int IconSize;
-            public int Text; // will need to use int and divide by 100 when using
-            public int Numbers;
+            public int Icon { get; set; }
+            public int Coin { get; set; }
+            public int Value { get; set; }
+            public int ChangeDay { get; set; }
+            public int ChangeDayPct { get; set; }
+            public int Change24 { get; set; }
+            public int Change24Pct { get; set; }
+            public int VolumeDay { get; set; }
+            public int Volume24 { get; set; }
+            public int TotalVolume24 { get; set; }
+            public int OpenDay { get; set; }
+            public int Open24 { get; set; }
+            public int HighDay { get; set; }
+            public int High24 { get; set; }
+            public int LowDay { get; set; }
+            public int Low24 { get; set; }
+            public int Supply { get; set; }
+            public int MktCap { get; set; }
+            public int Header { get; set; }
+            public int HeaderText { get; set; }
+            public int Edge { get; set; }
+            public int Rows { get; set; }
+            public int IconSize { get; set; }
+            public int Text { get; set; } // will need to use int and divide by 100 when using
+            public int Numbers { get; set; }
         }
         public struct StPages {
-            public int Size;
-            public bool Rotate;
-            public float RotateRate;
+            public int Size { get; set; }
+            public bool Rotate { get; set; }
+            public float RotateRate { get; set; }
         }
         
         public enum DefaultType {
@@ -175,28 +176,32 @@ namespace CryptoGadget {
             All        = 0xFFFF 
         }
 
-        public List<List<StCoin>> Coins = new List<List<StCoin>>(10); // Coins[page][coin_name]
-        public StBasic Basic            = new StBasic();
-        public StVisibility Visibility  = new StVisibility();
-        public StColor Color            = new StColor();
-        public StCoords Coords          = new StCoords();
-        public StDigits Digits          = new StDigits();
-        public StMetrics Metrics        = new StMetrics();
-        public StPages Pages            = new StPages();
+        public List<StCoin>[] Coins    = CreateStCoins(); // Coins[page][coin_pos]
+        public StBasic Basic           = new StBasic();
+        public StVisibility Visibility = new StVisibility();
+        public StColor Color           = new StColor();
+        public StCoords Coords         = new StCoords();
+        public StDigits Digits         = new StDigits();
+        public StMetrics Metrics       = new StMetrics();
+        public StPages Pages           = new StPages();
 
         private string _file_path = "";
         private IniData _ini = new IniData();
 
-        // [Page0]
-        // BTC_USD = Page0_BTC_USD
+        private static List<StCoin>[] CreateStCoins() {
+            List<StCoin>[] ret = new List<StCoin>[10];
+            for(int i = 0; i < 10; i++)
+                ret[i] = new List<StCoin>();
+            return ret;
+        }
 
         public bool BindFile(string file_path) {
+            _file_path = file_path;
             try {
                 _ini = new IniParser.FileIniDataParser().ReadFile(file_path);
             } catch {
                 return false;
             }
-            _file_path = file_path;
             return true;
         }
         public bool Load() {
@@ -218,7 +223,7 @@ namespace CryptoGadget {
                             return true;
                         KeyDataCollection coin_sect = _ini[coin.Value];
                         foreach(string prop in StCoin.props)
-                            if(!coin_sect.ContainsKey(prop))
+                            if(!coin_sect.ContainsKey(prop)) 
                                 return true;
                     }
                 }
@@ -233,9 +238,14 @@ namespace CryptoGadget {
                 };
             };
 
-            if(MissingAttr(_ini)) 
+            if(MissingAttr(_ini)) {
+                string str = "";
+                foreach(var x in Coins[0])
+                    str += x.Coin + "->" + x.Target + "\n";
+                System.Windows.Forms.MessageBox.Show(str);
                 return false;
-            
+            } 
+                
             try {
 
                 Basic.RefreshRate     = AssignRule<float>()(_ini["Basic"]["RefreshRate"], (x) => x >= 1.0f);
@@ -261,7 +271,6 @@ namespace CryptoGadget {
                     Metrics[prop] = AssignRule<int>()(_ini["Metrics"][prop], (x) => x >= 0);
 
                 for(int i = 0; i < 10; i++) {
-                    Coins.Add(new List<StCoin>());
                     foreach(KeyData coin_sectname in _ini["Page"+ i.ToString()]) {
                         KeyDataCollection coin = _ini[coin_sectname.Value];
                         StCoin st = new StCoin();
@@ -279,7 +288,6 @@ namespace CryptoGadget {
                         Coins[i].Add(st);
                     }
                 }
-
             }
             catch {
                 return false;
@@ -315,26 +323,23 @@ namespace CryptoGadget {
 
             for(int i = 0; i < 10; i++) {
                 string strp = "Page" + i.ToString();
-                _ini.Sections.AddSection(strp);
                 KeyDataCollection page = _ini[strp];
                 foreach(StCoin st in Coins[i]) {
                     string strconv = st.Coin + "_" + st.Target;
-                    page.AddKey(strconv, strp + "_" + strconv);
-                    _ini.Sections.AddSection(strp + "_" + strconv);
+                    page[strconv] = strp + "_" + strconv;
                     KeyDataCollection coin = _ini[strp + "_" + strconv];
-                    coin["Coin"] = st.Coin;
-                    coin["Target"] = st.Target;
-                    coin["AlarmUp"] = st.Alarm.Up.ToString();
-                    coin["AlarmDown"] = st.Alarm.Down.ToString();
-                    coin["GraphPosX"] = st.Graph.PosX.ToString();
-                    coin["GraphPosY"] = st.Graph.PosY.ToString();
-                    coin["GraphSizeX"] = st.Graph.SizeX.ToString();
-                    coin["GraphSizeY"] = st.Graph.SizeY.ToString();
-                    coin["GraphLockPos"] = st.Graph.LockPos.ToString();
+                    coin["Coin"]          = st.Coin;
+                    coin["Target"]        = st.Target;
+                    coin["AlarmUp"]       = st.Alarm.Up.ToString();
+                    coin["AlarmDown"]     = st.Alarm.Down.ToString();
+                    coin["GraphPosX"]     = st.Graph.PosX.ToString();
+                    coin["GraphPosY"]     = st.Graph.PosY.ToString();
+                    coin["GraphSizeX"]    = st.Graph.SizeX.ToString();
+                    coin["GraphSizeY"]    = st.Graph.SizeY.ToString();
+                    coin["GraphLockPos"]  = st.Graph.LockPos.ToString();
                     coin["GraphExitSave"] = st.Graph.ExitSave.ToString();
-                    coin["GraphStartup"] = st.Graph.Startup.ToString();
+                    coin["GraphStartup"]  = st.Graph.Startup.ToString();
                 }
-                
             }
         }
         public bool Save() {
@@ -351,7 +356,7 @@ namespace CryptoGadget {
         public void Default(DefaultType type = DefaultType.All) {
 
             if((type & DefaultType.Coins) != 0) {
-                Coins = new List<List<StCoin>>(10);
+                Coins = CreateStCoins();
                 StCoin st = new StCoin();
                 st.Target = "USD";
                 st.Alarm.Up = 0.0f;
@@ -438,8 +443,19 @@ namespace CryptoGadget {
 
         }
 
+        public bool CreateIni(string file_path) {
+            try {
+                new IniParser.FileIniDataParser().WriteFile(_file_path, new IniData());
+            } catch {
+                return false;
+            }
+            return true;
+        }
+
         public bool ContainsConv(int page, string coin, string target) {
-            // TODO
+            foreach(StCoin st in Coins[page]) 
+                if(st.Coin == coin && st.Target == target)
+                    return true;
             return false;
         }
 

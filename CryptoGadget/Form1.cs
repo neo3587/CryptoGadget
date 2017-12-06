@@ -19,22 +19,6 @@ using neo;
 
 
 
-/* IDEAS:
- - Graphs (no idea of how to do it yet)
- - Alarm when a configurable threshold is passed
- - Option to swap icon, coin, value, change and % position 
- - Multiple instances (individual .ini for each instance)
- - Add hashrate option in coin settings to check what coin is most profitable to mine (use whattomine ?)
-*/
-
-/* TODO:
- - Fix unable to have 2 instance of the same coin with differents target coins (new ini library required)... or just use multiple instances
- - Change Data primitives to property<T> {get set}, bind(string)... not sure at all if it will be worth
-*/
-
-
-
-
 namespace CryptoGadget {
 
     public partial class MainForm : Form {
