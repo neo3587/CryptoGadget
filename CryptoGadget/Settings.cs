@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Drawing;
 
 using IniParser.Model;
@@ -9,7 +10,7 @@ namespace CryptoGadget {
 
 	class Settings {
 
-		public struct StCoin {
+		public class StCoin {
 			public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphSizeX", "GraphSizeY",
 											"GraphLockPos", "GraphExitSave", "GraphRefreshRate", "GraphStartup"};
 			public struct StAlarm {
@@ -28,14 +29,14 @@ namespace CryptoGadget {
 			}
 			public string Coin { get; set; }
 			public string Target { get; set; }
-			public StAlarm Alarm;
-			public StGraph Graph;
+			public StAlarm Alarm;// = new StAlarm();
+			public StGraph Graph;// = new StGraph();
 		}
-		public struct StBasic {
+		public class StBasic {
 			public int RefreshRate { get; set; }
 			public bool Startup { get; set; }
 		}
-		public struct StVisibility {
+		public class StVisibility {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
 											"VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Refresh"};
@@ -65,7 +66,7 @@ namespace CryptoGadget {
 			public bool Edge { get; set; }
 			public bool Refresh { get; set; }
 		}
-		public struct StColor {
+		public class StColor {
 			public static string[] props = {"Coin", "Value", "PositiveChange", "NegativeChange", "Volume", "Open", "High", "Low",
 											"Supply", "MktCap", "Background1", "Background2", "PositiveRefresh", "NegativeRefresh",
 											"HeaderText", "HeaderBackground", "Edge"};
@@ -91,13 +92,13 @@ namespace CryptoGadget {
 			public Color HeaderBackground { get; set; }
 			public Color Edge { get; set; }
 		}
-		public struct StCoords {
+		public class StCoords {
 			public int PosX { get; set; }
 			public int PosY { get; set; }
 			public bool ExitSave { get; set; }
 			public bool LockPos { get; set; }
 		}
-		public struct StDigits {
+		public class StDigits {
 			public static string[] props = {"Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct", "VolumeDay", "Volume24", "TotalVolume24",
 											"OpenDay", "Open24", "HighDay", "High24", "LowDay", "Low24", "Supply", "MktCap"};
 			public object this[string prop] {
@@ -121,7 +122,7 @@ namespace CryptoGadget {
 			public int Supply { get; set; }
 			public int MktCap { get; set; }
 		}
-		public struct StMetrics {
+		public class StMetrics {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
 											"VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Rows", "IconSize",
@@ -155,7 +156,7 @@ namespace CryptoGadget {
 			public float HeaderText { get; set; } 
 			public float RowsValues { get; set; }
 		}
-		public struct StPages {
+		public class StPages {
 			public int Size { get; set; }
 			public int Default { get; set; }
 			public bool Rotate { get; set; }
@@ -238,20 +239,19 @@ namespace CryptoGadget {
 			};
 
 			if(MissingAttr(_ini)) {
-				string str = "";
-				foreach(var x in Coins[0])
-					str += x.Coin + "->" + x.Target + "\n";
-				System.Windows.Forms.MessageBox.Show(str);
+				Global.DbgPrint("MissingAttr");
 				return false;
 			}
 
 			try {
 
-				Basic.RefreshRate	  = AssignRule<int>()(_ini["Basic"]["RefreshRate"], (x) => x >= 1);
-				Basic.Startup		  = bool.Parse(_ini["Basic"]["Startup"]);
+				Reset();
 
-				Coords.PosX		= int.Parse(_ini["Coords"]["StartX"]);
-				Coords.PosY		= int.Parse(_ini["Coords"]["StartY"]);
+				Basic.RefreshRate = AssignRule<int>()(_ini["Basic"]["RefreshRate"], (x) => x >= 1);
+				Basic.Startup	  = bool.Parse(_ini["Basic"]["Startup"]);
+
+				Coords.PosX		= int.Parse(_ini["Coords"]["PosX"]);
+				Coords.PosY		= int.Parse(_ini["Coords"]["PosY"]);
 				Coords.LockPos  = bool.Parse(_ini["Coords"]["LockPos"]);
 				Coords.ExitSave = bool.Parse(_ini["Coords"]["ExitSave"]);
 
@@ -260,14 +260,23 @@ namespace CryptoGadget {
 				Pages.Rotate	 = bool.Parse(_ini["Pages"]["Rotate"]);
 				Pages.RotateRate = AssignRule<int>()(_ini["Pages"]["RotateRate"], (x) => x >= 1);
 
-				foreach(string prop in StVisibility.props)
+				foreach(string prop in StVisibility.props) { 
 					Visibility[prop] = bool.Parse(_ini["Visibility"][prop]);
-				foreach(string prop in StColor.props)
+				}
+				foreach(string prop in StColor.props) {
 					Color[prop] = Global.StrHexToColor(_ini["Color"][prop]);
-				foreach(string prop in StDigits.props)
-					Digits[prop] = AssignRule<int>()(_ini["Digits"][prop], (x) => x >= 0);
-				foreach(string prop in StMetrics.props)
-					Metrics[prop] = AssignRule<int>()(_ini["Metrics"][prop], (x) => x >= 0);
+				}
+				foreach(string prop in StDigits.props) {
+					Digits[prop] = AssignRule<int>()(_ini["Digits"][prop], (x) => x >= 1);
+				}
+				foreach(string prop in StMetrics.props) {
+					try {
+						Metrics[prop] = AssignRule<int>()(_ini["Metrics"][prop], (x) => x >= 1);
+					} 
+					catch {
+						Metrics[prop] = AssignRule<float>()(_ini["Metrics"][prop], (x) => x >= 1.0f);
+					}
+				}
 
 				for(int i = 0; i < 10; i++) {
 					foreach(KeyData coin_sectname in _ini["Page" + i.ToString()]) {
@@ -289,21 +298,22 @@ namespace CryptoGadget {
 					}
 				}
 
-			} catch {
+			} catch(Exception e) {
+				Global.DbgPrint(e.ToString());
 				return false;
 			}
 
-			return false;
+			return true;
 		}
 		public void Store() {
 
 			_ini = new IniData();
 
-			_ini["Basic"]["RefreshRate"]	 = Basic.RefreshRate.ToString();
-			_ini["Basic"]["Startup"]		 = Basic.Startup.ToString();
+			_ini["Basic"]["RefreshRate"] = Basic.RefreshRate.ToString();
+			_ini["Basic"]["Startup"]	 = Basic.Startup.ToString();
 
-			_ini["Coords"]["StartX"]   = Coords.PosX.ToString();
-			_ini["Coords"]["StartY"]   = Coords.PosY.ToString();
+			_ini["Coords"]["PosX"]     = Coords.PosX.ToString();
+			_ini["Coords"]["PosY"]	   = Coords.PosY.ToString();
 			_ini["Coords"]["LockPos"]  = Coords.LockPos.ToString();
 			_ini["Coords"]["ExitSave"] = Coords.ExitSave.ToString();
 
@@ -316,7 +326,7 @@ namespace CryptoGadget {
 				_ini["Visibility"][prop] = Visibility[prop].ToString();
 			foreach(string prop in StColor.props)
 				_ini["Color"][prop] = Global.ColorToStrHex((Color)Color[prop]);
-			foreach(string prop in StDigits.props)
+			foreach(string prop in StDigits.props) 
 				_ini["Digits"][prop] = Digits[prop].ToString();
 			foreach(string prop in StMetrics.props)
 				_ini["Metrics"][prop] = Metrics[prop].ToString();
@@ -358,20 +368,20 @@ namespace CryptoGadget {
 
 			if((type & DefaultType.Coins) != 0) {
 				Coins = CreateStCoinsList();
-				StCoin st = new StCoin();
-				st.Target = "USD";
-				st.Alarm.Up = 0.0f;
-				st.Alarm.Down = 0.0f;
-				st.Graph.PosX = 100;
-				st.Graph.PosY = 100;
-				st.Graph.LockPos = false;
-				st.Graph.ExitSave = true;
-				st.Graph.RefreshRate = 10;
-				st.Graph.Startup = false;
-
+				
 				string[] coins = { "BTC", "ETH", "ETC", "LTC", "ZEC", "VTC", "LBC", "DASH", "XMR", "DOGE" };
 				foreach(string coin in coins) {
+					StCoin st = new StCoin();
 					st.Coin = coin;
+					st.Target = "USD";
+					st.Alarm.Up = 0.0f;
+					st.Alarm.Down = 0.0f;
+					st.Graph.PosX = 100;
+					st.Graph.PosY = 100;
+					st.Graph.LockPos = false;
+					st.Graph.ExitSave = true;
+					st.Graph.RefreshRate = 10;
+					st.Graph.Startup = false;
 					Coins[0].Add(st);
 				}
 			}
@@ -421,7 +431,7 @@ namespace CryptoGadget {
 				Coords.ExitSave = true;
 			}
 			if((type & DefaultType.Digits) != 0) {
-				foreach(string prop in StDigits.props)
+				foreach(string prop in StDigits.props) 
 					Digits[prop] = 7;
 			}
 			if((type & DefaultType.Metrics) != 0) {
@@ -453,6 +463,16 @@ namespace CryptoGadget {
 			other.Digits = Digits;
 			other.Metrics = Metrics;
 			other.Pages = Pages;
+		}
+		public void Reset() {
+			Coins = CreateStCoinsList();
+			Basic = new StBasic();
+			Visibility = new StVisibility();
+			Color = new StColor();
+			Coords = new StCoords();
+			Digits = new StDigits();
+			Metrics = new StMetrics();
+			Pages = new StPages();
 		}
 
 		public static bool CreateIni(string file_path) {

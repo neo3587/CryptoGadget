@@ -78,6 +78,12 @@ namespace CryptoGadget {
             return bmp;
         }
 
+		public static void DbgPrint(string text) {
+			#if DEBUG
+			Console.WriteLine(text);
+			#endif
+		}
+
     }
 
 }

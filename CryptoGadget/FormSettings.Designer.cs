@@ -883,9 +883,19 @@
             0,
             0,
             0});
+			this.numDigitsChange24Pct.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.numDigitsChange24Pct.Name = "numDigitsChange24Pct";
 			this.numDigitsChange24Pct.Size = new System.Drawing.Size(100, 20);
 			this.numDigitsChange24Pct.TabIndex = 65;
+			this.numDigitsChange24Pct.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numDigitsChange24
 			// 
@@ -896,9 +906,19 @@
             0,
             0,
             0});
+			this.numDigitsChange24.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.numDigitsChange24.Name = "numDigitsChange24";
 			this.numDigitsChange24.Size = new System.Drawing.Size(100, 20);
 			this.numDigitsChange24.TabIndex = 64;
+			this.numDigitsChange24.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numDigitsValue
 			// 
@@ -909,9 +929,19 @@
             0,
             0,
             0});
+			this.numDigitsValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.numDigitsValue.Name = "numDigitsValue";
 			this.numDigitsValue.Size = new System.Drawing.Size(100, 20);
 			this.numDigitsValue.TabIndex = 63;
+			this.numDigitsValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// label32
 			// 
@@ -1038,145 +1068,257 @@
 			// numMetricsRowsValues
 			// 
 			this.numMetricsRowsValues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsRowsValues.DecimalPlaces = 2;
+			this.numMetricsRowsValues.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
 			this.numMetricsRowsValues.Location = new System.Drawing.Point(336, 132);
-			this.numMetricsRowsValues.Maximum = new decimal(new int[] {
-            30,
+			this.numMetricsRowsValues.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsRowsValues.Name = "numMetricsRowsValues";
 			this.numMetricsRowsValues.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsRowsValues.TabIndex = 76;
+			this.numMetricsRowsValues.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsHeaderText
 			// 
 			this.numMetricsHeaderText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsHeaderText.DecimalPlaces = 2;
+			this.numMetricsHeaderText.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
 			this.numMetricsHeaderText.Location = new System.Drawing.Point(336, 106);
-			this.numMetricsHeaderText.Maximum = new decimal(new int[] {
-            30,
+			this.numMetricsHeaderText.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsHeaderText.Name = "numMetricsHeaderText";
 			this.numMetricsHeaderText.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsHeaderText.TabIndex = 75;
+			this.numMetricsHeaderText.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsIconSize
 			// 
 			this.numMetricsIconSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsIconSize.Location = new System.Drawing.Point(336, 80);
 			this.numMetricsIconSize.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsIconSize.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsIconSize.Name = "numMetricsIconSize";
 			this.numMetricsIconSize.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsIconSize.TabIndex = 74;
+			this.numMetricsIconSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsEdge
 			// 
 			this.numMetricsEdge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsEdge.Location = new System.Drawing.Point(90, 158);
 			this.numMetricsEdge.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsEdge.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsEdge.Name = "numMetricsEdge";
 			this.numMetricsEdge.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsEdge.TabIndex = 73;
+			this.numMetricsEdge.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsChange24Pct
 			// 
 			this.numMetricsChange24Pct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsChange24Pct.Location = new System.Drawing.Point(90, 132);
 			this.numMetricsChange24Pct.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsChange24Pct.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsChange24Pct.Name = "numMetricsChange24Pct";
 			this.numMetricsChange24Pct.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsChange24Pct.TabIndex = 72;
+			this.numMetricsChange24Pct.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsChange24
 			// 
 			this.numMetricsChange24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsChange24.Location = new System.Drawing.Point(90, 106);
 			this.numMetricsChange24.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsChange24.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsChange24.Name = "numMetricsChange24";
 			this.numMetricsChange24.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsChange24.TabIndex = 71;
+			this.numMetricsChange24.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsValue
 			// 
 			this.numMetricsValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsValue.Location = new System.Drawing.Point(90, 80);
 			this.numMetricsValue.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsValue.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsValue.Name = "numMetricsValue";
 			this.numMetricsValue.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsValue.TabIndex = 70;
+			this.numMetricsValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsRows
 			// 
 			this.numMetricsRows.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsRows.Location = new System.Drawing.Point(336, 54);
 			this.numMetricsRows.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsRows.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsRows.Name = "numMetricsRows";
 			this.numMetricsRows.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsRows.TabIndex = 69;
+			this.numMetricsRows.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsHeader
 			// 
 			this.numMetricsHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsHeader.Location = new System.Drawing.Point(336, 28);
 			this.numMetricsHeader.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsHeader.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsHeader.Name = "numMetricsHeader";
 			this.numMetricsHeader.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsHeader.TabIndex = 68;
+			this.numMetricsHeader.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsCoin
 			// 
 			this.numMetricsCoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsCoin.Location = new System.Drawing.Point(90, 54);
 			this.numMetricsCoin.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsCoin.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsCoin.Name = "numMetricsCoin";
 			this.numMetricsCoin.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsCoin.TabIndex = 67;
+			this.numMetricsCoin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numMetricsIcon
 			// 
 			this.numMetricsIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numMetricsIcon.Location = new System.Drawing.Point(90, 28);
 			this.numMetricsIcon.Maximum = new decimal(new int[] {
-            30,
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsIcon.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
 			this.numMetricsIcon.Name = "numMetricsIcon";
 			this.numMetricsIcon.Size = new System.Drawing.Size(100, 20);
 			this.numMetricsIcon.TabIndex = 66;
+			this.numMetricsIcon.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// label33
 			// 

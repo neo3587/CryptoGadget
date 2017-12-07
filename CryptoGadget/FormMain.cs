@@ -158,7 +158,11 @@ namespace CryptoGadget {
         }
         private void GridInit() {
 
-            coinGrid.Rows.Clear();
+			#if DEBUG
+			File.Delete(Global.IniLocation);
+			#endif
+
+			coinGrid.Rows.Clear();
 
 			// skip this when reloading the form ??
 			if(!Global.Sett.BindFile(Global.IniLocation)) {
@@ -191,8 +195,8 @@ namespace CryptoGadget {
 			#region Coin Rows Init
 
 			foreach(Settings.StCoin st in Global.Sett.Coins[_page]) {
-                  
-                int index = coinGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
+
+				int index = coinGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
 
                 // Context Menu
                 ContextMenuStrip cm = new ContextMenuStrip();
