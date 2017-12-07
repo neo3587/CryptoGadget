@@ -10,7 +10,7 @@ namespace CryptoGadget {
 
 	class Settings {
 
-		public class StCoin {
+		public class StCoin : ICloneable {
 			public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphSizeX", "GraphSizeY",
 											"GraphLockPos", "GraphExitSave", "GraphRefreshRate", "GraphStartup"};
 			public struct StAlarm {
@@ -31,12 +31,20 @@ namespace CryptoGadget {
 			public string Target { get; set; }
 			public StAlarm Alarm;// = new StAlarm();
 			public StGraph Graph;// = new StGraph();
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StBasic {
+		public class StBasic : ICloneable {
 			public int RefreshRate { get; set; }
 			public bool Startup { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StVisibility {
+		public class StVisibility : ICloneable {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
 											"VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Refresh"};
@@ -65,8 +73,12 @@ namespace CryptoGadget {
 			public bool Header { get; set; }
 			public bool Edge { get; set; }
 			public bool Refresh { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StColor {
+		public class StColor : ICloneable {
 			public static string[] props = {"Coin", "Value", "PositiveChange", "NegativeChange", "Volume", "Open", "High", "Low",
 											"Supply", "MktCap", "Background1", "Background2", "PositiveRefresh", "NegativeRefresh",
 											"HeaderText", "HeaderBackground", "Edge"};
@@ -91,14 +103,22 @@ namespace CryptoGadget {
 			public Color HeaderText { get; set; }
 			public Color HeaderBackground { get; set; }
 			public Color Edge { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StCoords {
+		public class StCoords : ICloneable {
 			public int PosX { get; set; }
 			public int PosY { get; set; }
 			public bool ExitSave { get; set; }
 			public bool LockPos { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StDigits {
+		public class StDigits : ICloneable {
 			public static string[] props = {"Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct", "VolumeDay", "Volume24", "TotalVolume24",
 											"OpenDay", "Open24", "HighDay", "High24", "LowDay", "Low24", "Supply", "MktCap"};
 			public object this[string prop] {
@@ -121,8 +141,12 @@ namespace CryptoGadget {
 			public int Low24 { get; set; }
 			public int Supply { get; set; }
 			public int MktCap { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StMetrics {
+		public class StMetrics : ICloneable {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
 											"VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Rows", "IconSize",
@@ -155,12 +179,20 @@ namespace CryptoGadget {
 			public int IconSize { get; set; }
 			public float HeaderText { get; set; } 
 			public float RowsValues { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
-		public class StPages {
+		public class StPages : ICloneable {
 			public int Size { get; set; }
 			public int Default { get; set; }
 			public bool Rotate { get; set; }
 			public float RotateRate { get; set; }
+
+			public object Clone() {
+				return MemberwiseClone();
+			}
 		}
 
 		public enum DefaultType {
@@ -200,6 +232,7 @@ namespace CryptoGadget {
 			try {
 				_ini = new IniParser.FileIniDataParser().ReadFile(file_path);
 			} catch {
+				Global.DbgPrint("Settings.BindFile");
 				return false;
 			}
 			return true;
@@ -239,7 +272,7 @@ namespace CryptoGadget {
 			};
 
 			if(MissingAttr(_ini)) {
-				Global.DbgPrint("MissingAttr");
+				Global.DbgPrint("Settings.MissingAttr");
 				return false;
 			}
 
@@ -458,14 +491,14 @@ namespace CryptoGadget {
 
 		}
 		public void CloneSt(ref Settings other) {
-			other.Coins = Coins;
-			other.Basic = Basic;
-			other.Visibility = Visibility;
-			other.Color = Color;
-			other.Coords = Coords;
-			other.Digits = Digits;
-			other.Metrics = Metrics;
-			other.Pages = Pages;
+			other.Coins = (List<StCoin>[])Coins.Clone();
+			other.Basic = (StBasic)Basic.Clone();
+			other.Visibility = (StVisibility)Visibility.Clone();
+			other.Color = (StColor)Color.Clone();
+			other.Coords = (StCoords)Coords.Clone();
+			other.Digits = (StDigits)Digits.Clone();
+			other.Metrics = (StMetrics)Metrics.Clone();
+			other.Pages = (StPages)Pages.Clone();
 		}
 		public void Reset() {
 			Coins = CreateStCoinsList();

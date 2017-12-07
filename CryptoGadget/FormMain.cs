@@ -57,16 +57,16 @@ namespace CryptoGadget {
 			Action<int, double, double, double> UpdateRow = (row, val, chg, per) => { 
 
 				// for(int i = 0; i < props.Length; i++) && prop.visible && !specialized(?)
-				coinGrid.Rows[row].Cells[coinGridValue.Index].Value = AdaptValue(val, Global.Sett.Digits.Value);
-				coinGrid.Rows[row].Cells[coinGridChange24.Index].Value = (chg >= 0 ? "+" : "") + AdaptValue(chg, Global.Sett.Digits.Change24);
-				coinGrid.Rows[row].Cells[coinGridChange24Pct.Index].Value = (per >= 0 ? "+" : "") + AdaptValue(per, Global.Sett.Digits.Change24Pct) + "%";
-				coinGrid.Rows[row].Cells[coinGridChange24.Index].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-				coinGrid.Rows[row].Cells[coinGridChange24Pct.Index].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+				mainGrid.Rows[row].Cells[mainGridValue.Index].Value = AdaptValue(val, Global.Sett.Digits.Value);
+				mainGrid.Rows[row].Cells[mainGridChange24.Index].Value = (chg >= 0 ? "+" : "") + AdaptValue(chg, Global.Sett.Digits.Change24);
+				mainGrid.Rows[row].Cells[mainGridChange24Pct.Index].Value = (per >= 0 ? "+" : "") + AdaptValue(per, Global.Sett.Digits.Change24Pct) + "%";
+				mainGrid.Rows[row].Cells[mainGridChange24.Index].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+				mainGrid.Rows[row].Cells[mainGridChange24Pct.Index].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
 			};
 
 			List<double> lastValues = new List<double>();
-            foreach(DataGridViewRow row in coinGrid.Rows)
-                lastValues.Add(double.Parse(row.Cells[coinGridValue.Index].Value.ToString()));
+            foreach(DataGridViewRow row in mainGrid.Rows)
+                lastValues.Add(double.Parse(row.Cells[mainGridValue.Index].Value.ToString()));
             
             try {
 				JObject json = CCRequest.HttpRequest(_queries[_page]);
@@ -103,7 +103,7 @@ namespace CryptoGadget {
             };
             Action DefaultColors = () => {
                 for(int i = 0; i < lastValues.Count; i++)
-                    coinGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
+                    mainGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
             };
 
             for(float opacity = 0.0f; opacity < 1.0f; opacity += 0.05f) {
@@ -116,15 +116,15 @@ namespace CryptoGadget {
                 for(int i = 0; i < lastValues.Count; i++) {
 
                     Color bgcolor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
-                    double currentValue = double.Parse(coinGrid.Rows[i].Cells[2].Value.ToString());
+                    double currentValue = double.Parse(mainGrid.Rows[i].Cells[2].Value.ToString());
 
                     if(currentValue > lastValues[i]) {
                         Color color = ColorApply(Global.Sett.Color.PositiveRefresh, bgcolor, opacity);
-                        coinGrid.Rows[i].DefaultCellStyle.BackColor = color;
+                        mainGrid.Rows[i].DefaultCellStyle.BackColor = color;
                     }
                     else if(currentValue < lastValues[i]) {
                         Color color = ColorApply(Global.Sett.Color.NegativeRefresh, bgcolor, opacity);
-                        coinGrid.Rows[i].DefaultCellStyle.BackColor = color;
+                        mainGrid.Rows[i].DefaultCellStyle.BackColor = color;
                     }
                 }
 
@@ -144,38 +144,22 @@ namespace CryptoGadget {
 		private void ResizeForm() {
             
             int X = 0;
-            int Y = coinGrid.ColumnHeadersVisible ? coinGrid.ColumnHeadersHeight : 0;
+            int Y = mainGrid.ColumnHeadersVisible ? mainGrid.ColumnHeadersHeight : 0;
             int edge = Global.Sett.Visibility.Edge ? Global.Sett.Metrics.Edge : 0;
 
-            foreach(DataGridViewColumn col in coinGrid.Columns)
+            foreach(DataGridViewColumn col in mainGrid.Columns)
                 X += col.Visible ? col.Width : 0;
-            foreach(DataGridViewRow row in coinGrid.Rows)
+            foreach(DataGridViewRow row in mainGrid.Rows)
                 Y += row.Height;
 
-            coinGrid.Location = new Point(edge, edge);
-            coinGrid.Size = new Size(X, Y);
+            mainGrid.Location = new Point(edge, edge);
+            mainGrid.Size = new Size(X, Y);
             Size = new Size(X + edge * 2, Y + edge * 2);
         }
         private void GridInit() {
 
-			coinGrid.Rows.Clear();
+			mainGrid.Rows.Clear();
 
-			// skip this when reloading the form ??
-			if(!Global.Sett.BindFile(Global.IniLocation)) {
-				Settings.CreateIni(Global.IniLocation);
-				Global.Sett.BindFile(Global.IniLocation);
-				Global.Sett.Default();
-				Global.Sett.Store();
-				Global.Sett.Save();
-			}
-			if(!Global.Sett.Load()) {
-				MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
-				Global.Sett.Default();
-				Global.Sett.Store();
-				Global.Sett.Save();
-				Global.Sett.Load();
-			}
-			
 			for(int i = 0; i < Global.Sett.Pages.Size; i++) {
 				_queries[i] = CCRequest.ConvertQuery(Global.Sett.Coins[i]);
 			}
@@ -192,28 +176,29 @@ namespace CryptoGadget {
 
 			foreach(Settings.StCoin st in Global.Sett.Coins[_page]) {
 
-				int index = coinGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
+				int index = mainGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
 
                 // Context Menu
                 ContextMenuStrip cm = new ContextMenuStrip();
-                cm.Items.Add("Settings", null, contextMenuSettings_Click);
-                cm.Items.Add("Hide", null, contextMenuHide_Click);
-                cm.Items.Add("Exit", null, contextMenuExit_Click);
                     
                 if(Global.Json != null) {
                     JToken coin = Global.Json["Data"][st.Coin];
 					if(coin != null && coin["Url"] != null) {
-						cm.Items.Insert(0, new ToolStripMenuItem(st.Coin + " website", null, (sender, e) => Process.Start("https://www.cryptocompare.com" + coin["Url"])));
-						cm.Items.Insert(1, new ToolStripSeparator());
+						cm.Items.Add(new ToolStripMenuItem(st.Coin + " website", null, (sender, e) => Process.Start("https://www.cryptocompare.com" + coin["Url"])));
+						cm.Items.Add(new ToolStripSeparator());
 					}
                 }
 
-                coinGrid.Rows[index].ContextMenuStrip = cm;
+				cm.Items.Add("Settings", null, contextMenuSettings_Click);
+				cm.Items.Add("Hide", null, contextMenuHide_Click);
+				cm.Items.Add("Exit", null, contextMenuExit_Click);
+
+				mainGrid.Rows[index].ContextMenuStrip = cm;
 
                 // Name Tooltip
                 if(Global.Json != null) {
                     string name = Global.Json["Data"][st.Coin]["CoinName"].ToString();
-                    foreach(DataGridViewCell cell in coinGrid.Rows[index].Cells)
+                    foreach(DataGridViewCell cell in mainGrid.Rows[index].Cells)
                         cell.ToolTipText = name;
                 }
 
@@ -224,37 +209,37 @@ namespace CryptoGadget {
             #region Metrics & Visibility
 
 			// for(int i = 0; i < props.length; i++) 
-            coinGrid.Columns[0].Width = Global.Sett.Metrics.Icon;
-            coinGrid.Columns[1].Width = Global.Sett.Metrics.Coin;
-            coinGrid.Columns[2].Width = Global.Sett.Metrics.Value;
-            coinGrid.Columns[3].Width = Global.Sett.Metrics.Change24;
-            coinGrid.Columns[4].Width = Global.Sett.Metrics.Change24Pct;
-            coinGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
-            coinGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.HeaderText);
-            coinGrid.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.RowsValues);
+            mainGrid.Columns[0].Width = Global.Sett.Metrics.Icon;
+            mainGrid.Columns[1].Width = Global.Sett.Metrics.Coin;
+            mainGrid.Columns[2].Width = Global.Sett.Metrics.Value;
+            mainGrid.Columns[3].Width = Global.Sett.Metrics.Change24;
+            mainGrid.Columns[4].Width = Global.Sett.Metrics.Change24Pct;
+            mainGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
+            mainGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.HeaderText);
+            mainGrid.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.RowsValues);
 
-            foreach(DataGridViewRow row in coinGrid.Rows)
+            foreach(DataGridViewRow row in mainGrid.Rows)
                 row.Height = Global.Sett.Metrics.Rows;
 
 			// for(int i = 0; i < props.length; i++) 
-			coinGrid.Columns[0].Visible = Global.Sett.Visibility.Icon;
-            coinGrid.Columns[1].Visible = Global.Sett.Visibility.Coin;
-            coinGrid.Columns[2].Visible = Global.Sett.Visibility.Value;
-            coinGrid.Columns[3].Visible = Global.Sett.Visibility.Change24;
-            coinGrid.Columns[4].Visible = Global.Sett.Visibility.Change24Pct;
-            coinGrid.ColumnHeadersVisible = Global.Sett.Visibility.Header;
+			mainGrid.Columns[0].Visible = Global.Sett.Visibility.Icon;
+            mainGrid.Columns[1].Visible = Global.Sett.Visibility.Coin;
+            mainGrid.Columns[2].Visible = Global.Sett.Visibility.Value;
+            mainGrid.Columns[3].Visible = Global.Sett.Visibility.Change24;
+            mainGrid.Columns[4].Visible = Global.Sett.Visibility.Change24Pct;
+            mainGrid.ColumnHeadersVisible = Global.Sett.Visibility.Header;
 
             #endregion
 
             #region Color Init
 
-            coinGrid.RowsDefaultCellStyle.BackColor = Global.Sett.Color.Background1;
-            coinGrid.AlternatingRowsDefaultCellStyle.BackColor = Global.Sett.Color.Background2;
-            coinGrid.Columns[1].DefaultCellStyle.ForeColor = Global.Sett.Color.Coin;
-            coinGrid.Columns[2].DefaultCellStyle.ForeColor = Global.Sett.Color.Value;
+            mainGrid.RowsDefaultCellStyle.BackColor = Global.Sett.Color.Background1;
+            mainGrid.AlternatingRowsDefaultCellStyle.BackColor = Global.Sett.Color.Background2;
+            mainGrid.Columns[1].DefaultCellStyle.ForeColor = Global.Sett.Color.Coin;
+            mainGrid.Columns[2].DefaultCellStyle.ForeColor = Global.Sett.Color.Value;
 
-            coinGrid.ColumnHeadersDefaultCellStyle.ForeColor = Global.Sett.Color.HeaderText;
-            coinGrid.ColumnHeadersDefaultCellStyle.BackColor = Global.Sett.Color.HeaderBackground;
+            mainGrid.ColumnHeadersDefaultCellStyle.ForeColor = Global.Sett.Color.HeaderText;
+            mainGrid.ColumnHeadersDefaultCellStyle.BackColor = Global.Sett.Color.HeaderBackground;
 
             BackColor = Global.Sett.Color.Edge;
 
@@ -266,10 +251,10 @@ namespace CryptoGadget {
             Location = new Point(Global.Sett.Coords.PosX, Global.Sett.Coords.PosY);
 
             MouseDown -= FormUtil.DragMove;
-            coinGrid.MouseDown -= FormUtil.DragMove;
+            mainGrid.MouseDown -= FormUtil.DragMove;
             if(!Global.Sett.Coords.LockPos) {
                 MouseDown += FormUtil.DragMove;
-                coinGrid.MouseDown += FormUtil.DragMove;
+                mainGrid.MouseDown += FormUtil.DragMove;
             }
 
             #endregion
@@ -298,10 +283,30 @@ namespace CryptoGadget {
             notifyIcon.Text = notifyIcon.Text.Remove(notifyIcon.Text.Length - 2);
 
             Load += (sender, e) => {
-                GridInit();
+				
+				#if DEBUG
+				File.Delete(Global.IniLocation);
+				#endif
+
+				if(!Global.Sett.BindFile(Global.IniLocation)) {
+					Settings.CreateIni(Global.IniLocation);
+					Global.Sett.BindFile(Global.IniLocation);
+					Global.Sett.Default();
+					Global.Sett.Store();
+					Global.Sett.Save();
+				}
+				if(!Global.Sett.Load()) {
+					MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
+					Global.Sett.Default();
+					Global.Sett.Store();
+					Global.Sett.Save();
+					Global.Sett.Load();
+				}
+
+				GridInit();
                 ResizeForm();
 
-                coinGrid.DoubleBuffered(true);
+                mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
                 _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
@@ -320,11 +325,11 @@ namespace CryptoGadget {
             wait.WaitOne();
 
             if(form2.accept) {
-                //Point currLoc = Location; 
+				Point currLoc = Location; // prevent the form realocation
                 GridInit();
                 ResizeForm();
-                //Location = currLoc;
-            }
+                Location = currLoc;
+			}
 
             _timer_disposed = false;
             _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
@@ -332,7 +337,6 @@ namespace CryptoGadget {
         private void contextMenuHide_Click(object sender, EventArgs e) {
             Visible = !Visible;
 			contextMenuHide.Checked = !Visible;
-            //contextMenuHide.Text = Visible ? "Hide" : "Show";
         }
         private void contextMenuExit_Click(object sender, EventArgs e) {
             Close();
@@ -343,12 +347,16 @@ namespace CryptoGadget {
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
-			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY))
+			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
+				Global.Sett.Coords.PosX = Location.X;
+				Global.Sett.Coords.PosY = Location.Y;
+				Global.Sett.Store();
 				Global.Sett.Save();
+			}
         }
 
         private void coinGrid_SelectionChanged(object sender, EventArgs e) {
-            coinGrid.ClearSelection();
+            mainGrid.ClearSelection();
         }
     }
 

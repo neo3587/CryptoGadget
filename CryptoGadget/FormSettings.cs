@@ -19,6 +19,8 @@ namespace CryptoGadget {
 
         private FormMain _ptrForm;
 		private Settings _sett = new Settings();
+		private int _page = 0;
+
         public bool accept = false;
 
         public enum DataType {
@@ -161,9 +163,31 @@ namespace CryptoGadget {
             return false;
         }
 
+		private void RefreshStCoins() {
+			_sett.Coins[_page] = new List<Settings.StCoin>();
+			foreach(DataGridViewRow row in coinGrid.Rows) {
+				Settings.StCoin st = new Settings.StCoin();
+				st.Coin = row.Cells[coinGridCoin.Index].Value.ToString();
+				st.Target = row.Cells[coinGridTarget.Index].Value.ToString();
+				_sett.Coins[_page].Add(st);
+			}
+		}
+
 		private void BindSettings() {
 
 			// TODO: Coin binding (if possible)
+			foreach(Settings.StCoin st in Global.Sett.Coins[0]) 
+				coinGrid.Rows.Add(Global.GetIcon(st.Coin, new Size(16, 16)), st.Coin, "", st.Target, "");
+			if(GetCoinDB()) {
+				foreach(DataGridViewRow row in coinGrid.Rows) {
+					row.Cells[2].Value = Global.Json["Data"][row.Cells[1].Value.ToString()]["CoinName"];
+					row.Cells[4].Value = Global.Json["Data"][row.Cells[3].Value.ToString()]["CoinName"];
+				}
+			}
+
+			if(coinGrid.RowCount > 0)
+				coinGrid.Rows[0].Selected = true;
+
 
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
 			
@@ -216,12 +240,13 @@ namespace CryptoGadget {
 		}
 
 
-
 		public FormSettings(FormMain form) {
             InitializeComponent();
             _ptrForm = form;
 			Global.Sett.CloneSt(ref _sett);
-            HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
+            HandleCreated += (sender, e) => new Thread(() =>  {
+				Invoke((MethodInvoker)delegate { BindSettings(); });
+			}).Start();
         }
         
 
@@ -386,11 +411,12 @@ namespace CryptoGadget {
         #region Shared on all Tabs
 
         private void buttonAccept_Click(object sender, EventArgs e) {
-            if(!checkVisibilityIcon.Checked && !checkVisibilityCoin.Checked && !checkVisibilityValue.Checked && !checkVisibilityChange24.Checked) {
-                MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if(!_sett.Visibility.Icon && !_sett.Visibility.Coin && !_sett.Visibility.Value && !_sett.Visibility.Change24 && !_sett.Visibility.Change24Pct) {
+                MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\" \"Percent Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else {
 				_sett.CloneSt(ref Global.Sett);
+				Global.Sett.Store();
 				Global.Sett.Save();
                 accept = true;
                 Close();
@@ -401,14 +427,15 @@ namespace CryptoGadget {
         }
 
         private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
-        private void textSint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedInt(sender, e);
-        private void textUint(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedInt(sender, e);
-        private void textSfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxSignedFloat(sender, e);
-        private void textUfloat(object sender, KeyPressEventArgs e) => neo.FormUtil.textBoxUnsignedFloat(sender, e);
 
-        #endregion
+		#endregion
 
-
-    }
+		private void coinGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
+			RefreshStCoins();
+		}
+		private void coinGrid_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e) {
+			RefreshStCoins();
+		}
+	}
 
 }

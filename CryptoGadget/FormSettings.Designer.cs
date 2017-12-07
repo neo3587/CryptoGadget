@@ -29,11 +29,11 @@
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.coinGrid = new System.Windows.Forms.DataGridView();
-			this.img = new System.Windows.Forms.DataGridViewImageColumn();
-			this.coin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.target = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.targetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
+			this.coinGridCoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonSub = new System.Windows.Forms.Button();
 			this.buttonUp = new System.Windows.Forms.Button();
@@ -196,11 +196,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.coinGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.img,
-            this.coin,
-            this.name,
-            this.target,
-            this.targetName});
+            this.coinGridImg,
+            this.coinGridCoin,
+            this.coinGridName,
+            this.coinGridTarget,
+            this.coinGridTargetName});
 			this.coinGrid.Location = new System.Drawing.Point(7, 6);
 			this.coinGrid.MultiSelect = false;
 			this.coinGrid.Name = "coinGrid";
@@ -209,54 +209,56 @@
 			this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.coinGrid.Size = new System.Drawing.Size(407, 395);
 			this.coinGrid.TabIndex = 10;
+			this.coinGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.coinGrid_RowsAdded);
+			this.coinGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.coinGrid_RowsRemoved);
 			// 
-			// img
+			// coinGridImg
 			// 
-			this.img.HeaderText = "";
-			this.img.MinimumWidth = 15;
-			this.img.Name = "img";
-			this.img.ReadOnly = true;
-			this.img.Width = 25;
+			this.coinGridImg.HeaderText = "";
+			this.coinGridImg.MinimumWidth = 15;
+			this.coinGridImg.Name = "coinGridImg";
+			this.coinGridImg.ReadOnly = true;
+			this.coinGridImg.Width = 25;
 			// 
-			// coin
+			// coinGridCoin
 			// 
-			this.coin.FillWeight = 69.76744F;
-			this.coin.HeaderText = "Coin";
-			this.coin.MaxInputLength = 20;
-			this.coin.MinimumWidth = 20;
-			this.coin.Name = "coin";
-			this.coin.ReadOnly = true;
-			this.coin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coin.Width = 50;
+			this.coinGridCoin.FillWeight = 69.76744F;
+			this.coinGridCoin.HeaderText = "Coin";
+			this.coinGridCoin.MaxInputLength = 20;
+			this.coinGridCoin.MinimumWidth = 20;
+			this.coinGridCoin.Name = "coinGridCoin";
+			this.coinGridCoin.ReadOnly = true;
+			this.coinGridCoin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridCoin.Width = 50;
 			// 
-			// name
+			// coinGridName
 			// 
-			this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.name.FillWeight = 130.2326F;
-			this.name.HeaderText = "Name";
-			this.name.MaxInputLength = 20;
-			this.name.MinimumWidth = 25;
-			this.name.Name = "name";
-			this.name.ReadOnly = true;
-			this.name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.coinGridName.FillWeight = 130.2326F;
+			this.coinGridName.HeaderText = "Name";
+			this.coinGridName.MaxInputLength = 20;
+			this.coinGridName.MinimumWidth = 25;
+			this.coinGridName.Name = "coinGridName";
+			this.coinGridName.ReadOnly = true;
+			this.coinGridName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
-			// target
+			// coinGridTarget
 			// 
-			this.target.HeaderText = "Target";
-			this.target.MaxInputLength = 50;
-			this.target.Name = "target";
-			this.target.ReadOnly = true;
-			this.target.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.target.Width = 50;
+			this.coinGridTarget.HeaderText = "Target";
+			this.coinGridTarget.MaxInputLength = 50;
+			this.coinGridTarget.Name = "coinGridTarget";
+			this.coinGridTarget.ReadOnly = true;
+			this.coinGridTarget.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridTarget.Width = 50;
 			// 
-			// targetName
+			// coinGridTargetName
 			// 
-			this.targetName.HeaderText = "Target Name";
-			this.targetName.MaxInputLength = 250;
-			this.targetName.Name = "targetName";
-			this.targetName.ReadOnly = true;
-			this.targetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.targetName.Width = 139;
+			this.coinGridTargetName.HeaderText = "Target Name";
+			this.coinGridTargetName.MaxInputLength = 250;
+			this.coinGridTargetName.Name = "coinGridTargetName";
+			this.coinGridTargetName.ReadOnly = true;
+			this.coinGridTargetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridTargetName.Width = 139;
 			// 
 			// buttonAdd
 			// 
@@ -1575,11 +1577,6 @@
         private System.Windows.Forms.Button buttonColorNegativeRefresh;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonColorPositiveRefresh;
-        private System.Windows.Forms.DataGridViewImageColumn img;
-        private System.Windows.Forms.DataGridViewTextBoxColumn coin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn target;
-        private System.Windows.Forms.DataGridViewTextBoxColumn targetName;
         private System.Windows.Forms.Button buttonDefaultCurrencies;
         private System.Windows.Forms.Button buttonDefaultBasic;
         private System.Windows.Forms.Button buttonDefaultAdvanced;
@@ -1605,5 +1602,11 @@
 		private System.Windows.Forms.NumericUpDown numMetricsRows;
 		private System.Windows.Forms.NumericUpDown numMetricsHeader;
 		private System.Windows.Forms.NumericUpDown numMetricsCoin;
+		private System.Windows.Forms.DataGridViewImageColumn coinGridImg;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoin;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoinName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTarget;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTargetName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
 	}
 }
