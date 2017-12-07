@@ -396,6 +396,9 @@ namespace CryptoGadget {
 				Visibility.Coin		= true;
 				Visibility.Value	= true;
 				Visibility.Change24 = true;
+				Visibility.Edge     = true;
+				Visibility.Header   = true;
+				Visibility.Refresh  = true;
 			}
 			if((type & DefaultType.ColorLight) != 0) {
 				foreach(string prop in StColor.props)

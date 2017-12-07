@@ -38,6 +38,7 @@ namespace CryptoGadget {
         private volatile bool _timer_disposed = false;
 		private string[] _queries = new string[10];
 		private int _page = 0;
+		private Dictionary<string, string> _digit_adapts = new Dictionary<string, string>();
 
         private void TimerRoutine(object state) {
 
@@ -49,29 +50,23 @@ namespace CryptoGadget {
 
             Stopwatch watch = Stopwatch.StartNew();
 
-            Func<double, int, int, double> AdaptValue = (val, maxDigit, maxDecimal) => {
-                int decimals = Math.Min(maxDecimal, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
-                return Math.Round(val, Math.Max(0, Math.Min(decimals, 15)));
-            };
-            Func<double, int, int, string> AdaptValueStr = (val, maxDigit, maxDecimal) => {
-                int decimals = Math.Min(maxDecimal, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
-                return val.ToString("0." + new string('0', Math.Max(0, decimals)));
-            };
-            Action<int, double, double, double> UpdateRow = (row, val, chg, per) => { // remove from here to make the calcs only once, also remove the decimals part
-                val = AdaptValue(val, Global.Sett.Metrics.Value, Global.Sett.Metrics.Value-1);
-                chg = AdaptValue(chg, Global.Sett.Metrics.Change24, Global.Sett.Metrics.Change24-1);
-                per = AdaptValue(per, Global.Sett.Metrics.Change24Pct, Global.Sett.Metrics.Change24Pct-1);
+			Func<double, int, string> AdaptValue = (val, maxDigit) => {
+				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
+				return Math.Round(val, decimals).ToString("0." + new string('0', decimals));
+			};
+			Action<int, double, double, double> UpdateRow = (row, val, chg, per) => { 
 
-                coinGrid.Rows[row].Cells[2].Value = AdaptValueStr(val, Global.Sett.Metrics.Value, Global.Sett.Metrics.Value-1);
-                coinGrid.Rows[row].Cells[3].Value = (chg >= 0 ? "+" : "") + AdaptValueStr(chg, Global.Sett.Metrics.Change24, Global.Sett.Metrics.Change24-1);
-                coinGrid.Rows[row].Cells[4].Value = (per >= 0 ? "+" : "") + AdaptValueStr(per, Global.Sett.Metrics.Change24Pct, Global.Sett.Metrics.Change24Pct-1) + "%";
-                coinGrid.Rows[row].Cells[3].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-                coinGrid.Rows[row].Cells[4].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-            };
+				// for(int i = 0; i < props.Length; i++) && prop.visible && !specialized(?)
+				coinGrid.Rows[row].Cells[coinGridValue.Index].Value = AdaptValue(val, Global.Sett.Digits.Value);
+				coinGrid.Rows[row].Cells[coinGridChange24.Index].Value = (chg >= 0 ? "+" : "") + AdaptValue(chg, Global.Sett.Digits.Change24);
+				coinGrid.Rows[row].Cells[coinGridChange24Pct.Index].Value = (per >= 0 ? "+" : "") + AdaptValue(per, Global.Sett.Digits.Change24Pct) + "%";
+				coinGrid.Rows[row].Cells[coinGridChange24.Index].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+				coinGrid.Rows[row].Cells[coinGridChange24Pct.Index].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+			};
 
-            List<double> lastValues = new List<double>();
+			List<double> lastValues = new List<double>();
             foreach(DataGridViewRow row in coinGrid.Rows)
-                lastValues.Add(double.Parse(row.Cells[2].Value.ToString()));
+                lastValues.Add(double.Parse(row.Cells[coinGridValue.Index].Value.ToString()));
             
             try {
 				JObject json = CCRequest.HttpRequest(_queries[_page]);
@@ -94,8 +89,7 @@ namespace CryptoGadget {
 
             try {
                 _timer_req.Change(Math.Max(0, Global.Sett.Basic.RefreshRate - watch.ElapsedMilliseconds), Global.Sett.Basic.RefreshRate);
-            } 
-			catch { }
+            } catch { }
 
         }
         private void TimerHighlight(List<double> lastValues) {
@@ -141,7 +135,13 @@ namespace CryptoGadget {
 
         }
 
-        private void ResizeForm() {
+		private void RotatePage() {
+			_page = (_page + 1) % Global.Sett.Pages.Size;
+			GridInit();
+			ResizeForm();
+		}
+
+		private void ResizeForm() {
             
             int X = 0;
             int Y = coinGrid.ColumnHeadersVisible ? coinGrid.ColumnHeadersHeight : 0;
@@ -157,10 +157,6 @@ namespace CryptoGadget {
             Size = new Size(X + edge * 2, Y + edge * 2);
         }
         private void GridInit() {
-
-			#if DEBUG
-			//File.Delete(Global.IniLocation);
-			#endif
 
 			coinGrid.Rows.Clear();
 
@@ -185,7 +181,7 @@ namespace CryptoGadget {
 			}
 			_page = Global.Sett.Pages.Default;
 
-            if(Global.Json == null && File.Exists(Global.JsonLocation)) {
+			if(Global.Json == null && File.Exists(Global.JsonLocation)) {
                 Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
                 if(!Global.JsonIsValid(Global.Json))
                     Global.Json = null;

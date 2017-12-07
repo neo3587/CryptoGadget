@@ -27,16 +27,16 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.coinGrid = new System.Windows.Forms.DataGridView();
-			this.gridIcon = new System.Windows.Forms.DataGridViewImageColumn();
-			this.gridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.gridValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridChange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.contextMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuHide = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+			this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
+			this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridChange24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridChange24Pct = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -52,11 +52,11 @@
 			this.coinGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.coinGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.gridIcon,
-            this.gridName,
-            this.gridValue,
-            this.coinGridChange,
-            this.coinGridPercent});
+            this.coinGridImg,
+            this.coinGridName,
+            this.coinGridValue,
+            this.coinGridChange24,
+            this.coinGridChange24Pct});
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -79,48 +79,6 @@
 			this.coinGrid.Size = new System.Drawing.Size(182, 22);
 			this.coinGrid.TabIndex = 0;
 			this.coinGrid.SelectionChanged += new System.EventHandler(this.coinGrid_SelectionChanged);
-			// 
-			// coinGridImg
-			// 
-			this.gridIcon.FillWeight = 78.32401F;
-			this.gridIcon.HeaderText = "";
-			this.gridIcon.Name = "coinGridImg";
-			this.gridIcon.ReadOnly = true;
-			this.gridIcon.Width = 25;
-			// 
-			// coinGridName
-			// 
-			this.gridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.gridName.FillWeight = 91.44361F;
-			this.gridName.HeaderText = "Coin";
-			this.gridName.MaxInputLength = 10;
-			this.gridName.Name = "coinGridName";
-			this.gridName.ReadOnly = true;
-			this.gridName.Width = 44;
-			// 
-			// coinGridValue
-			// 
-			this.gridValue.FillWeight = 128.7096F;
-			this.gridValue.HeaderText = "Value";
-			this.gridValue.MaxInputLength = 10;
-			this.gridValue.Name = "coinGridValue";
-			this.gridValue.ReadOnly = true;
-			this.gridValue.Width = 63;
-			// 
-			// coinGridChange
-			// 
-			this.coinGridChange.FillWeight = 101.5228F;
-			this.coinGridChange.HeaderText = "Change";
-			this.coinGridChange.MaxInputLength = 10;
-			this.coinGridChange.Name = "coinGridChange";
-			this.coinGridChange.ReadOnly = true;
-			this.coinGridChange.Width = 50;
-			// 
-			// Percent
-			// 
-			this.coinGridPercent.HeaderText = "Change(%)";
-			this.coinGridPercent.Name = "Percent";
-			this.coinGridPercent.ReadOnly = true;
 			// 
 			// notifyIcon
 			// 
@@ -160,6 +118,48 @@
 			this.contextMenuExit.Text = "Exit";
 			this.contextMenuExit.Click += new System.EventHandler(this.contextMenuExit_Click);
 			// 
+			// coinGridImg
+			// 
+			this.coinGridImg.FillWeight = 78.32401F;
+			this.coinGridImg.HeaderText = "";
+			this.coinGridImg.Name = "coinGridImg";
+			this.coinGridImg.ReadOnly = true;
+			this.coinGridImg.Width = 25;
+			// 
+			// coinGridName
+			// 
+			this.coinGridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.coinGridName.FillWeight = 91.44361F;
+			this.coinGridName.HeaderText = "Coin";
+			this.coinGridName.MaxInputLength = 10;
+			this.coinGridName.Name = "coinGridName";
+			this.coinGridName.ReadOnly = true;
+			this.coinGridName.Width = 44;
+			// 
+			// coinGridValue
+			// 
+			this.coinGridValue.FillWeight = 128.7096F;
+			this.coinGridValue.HeaderText = "Value";
+			this.coinGridValue.MaxInputLength = 10;
+			this.coinGridValue.Name = "coinGridValue";
+			this.coinGridValue.ReadOnly = true;
+			this.coinGridValue.Width = 63;
+			// 
+			// coinGridChange24
+			// 
+			this.coinGridChange24.FillWeight = 101.5228F;
+			this.coinGridChange24.HeaderText = "Change";
+			this.coinGridChange24.MaxInputLength = 10;
+			this.coinGridChange24.Name = "coinGridChange24";
+			this.coinGridChange24.ReadOnly = true;
+			this.coinGridChange24.Width = 50;
+			// 
+			// coinGridChange24Pct
+			// 
+			this.coinGridChange24Pct.HeaderText = "Change(%)";
+			this.coinGridChange24Pct.Name = "coinGridChange24Pct";
+			this.coinGridChange24Pct.ReadOnly = true;
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,11 +188,11 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuSettings;
         private System.Windows.Forms.ToolStripMenuItem contextMenuHide;
         private System.Windows.Forms.ToolStripMenuItem contextMenuExit;
-        private System.Windows.Forms.DataGridViewImageColumn   gridIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gridName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gridValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn coinGridChange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn coinGridPercent;
-    }
+		private System.Windows.Forms.DataGridViewImageColumn coinGridImg;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridValue;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridChange24;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridChange24Pct;
+	}
 }
 

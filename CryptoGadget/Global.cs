@@ -78,9 +78,9 @@ namespace CryptoGadget {
             return bmp;
         }
 
-		public static void DbgPrint(string text) {
+		public static void DbgPrint<T>(T text) {
 			#if DEBUG
-			Console.WriteLine(text);
+			Console.WriteLine(text.ToString());
 			#endif
 		}
 

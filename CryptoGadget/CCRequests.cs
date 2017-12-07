@@ -16,13 +16,13 @@ namespace CryptoGadget {
 		}
 
 		public static string ConvertQuery(List<Settings.StCoin> list_st) {
-			string input = "";
-			string output = "";
+			SortedSet<string> input = new SortedSet<string>();
+			SortedSet<string> output = new SortedSet<string>();
 			foreach(Settings.StCoin st in list_st) {
-				input += st.Coin + ",";
-				output += st.Target + ",";
+				input.Add(st.Coin);
+				output.Add(st.Target);
 			}
-			return "https://min-api.cryptocompare.com/data/pricemultifull?fsysms=" + input + "&tsyms=" + output;
+			return "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + string.Join(",", input).ToUpper() + "&tsyms=" + string.Join(",", output).ToUpper();
 		}
 		public static string HistoQuery(Settings.StCoin st, HistoType type, int size = 60, int step = 1, int time = -1) {
 			string str_type = type == HistoType.Minute ? "Minute" : (type == HistoType.Hour ? "Hour" : "Day");
