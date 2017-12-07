@@ -11,21 +11,21 @@ using BindList = System.Collections.Generic.List<System.Collections.Generic.KeyV
 
 namespace CryptoGadget {
 
-    public partial class AddCoinForm : Form {
+    public partial class FormAddCoin : Form {
 
         DataGridView ptrGrid;
         BindList pairs = new BindList();
         BindingSource cBind = new BindingSource();
         BindingSource tBind = new BindingSource();
 
-        public AddCoinForm(DataGridView grid) {
+        public FormAddCoin(DataGridView grid) {
 
             InitializeComponent();
             ptrGrid = grid;
 
             HandleCreated += (sender, e) => {
 
-                foreach(JProperty coin in Common.json["Data"])
+                foreach(JProperty coin in Global.Json["Data"])
                     pairs.Add(new KeyValuePair<string, string>(coin.Value["Name"].ToString(), coin.Value["CoinName"].ToString()));
 
                 cBind.DataSource = pairs;
@@ -64,7 +64,7 @@ namespace CryptoGadget {
             }
 
             int insertPos = ptrGrid.SelectedRows.Count > 0 ? ptrGrid.SelectedRows[0].Index +1 : 0;
-            ptrGrid.Rows.Insert(insertPos, Common.GetIcon(left.Key, new Size(16, 16)), left.Key, left.Value, right.Key, right.Value);
+            ptrGrid.Rows.Insert(insertPos, Global.GetIcon(left.Key, new Size(16, 16)), left.Key, left.Value, right.Key, right.Value);
             ptrGrid.Rows[Math.Min(ptrGrid.SelectedRows[0].Index +1, ptrGrid.RowCount-1)].Selected = true;
         }
         private void buttonDone_Click(object sender, EventArgs e) {
@@ -79,7 +79,7 @@ namespace CryptoGadget {
                 string left = !checkIndexName.Checked ? "Name" : "CoinName";
                 string right = checkIndexName.Checked ? "Name" : "CoinName";
 
-                foreach(JProperty coin in Common.json["Data"]) 
+                foreach(JProperty coin in Global.Json["Data"]) 
                     if(coin.Value["FiatCurrency"] != null)
                         bl.Add(new KeyValuePair<string, string>(coin.Value[left].ToString(), coin.Value[right].ToString()));
                 tBind.DataSource = bl;

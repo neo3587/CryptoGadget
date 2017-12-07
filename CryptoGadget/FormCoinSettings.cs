@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace CryptoGadget {
 
-    public partial class SettingsCoinForm : Form {
+    public partial class FormCoinSettings : Form {
 
-        public SettingsCoinForm() {
+        public FormCoinSettings() {
             InitializeComponent();
         }
 

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 
 using Newtonsoft.Json.Linq;
-using IniParser.Model;
 
 
 
@@ -16,9 +15,10 @@ using IniParser.Model;
 
 namespace CryptoGadget {
 
-    public partial class SettingsForm : Form {
+    public partial class FormSettings : Form {
 
-        private MainForm ptrForm;
+        private FormMain _ptrForm;
+		private Settings _sett = new Settings();
         public bool accept = false;
 
         public enum DataType {
@@ -42,7 +42,7 @@ namespace CryptoGadget {
         private JObject DownloadCoinDB() {
 
             Enabled = false;
-            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.CoinList);
+            FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.CoinList);
             form.ShowDialog();
             Enabled = true;
             if(form.coindb == null)
@@ -117,29 +117,29 @@ namespace CryptoGadget {
         private bool GetCoinDB() {
 
             Action<JObject> JsonToFile = (data) => {
-                StreamWriter writer = new StreamWriter(Common.jsonLocation);
+                StreamWriter writer = new StreamWriter(Global.JsonLocation);
                 writer.Write(data.ToString(Newtonsoft.Json.Formatting.Indented));
                 writer.Close();
             };
 
-            if(Common.json != null)
+            if(Global.Json != null)
                 return true;
 
             try {
-                if(!File.Exists(Common.jsonLocation)) {
-                    Common.json = DownloadCoinDB();
-                    JsonToFile(Common.json);
+                if(!File.Exists(Global.JsonLocation)) {
+                    Global.Json = DownloadCoinDB();
+                    JsonToFile(Global.Json);
                     return true;
                 }
                 else {
-                    Common.json = JObject.Parse(new StreamReader(File.Open(Common.jsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
-                    if(Common.JsonIsValid(Common.json)) {
+                    Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
+                    if(Global.JsonIsValid(Global.Json)) {
                         return true;
                     }
                     else {
                         MessageBox.Show("The coin list file is corrupted, downloading a new copy...", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        Common.json = DownloadCoinDB();
-                        JsonToFile(Common.json);
+                        Global.Json = DownloadCoinDB();
+                        JsonToFile(Global.Json);
                         return true;
                     }
                 }
@@ -161,185 +161,78 @@ namespace CryptoGadget {
             return false;
         }
 
-        private void LoadData(IniData data, DataType dt = DataType.All) {
+		private void BindSettings() {
 
-            if((dt & DataType.Coins) != 0) {
+			// TODO: Coin binding (if possible)
 
-                coinGrid.Rows.Clear();
+			numRefreshRate.DataBindings.Add("ValueChanged", _sett.Basic, "RefreshRate");
 
-                foreach(KeyData coin in data["Coins"]) 
-                    coinGrid.Rows.Add(Common.GetIcon(coin.KeyName, new Size(16, 16)), coin.KeyName, "", coin.Value, "");
+			// for(int i = 0; i < props.Length; i++) 
+			checkVisibilityIcon.DataBindings.Add("Checked", _sett.Visibility, "Icon");
+			checkVisibilityCoin.DataBindings.Add("Checked", _sett.Visibility, "Coin");
+			checkVisibilityValue.DataBindings.Add("Checked", _sett.Visibility, "Value");
+			checkVisibilityChange24.DataBindings.Add("Checked", _sett.Visibility, "Change24");
+			checkVisibilityChange24Pct.DataBindings.Add("Checked", _sett.Visibility, "Change24Pct");
+			checkVisibilityHeader.DataBindings.Add("Checked", _sett.Visibility, "Header");
+			checkVisibilityEdge.DataBindings.Add("Checked", _sett.Visibility, "Edge");
+			checkVisibilityRefresh.DataBindings.Add("Checked", _sett.Visibility, "Refresh");
 
-                if(coinGrid.RowCount > 0)
-                    coinGrid.Rows[0].Selected = true;
+			// for(int i = 0; i < props.Length; i++) 
+			buttonColorCoin.DataBindings.Add("BackColorChanged", _sett.Color, "Coin");
+			buttonColorValue.DataBindings.Add("BackColorChanged", _sett.Color, "Value");
+			buttonColorBackground1.DataBindings.Add("BackColorChanged", _sett.Color, "Background1");
+			buttonColorBackground2.DataBindings.Add("BackColorChanged", _sett.Color, "Background2");
+			buttonColorPositiveRefresh.DataBindings.Add("BackColorChanged", _sett.Color, "PositiveRefresh");
+			buttonColorNegativeRefresh.DataBindings.Add("BackColorChanged", _sett.Color, "NegativeRefresh");
+			buttonColorPositiveChange.DataBindings.Add("BackColorChanged", _sett.Color, "PositiveChange");
+			buttonColorNegativeChange.DataBindings.Add("BackColorChanged", _sett.Color, "NegativeChange");
+			buttonColorHeaderText.DataBindings.Add("BackColorChanged", _sett.Color, "HeaderText");
+			buttonColorHeaderBackground.DataBindings.Add("BackColorChanged", _sett.Color, "HeaderBackground");
+			buttonColorEdge.DataBindings.Add("BackColorChanged", _sett.Color, "Edge");
 
-                if(GetCoinDB()) { 
-                    foreach(DataGridViewRow row in coinGrid.Rows) {
-                        row.Cells[2].Value = Common.json["Data"][row.Cells[1].Value.ToString()]["CoinName"];
-                        row.Cells[4].Value = Common.json["Data"][row.Cells[3].Value.ToString()]["CoinName"]; 
-                    }
-                }
+			numCoordsPosX.DataBindings.Add("ValueChanged", _sett.Coords, "PosX");
+			numCoordsPosX.DataBindings.Add("ValueChanged", _sett.Coords, "PosY");
+			checkCoordsExitSave.DataBindings.Add("Checked", _sett.Coords, "ExitSave");
+			checkCoordsLockPos.DataBindings.Add("Checked", _sett.Coords, "LockPos");
 
-            }
+			// for(int i = 0; i < props.Length; i++)
+			numDigitsValue.DataBindings.Add("ValueChanged", _sett.Digits, "Value");
+			numDigitsChange24.DataBindings.Add("ValueChanged", _sett.Digits, "Change24");
+			numDigitsChange24Pct.DataBindings.Add("ValueChanged", _sett.Digits, "Change24Pct");
 
-            if((dt & DataType.Basic) != 0) {
+			// for(int i = 0; i < props.Length; i++)
+			numMetricsIcon.DataBindings.Add("ValueChanged", _sett.Metrics, "Icon");
+			numMetricsCoin.DataBindings.Add("ValueChanged", _sett.Metrics, "Coin");
+			numMetricsValue.DataBindings.Add("ValueChanged", _sett.Metrics, "Value");
+			numMetricsChange24.DataBindings.Add("ValueChanged", _sett.Metrics, "Change24");
+			numMetricsChange24Pct.DataBindings.Add("ValueChanged", _sett.Metrics, "Change24Pct");
+			numMetricsEdge.DataBindings.Add("ValueChanged", _sett.Metrics, "Edge");
+			numMetricsHeader.DataBindings.Add("ValueChanged", _sett.Metrics, "Header");
+			numMetricsRows.DataBindings.Add("ValueChanged", _sett.Metrics, "Rows");
+			numMetricsIconSize.DataBindings.Add("ValueChanged", _sett.Metrics, "IconSize");
+			numMetricsHeaderText.DataBindings.Add("ValueChanged", _sett.Metrics, "HeaderText");
+			numMetricsRowsValues.DataBindings.Add("ValueChanged", _sett.Metrics, "RowsValues");
 
-                checkIconVisible.Checked    = bool.Parse(data["Visibility"]["Icon"]);
-                checkCoinVisible.Checked    = bool.Parse(data["Visibility"]["Coin"]);
-                checkValueVisible.Checked   = bool.Parse(data["Visibility"]["Value"]);
-                checkChangeVisible.Checked  = bool.Parse(data["Visibility"]["Change"]);
-                checkPercentVisible.Checked = bool.Parse(data["Visibility"]["Percent"]);
-                checkHeaderVisible.Checked  = bool.Parse(data["Visibility"]["Header"]);
-                checkEdgeVisible.Checked    = bool.Parse(data["Visibility"]["Edge"]);
-                checkRefreshVisible.Checked = bool.Parse(data["Visibility"]["Refresh"]);
-
-                checkStartup.Checked        = bool.Parse(data["Others"]["OpenStartup"]);
-
-                checkTooltipName.Checked    = bool.Parse(data["Others"]["ShowTooltipName"]);
-                
-                numericRefreshRate.Value = decimal.Parse(data["Others"]["RefreshRate"]);
-            }
-
-            if((dt & DataType.Colors) != 0) {
-
-                buttonColorCoins.BackColor            = Common.StrHexToColor(data["Colors"]["Coins"]);
-                buttonColorValues.BackColor           = Common.StrHexToColor(data["Colors"]["Values"]);
-                buttonColorBackGround1.BackColor      = Common.StrHexToColor(data["Colors"]["BackGround1"]);
-                buttonColorBackGround2.BackColor      = Common.StrHexToColor(data["Colors"]["BackGround2"]);
-                buttonColorEdge.BackColor             = Common.StrHexToColor(data["Colors"]["Edge"]);
-                buttonColorPositiveRefresh.BackColor  = Common.StrHexToColor(data["Colors"]["PositiveRefresh"]);
-                buttonColorNegativeRefresh.BackColor  = Common.StrHexToColor(data["Colors"]["NegativeRefresh"]);
-                buttonColorPositiveChange.BackColor   = Common.StrHexToColor(data["Colors"]["PositiveChange"]);
-                buttonColorNegativeChange.BackColor   = Common.StrHexToColor(data["Colors"]["NegativeChange"]);
-                buttonColorHeaderText.BackColor       = Common.StrHexToColor(data["Colors"]["HeaderText"]);
-                buttonColorHeaderBackGround.BackColor = Common.StrHexToColor(data["Colors"]["HeaderBackGround"]);
-
-            }
-
-            if((dt & DataType.Advanced) != 0) {
-
-                boxIconWidth.Text    = data["Metrics"]["Icon"];
-                boxCoinWidth.Text    = data["Metrics"]["Coin"];
-                boxValueWidth.Text   = data["Metrics"]["Value"];
-                boxChangeWidth.Text  = data["Metrics"]["Change"];
-                boxPercentWidth.Text = data["Metrics"]["Percent"];
-                boxEdgeWidth.Text    = data["Metrics"]["Edge"];
-                boxHeaderHeight.Text = data["Metrics"]["Header"];
-                boxRowsHeight.Text   = data["Metrics"]["Rows"];
-                boxIconSize.Text     = data["Metrics"]["IconSize"];
-                boxTextSize.Text     = data["Metrics"]["Text"];
-                boxNumbersSize.Text  = data["Metrics"]["Numbers"];
-
-                boxMaxValueDigits.Text     = data["Others"]["MaxValueDigits"];
-                boxMaxValueDecimals.Text   = data["Others"]["MaxValueDecimals"];
-                boxMaxChangeDigits.Text    = data["Others"]["MaxChangeDigits"];
-                boxMaxChangeDecimals.Text  = data["Others"]["MaxChangeDecimals"];
-                boxMaxPercentDigits.Text   = data["Others"]["MaxPercentDigits"];
-                boxMaxPercentDecimals.Text = data["Others"]["MaxPercentDecimals"];
-
-                boxStartX.Text = data["Coordinates"]["StartX"];
-                boxStartY.Text = data["Coordinates"]["StartY"];
-                checkExitSave.Checked     = bool.Parse(data["Coordinates"]["ExitSave"]);
-                checkLockPosition.Checked = bool.Parse(data["Coordinates"]["LockPosition"]);
-
-            }
-
-        }
-        private void SaveData(DataType dt = DataType.All) {
-            
-            Action<string, string, string> AssignIfValue = (sect, key, text) => {
-                if(text != "")
-                    Common.ini[sect][key] = text;
-            };
-
-            if((dt & DataType.Coins) != 0) {
-
-                Common.ini["Coins"].RemoveAllKeys();
-                foreach(DataGridViewRow row in coinGrid.Rows)
-                    Common.ini["Coins"][row.Cells[1].Value.ToString()] = row.Cells[3].Value.ToString();
-
-            }
-
-            if((dt & DataType.Basic) != 0) {
-
-                Common.ini["Others"]["RefreshRate"] = numericRefreshRate.Value.ToString();
-                Common.ini["Others"]["OpenStartup"] = checkStartup.Checked.ToString();
-                Common.ini["Others"]["ShowTooltipName"] = checkTooltipName.Checked.ToString();
-
-                Common.ini["Visibility"]["Icon"]    = checkIconVisible.Checked.ToString();
-                Common.ini["Visibility"]["Coin"]    = checkCoinVisible.Checked.ToString();
-                Common.ini["Visibility"]["Value"]   = checkValueVisible.Checked.ToString();
-                Common.ini["Visibility"]["Change"]  = checkChangeVisible.Checked.ToString();
-                Common.ini["Visibility"]["Percent"] = checkPercentVisible.Checked.ToString();
-                Common.ini["Visibility"]["Header"]  = checkHeaderVisible.Checked.ToString();
-                Common.ini["Visibility"]["Edge"]    = checkEdgeVisible.Checked.ToString();
-                Common.ini["Visibility"]["Refresh"] = checkRefreshVisible.Checked.ToString();
-
-            }
-
-            if((dt & DataType.Colors) != 0) {
-
-                Common.ini["Colors"]["Coins"]            = Common.ColorToStrHex(buttonColorCoins.BackColor);
-                Common.ini["Colors"]["Values"]           = Common.ColorToStrHex(buttonColorValues.BackColor);
-                Common.ini["Colors"]["BackGround1"]      = Common.ColorToStrHex(buttonColorBackGround1.BackColor);
-                Common.ini["Colors"]["BackGround2"]      = Common.ColorToStrHex(buttonColorBackGround2.BackColor);
-                Common.ini["Colors"]["Edge"]             = Common.ColorToStrHex(buttonColorEdge.BackColor);
-                Common.ini["Colors"]["PositiveRefresh"]  = Common.ColorToStrHex(buttonColorPositiveRefresh.BackColor);
-                Common.ini["Colors"]["NegativeRefresh"]  = Common.ColorToStrHex(buttonColorNegativeRefresh.BackColor);
-                Common.ini["Colors"]["PositiveChange"]   = Common.ColorToStrHex(buttonColorPositiveChange.BackColor);
-                Common.ini["Colors"]["NegativeChange"]   = Common.ColorToStrHex(buttonColorNegativeChange.BackColor);
-                Common.ini["Colors"]["HeaderText"]       = Common.ColorToStrHex(buttonColorHeaderText.BackColor);
-                Common.ini["Colors"]["HeaderBackGround"] = Common.ColorToStrHex(buttonColorHeaderBackGround.BackColor);
-
-            }
-
-            if((dt & DataType.Advanced) != 0) {
-                AssignIfValue("Metrics", "Icon",     boxIconWidth.Text);
-                AssignIfValue("Metrics", "Coin",     boxCoinWidth.Text);
-                AssignIfValue("Metrics", "Value",    boxValueWidth.Text);
-                AssignIfValue("Metrics", "Change",   boxChangeWidth.Text);
-                AssignIfValue("Metrics", "Percent",  boxPercentWidth.Text);
-                AssignIfValue("Metrics", "Edge",     boxEdgeWidth.Text);
-                AssignIfValue("Metrics", "Header",   boxHeaderHeight.Text);
-                AssignIfValue("Metrics", "Rows",     boxRowsHeight.Text);
-                AssignIfValue("Metrics", "IconSize", boxIconSize.Text);
-                AssignIfValue("Metrics", "Text",     boxTextSize.Text);
-                AssignIfValue("Metrics", "Numbers",  boxNumbersSize.Text);
-
-                AssignIfValue("Others", "MaxValueDigits",     boxMaxValueDigits.Text);
-                AssignIfValue("Others", "MaxValueDecimals",   boxMaxValueDecimals.Text);
-                AssignIfValue("Others", "MaxChangeDigits",    boxMaxChangeDigits.Text);
-                AssignIfValue("Others", "MaxChangeDecimals",  boxMaxChangeDecimals.Text);
-                AssignIfValue("Others", "MaxPercentDigits",   boxMaxPercentDigits.Text);
-                AssignIfValue("Others", "MaxPercentDecimals", boxMaxPercentDecimals.Text);
-
-                AssignIfValue("Coordinates", "StartX", boxStartX.Text);
-                AssignIfValue("Coordinates", "StartY", boxStartY.Text);
-                Common.ini["Coordinates"]["ExitSave"]     = checkExitSave.Checked.ToString();
-                Common.ini["Coordinates"]["LockPosition"] = checkLockPosition.Checked.ToString();
-            }
-
-        }
+		}
 
 
 
-        public SettingsForm(MainForm form) {
+		public FormSettings(FormMain form) {
             InitializeComponent();
-            ptrForm = form;
-            HandleCreated += (sender, e) => new Thread(() => { 
-                Invoke((MethodInvoker)delegate { LoadData(Common.ini); });
-            }).Start();
+            _ptrForm = form;
+			Global.Sett.CloneSt(ref _sett);
+            HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
         }
         
 
         #region Currencies Tab
 
         private void buttonAdd_Click(object sender, EventArgs e) {
-            if(Common.json == null) {
+            if(Global.Json == null) {
                 MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
                 return;
             }
-            AddCoinForm form = new AddCoinForm(coinGrid);
+            FormAddCoin form = new FormAddCoin(coinGrid);
             form.ShowDialog();
         }
         private void buttonSub_Click(object sender, EventArgs e) {
@@ -392,11 +285,11 @@ namespace CryptoGadget {
                 Stream stream = (f_sender as OpenFileDialog).OpenFile();
 
                 stream.Position = 0;
-                coinGrid.SelectedRows[0].Cells[0].Value = Common.GetIcon(stream, new Size(16, 16));
+                coinGrid.SelectedRows[0].Cells[0].Value = Global.GetIcon(stream, new Size(16, 16));
 
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
-                    StreamWriter writer = new StreamWriter(Common.iconLocation + coin.ToLower() + ".ico");
+                    StreamWriter writer = new StreamWriter(Global.IconLocation + coin.ToLower() + ".ico");
                     stream.CopyTo(writer.BaseStream);
                     writer.Close();
                     stream.Close();
@@ -412,7 +305,7 @@ namespace CryptoGadget {
             if(coinGrid.Rows.Count <= 0 || coinGrid.SelectedRows.Count == -1)
                 return;
 
-            SettingsCoinForm form = new SettingsCoinForm();
+            FormCoinSettings form = new FormCoinSettings();
             form.ShowDialog();
 
 
@@ -422,10 +315,10 @@ namespace CryptoGadget {
 
             try {
                 JObject check = DownloadCoinDB();
-                if(!JToken.DeepEquals(check, Common.json)) {
-                    Common.json = check;
-                    StreamWriter writer = new StreamWriter(Common.jsonLocation);
-                    writer.Write(Common.json.ToString(Newtonsoft.Json.Formatting.Indented));
+                if(!JToken.DeepEquals(check, Global.Json)) {
+                    Global.Json = check;
+                    StreamWriter writer = new StreamWriter(Global.JsonLocation);
+                    writer.Write(Global.Json.ToString(Newtonsoft.Json.Formatting.Indented));
                     writer.Close();
                     MessageBox.Show("New coins were added to the coin list database");
                 }
@@ -448,7 +341,7 @@ namespace CryptoGadget {
             foreach(DataGridViewRow row in coinGrid.Rows)
                 coinList.Add(new Tuple<string, string>(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString()));
 
-            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Check);
+            FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.Check);
             form.ShowDialog();
 
             MessageBox.Show(form.badConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.badConvs));
@@ -457,7 +350,7 @@ namespace CryptoGadget {
 
             Enabled = false;
 
-            ProgressForm form = new ProgressForm(this, ProgressForm.FormType.Icons);
+            FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.Icons);
             form.ShowDialog();
 
             Enabled = true;
@@ -465,10 +358,7 @@ namespace CryptoGadget {
         }
 
         private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini["Coins"].RemoveAllKeys();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Coins));
-            LoadData(ini, DataType.Coins);
+			_sett.Default(Settings.DefaultType.Coins); // TODO: Add more if coins are not bindable
         }
 
         #endregion
@@ -476,15 +366,11 @@ namespace CryptoGadget {
         #region Basic Tab
 
         private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, boxTheme.SelectedIndex == 0 ? Common.DefaultType.ColorsLight : Common.DefaultType.ColorsDark));
-            LoadData(ini, DataType.Colors);
+			_sett.Default(boxTheme.SelectedIndex == 0 ? Settings.DefaultType.ColorLight : Settings.DefaultType.ColorDark);
         }
 
         private void buttonDefaultBasic_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Basic));
-            LoadData(ini, DataType.Basic);
+			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorLight | Settings.DefaultType.Visibility); 
         }
 
         #endregion
@@ -492,9 +378,7 @@ namespace CryptoGadget {
         #region Advanced Tab
 
         private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
-            IniData ini = (IniData)Common.ini.Clone();
-            ini.Merge(Common.DefaultIni(null, Common.DefaultType.Advanced));
-            LoadData(ini, DataType.Advanced);
+			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Digits | Settings.DefaultType.Metrics);
         }
 
         #endregion
@@ -502,11 +386,12 @@ namespace CryptoGadget {
         #region Shared on all Tabs
 
         private void buttonAccept_Click(object sender, EventArgs e) {
-            if(!checkIconVisible.Checked && !checkCoinVisible.Checked && !checkValueVisible.Checked && !checkChangeVisible.Checked) {
+            if(!checkVisibilityIcon.Checked && !checkVisibilityCoin.Checked && !checkVisibilityValue.Checked && !checkVisibilityChange24.Checked) {
                 MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else {
-                SaveData();
+				_sett.CloneSt(ref Global.Sett);
+				Global.Sett.Save();
                 accept = true;
                 Close();
             }

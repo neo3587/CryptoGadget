@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CryptoGadget {
 
-    public partial class ProgressForm : Form {
+    public partial class FormProgressBar : Form {
         
         public List<string> badConvs = new List<string>(); // FormType.Check
         public JObject coindb = null; // FormType.Download
@@ -26,14 +26,14 @@ namespace CryptoGadget {
         };
 
 
-        public ProgressForm(object param, FormType ft) {
+        public FormProgressBar(object param, FormType ft) {
 
             InitializeComponent();
 
             // SettingsForm.buttonCheck
             if(ft == FormType.Check) {
 
-                SettingsForm form = (SettingsForm)param;
+                FormSettings form = (FormSettings)param;
 
                 Text = "Cryptogadget Settings [Check]";
 
@@ -54,9 +54,9 @@ namespace CryptoGadget {
                                     progressBar.Value = i;
                                 });
                             } catch(Exception) { }
-
+							/* // TODO: temporary disabled to make it compile & debug other parts
                             try {
-                                JObject json = Common.HttpRequest(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString());
+                                JObject json = CCRequest.HttpRequest(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString());
                                 if(json[row.Cells[3].Value.ToString().ToUpper()] == null)
                                     badConvs.Add(row.Cells[1].Value.ToString() + " (" + row.Cells[2].Value.ToString() + ") -> " + row.Cells[3].Value.ToString() + " (" + row.Cells[4].Value.ToString() + ")");
                                 i++;
@@ -67,7 +67,7 @@ namespace CryptoGadget {
                                     i++;
                                 }
                             }
-
+							*/
                         }
 
                         Invoke((MethodInvoker)delegate {
@@ -140,8 +140,8 @@ namespace CryptoGadget {
             else if(ft == FormType.Icons) {
 
                 Text = "Cryptogadget Settings [Download]";
-                labelProgress.Text = "Searching missing icons (0/" + ((JObject)Common.json["Data"]).Count + ")";
-                progressBar.Maximum = ((JObject)Common.json["Data"]).Count;
+                labelProgress.Text = "Searching missing icons (0/" + ((JObject)Global.Json["Data"]).Count + ")";
+                progressBar.Maximum = ((JObject)Global.Json["Data"]).Count;
 
                 HandleCreated += (sender, ev) => {
 
@@ -151,13 +151,13 @@ namespace CryptoGadget {
                         List<Tuple<string, string>> misses = new List<Tuple<string, string>>();
 
                         int coinCount = 0, noUrl = 0, failed = 0;
-                        foreach(JToken coin in Common.json["Data"].Values()) {
+                        foreach(JToken coin in Global.Json["Data"].Values()) {
                             Invoke((MethodInvoker)delegate {
-                                labelProgress.Text = "Searching missing icons (" + coinCount + "/" + ((JObject)Common.json["Data"]).Count + ")";
+                                labelProgress.Text = "Searching missing icons (" + coinCount + "/" + ((JObject)Global.Json["Data"]).Count + ")";
                                 progressBar.Value = coinCount++;
                             });
 
-                            if(Common.GetIcon(coin["Name"].ToString()).Height == 1) {
+                            if(Global.GetIcon(coin["Name"].ToString()).Height == 1) {
                                 if(coin["ImageUrl"] != null)
                                     misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
                                 else
@@ -178,7 +178,7 @@ namespace CryptoGadget {
                                 using(MemoryStream data = new MemoryStream()) {
                                     byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
                                     data.Write(buffer, 0, buffer.Length);
-                                    Common.IconResize(Image.FromStream(data), 32).Save(Common.iconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+                                    Global.IconResize(Image.FromStream(data), 32).Save(Global.IconLocation + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
                                 }
                             } catch(Exception) {
                                 failed++;
