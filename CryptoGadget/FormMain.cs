@@ -159,7 +159,7 @@ namespace CryptoGadget {
         private void GridInit() {
 
 			#if DEBUG
-			File.Delete(Global.IniLocation);
+			//File.Delete(Global.IniLocation);
 			#endif
 
 			coinGrid.Rows.Clear();

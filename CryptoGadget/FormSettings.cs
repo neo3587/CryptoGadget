@@ -165,8 +165,8 @@ namespace CryptoGadget {
 
 			// TODO: Coin binding (if possible)
 
-			numRefreshRate.DataBindings.Add("ValueChanged", _sett.Basic, "RefreshRate");
-
+			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
+			
 			// for(int i = 0; i < props.Length; i++) 
 			checkVisibilityIcon.DataBindings.Add("Checked", _sett.Visibility, "Icon");
 			checkVisibilityCoin.DataBindings.Add("Checked", _sett.Visibility, "Coin");
@@ -178,40 +178,40 @@ namespace CryptoGadget {
 			checkVisibilityRefresh.DataBindings.Add("Checked", _sett.Visibility, "Refresh");
 
 			// for(int i = 0; i < props.Length; i++) 
-			buttonColorCoin.DataBindings.Add("BackColorChanged", _sett.Color, "Coin");
-			buttonColorValue.DataBindings.Add("BackColorChanged", _sett.Color, "Value");
-			buttonColorBackground1.DataBindings.Add("BackColorChanged", _sett.Color, "Background1");
-			buttonColorBackground2.DataBindings.Add("BackColorChanged", _sett.Color, "Background2");
-			buttonColorPositiveRefresh.DataBindings.Add("BackColorChanged", _sett.Color, "PositiveRefresh");
-			buttonColorNegativeRefresh.DataBindings.Add("BackColorChanged", _sett.Color, "NegativeRefresh");
-			buttonColorPositiveChange.DataBindings.Add("BackColorChanged", _sett.Color, "PositiveChange");
-			buttonColorNegativeChange.DataBindings.Add("BackColorChanged", _sett.Color, "NegativeChange");
-			buttonColorHeaderText.DataBindings.Add("BackColorChanged", _sett.Color, "HeaderText");
-			buttonColorHeaderBackground.DataBindings.Add("BackColorChanged", _sett.Color, "HeaderBackground");
-			buttonColorEdge.DataBindings.Add("BackColorChanged", _sett.Color, "Edge");
+			buttonColorCoin.DataBindings.Add("BackColor", _sett.Color, "Coin");
+			buttonColorValue.DataBindings.Add("BackColor", _sett.Color, "Value");
+			buttonColorBackground1.DataBindings.Add("BackColor", _sett.Color, "Background1");
+			buttonColorBackground2.DataBindings.Add("BackColor", _sett.Color, "Background2");
+			buttonColorPositiveRefresh.DataBindings.Add("BackColor", _sett.Color, "PositiveRefresh");
+			buttonColorNegativeRefresh.DataBindings.Add("BackColor", _sett.Color, "NegativeRefresh");
+			buttonColorPositiveChange.DataBindings.Add("BackColor", _sett.Color, "PositiveChange");
+			buttonColorNegativeChange.DataBindings.Add("BackColor", _sett.Color, "NegativeChange");
+			buttonColorHeaderText.DataBindings.Add("BackColor", _sett.Color, "HeaderText");
+			buttonColorHeaderBackground.DataBindings.Add("BackColor", _sett.Color, "HeaderBackground");
+			buttonColorEdge.DataBindings.Add("BackColor", _sett.Color, "Edge");
 
-			numCoordsPosX.DataBindings.Add("ValueChanged", _sett.Coords, "PosX");
-			numCoordsPosX.DataBindings.Add("ValueChanged", _sett.Coords, "PosY");
+			numCoordsPosX.DataBindings.Add("Value", _sett.Coords, "PosX");
+			numCoordsPosY.DataBindings.Add("Value", _sett.Coords, "PosY");
 			checkCoordsExitSave.DataBindings.Add("Checked", _sett.Coords, "ExitSave");
 			checkCoordsLockPos.DataBindings.Add("Checked", _sett.Coords, "LockPos");
 
 			// for(int i = 0; i < props.Length; i++)
-			numDigitsValue.DataBindings.Add("ValueChanged", _sett.Digits, "Value");
-			numDigitsChange24.DataBindings.Add("ValueChanged", _sett.Digits, "Change24");
-			numDigitsChange24Pct.DataBindings.Add("ValueChanged", _sett.Digits, "Change24Pct");
+			numDigitsValue.DataBindings.Add("Value", _sett.Digits, "Value");
+			numDigitsChange24.DataBindings.Add("Value", _sett.Digits, "Change24");
+			numDigitsChange24Pct.DataBindings.Add("Value", _sett.Digits, "Change24Pct");
 
 			// for(int i = 0; i < props.Length; i++)
-			numMetricsIcon.DataBindings.Add("ValueChanged", _sett.Metrics, "Icon");
-			numMetricsCoin.DataBindings.Add("ValueChanged", _sett.Metrics, "Coin");
-			numMetricsValue.DataBindings.Add("ValueChanged", _sett.Metrics, "Value");
-			numMetricsChange24.DataBindings.Add("ValueChanged", _sett.Metrics, "Change24");
-			numMetricsChange24Pct.DataBindings.Add("ValueChanged", _sett.Metrics, "Change24Pct");
-			numMetricsEdge.DataBindings.Add("ValueChanged", _sett.Metrics, "Edge");
-			numMetricsHeader.DataBindings.Add("ValueChanged", _sett.Metrics, "Header");
-			numMetricsRows.DataBindings.Add("ValueChanged", _sett.Metrics, "Rows");
-			numMetricsIconSize.DataBindings.Add("ValueChanged", _sett.Metrics, "IconSize");
-			numMetricsHeaderText.DataBindings.Add("ValueChanged", _sett.Metrics, "HeaderText");
-			numMetricsRowsValues.DataBindings.Add("ValueChanged", _sett.Metrics, "RowsValues");
+			numMetricsIcon.DataBindings.Add("Value", _sett.Metrics, "Icon");
+			numMetricsCoin.DataBindings.Add("Value", _sett.Metrics, "Coin");
+			numMetricsValue.DataBindings.Add("Value", _sett.Metrics, "Value");
+			numMetricsChange24.DataBindings.Add("Value", _sett.Metrics, "Change24");
+			numMetricsChange24Pct.DataBindings.Add("Value", _sett.Metrics, "Change24Pct");
+			numMetricsEdge.DataBindings.Add("Value", _sett.Metrics, "Edge");
+			numMetricsHeader.DataBindings.Add("Value", _sett.Metrics, "Header");
+			numMetricsRows.DataBindings.Add("Value", _sett.Metrics, "Rows");
+			numMetricsIconSize.DataBindings.Add("Value", _sett.Metrics, "IconSize");
+			numMetricsHeaderText.DataBindings.Add("Value", _sett.Metrics, "HeaderText");
+			numMetricsRowsValues.DataBindings.Add("Value", _sett.Metrics, "RowsValues");
 
 		}
 
