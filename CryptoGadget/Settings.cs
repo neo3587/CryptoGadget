@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.ComponentModel;
 using System.Drawing;
 
 using IniParser.Model;
@@ -8,9 +9,9 @@ using IniParser.Model;
 
 namespace CryptoGadget {
 
-	class Settings {
+	public class Settings : ICloneable {
 
-		public class StCoin : ICloneable {
+		public class StCoin {
 			public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphSizeX", "GraphSizeY",
 											"GraphLockPos", "GraphExitSave", "GraphRefreshRate", "GraphStartup"};
 			public struct StAlarm {
@@ -27,24 +28,19 @@ namespace CryptoGadget {
 				public int RefreshRate { get; set; }
 				public bool Startup { get; set; }
 			}
+			public Bitmap Icon { get; set; }
 			public string Coin { get; set; }
+			public string CoinName { get; set; }
 			public string Target { get; set; }
+			public string TargetName { get; set; }
 			public StAlarm Alarm;// = new StAlarm();
 			public StGraph Graph;// = new StGraph();
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StBasic : ICloneable {
+		public class StBasic {
 			public int RefreshRate { get; set; }
 			public bool Startup { get; set; }
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StVisibility : ICloneable {
+		public class StVisibility {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
 											"VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Refresh"};
@@ -73,12 +69,8 @@ namespace CryptoGadget {
 			public bool Header { get; set; }
 			public bool Edge { get; set; }
 			public bool Refresh { get; set; }
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StColor : ICloneable {
+		public class StColor {
 			public static string[] props = {"Coin", "Value", "PositiveChange", "NegativeChange", "Volume", "Open", "High", "Low",
 											"Supply", "MktCap", "Background1", "Background2", "PositiveRefresh", "NegativeRefresh",
 											"HeaderText", "HeaderBackground", "Edge"};
@@ -103,22 +95,14 @@ namespace CryptoGadget {
 			public Color HeaderText { get; set; }
 			public Color HeaderBackground { get; set; }
 			public Color Edge { get; set; }
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StCoords : ICloneable {
+		public class StCoords {
 			public int PosX { get; set; }
 			public int PosY { get; set; }
 			public bool ExitSave { get; set; }
 			public bool LockPos { get; set; }
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StDigits : ICloneable {
+		public class StDigits {
 			public static string[] props = {"Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct", "VolumeDay", "Volume24", "TotalVolume24",
 											"OpenDay", "Open24", "HighDay", "High24", "LowDay", "Low24", "Supply", "MktCap"};
 			public object this[string prop] {
@@ -141,12 +125,8 @@ namespace CryptoGadget {
 			public int Low24 { get; set; }
 			public int Supply { get; set; }
 			public int MktCap { get; set; }
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StMetrics : ICloneable {
+		public class StMetrics {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
 											"VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Rows", "IconSize",
@@ -177,38 +157,65 @@ namespace CryptoGadget {
 			public int Edge { get; set; }
 			public int Rows { get; set; }
 			public int IconSize { get; set; }
-			public float HeaderText { get; set; } 
+			public float HeaderText { get; set; }
 			public float RowsValues { get; set; }
-
-			public object Clone() {
-				return MemberwiseClone();
-			}
 		}
-		public class StPages : ICloneable {
+		public class StPages {
 			public int Size { get; set; }
 			public int Default { get; set; }
 			public bool Rotate { get; set; }
 			public float RotateRate { get; set; }
+		}
 
-			public object Clone() {
-				return MemberwiseClone();
+		// try at this way better ? -> use a datagrid with textbox + checkbox and separate special members Metrics(HeaderText, RowsValues, Header, Edge, Rows, IconSize), Visibility(Header, Edge, Refresh)
+		public class StColumn {
+			public int Digits { get; set; }
+			public int Width { get; set; }
+			public bool Enabled { get; set; }
+		}
+		public class StGrid {
+			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
+											"VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
+											"LowDay", "Low24", "Supply", "MktCap"};
+			public object this[string prop] {
+				get { return GetType().GetProperty(prop).GetValue(this, null); }
+				set { GetType().GetProperty(prop).SetValue(this, value, null); }
 			}
+			public StColumn Icon { get; set; }
+			public StColumn Coin { get; set; }
+			public StColumn Value { get; set; }
+			public StColumn ChangeDay { get; set; }
+			public StColumn ChangeDayPct { get; set; }
+			public StColumn Change24 { get; set; }
+			public StColumn Change24Pct { get; set; }
+			public StColumn VolumeDay { get; set; }
+			public StColumn Volume24 { get; set; }
+			public StColumn TotalVolume24 { get; set; }
+			public StColumn OpenDay { get; set; }
+			public StColumn Open24 { get; set; }
+			public StColumn HighDay { get; set; }
+			public StColumn High24 { get; set; }
+			public StColumn LowDay { get; set; }
+			public StColumn Low24 { get; set; }
+			public StColumn Supply { get; set; }
+			public StColumn MktCap { get; set; }
 		}
 
 		public enum DefaultType {
-			Coins	   = 0x0001,
-			Basic	   = 0x0002,
+			Coins = 0x0001,
+			Basic = 0x0002,
 			Visibility = 0x0004,
 			ColorLight = 0x0008,
-			ColorDark  = 0x0010,
-			Coords	   = 0x0020,
-			Digits	   = 0x0040,
-			Metrics	   = 0x0080,
-			Pages	   = 0x0100,
-			All		   = 0xFFFF
+			ColorDark = 0x0010,
+			Coords = 0x0020,
+			Digits = 0x0040,
+			Metrics = 0x0080,
+			Pages = 0x0100,
+			All = 0xFFFF
 		}
+		public class CoinList : BindingList<StCoin> { }
 
-		public List<StCoin>[] Coins = CreateStCoinsList(); // Coins[page][coin_pos]
+		public CoinList[] Coins = CreateCoinList(); // Coins[page][coin_pos]
 		public StBasic Basic		   = new StBasic();
 		public StVisibility Visibility = new StVisibility();
 		public StColor Color		   = new StColor();
@@ -219,13 +226,6 @@ namespace CryptoGadget {
 
 		private string _file_path = "";
 		private IniData _ini = new IniData();
-
-		private static List<StCoin>[] CreateStCoinsList() {
-			List<StCoin>[] ret = new List<StCoin>[10];
-			for(int i = 0; i < 10; i++)
-				ret[i] = new List<StCoin>();
-			return ret;
-		}
 
 		public bool BindFile(string file_path) {
 			_file_path = file_path;
@@ -278,7 +278,7 @@ namespace CryptoGadget {
 
 			try {
 
-				Reset();
+				Coins = CreateCoinList();
 
 				Basic.RefreshRate = AssignRule<int>()(_ini["Basic"]["RefreshRate"], (x) => x >= 1);
 				Basic.Startup	  = bool.Parse(_ini["Basic"]["Startup"]);
@@ -400,7 +400,7 @@ namespace CryptoGadget {
 		public void Default(DefaultType type = DefaultType.All) {
 
 			if((type & DefaultType.Coins) != 0) {
-				Coins = CreateStCoinsList();
+				Coins = CreateCoinList();
 				
 				string[] coins = { "BTC", "ETH", "ETC", "LTC", "ZEC", "VTC", "LBC", "DASH", "XMR", "DOGE" };
 				foreach(string coin in coins) {
@@ -490,27 +490,16 @@ namespace CryptoGadget {
 			}
 
 		}
-		public void CloneSt(ref Settings other) {
-			other.Coins = (List<StCoin>[])Coins.Clone();
-			other.Basic = (StBasic)Basic.Clone();
-			other.Visibility = (StVisibility)Visibility.Clone();
-			other.Color = (StColor)Color.Clone();
-			other.Coords = (StCoords)Coords.Clone();
-			other.Digits = (StDigits)Digits.Clone();
-			other.Metrics = (StMetrics)Metrics.Clone();
-			other.Pages = (StPages)Pages.Clone();
-		}
-		public void Reset() {
-			Coins = CreateStCoinsList();
-			Basic = new StBasic();
-			Visibility = new StVisibility();
-			Color = new StColor();
-			Coords = new StCoords();
-			Digits = new StDigits();
-			Metrics = new StMetrics();
-			Pages = new StPages();
+		public object Clone() {
+			return MemberwiseClone();
 		}
 
+		public static CoinList[] CreateCoinList() {
+			CoinList[] ret = new CoinList[10];
+			for(int i = 0; i < 10; i++)
+				ret[i] = new CoinList();
+			return ret;
+		}
 		public static bool CreateIni(string file_path) {
 			try {
 				new IniParser.FileIniDataParser().WriteFile(file_path, new IniData());

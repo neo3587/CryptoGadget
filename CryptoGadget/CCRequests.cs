@@ -15,7 +15,7 @@ namespace CryptoGadget {
 			Day = 0x02
 		}
 
-		public static string ConvertQuery(List<Settings.StCoin> list_st) {
+		public static string ConvertQuery(Settings.CoinList list_st) {
 			SortedSet<string> input = new SortedSet<string>();
 			SortedSet<string> output = new SortedSet<string>();
 			foreach(Settings.StCoin st in list_st) {

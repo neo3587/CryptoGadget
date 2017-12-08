@@ -137,7 +137,7 @@ namespace CryptoGadget {
 
 		private void RotatePage() {
 			_page = (_page + 1) % Global.Sett.Pages.Size;
-			GridInit();
+			RowsInit();
 			ResizeForm();
 		}
 
@@ -170,41 +170,8 @@ namespace CryptoGadget {
                 if(!Global.JsonIsValid(Global.Json))
                     Global.Json = null;
             }
-			
-			// put on a new function for page swap ?? or just generate all grids from all pages and swap them when needed ??
-			#region Coin Rows Init
 
-			foreach(Settings.StCoin st in Global.Sett.Coins[_page]) {
-
-				int index = mainGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
-
-                // Context Menu
-                ContextMenuStrip cm = new ContextMenuStrip();
-                    
-                if(Global.Json != null) {
-                    JToken coin = Global.Json["Data"][st.Coin];
-					if(coin != null && coin["Url"] != null) {
-						cm.Items.Add(new ToolStripMenuItem(st.Coin + " website", null, (sender, e) => Process.Start("https://www.cryptocompare.com" + coin["Url"])));
-						cm.Items.Add(new ToolStripSeparator());
-					}
-                }
-
-				cm.Items.Add("Settings", null, contextMenuSettings_Click);
-				cm.Items.Add("Hide", null, contextMenuHide_Click);
-				cm.Items.Add("Exit", null, contextMenuExit_Click);
-
-				mainGrid.Rows[index].ContextMenuStrip = cm;
-
-                // Name Tooltip
-                if(Global.Json != null) {
-                    string name = Global.Json["Data"][st.Coin]["CoinName"].ToString();
-                    foreach(DataGridViewCell cell in mainGrid.Rows[index].Cells)
-                        cell.ToolTipText = name;
-                }
-
-            }
-
-            #endregion
+			RowsInit();
 
             #region Metrics & Visibility
 
@@ -273,21 +240,55 @@ namespace CryptoGadget {
             #endregion
 
         }
+		private void RowsInit() {
 
+			foreach(Settings.StCoin st in Global.Sett.Coins[_page]) {
 
-        public FormMain() {
+				int index = mainGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
+
+				// Context Menu
+				ContextMenuStrip cm = new ContextMenuStrip();
+
+				if(Global.Json != null) {
+					JToken coin = Global.Json["Data"][st.Coin];
+					if(coin != null && coin["Url"] != null) {
+						cm.Items.Add(new ToolStripMenuItem(st.Coin + " website", null, (sender, e) => Process.Start("https://www.cryptocompare.com" + coin["Url"])));
+						cm.Items.Add(new ToolStripSeparator());
+					}
+					st.CoinName   = Global.Json["Data"][st.Coin]["CoinName"].ToString();
+					st.TargetName = Global.Json["Data"][st.Target]["CoinName"].ToString();
+				}
+
+				cm.Items.Add("Settings", null, contextMenuSettings_Click);
+				cm.Items.Add("Hide", null, contextMenuHide_Click);
+				cm.Items.Add("Exit", null, contextMenuExit_Click);
+
+				mainGrid.Rows[index].ContextMenuStrip = cm;
+
+				// Name Tooltip
+				if(Global.Json != null) {
+					string name = Global.Json["Data"][st.Coin]["CoinName"].ToString();
+					foreach(DataGridViewCell cell in mainGrid.Rows[index].Cells)
+						cell.ToolTipText = name;
+				}
+
+			}
+
+		}
+
+		public FormMain() {
 
             InitializeComponent();
 
             notifyIcon.Text = typeof(FormMain).Assembly.GetName().Name + " " + typeof(FormMain).Assembly.GetName().Version;
             notifyIcon.Text = notifyIcon.Text.Remove(notifyIcon.Text.Length - 2);
 
-            Load += (sender, e) => {
-				
-				#if DEBUG
-				File.Delete(Global.IniLocation);
-				#endif
+			#if DEBUG
+			File.Delete(Global.IniLocation);
+			#endif
 
+			Load += (sender, e) => {
+				
 				if(!Global.Sett.BindFile(Global.IniLocation)) {
 					Settings.CreateIni(Global.IniLocation);
 					Global.Sett.BindFile(Global.IniLocation);

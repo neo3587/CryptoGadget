@@ -209,8 +209,6 @@
 			this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.coinGrid.Size = new System.Drawing.Size(407, 395);
 			this.coinGrid.TabIndex = 10;
-			this.coinGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.coinGrid_RowsAdded);
-			this.coinGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.coinGrid_RowsRemoved);
 			// 
 			// coinGridImg
 			// 

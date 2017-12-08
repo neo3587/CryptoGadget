@@ -5,12 +5,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
+using System.ComponentModel;
 
 using Newtonsoft.Json.Linq;
-
-
-
-
 
 
 namespace CryptoGadget {
@@ -19,39 +16,22 @@ namespace CryptoGadget {
 
         private FormMain _ptrForm;
 		private Settings _sett = new Settings();
+		private BindingSource _coin_bind = new BindingSource();
 		private int _page = 0;
 
         public bool accept = false;
 
-        public enum DataType {
-            Coins = 0x01,
-            Basic = 0x02,
-            Colors = 0x04,
-            Advanced = 0x08,
-            All = Coins | Basic | Colors | Advanced 
-        }
-
-        private List<Tuple<string, string>> GenerateFiatCurrencies(params string[] str) {
-
-            List<Tuple<string, string>> convs = new List<Tuple<string, string>>();
-
-            for(int i = 0; i < str.Length; i += 2)
-                convs.Add(new Tuple<string, string>(str[i], str[i+1]));
-
-            return convs;
-        }
 
         private JObject DownloadCoinDB() {
-
-            Enabled = false;
+			Enabled = false;
             FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.CoinList);
             form.ShowDialog();
             Enabled = true;
             if(form.coindb == null)
                 throw new System.Net.WebException("Couldn't download the Coin List Database");
 
-            List<Tuple<string, string>> fiat = GenerateFiatCurrencies(
-                "AED", "United Arab Emirates Dirham", "AFN", "Afghan Afghani",
+            string[] fiat = new string[] {
+				"AED", "United Arab Emirates Dirham", "AFN", "Afghan Afghani",
                 "ARS", "Argentine Peso",              "AUD", "Australian Dollar",
                 "AZN", "Azerbaijani Manat",           "BDT", "Bangladeshi Taka",
                 "BGN", "Bulgarian Lev",               "BND", "Brunei Dollar",
@@ -97,12 +77,12 @@ namespace CryptoGadget {
                 "VND", "Vietnamese Dong",             "XAG", "Troy Ounce of Silver",
                 "XOF", "West African CFA Franc",      "ZAR", "South African Rand",
                 "ZMW", "Zambian Kwacha"
-            );
+			};
 
-            foreach(Tuple<string, string> fcoin in fiat) {
+            for(int i = 0; i < fiat.Length; i += 2) {
                 try {
-                    (form.coindb["Data"] as JObject).Add(fcoin.Item1, JToken.Parse("{ \"Name\": \"" + fcoin.Item1 + "\", \"CoinName\": \"" + fcoin.Item2 +
-                                                                                   "\", \"FullName\": \"" + fcoin.Item2 + " (" + fcoin.Item1 + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
+                    (form.coindb["Data"] as JObject).Add(fiat[i], JToken.Parse("{ \"Name\": \"" + fiat[i] + "\", \"CoinName\": \"" + fiat[i+1] +
+                                                                                   "\", \"FullName\": \"" + fiat[i+1] + " (" + fiat[i] + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
                 } catch(Exception) { }
             }
 
@@ -163,30 +143,27 @@ namespace CryptoGadget {
             return false;
         }
 
-		private void RefreshStCoins() {
-			_sett.Coins[_page] = new List<Settings.StCoin>();
-			foreach(DataGridViewRow row in coinGrid.Rows) {
-				Settings.StCoin st = new Settings.StCoin();
-				st.Coin = row.Cells[coinGridCoin.Index].Value.ToString();
-				st.Target = row.Cells[coinGridTarget.Index].Value.ToString();
-				_sett.Coins[_page].Add(st);
-			}
-		}
-
 		private void BindSettings() {
 
-			// TODO: Coin binding (if possible)
-			foreach(Settings.StCoin st in Global.Sett.Coins[0]) 
-				coinGrid.Rows.Add(Global.GetIcon(st.Coin, new Size(16, 16)), st.Coin, "", st.Target, "");
-			if(GetCoinDB()) {
-				foreach(DataGridViewRow row in coinGrid.Rows) {
-					row.Cells[2].Value = Global.Json["Data"][row.Cells[1].Value.ToString()]["CoinName"];
-					row.Cells[4].Value = Global.Json["Data"][row.Cells[3].Value.ToString()]["CoinName"];
+			foreach(Settings.StCoin st in _sett.Coins[_page]) {
+				st.Icon = Global.GetIcon(st.Coin, new Size(16, 16));
+			}
+			if(Global.Json == null && GetCoinDB()) {
+				foreach(Settings.StCoin st in _sett.Coins[_page]) {
+					st.CoinName   = Global.Json["Data"][st.Coin]["CoinName"].ToString();
+					st.TargetName = Global.Json["Data"][st.Target]["CoinName"].ToString();
 				}
 			}
 
-			if(coinGrid.RowCount > 0)
-				coinGrid.Rows[0].Selected = true;
+			coinGrid.Columns[0].DataPropertyName = "Icon";
+			coinGrid.Columns[1].DataPropertyName = "Coin";
+			coinGrid.Columns[2].DataPropertyName = "CoinName";
+			coinGrid.Columns[3].DataPropertyName = "Target";
+			coinGrid.Columns[4].DataPropertyName = "TargetName";
+			
+			_coin_bind.DataSource = _sett.Coins[_page];
+
+			Invoke((MethodInvoker)delegate { coinGrid.DataSource = _coin_bind; });
 
 
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
@@ -243,10 +220,8 @@ namespace CryptoGadget {
 		public FormSettings(FormMain form) {
             InitializeComponent();
             _ptrForm = form;
-			Global.Sett.CloneSt(ref _sett);
-            HandleCreated += (sender, e) => new Thread(() =>  {
-				Invoke((MethodInvoker)delegate { BindSettings(); });
-			}).Start();
+			_sett = (Settings)Global.Sett.Clone();
+            HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
         }
         
 
@@ -261,9 +236,8 @@ namespace CryptoGadget {
             form.ShowDialog();
         }
         private void buttonSub_Click(object sender, EventArgs e) {
-            if(coinGrid.SelectedRows.Count > 0) {
-                coinGrid.Rows.Remove(coinGrid.SelectedRows[0]);
-            }
+            if(coinGrid.SelectedRows.Count > 0) 
+				_sett.Coins[_page].RemoveAt(coinGrid.SelectedRows[0].Index);
         }
         private void buttonUp_Click(object sender, EventArgs e) {
             if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index > 0) {
@@ -333,7 +307,6 @@ namespace CryptoGadget {
             FormCoinSettings form = new FormCoinSettings();
             form.ShowDialog();
 
-
         }
 
         private void buttonDownloadList_Click(object sender, EventArgs e) {
@@ -383,14 +356,14 @@ namespace CryptoGadget {
         }
 
         private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Coins); // TODO: Add more if coins are not bindable
-        }
+			_sett.Default(Settings.DefaultType.Coins);
+		}
 
-        #endregion
+		#endregion
 
-        #region Basic Tab
+		#region Basic Tab
 
-        private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
+		private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
 			_sett.Default(boxTheme.SelectedIndex == 0 ? Settings.DefaultType.ColorLight : Settings.DefaultType.ColorDark);
         }
 
@@ -415,8 +388,7 @@ namespace CryptoGadget {
                 MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\" \"Percent Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else {
-				_sett.CloneSt(ref Global.Sett);
-				Global.Sett.Store();
+				Global.Sett = (Settings)_sett.Clone();
 				Global.Sett.Save();
                 accept = true;
                 Close();
@@ -430,12 +402,66 @@ namespace CryptoGadget {
 
 		#endregion
 
-		private void coinGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
-			RefreshStCoins();
+
+		// drag and drop test -> note: need to use the bound data (thx stack overflow)
+		private DataGridView dataGridView1 = new DataGridView();
+		private Rectangle dragBoxFromMouseDown;
+		private int rowIndexFromMouseDown;
+		private int rowIndexOfItemUnderMouseToDrop;
+		private void dataGridView1_MouseMove(object sender, MouseEventArgs e) {
+			if((e.Button & MouseButtons.Left) == MouseButtons.Left) {
+				// If the mouse moves outside the rectangle, start the drag.
+				if(dragBoxFromMouseDown != Rectangle.Empty &&
+					!dragBoxFromMouseDown.Contains(e.X, e.Y)) {
+
+					// Proceed with the drag and drop, passing in the list item.                    
+					DragDropEffects dropEffect = dataGridView1.DoDragDrop(
+					dataGridView1.Rows[rowIndexFromMouseDown],
+					DragDropEffects.Move);
+				}
+			}
 		}
-		private void coinGrid_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e) {
-			RefreshStCoins();
+		private void dataGridView1_MouseDown(object sender, MouseEventArgs e) {
+			// Get the index of the item the mouse is below.
+			rowIndexFromMouseDown = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+			if(rowIndexFromMouseDown != -1) {
+				// Remember the point where the mouse down occurred. 
+				// The DragSize indicates the size that the mouse can move 
+				// before a drag event should be started.                
+				Size dragSize = SystemInformation.DragSize;
+
+				// Create a rectangle using the DragSize, with the mouse position being
+				// at the center of the rectangle.
+				dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
+															   e.Y - (dragSize.Height / 2)),
+									dragSize);
+			}
+			else
+				// Reset the rectangle if the mouse is not over an item in the ListBox.
+				dragBoxFromMouseDown = Rectangle.Empty;
 		}
+		private void dataGridView1_DragOver(object sender, DragEventArgs e) {
+			e.Effect = DragDropEffects.Move;
+		}
+		private void dataGridView1_DragDrop(object sender, DragEventArgs e) {
+			// The mouse locations are relative to the screen, so they must be 
+			// converted to client coordinates.
+			Point clientPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
+
+			// Get the row index of the item the mouse is below. 
+			rowIndexOfItemUnderMouseToDrop =
+				dataGridView1.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+			// If the drag operation was a move then remove and insert the row.
+			if(e.Effect == DragDropEffects.Move) {
+				DataGridViewRow rowToMove = e.Data.GetData(
+					typeof(DataGridViewRow)) as DataGridViewRow;
+				dataGridView1.Rows.RemoveAt(rowIndexFromMouseDown);
+				dataGridView1.Rows.Insert(rowIndexOfItemUnderMouseToDrop, rowToMove);
+
+			}
+		}
+
 	}
 
 }
