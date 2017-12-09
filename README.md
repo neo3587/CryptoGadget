@@ -34,8 +34,6 @@ Instructions:
 
 # <a name="notes"></a> Additional notes
 
-In a few months I will do some improvements to this project, right now I don't have enough free time, please be patient.
-
 
 
 **BTC Donations:** 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv
