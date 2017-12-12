@@ -16,7 +16,6 @@ namespace CryptoGadget {
 
         private FormMain _ptrForm;
 		private Settings _sett = new Settings();
-		private BindingSource _coin_bind = new BindingSource();
 		private int _page = 0;
 
         public bool accept = false;
@@ -160,10 +159,11 @@ namespace CryptoGadget {
 			coinGrid.Columns[2].DataPropertyName = "CoinName";
 			coinGrid.Columns[3].DataPropertyName = "Target";
 			coinGrid.Columns[4].DataPropertyName = "TargetName";
-			
-			_coin_bind.DataSource = _sett.Coins[_page];
 
-			Invoke((MethodInvoker)delegate { coinGrid.DataSource = _coin_bind; });
+			BindingSource coin_bind = new BindingSource();
+			coin_bind.DataSource = _sett.Coins[_page];
+
+			Invoke((MethodInvoker)delegate { coinGrid.DataSource = coin_bind; });
 
 
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
@@ -213,6 +213,22 @@ namespace CryptoGadget {
 			numMetricsIconSize.DataBindings.Add("Value", _sett.Metrics, "IconSize");
 			numMetricsHeaderText.DataBindings.Add("Value", _sett.Metrics, "HeaderText");
 			numMetricsRowsValues.DataBindings.Add("Value", _sett.Metrics, "RowsValues");
+
+
+			// experimental
+
+			colsGrid.Columns[0].DataPropertyName = "Column";
+			colsGrid.Columns[1].DataPropertyName = "Name";
+			colsGrid.Columns[2].DataPropertyName = "Width";
+			colsGrid.Columns[3].DataPropertyName = "Enabled";
+
+			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
+			foreach(string prop in Settings.StGrid.props) 
+				bl.Add((Settings.StColumn)_sett.Grid[prop]);
+
+			BindingSource cols_bind = new BindingSource();
+			cols_bind.DataSource = bl;
+			Invoke((MethodInvoker)delegate { colsGrid.DataSource = bl; }); 
 
 		}
 

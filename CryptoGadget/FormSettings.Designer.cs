@@ -25,28 +25,62 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.coinGrid = new System.Windows.Forms.DataGridView();
-			this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
-			this.coinGridCoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.buttonAdd = new System.Windows.Forms.Button();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.label17 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label29 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
+			this.label33 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.checkCoordsExitSave = new System.Windows.Forms.CheckBox();
+			this.checkCoordsLockPos = new System.Windows.Forms.CheckBox();
+			this.label32 = new System.Windows.Forms.Label();
+			this.checkVisibilityChange24Pct = new System.Windows.Forms.CheckBox();
 			this.buttonSub = new System.Windows.Forms.Button();
+			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonUp = new System.Windows.Forms.Button();
 			this.buttonDown = new System.Windows.Forms.Button();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
-			this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
-			this.buttonDownloadList = new System.Windows.Forms.Button();
-			this.buttonAddIcon = new System.Windows.Forms.Button();
 			this.buttonCheck = new System.Windows.Forms.Button();
+			this.buttonAddIcon = new System.Windows.Forms.Button();
+			this.buttonDownloadList = new System.Windows.Forms.Button();
+			this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
+			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
+			this.numDigitsChange24Pct = new System.Windows.Forms.NumericUpDown();
+			this.numDigitsChange24 = new System.Windows.Forms.NumericUpDown();
+			this.numDigitsValue = new System.Windows.Forms.NumericUpDown();
+			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
+			this.label25 = new System.Windows.Forms.Label();
+			this.label24 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.numMetricsRowsValues = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsHeaderText = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsIconSize = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsEdge = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsChange24Pct = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsChange24 = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsValue = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsRows = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsHeader = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsCoin = new System.Windows.Forms.NumericUpDown();
+			this.numMetricsIcon = new System.Windows.Forms.NumericUpDown();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.checkVisibilityChange24Pct = new System.Windows.Forms.CheckBox();
 			this.numRefreshRate = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.buttonDefaultBasic = new System.Windows.Forms.Button();
@@ -83,51 +117,21 @@
 			this.buttonColorNegativeChange = new System.Windows.Forms.Button();
 			this.label11 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
-			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
-			this.numDigitsChange24Pct = new System.Windows.Forms.NumericUpDown();
-			this.numDigitsChange24 = new System.Windows.Forms.NumericUpDown();
-			this.numDigitsValue = new System.Windows.Forms.NumericUpDown();
-			this.label32 = new System.Windows.Forms.Label();
-			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
-			this.checkCoordsLockPos = new System.Windows.Forms.CheckBox();
-			this.checkCoordsExitSave = new System.Windows.Forms.CheckBox();
-			this.label25 = new System.Windows.Forms.Label();
-			this.label24 = new System.Windows.Forms.Label();
-			this.label23 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.numMetricsRowsValues = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsHeaderText = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsIconSize = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsEdge = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsChange24Pct = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsChange24 = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsValue = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsRows = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsHeader = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsCoin = new System.Windows.Forms.NumericUpDown();
-			this.numMetricsIcon = new System.Windows.Forms.NumericUpDown();
-			this.label33 = new System.Windows.Forms.Label();
-			this.label30 = new System.Windows.Forms.Label();
-			this.label29 = new System.Windows.Forms.Label();
-			this.label28 = new System.Windows.Forms.Label();
-			this.label27 = new System.Windows.Forms.Label();
-			this.label26 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label15 = new System.Windows.Forms.Label();
-			this.label19 = new System.Windows.Forms.Label();
-			this.label16 = new System.Windows.Forms.Label();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label17 = new System.Windows.Forms.Label();
-			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
-			this.tabControl1.SuspendLayout();
-			this.tabPage1.SuspendLayout();
-			this.tabPage2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).BeginInit();
-			this.groupBox2.SuspendLayout();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
+			this.coinGrid = new System.Windows.Forms.DataGridView();
+			this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
+			this.coinGridCoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.colsGrid = new System.Windows.Forms.DataGridView();
+			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridWidth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
@@ -146,6 +150,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeader)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsCoin)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsIcon)).BeginInit();
+			this.tabPage2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).BeginInit();
+			this.groupBox2.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
+			this.tabControl1.SuspendLayout();
+			this.tabPage5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
@@ -185,89 +197,212 @@
 			this.textBox1.Text = "BTC Donations: 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv";
 			this.textBox1.WordWrap = false;
 			// 
-			// coinGrid
+			// label17
 			// 
-			this.coinGrid.AllowUserToAddRows = false;
-			this.coinGrid.AllowUserToDeleteRows = false;
-			this.coinGrid.AllowUserToResizeColumns = false;
-			this.coinGrid.AllowUserToResizeRows = false;
-			this.coinGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.coinGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.coinGridImg,
-            this.coinGridCoin,
-            this.coinGridName,
-            this.coinGridTarget,
-            this.coinGridTargetName});
-			this.coinGrid.Location = new System.Drawing.Point(7, 6);
-			this.coinGrid.MultiSelect = false;
-			this.coinGrid.Name = "coinGrid";
-			this.coinGrid.ReadOnly = true;
-			this.coinGrid.RowHeadersVisible = false;
-			this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.coinGrid.Size = new System.Drawing.Size(407, 395);
-			this.coinGrid.TabIndex = 10;
+			this.label17.AutoSize = true;
+			this.label17.Location = new System.Drawing.Point(6, 82);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(68, 13);
+			this.label17.TabIndex = 7;
+			this.label17.Text = "Value Width:";
+			this.toolTip1.SetToolTip(this.label17, "Size in pixels of the Values column of the gadget\r\n(supposing that it is enabled " +
+        "in the \'Basic\' tab).");
 			// 
-			// coinGridImg
+			// label18
 			// 
-			this.coinGridImg.HeaderText = "";
-			this.coinGridImg.MinimumWidth = 15;
-			this.coinGridImg.Name = "coinGridImg";
-			this.coinGridImg.ReadOnly = true;
-			this.coinGridImg.Width = 25;
+			this.label18.AutoSize = true;
+			this.label18.Location = new System.Drawing.Point(6, 108);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(78, 13);
+			this.label18.TabIndex = 9;
+			this.label18.Text = "Change Width:";
+			this.toolTip1.SetToolTip(this.label18, "Size in pixels of the Change column of the gadget\r\n(supposing that it is enabled " +
+        "in the \'Basic\' tab).");
 			// 
-			// coinGridCoin
+			// label16
 			// 
-			this.coinGridCoin.FillWeight = 69.76744F;
-			this.coinGridCoin.HeaderText = "Coin";
-			this.coinGridCoin.MaxInputLength = 20;
-			this.coinGridCoin.MinimumWidth = 20;
-			this.coinGridCoin.Name = "coinGridCoin";
-			this.coinGridCoin.ReadOnly = true;
-			this.coinGridCoin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coinGridCoin.Width = 50;
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(6, 56);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(62, 13);
+			this.label16.TabIndex = 5;
+			this.label16.Text = "Coin Width:";
+			this.toolTip1.SetToolTip(this.label16, "Size in pixels of the Coin name column of the gadget\r\n(supposing that it is enabl" +
+        "ed in the \'Basic\' tab).");
 			// 
-			// coinGridName
+			// label19
 			// 
-			this.coinGridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.coinGridName.FillWeight = 130.2326F;
-			this.coinGridName.HeaderText = "Name";
-			this.coinGridName.MaxInputLength = 20;
-			this.coinGridName.MinimumWidth = 25;
-			this.coinGridName.Name = "coinGridName";
-			this.coinGridName.ReadOnly = true;
-			this.coinGridName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.label19.AutoSize = true;
+			this.label19.Location = new System.Drawing.Point(6, 160);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(66, 13);
+			this.label19.TabIndex = 11;
+			this.label19.Text = "Edge Width:";
+			this.toolTip1.SetToolTip(this.label19, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
 			// 
-			// coinGridTarget
+			// label15
 			// 
-			this.coinGridTarget.HeaderText = "Target";
-			this.coinGridTarget.MaxInputLength = 50;
-			this.coinGridTarget.Name = "coinGridTarget";
-			this.coinGridTarget.ReadOnly = true;
-			this.coinGridTarget.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coinGridTarget.Width = 50;
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(6, 30);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(62, 13);
+			this.label15.TabIndex = 3;
+			this.label15.Text = "Icon Width:";
+			this.toolTip1.SetToolTip(this.label15, "Size in pixels of the Icons column of the gadget\r\n(supposing that it is enabled i" +
+        "n the \'Basic\' tab).");
 			// 
-			// coinGridTargetName
+			// label3
 			// 
-			this.coinGridTargetName.HeaderText = "Target Name";
-			this.coinGridTargetName.MaxInputLength = 250;
-			this.coinGridTargetName.Name = "coinGridTargetName";
-			this.coinGridTargetName.ReadOnly = true;
-			this.coinGridTargetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coinGridTargetName.Width = 139;
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(251, 30);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(79, 13);
+			this.label3.TabIndex = 13;
+			this.label3.Text = "Header Height:";
+			this.toolTip1.SetToolTip(this.label3, "Size in pixels of the Header row of the gadget\r\n(supposing that it is enabled in " +
+        "the \'Basic\' tab).");
 			// 
-			// buttonAdd
+			// label26
 			// 
-			this.buttonAdd.Location = new System.Drawing.Point(420, 41);
-			this.buttonAdd.Name = "buttonAdd";
-			this.buttonAdd.Size = new System.Drawing.Size(25, 25);
-			this.buttonAdd.TabIndex = 11;
-			this.buttonAdd.Text = "+";
-			this.toolTip1.SetToolTip(this.buttonAdd, "Add coin");
-			this.buttonAdd.UseVisualStyleBackColor = true;
-			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label26.AutoSize = true;
+			this.label26.Location = new System.Drawing.Point(251, 56);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(71, 13);
+			this.label26.TabIndex = 15;
+			this.label26.Text = "Rows Height:";
+			this.toolTip1.SetToolTip(this.label26, "Size in pixels of each coin row of the gadget\r\n(supposing that it is enabled in t" +
+        "he \'Basic\' tab).");
+			// 
+			// label27
+			// 
+			this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(251, 81);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(54, 13);
+			this.label27.TabIndex = 17;
+			this.label27.Text = "Icon Size:";
+			this.toolTip1.SetToolTip(this.label27, "Size in pixels of each icon of the gadget\r\n(supposing that it is enabled in the \'" +
+        "Basic\' tab).");
+			// 
+			// label28
+			// 
+			this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(251, 107);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(69, 13);
+			this.label28.TabIndex = 19;
+			this.label28.Text = "Header Text:";
+			this.toolTip1.SetToolTip(this.label28, "Size in pixels of the header text of the gadget\r\n(supposing that it is enabled in" +
+        " the \'Basic\' tab).");
+			// 
+			// label29
+			// 
+			this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(251, 133);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(72, 13);
+			this.label29.TabIndex = 21;
+			this.label29.Text = "Rows Values:";
+			this.toolTip1.SetToolTip(this.label29, "Size in pixels of the Value and Change numbers of the gadget\r\n(supposing that any" +
+        " of both are enabled in the \'Basic\' tab).");
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Location = new System.Drawing.Point(6, 0);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(127, 13);
+			this.label30.TabIndex = 23;
+			this.label30.Text = "Metrics (use with caution)";
+			this.toolTip1.SetToolTip(this.label30, "These settings may radically change the size of the gadget\r\ndepending on their va" +
+        "lue, they exists just for the users who\r\nwant a deeper customization of the gadg" +
+        "et.");
+			// 
+			// label33
+			// 
+			this.label33.AutoSize = true;
+			this.label33.Location = new System.Drawing.Point(6, 134);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(78, 13);
+			this.label33.TabIndex = 24;
+			this.label33.Text = "Percent Width:";
+			this.toolTip1.SetToolTip(this.label33, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.Location = new System.Drawing.Point(6, 11);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(110, 13);
+			this.label20.TabIndex = 47;
+			this.label20.Text = "Max Value total digits:";
+			this.toolTip1.SetToolTip(this.label20, resources.GetString("label20.ToolTip"));
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(6, 37);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(120, 13);
+			this.label23.TabIndex = 51;
+			this.label23.Text = "Max Change total digits:";
+			this.toolTip1.SetToolTip(this.label23, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
+        "e scheme as the \'Max Value total digits\'.");
+			// 
+			// checkCoordsExitSave
+			// 
+			this.checkCoordsExitSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkCoordsExitSave.AutoSize = true;
+			this.checkCoordsExitSave.Location = new System.Drawing.Point(325, 64);
+			this.checkCoordsExitSave.Name = "checkCoordsExitSave";
+			this.checkCoordsExitSave.Size = new System.Drawing.Size(124, 17);
+			this.checkCoordsExitSave.TabIndex = 58;
+			this.checkCoordsExitSave.Text = "Save Positon on Exit";
+			this.toolTip1.SetToolTip(this.checkCoordsExitSave, "Allows the gadget to remember the last XY position \r\nbefore closing or reloading." +
+        "");
+			this.checkCoordsExitSave.UseVisualStyleBackColor = true;
+			// 
+			// checkCoordsLockPos
+			// 
+			this.checkCoordsLockPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkCoordsLockPos.AutoSize = true;
+			this.checkCoordsLockPos.Location = new System.Drawing.Point(325, 89);
+			this.checkCoordsLockPos.Name = "checkCoordsLockPos";
+			this.checkCoordsLockPos.Size = new System.Drawing.Size(90, 17);
+			this.checkCoordsLockPos.TabIndex = 59;
+			this.checkCoordsLockPos.Text = "Lock Position";
+			this.toolTip1.SetToolTip(this.checkCoordsLockPos, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
+			this.checkCoordsLockPos.UseVisualStyleBackColor = true;
+			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(6, 63);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(120, 13);
+			this.label32.TabIndex = 62;
+			this.label32.Text = "Max Percent total digits:";
+			this.toolTip1.SetToolTip(this.label32, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
+        "e scheme as the \'Max Value total digits\'.");
+			// 
+			// checkVisibilityChange24Pct
+			// 
+			this.checkVisibilityChange24Pct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkVisibilityChange24Pct.AutoSize = true;
+			this.checkVisibilityChange24Pct.Location = new System.Drawing.Point(339, 102);
+			this.checkVisibilityChange24Pct.Name = "checkVisibilityChange24Pct";
+			this.checkVisibilityChange24Pct.Size = new System.Drawing.Size(102, 17);
+			this.checkVisibilityChange24Pct.TabIndex = 60;
+			this.checkVisibilityChange24Pct.Text = "Percent Visibility";
+			this.toolTip1.SetToolTip(this.checkVisibilityChange24Pct, "Percent refers to change in percentage instead of flat values");
+			this.checkVisibilityChange24Pct.UseVisualStyleBackColor = true;
 			// 
 			// buttonSub
 			// 
@@ -279,6 +414,17 @@
 			this.toolTip1.SetToolTip(this.buttonSub, "Delete coin");
 			this.buttonSub.UseVisualStyleBackColor = true;
 			this.buttonSub.Click += new System.EventHandler(this.buttonSub_Click);
+			// 
+			// buttonAdd
+			// 
+			this.buttonAdd.Location = new System.Drawing.Point(420, 41);
+			this.buttonAdd.Name = "buttonAdd";
+			this.buttonAdd.Size = new System.Drawing.Size(25, 25);
+			this.buttonAdd.TabIndex = 11;
+			this.buttonAdd.Text = "+";
+			this.toolTip1.SetToolTip(this.buttonAdd, "Add coin");
+			this.buttonAdd.UseVisualStyleBackColor = true;
+			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
 			// 
 			// buttonUp
 			// 
@@ -302,62 +448,28 @@
 			this.buttonDown.UseVisualStyleBackColor = true;
 			this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
 			// 
-			// tabControl1
+			// buttonCheck
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Controls.Add(this.tabPage3);
-			this.tabControl1.Location = new System.Drawing.Point(3, 3);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(462, 462);
-			this.tabControl1.TabIndex = 19;
+			this.buttonCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonCheck.Location = new System.Drawing.Point(133, 407);
+			this.buttonCheck.Name = "buttonCheck";
+			this.buttonCheck.Size = new System.Drawing.Size(75, 23);
+			this.buttonCheck.TabIndex = 25;
+			this.buttonCheck.Text = "Check";
+			this.toolTip1.SetToolTip(this.buttonCheck, resources.GetString("buttonCheck.ToolTip"));
+			this.buttonCheck.UseVisualStyleBackColor = true;
+			this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
 			// 
-			// tabPage1
+			// buttonAddIcon
 			// 
-			this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
-			this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
-			this.tabPage1.Controls.Add(this.buttonDownloadList);
-			this.tabPage1.Controls.Add(this.buttonAddIcon);
-			this.tabPage1.Controls.Add(this.buttonCheck);
-			this.tabPage1.Controls.Add(this.coinGrid);
-			this.tabPage1.Controls.Add(this.buttonDown);
-			this.tabPage1.Controls.Add(this.buttonUp);
-			this.tabPage1.Controls.Add(this.buttonAdd);
-			this.tabPage1.Controls.Add(this.buttonSub);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(454, 436);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Currencies";
-			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// buttonDownloadMissingIcons
-			// 
-			this.buttonDownloadMissingIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(214, 407);
-			this.buttonDownloadMissingIcons.Name = "buttonDownloadMissingIcons";
-			this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(153, 23);
-			this.buttonDownloadMissingIcons.TabIndex = 57;
-			this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
-			this.toolTip1.SetToolTip(this.buttonDownloadMissingIcons, "Downloads any missing icon if possible, note that this may take a while");
-			this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
-			this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
-			// 
-			// buttonDefaultCurrencies
-			// 
-			this.buttonDefaultCurrencies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDefaultCurrencies.Location = new System.Drawing.Point(373, 407);
-			this.buttonDefaultCurrencies.Name = "buttonDefaultCurrencies";
-			this.buttonDefaultCurrencies.Size = new System.Drawing.Size(75, 23);
-			this.buttonDefaultCurrencies.TabIndex = 56;
-			this.buttonDefaultCurrencies.Text = "Defaults";
-			this.buttonDefaultCurrencies.UseVisualStyleBackColor = true;
-			this.buttonDefaultCurrencies.Click += new System.EventHandler(this.buttonDefaultCurrencies_Click);
+			this.buttonAddIcon.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddIcon.Image")));
+			this.buttonAddIcon.Location = new System.Drawing.Point(420, 251);
+			this.buttonAddIcon.Name = "buttonAddIcon";
+			this.buttonAddIcon.Size = new System.Drawing.Size(25, 25);
+			this.buttonAddIcon.TabIndex = 26;
+			this.toolTip1.SetToolTip(this.buttonAddIcon, "Add or Swap the Icon");
+			this.buttonAddIcon.UseVisualStyleBackColor = true;
+			this.buttonAddIcon.Click += new System.EventHandler(this.buttonAddIcon_Click);
 			// 
 			// buttonDownloadList
 			// 
@@ -372,28 +484,476 @@
 			this.buttonDownloadList.UseVisualStyleBackColor = true;
 			this.buttonDownloadList.Click += new System.EventHandler(this.buttonDownloadList_Click);
 			// 
-			// buttonAddIcon
+			// buttonDownloadMissingIcons
 			// 
-			this.buttonAddIcon.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddIcon.Image")));
-			this.buttonAddIcon.Location = new System.Drawing.Point(420, 251);
-			this.buttonAddIcon.Name = "buttonAddIcon";
-			this.buttonAddIcon.Size = new System.Drawing.Size(25, 25);
-			this.buttonAddIcon.TabIndex = 26;
-			this.toolTip1.SetToolTip(this.buttonAddIcon, "Add or Swap the Icon");
-			this.buttonAddIcon.UseVisualStyleBackColor = true;
-			this.buttonAddIcon.Click += new System.EventHandler(this.buttonAddIcon_Click);
+			this.buttonDownloadMissingIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDownloadMissingIcons.Location = new System.Drawing.Point(214, 407);
+			this.buttonDownloadMissingIcons.Name = "buttonDownloadMissingIcons";
+			this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(153, 23);
+			this.buttonDownloadMissingIcons.TabIndex = 57;
+			this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
+			this.toolTip1.SetToolTip(this.buttonDownloadMissingIcons, "Downloads any missing icon if possible, note that this may take a while");
+			this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
+			this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
 			// 
-			// buttonCheck
+			// tabPage4
 			// 
-			this.buttonCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonCheck.Location = new System.Drawing.Point(133, 407);
-			this.buttonCheck.Name = "buttonCheck";
-			this.buttonCheck.Size = new System.Drawing.Size(75, 23);
-			this.buttonCheck.TabIndex = 25;
-			this.buttonCheck.Text = "Check";
-			this.toolTip1.SetToolTip(this.buttonCheck, resources.GetString("buttonCheck.ToolTip"));
-			this.buttonCheck.UseVisualStyleBackColor = true;
-			this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage4.Size = new System.Drawing.Size(454, 436);
+			this.tabPage4.TabIndex = 4;
+			this.tabPage4.Text = "Additional";
+			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Controls.Add(this.numCoordsPosY);
+			this.tabPage3.Controls.Add(this.numCoordsPosX);
+			this.tabPage3.Controls.Add(this.numDigitsChange24Pct);
+			this.tabPage3.Controls.Add(this.numDigitsChange24);
+			this.tabPage3.Controls.Add(this.numDigitsValue);
+			this.tabPage3.Controls.Add(this.label32);
+			this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
+			this.tabPage3.Controls.Add(this.checkCoordsLockPos);
+			this.tabPage3.Controls.Add(this.checkCoordsExitSave);
+			this.tabPage3.Controls.Add(this.label25);
+			this.tabPage3.Controls.Add(this.label24);
+			this.tabPage3.Controls.Add(this.label23);
+			this.tabPage3.Controls.Add(this.label20);
+			this.tabPage3.Controls.Add(this.groupBox1);
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Size = new System.Drawing.Size(454, 436);
+			this.tabPage3.TabIndex = 2;
+			this.tabPage3.Text = "Advanced";
+			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// numCoordsPosY
+			// 
+			this.numCoordsPosY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numCoordsPosY.Location = new System.Drawing.Point(348, 35);
+			this.numCoordsPosY.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+			this.numCoordsPosY.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+			this.numCoordsPosY.Name = "numCoordsPosY";
+			this.numCoordsPosY.Size = new System.Drawing.Size(100, 20);
+			this.numCoordsPosY.TabIndex = 67;
+			// 
+			// numCoordsPosX
+			// 
+			this.numCoordsPosX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numCoordsPosX.Location = new System.Drawing.Point(348, 9);
+			this.numCoordsPosX.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+			this.numCoordsPosX.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+			this.numCoordsPosX.Name = "numCoordsPosX";
+			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
+			this.numCoordsPosX.TabIndex = 66;
+			// 
+			// numDigitsChange24Pct
+			// 
+			this.numDigitsChange24Pct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numDigitsChange24Pct.Location = new System.Drawing.Point(132, 61);
+			this.numDigitsChange24Pct.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+			this.numDigitsChange24Pct.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numDigitsChange24Pct.Name = "numDigitsChange24Pct";
+			this.numDigitsChange24Pct.Size = new System.Drawing.Size(100, 20);
+			this.numDigitsChange24Pct.TabIndex = 65;
+			this.numDigitsChange24Pct.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numDigitsChange24
+			// 
+			this.numDigitsChange24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numDigitsChange24.Location = new System.Drawing.Point(132, 35);
+			this.numDigitsChange24.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+			this.numDigitsChange24.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numDigitsChange24.Name = "numDigitsChange24";
+			this.numDigitsChange24.Size = new System.Drawing.Size(100, 20);
+			this.numDigitsChange24.TabIndex = 64;
+			this.numDigitsChange24.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numDigitsValue
+			// 
+			this.numDigitsValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numDigitsValue.Location = new System.Drawing.Point(132, 9);
+			this.numDigitsValue.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+			this.numDigitsValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numDigitsValue.Name = "numDigitsValue";
+			this.numDigitsValue.Size = new System.Drawing.Size(100, 20);
+			this.numDigitsValue.TabIndex = 63;
+			this.numDigitsValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// buttonDefaultAdvanced
+			// 
+			this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDefaultAdvanced.Location = new System.Drawing.Point(373, 407);
+			this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
+			this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
+			this.buttonDefaultAdvanced.TabIndex = 60;
+			this.buttonDefaultAdvanced.Text = "Defaults";
+			this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
+			this.buttonDefaultAdvanced.Click += new System.EventHandler(this.buttonDefaultAdvanced_Click);
+			// 
+			// label25
+			// 
+			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(254, 37);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(82, 13);
+			this.label25.TabIndex = 57;
+			this.label25.Text = "Start Position Y:";
+			// 
+			// label24
+			// 
+			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(254, 11);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(82, 13);
+			this.label24.TabIndex = 55;
+			this.label24.Text = "Start Position X:";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.numMetricsRowsValues);
+			this.groupBox1.Controls.Add(this.numMetricsHeaderText);
+			this.groupBox1.Controls.Add(this.numMetricsIconSize);
+			this.groupBox1.Controls.Add(this.numMetricsEdge);
+			this.groupBox1.Controls.Add(this.numMetricsChange24Pct);
+			this.groupBox1.Controls.Add(this.numMetricsChange24);
+			this.groupBox1.Controls.Add(this.numMetricsValue);
+			this.groupBox1.Controls.Add(this.numMetricsRows);
+			this.groupBox1.Controls.Add(this.numMetricsHeader);
+			this.groupBox1.Controls.Add(this.numMetricsCoin);
+			this.groupBox1.Controls.Add(this.numMetricsIcon);
+			this.groupBox1.Controls.Add(this.label33);
+			this.groupBox1.Controls.Add(this.label30);
+			this.groupBox1.Controls.Add(this.label29);
+			this.groupBox1.Controls.Add(this.label28);
+			this.groupBox1.Controls.Add(this.label27);
+			this.groupBox1.Controls.Add(this.label26);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Controls.Add(this.label15);
+			this.groupBox1.Controls.Add(this.label19);
+			this.groupBox1.Controls.Add(this.label16);
+			this.groupBox1.Controls.Add(this.label18);
+			this.groupBox1.Controls.Add(this.label17);
+			this.groupBox1.Location = new System.Drawing.Point(5, 213);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(442, 187);
+			this.groupBox1.TabIndex = 46;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "                                        ";
+			// 
+			// numMetricsRowsValues
+			// 
+			this.numMetricsRowsValues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsRowsValues.DecimalPlaces = 2;
+			this.numMetricsRowsValues.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+			this.numMetricsRowsValues.Location = new System.Drawing.Point(336, 132);
+			this.numMetricsRowsValues.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsRowsValues.Name = "numMetricsRowsValues";
+			this.numMetricsRowsValues.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsRowsValues.TabIndex = 76;
+			this.numMetricsRowsValues.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsHeaderText
+			// 
+			this.numMetricsHeaderText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsHeaderText.DecimalPlaces = 2;
+			this.numMetricsHeaderText.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+			this.numMetricsHeaderText.Location = new System.Drawing.Point(336, 106);
+			this.numMetricsHeaderText.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsHeaderText.Name = "numMetricsHeaderText";
+			this.numMetricsHeaderText.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsHeaderText.TabIndex = 75;
+			this.numMetricsHeaderText.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsIconSize
+			// 
+			this.numMetricsIconSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsIconSize.Location = new System.Drawing.Point(336, 80);
+			this.numMetricsIconSize.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsIconSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsIconSize.Name = "numMetricsIconSize";
+			this.numMetricsIconSize.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsIconSize.TabIndex = 74;
+			this.numMetricsIconSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsEdge
+			// 
+			this.numMetricsEdge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsEdge.Location = new System.Drawing.Point(90, 158);
+			this.numMetricsEdge.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsEdge.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsEdge.Name = "numMetricsEdge";
+			this.numMetricsEdge.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsEdge.TabIndex = 73;
+			this.numMetricsEdge.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsChange24Pct
+			// 
+			this.numMetricsChange24Pct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsChange24Pct.Location = new System.Drawing.Point(90, 132);
+			this.numMetricsChange24Pct.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsChange24Pct.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsChange24Pct.Name = "numMetricsChange24Pct";
+			this.numMetricsChange24Pct.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsChange24Pct.TabIndex = 72;
+			this.numMetricsChange24Pct.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsChange24
+			// 
+			this.numMetricsChange24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsChange24.Location = new System.Drawing.Point(90, 106);
+			this.numMetricsChange24.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsChange24.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsChange24.Name = "numMetricsChange24";
+			this.numMetricsChange24.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsChange24.TabIndex = 71;
+			this.numMetricsChange24.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsValue
+			// 
+			this.numMetricsValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsValue.Location = new System.Drawing.Point(90, 80);
+			this.numMetricsValue.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsValue.Name = "numMetricsValue";
+			this.numMetricsValue.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsValue.TabIndex = 70;
+			this.numMetricsValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsRows
+			// 
+			this.numMetricsRows.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsRows.Location = new System.Drawing.Point(336, 54);
+			this.numMetricsRows.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsRows.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsRows.Name = "numMetricsRows";
+			this.numMetricsRows.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsRows.TabIndex = 69;
+			this.numMetricsRows.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsHeader
+			// 
+			this.numMetricsHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsHeader.Location = new System.Drawing.Point(336, 28);
+			this.numMetricsHeader.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsHeader.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsHeader.Name = "numMetricsHeader";
+			this.numMetricsHeader.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsHeader.TabIndex = 68;
+			this.numMetricsHeader.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsCoin
+			// 
+			this.numMetricsCoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsCoin.Location = new System.Drawing.Point(90, 54);
+			this.numMetricsCoin.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsCoin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsCoin.Name = "numMetricsCoin";
+			this.numMetricsCoin.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsCoin.TabIndex = 67;
+			this.numMetricsCoin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numMetricsIcon
+			// 
+			this.numMetricsIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numMetricsIcon.Location = new System.Drawing.Point(90, 28);
+			this.numMetricsIcon.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numMetricsIcon.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numMetricsIcon.Name = "numMetricsIcon";
+			this.numMetricsIcon.Size = new System.Drawing.Size(100, 20);
+			this.numMetricsIcon.TabIndex = 66;
+			this.numMetricsIcon.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// tabPage2
 			// 
@@ -417,18 +977,6 @@
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Basic";
 			this.tabPage2.UseVisualStyleBackColor = true;
-			// 
-			// checkVisibilityChange24Pct
-			// 
-			this.checkVisibilityChange24Pct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityChange24Pct.AutoSize = true;
-			this.checkVisibilityChange24Pct.Location = new System.Drawing.Point(339, 102);
-			this.checkVisibilityChange24Pct.Name = "checkVisibilityChange24Pct";
-			this.checkVisibilityChange24Pct.Size = new System.Drawing.Size(102, 17);
-			this.checkVisibilityChange24Pct.TabIndex = 60;
-			this.checkVisibilityChange24Pct.Text = "Percent Visibility";
-			this.toolTip1.SetToolTip(this.checkVisibilityChange24Pct, "Percent refers to change in percentage instead of flat values");
-			this.checkVisibilityChange24Pct.UseVisualStyleBackColor = true;
 			// 
 			// numRefreshRate
 			// 
@@ -814,649 +1362,206 @@
 			this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
 			this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
 			// 
-			// tabPage3
+			// tabPage1
 			// 
-			this.tabPage3.Controls.Add(this.numCoordsPosY);
-			this.tabPage3.Controls.Add(this.numCoordsPosX);
-			this.tabPage3.Controls.Add(this.numDigitsChange24Pct);
-			this.tabPage3.Controls.Add(this.numDigitsChange24);
-			this.tabPage3.Controls.Add(this.numDigitsValue);
-			this.tabPage3.Controls.Add(this.label32);
-			this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
-			this.tabPage3.Controls.Add(this.checkCoordsLockPos);
-			this.tabPage3.Controls.Add(this.checkCoordsExitSave);
-			this.tabPage3.Controls.Add(this.label25);
-			this.tabPage3.Controls.Add(this.label24);
-			this.tabPage3.Controls.Add(this.label23);
-			this.tabPage3.Controls.Add(this.label20);
-			this.tabPage3.Controls.Add(this.groupBox1);
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(454, 436);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "Advanced";
-			this.tabPage3.UseVisualStyleBackColor = true;
+			this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
+			this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
+			this.tabPage1.Controls.Add(this.buttonDownloadList);
+			this.tabPage1.Controls.Add(this.buttonAddIcon);
+			this.tabPage1.Controls.Add(this.buttonCheck);
+			this.tabPage1.Controls.Add(this.coinGrid);
+			this.tabPage1.Controls.Add(this.buttonDown);
+			this.tabPage1.Controls.Add(this.buttonUp);
+			this.tabPage1.Controls.Add(this.buttonAdd);
+			this.tabPage1.Controls.Add(this.buttonSub);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(454, 436);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "Currencies";
+			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// numCoordsPosY
+			// buttonDefaultCurrencies
 			// 
-			this.numCoordsPosY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numCoordsPosY.Location = new System.Drawing.Point(348, 35);
-			this.numCoordsPosY.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-			this.numCoordsPosY.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-			this.numCoordsPosY.Name = "numCoordsPosY";
-			this.numCoordsPosY.Size = new System.Drawing.Size(100, 20);
-			this.numCoordsPosY.TabIndex = 67;
+			this.buttonDefaultCurrencies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDefaultCurrencies.Location = new System.Drawing.Point(373, 407);
+			this.buttonDefaultCurrencies.Name = "buttonDefaultCurrencies";
+			this.buttonDefaultCurrencies.Size = new System.Drawing.Size(75, 23);
+			this.buttonDefaultCurrencies.TabIndex = 56;
+			this.buttonDefaultCurrencies.Text = "Defaults";
+			this.buttonDefaultCurrencies.UseVisualStyleBackColor = true;
+			this.buttonDefaultCurrencies.Click += new System.EventHandler(this.buttonDefaultCurrencies_Click);
 			// 
-			// numCoordsPosX
+			// coinGrid
 			// 
-			this.numCoordsPosX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numCoordsPosX.Location = new System.Drawing.Point(348, 9);
-			this.numCoordsPosX.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-			this.numCoordsPosX.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-			this.numCoordsPosX.Name = "numCoordsPosX";
-			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
-			this.numCoordsPosX.TabIndex = 66;
-			// 
-			// numDigitsChange24Pct
-			// 
-			this.numDigitsChange24Pct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numDigitsChange24Pct.Location = new System.Drawing.Point(132, 61);
-			this.numDigitsChange24Pct.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-			this.numDigitsChange24Pct.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numDigitsChange24Pct.Name = "numDigitsChange24Pct";
-			this.numDigitsChange24Pct.Size = new System.Drawing.Size(100, 20);
-			this.numDigitsChange24Pct.TabIndex = 65;
-			this.numDigitsChange24Pct.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
-			// numDigitsChange24
-			// 
-			this.numDigitsChange24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numDigitsChange24.Location = new System.Drawing.Point(132, 35);
-			this.numDigitsChange24.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-			this.numDigitsChange24.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numDigitsChange24.Name = "numDigitsChange24";
-			this.numDigitsChange24.Size = new System.Drawing.Size(100, 20);
-			this.numDigitsChange24.TabIndex = 64;
-			this.numDigitsChange24.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
-			// numDigitsValue
-			// 
-			this.numDigitsValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numDigitsValue.Location = new System.Drawing.Point(132, 9);
-			this.numDigitsValue.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-			this.numDigitsValue.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numDigitsValue.Name = "numDigitsValue";
-			this.numDigitsValue.Size = new System.Drawing.Size(100, 20);
-			this.numDigitsValue.TabIndex = 63;
-			this.numDigitsValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
-			// label32
-			// 
-			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(6, 63);
-			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(120, 13);
-			this.label32.TabIndex = 62;
-			this.label32.Text = "Max Percent total digits:";
-			this.toolTip1.SetToolTip(this.label32, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
-        "e scheme as the \'Max Value total digits\'.");
-			// 
-			// buttonDefaultAdvanced
-			// 
-			this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDefaultAdvanced.Location = new System.Drawing.Point(373, 407);
-			this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
-			this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
-			this.buttonDefaultAdvanced.TabIndex = 60;
-			this.buttonDefaultAdvanced.Text = "Defaults";
-			this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
-			this.buttonDefaultAdvanced.Click += new System.EventHandler(this.buttonDefaultAdvanced_Click);
-			// 
-			// checkCoordsLockPos
-			// 
-			this.checkCoordsLockPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkCoordsLockPos.AutoSize = true;
-			this.checkCoordsLockPos.Location = new System.Drawing.Point(325, 89);
-			this.checkCoordsLockPos.Name = "checkCoordsLockPos";
-			this.checkCoordsLockPos.Size = new System.Drawing.Size(90, 17);
-			this.checkCoordsLockPos.TabIndex = 59;
-			this.checkCoordsLockPos.Text = "Lock Position";
-			this.toolTip1.SetToolTip(this.checkCoordsLockPos, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
-			this.checkCoordsLockPos.UseVisualStyleBackColor = true;
-			// 
-			// checkCoordsExitSave
-			// 
-			this.checkCoordsExitSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkCoordsExitSave.AutoSize = true;
-			this.checkCoordsExitSave.Location = new System.Drawing.Point(325, 64);
-			this.checkCoordsExitSave.Name = "checkCoordsExitSave";
-			this.checkCoordsExitSave.Size = new System.Drawing.Size(124, 17);
-			this.checkCoordsExitSave.TabIndex = 58;
-			this.checkCoordsExitSave.Text = "Save Positon on Exit";
-			this.toolTip1.SetToolTip(this.checkCoordsExitSave, "Allows the gadget to remember the last XY position \r\nbefore closing or reloading." +
-        "");
-			this.checkCoordsExitSave.UseVisualStyleBackColor = true;
-			// 
-			// label25
-			// 
-			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(254, 37);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(82, 13);
-			this.label25.TabIndex = 57;
-			this.label25.Text = "Start Position Y:";
-			// 
-			// label24
-			// 
-			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(254, 11);
-			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(82, 13);
-			this.label24.TabIndex = 55;
-			this.label24.Text = "Start Position X:";
-			// 
-			// label23
-			// 
-			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(6, 37);
-			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(120, 13);
-			this.label23.TabIndex = 51;
-			this.label23.Text = "Max Change total digits:";
-			this.toolTip1.SetToolTip(this.label23, "Number of total digtis (including decimals) that will be shown, \r\nit uses the sam" +
-        "e scheme as the \'Max Value total digits\'.");
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(6, 11);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(110, 13);
-			this.label20.TabIndex = 47;
-			this.label20.Text = "Max Value total digits:";
-			this.toolTip1.SetToolTip(this.label20, resources.GetString("label20.ToolTip"));
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.coinGrid.AllowUserToAddRows = false;
+			this.coinGrid.AllowUserToDeleteRows = false;
+			this.coinGrid.AllowUserToResizeColumns = false;
+			this.coinGrid.AllowUserToResizeRows = false;
+			this.coinGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.numMetricsRowsValues);
-			this.groupBox1.Controls.Add(this.numMetricsHeaderText);
-			this.groupBox1.Controls.Add(this.numMetricsIconSize);
-			this.groupBox1.Controls.Add(this.numMetricsEdge);
-			this.groupBox1.Controls.Add(this.numMetricsChange24Pct);
-			this.groupBox1.Controls.Add(this.numMetricsChange24);
-			this.groupBox1.Controls.Add(this.numMetricsValue);
-			this.groupBox1.Controls.Add(this.numMetricsRows);
-			this.groupBox1.Controls.Add(this.numMetricsHeader);
-			this.groupBox1.Controls.Add(this.numMetricsCoin);
-			this.groupBox1.Controls.Add(this.numMetricsIcon);
-			this.groupBox1.Controls.Add(this.label33);
-			this.groupBox1.Controls.Add(this.label30);
-			this.groupBox1.Controls.Add(this.label29);
-			this.groupBox1.Controls.Add(this.label28);
-			this.groupBox1.Controls.Add(this.label27);
-			this.groupBox1.Controls.Add(this.label26);
-			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Controls.Add(this.label15);
-			this.groupBox1.Controls.Add(this.label19);
-			this.groupBox1.Controls.Add(this.label16);
-			this.groupBox1.Controls.Add(this.label18);
-			this.groupBox1.Controls.Add(this.label17);
-			this.groupBox1.Location = new System.Drawing.Point(5, 213);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(442, 187);
-			this.groupBox1.TabIndex = 46;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "                                        ";
+			this.coinGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.coinGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.coinGridImg,
+            this.coinGridCoin,
+            this.coinGridName,
+            this.coinGridTarget,
+            this.coinGridTargetName});
+			this.coinGrid.Location = new System.Drawing.Point(7, 6);
+			this.coinGrid.MultiSelect = false;
+			this.coinGrid.Name = "coinGrid";
+			this.coinGrid.ReadOnly = true;
+			this.coinGrid.RowHeadersVisible = false;
+			this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.coinGrid.Size = new System.Drawing.Size(407, 395);
+			this.coinGrid.TabIndex = 10;
 			// 
-			// numMetricsRowsValues
+			// coinGridImg
 			// 
-			this.numMetricsRowsValues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsRowsValues.DecimalPlaces = 2;
-			this.numMetricsRowsValues.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            131072});
-			this.numMetricsRowsValues.Location = new System.Drawing.Point(336, 132);
-			this.numMetricsRowsValues.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsRowsValues.Name = "numMetricsRowsValues";
-			this.numMetricsRowsValues.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsRowsValues.TabIndex = 76;
-			this.numMetricsRowsValues.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.coinGridImg.HeaderText = "";
+			this.coinGridImg.MinimumWidth = 15;
+			this.coinGridImg.Name = "coinGridImg";
+			this.coinGridImg.ReadOnly = true;
+			this.coinGridImg.Width = 25;
 			// 
-			// numMetricsHeaderText
+			// coinGridCoin
 			// 
-			this.numMetricsHeaderText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsHeaderText.DecimalPlaces = 2;
-			this.numMetricsHeaderText.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            131072});
-			this.numMetricsHeaderText.Location = new System.Drawing.Point(336, 106);
-			this.numMetricsHeaderText.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsHeaderText.Name = "numMetricsHeaderText";
-			this.numMetricsHeaderText.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsHeaderText.TabIndex = 75;
-			this.numMetricsHeaderText.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.coinGridCoin.FillWeight = 69.76744F;
+			this.coinGridCoin.HeaderText = "Coin";
+			this.coinGridCoin.MaxInputLength = 20;
+			this.coinGridCoin.MinimumWidth = 20;
+			this.coinGridCoin.Name = "coinGridCoin";
+			this.coinGridCoin.ReadOnly = true;
+			this.coinGridCoin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridCoin.Width = 50;
 			// 
-			// numMetricsIconSize
+			// coinGridName
 			// 
-			this.numMetricsIconSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsIconSize.Location = new System.Drawing.Point(336, 80);
-			this.numMetricsIconSize.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsIconSize.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsIconSize.Name = "numMetricsIconSize";
-			this.numMetricsIconSize.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsIconSize.TabIndex = 74;
-			this.numMetricsIconSize.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.coinGridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.coinGridName.FillWeight = 130.2326F;
+			this.coinGridName.HeaderText = "Name";
+			this.coinGridName.MaxInputLength = 20;
+			this.coinGridName.MinimumWidth = 25;
+			this.coinGridName.Name = "coinGridName";
+			this.coinGridName.ReadOnly = true;
+			this.coinGridName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
-			// numMetricsEdge
+			// coinGridTarget
 			// 
-			this.numMetricsEdge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsEdge.Location = new System.Drawing.Point(90, 158);
-			this.numMetricsEdge.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsEdge.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsEdge.Name = "numMetricsEdge";
-			this.numMetricsEdge.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsEdge.TabIndex = 73;
-			this.numMetricsEdge.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.coinGridTarget.HeaderText = "Target";
+			this.coinGridTarget.MaxInputLength = 50;
+			this.coinGridTarget.Name = "coinGridTarget";
+			this.coinGridTarget.ReadOnly = true;
+			this.coinGridTarget.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridTarget.Width = 50;
 			// 
-			// numMetricsChange24Pct
+			// coinGridTargetName
 			// 
-			this.numMetricsChange24Pct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsChange24Pct.Location = new System.Drawing.Point(90, 132);
-			this.numMetricsChange24Pct.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsChange24Pct.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsChange24Pct.Name = "numMetricsChange24Pct";
-			this.numMetricsChange24Pct.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsChange24Pct.TabIndex = 72;
-			this.numMetricsChange24Pct.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.coinGridTargetName.HeaderText = "Target Name";
+			this.coinGridTargetName.MaxInputLength = 250;
+			this.coinGridTargetName.Name = "coinGridTargetName";
+			this.coinGridTargetName.ReadOnly = true;
+			this.coinGridTargetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridTargetName.Width = 139;
 			// 
-			// numMetricsChange24
+			// tabControl1
 			// 
-			this.numMetricsChange24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsChange24.Location = new System.Drawing.Point(90, 106);
-			this.numMetricsChange24.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsChange24.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsChange24.Name = "numMetricsChange24";
-			this.numMetricsChange24.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsChange24.TabIndex = 71;
-			this.numMetricsChange24.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage3);
+			this.tabControl1.Controls.Add(this.tabPage4);
+			this.tabControl1.Controls.Add(this.tabPage5);
+			this.tabControl1.Location = new System.Drawing.Point(3, 3);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(462, 462);
+			this.tabControl1.TabIndex = 19;
 			// 
-			// numMetricsValue
+			// tabPage5
 			// 
-			this.numMetricsValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsValue.Location = new System.Drawing.Point(90, 80);
-			this.numMetricsValue.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsValue.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsValue.Name = "numMetricsValue";
-			this.numMetricsValue.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsValue.TabIndex = 70;
-			this.numMetricsValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.tabPage5.Controls.Add(this.colsGrid);
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage5.Size = new System.Drawing.Size(454, 436);
+			this.tabPage5.TabIndex = 5;
+			this.tabPage5.Text = "(Debug)";
+			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
-			// numMetricsRows
+			// colsGrid
 			// 
-			this.numMetricsRows.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsRows.Location = new System.Drawing.Point(336, 54);
-			this.numMetricsRows.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsRows.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsRows.Name = "numMetricsRows";
-			this.numMetricsRows.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsRows.TabIndex = 69;
-			this.numMetricsRows.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.colsGrid.AllowUserToAddRows = false;
+			this.colsGrid.AllowUserToDeleteRows = false;
+			this.colsGrid.AllowUserToResizeColumns = false;
+			this.colsGrid.AllowUserToResizeRows = false;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.coinGridColumn,
+            this.colsGridShownName,
+            this.colsGridWidth,
+            this.colsGridEnabled});
+			this.colsGrid.Location = new System.Drawing.Point(7, 8);
+			this.colsGrid.Name = "colsGrid";
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this.colsGrid.RowHeadersVisible = false;
+			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			this.colsGrid.ShowEditingIcon = false;
+			this.colsGrid.Size = new System.Drawing.Size(311, 421);
+			this.colsGrid.TabIndex = 0;
 			// 
-			// numMetricsHeader
+			// coinGridColumn
 			// 
-			this.numMetricsHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsHeader.Location = new System.Drawing.Point(336, 28);
-			this.numMetricsHeader.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsHeader.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsHeader.Name = "numMetricsHeader";
-			this.numMetricsHeader.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsHeader.TabIndex = 68;
-			this.numMetricsHeader.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			this.coinGridColumn.HeaderText = "Column";
+			this.coinGridColumn.MaxInputLength = 50;
+			this.coinGridColumn.Name = "coinGridColumn";
+			this.coinGridColumn.ReadOnly = true;
+			this.coinGridColumn.Width = 95;
 			// 
-			// numMetricsCoin
+			// colsGridShownName
 			// 
-			this.numMetricsCoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsCoin.Location = new System.Drawing.Point(90, 54);
-			this.numMetricsCoin.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsCoin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsCoin.Name = "numMetricsCoin";
-			this.numMetricsCoin.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsCoin.TabIndex = 67;
-			this.numMetricsCoin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.colsGridShownName.FillWeight = 182.7411F;
+			this.colsGridShownName.HeaderText = "Shown Name";
+			this.colsGridShownName.MaxInputLength = 80;
+			this.colsGridShownName.Name = "colsGridShownName";
 			// 
-			// numMetricsIcon
+			// colsGridWidth
 			// 
-			this.numMetricsIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numMetricsIcon.Location = new System.Drawing.Point(90, 28);
-			this.numMetricsIcon.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numMetricsIcon.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMetricsIcon.Name = "numMetricsIcon";
-			this.numMetricsIcon.Size = new System.Drawing.Size(100, 20);
-			this.numMetricsIcon.TabIndex = 66;
-			this.numMetricsIcon.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.colsGridWidth.FillWeight = 41.11675F;
+			this.colsGridWidth.HeaderText = "Width";
+			this.colsGridWidth.MaxInputLength = 5;
+			this.colsGridWidth.Name = "colsGridWidth";
+			this.colsGridWidth.Width = 50;
 			// 
-			// label33
+			// colsGridEnabled
 			// 
-			this.label33.AutoSize = true;
-			this.label33.Location = new System.Drawing.Point(6, 134);
-			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(78, 13);
-			this.label33.TabIndex = 24;
-			this.label33.Text = "Percent Width:";
-			this.toolTip1.SetToolTip(this.label33, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			// 
-			// label30
-			// 
-			this.label30.AutoSize = true;
-			this.label30.Location = new System.Drawing.Point(6, 0);
-			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(127, 13);
-			this.label30.TabIndex = 23;
-			this.label30.Text = "Metrics (use with caution)";
-			this.toolTip1.SetToolTip(this.label30, "These settings may radically change the size of the gadget\r\ndepending on their va" +
-        "lue, they exists just for the users who\r\nwant a deeper customization of the gadg" +
-        "et.");
-			// 
-			// label29
-			// 
-			this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(251, 133);
-			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(72, 13);
-			this.label29.TabIndex = 21;
-			this.label29.Text = "Rows Values:";
-			this.toolTip1.SetToolTip(this.label29, "Size in pixels of the Value and Change numbers of the gadget\r\n(supposing that any" +
-        " of both are enabled in the \'Basic\' tab).");
-			// 
-			// label28
-			// 
-			this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(251, 107);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(69, 13);
-			this.label28.TabIndex = 19;
-			this.label28.Text = "Header Text:";
-			this.toolTip1.SetToolTip(this.label28, "Size in pixels of the header text of the gadget\r\n(supposing that it is enabled in" +
-        " the \'Basic\' tab).");
-			// 
-			// label27
-			// 
-			this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(251, 81);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(54, 13);
-			this.label27.TabIndex = 17;
-			this.label27.Text = "Icon Size:";
-			this.toolTip1.SetToolTip(this.label27, "Size in pixels of each icon of the gadget\r\n(supposing that it is enabled in the \'" +
-        "Basic\' tab).");
-			// 
-			// label26
-			// 
-			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(251, 56);
-			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(71, 13);
-			this.label26.TabIndex = 15;
-			this.label26.Text = "Rows Height:";
-			this.toolTip1.SetToolTip(this.label26, "Size in pixels of each coin row of the gadget\r\n(supposing that it is enabled in t" +
-        "he \'Basic\' tab).");
-			// 
-			// label3
-			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(251, 30);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(79, 13);
-			this.label3.TabIndex = 13;
-			this.label3.Text = "Header Height:";
-			this.toolTip1.SetToolTip(this.label3, "Size in pixels of the Header row of the gadget\r\n(supposing that it is enabled in " +
-        "the \'Basic\' tab).");
-			// 
-			// label15
-			// 
-			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(6, 30);
-			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(62, 13);
-			this.label15.TabIndex = 3;
-			this.label15.Text = "Icon Width:";
-			this.toolTip1.SetToolTip(this.label15, "Size in pixels of the Icons column of the gadget\r\n(supposing that it is enabled i" +
-        "n the \'Basic\' tab).");
-			// 
-			// label19
-			// 
-			this.label19.AutoSize = true;
-			this.label19.Location = new System.Drawing.Point(6, 160);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(66, 13);
-			this.label19.TabIndex = 11;
-			this.label19.Text = "Edge Width:";
-			this.toolTip1.SetToolTip(this.label19, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			// 
-			// label16
-			// 
-			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(6, 56);
-			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(62, 13);
-			this.label16.TabIndex = 5;
-			this.label16.Text = "Coin Width:";
-			this.toolTip1.SetToolTip(this.label16, "Size in pixels of the Coin name column of the gadget\r\n(supposing that it is enabl" +
-        "ed in the \'Basic\' tab).");
-			// 
-			// label18
-			// 
-			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(6, 108);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(78, 13);
-			this.label18.TabIndex = 9;
-			this.label18.Text = "Change Width:";
-			this.toolTip1.SetToolTip(this.label18, "Size in pixels of the Change column of the gadget\r\n(supposing that it is enabled " +
-        "in the \'Basic\' tab).");
-			// 
-			// label17
-			// 
-			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(6, 82);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(68, 13);
-			this.label17.TabIndex = 7;
-			this.label17.Text = "Value Width:";
-			this.toolTip1.SetToolTip(this.label17, "Size in pixels of the Values column of the gadget\r\n(supposing that it is enabled " +
-        "in the \'Basic\' tab).");
+			this.colsGridEnabled.FillWeight = 76.14213F;
+			this.colsGridEnabled.HeaderText = "Enabled";
+			this.colsGridEnabled.Name = "colsGridEnabled";
+			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridEnabled.Width = 55;
 			// 
 			// FormSettings
 			// 
@@ -1474,14 +1579,6 @@
 			this.MaximizeBox = false;
 			this.Name = "FormSettings";
 			this.Text = "CryptoGadget Settings";
-			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).EndInit();
-			this.tabControl1.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			this.tabPage2.ResumeLayout(false);
-			this.tabPage2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).EndInit();
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
@@ -1502,6 +1599,16 @@
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeader)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsCoin)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsIcon)).EndInit();
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).EndInit();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.tabPage1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).EndInit();
+			this.tabControl1.ResumeLayout(false);
+			this.tabPage5.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1511,85 +1618,24 @@
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonSub;
-        private System.Windows.Forms.Button buttonUp;
-        private System.Windows.Forms.Button buttonDown;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        internal System.Windows.Forms.DataGridView coinGrid;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button buttonCheck;
-        private System.Windows.Forms.Button buttonAddIcon;
-        private System.Windows.Forms.Button buttonDownloadList;
-        private System.Windows.Forms.CheckBox checkVisibilityRefresh;
-        private System.Windows.Forms.CheckBox checkStartup;
-        private System.Windows.Forms.CheckBox checkVisibilityEdge;
-        private System.Windows.Forms.CheckBox checkVisibilityHeader;
-        private System.Windows.Forms.CheckBox checkVisibilityChange24;
-        private System.Windows.Forms.CheckBox checkVisibilityValue;
-        private System.Windows.Forms.CheckBox checkVisibilityCoin;
-        private System.Windows.Forms.CheckBox checkVisibilityIcon;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonColorValue;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button buttonColorHeaderBackground;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonColorCoin;
-        private System.Windows.Forms.Button buttonColorBackground1;
-        private System.Windows.Forms.Button buttonColorEdge;
-        private System.Windows.Forms.Button buttonColorBackground2;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button buttonColorNegativeChange;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button buttonColorPositiveChange;
-        private System.Windows.Forms.ComboBox boxTheme;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkCoordsLockPos;
-        private System.Windows.Forms.CheckBox checkCoordsExitSave;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Button buttonColorHeaderText;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button buttonColorNegativeRefresh;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button buttonColorPositiveRefresh;
-        private System.Windows.Forms.Button buttonDefaultCurrencies;
-        private System.Windows.Forms.Button buttonDefaultBasic;
-        private System.Windows.Forms.Button buttonDefaultAdvanced;
-        private System.Windows.Forms.Button buttonDownloadMissingIcons;
-        private System.Windows.Forms.NumericUpDown numRefreshRate;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkVisibilityChange24Pct;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label33;
-		private System.Windows.Forms.NumericUpDown numDigitsValue;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoinName;
+		private System.Windows.Forms.TabPage tabPage4;
+		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.NumericUpDown numCoordsPosY;
 		private System.Windows.Forms.NumericUpDown numCoordsPosX;
 		private System.Windows.Forms.NumericUpDown numDigitsChange24Pct;
 		private System.Windows.Forms.NumericUpDown numDigitsChange24;
-		private System.Windows.Forms.NumericUpDown numMetricsIcon;
+		private System.Windows.Forms.NumericUpDown numDigitsValue;
+		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.Button buttonDefaultAdvanced;
+		private System.Windows.Forms.CheckBox checkCoordsLockPos;
+		private System.Windows.Forms.CheckBox checkCoordsExitSave;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.NumericUpDown numMetricsRowsValues;
 		private System.Windows.Forms.NumericUpDown numMetricsHeaderText;
 		private System.Windows.Forms.NumericUpDown numMetricsIconSize;
@@ -1600,11 +1646,79 @@
 		private System.Windows.Forms.NumericUpDown numMetricsRows;
 		private System.Windows.Forms.NumericUpDown numMetricsHeader;
 		private System.Windows.Forms.NumericUpDown numMetricsCoin;
+		private System.Windows.Forms.NumericUpDown numMetricsIcon;
+		private System.Windows.Forms.Label label33;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Label label29;
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.Label label27;
+		private System.Windows.Forms.Label label26;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.CheckBox checkVisibilityChange24Pct;
+		private System.Windows.Forms.NumericUpDown numRefreshRate;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button buttonDefaultBasic;
+		private System.Windows.Forms.CheckBox checkVisibilityRefresh;
+		private System.Windows.Forms.CheckBox checkStartup;
+		private System.Windows.Forms.CheckBox checkVisibilityEdge;
+		private System.Windows.Forms.CheckBox checkVisibilityHeader;
+		private System.Windows.Forms.CheckBox checkVisibilityChange24;
+		private System.Windows.Forms.CheckBox checkVisibilityValue;
+		private System.Windows.Forms.CheckBox checkVisibilityCoin;
+		private System.Windows.Forms.CheckBox checkVisibilityIcon;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Button buttonColorHeaderText;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.Button buttonColorNegativeRefresh;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Button buttonColorPositiveRefresh;
+		private System.Windows.Forms.Button buttonColorValue;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label31;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Button buttonColorHeaderBackground;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.ComboBox boxTheme;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Button buttonColorCoin;
+		private System.Windows.Forms.Button buttonColorBackground1;
+		private System.Windows.Forms.Button buttonColorEdge;
+		private System.Windows.Forms.Button buttonColorBackground2;
+		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.Button buttonColorNegativeChange;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Button buttonColorPositiveChange;
+		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.Button buttonDownloadMissingIcons;
+		private System.Windows.Forms.Button buttonDefaultCurrencies;
+		private System.Windows.Forms.Button buttonDownloadList;
+		private System.Windows.Forms.Button buttonAddIcon;
+		private System.Windows.Forms.Button buttonCheck;
+		internal System.Windows.Forms.DataGridView coinGrid;
 		private System.Windows.Forms.DataGridViewImageColumn coinGridImg;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoin;
-		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoinName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTarget;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTargetName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
+		private System.Windows.Forms.Button buttonDown;
+		private System.Windows.Forms.Button buttonUp;
+		private System.Windows.Forms.Button buttonAdd;
+		private System.Windows.Forms.Button buttonSub;
+		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.DataGridView colsGrid;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridShownName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridWidth;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
 	}
 }

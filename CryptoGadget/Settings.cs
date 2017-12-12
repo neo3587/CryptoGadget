@@ -168,50 +168,56 @@ namespace CryptoGadget {
 		}
 
 		// try at this way better ? -> use a datagrid with textbox + checkbox and separate special members Metrics(HeaderText, RowsValues, Header, Edge, Rows, IconSize), Visibility(Header, Edge, Refresh)
+		// joins: visibility, digits and metrics
 		public class StColumn {
-			public int Digits { get; set; }
+			public string Column { get; set; }
+			public string Name { get; set; }
 			public int Width { get; set; }
 			public bool Enabled { get; set; }
 		}
 		public class StGrid {
 			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
-											"VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
+											"VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
 											"LowDay", "Low24", "Supply", "MktCap"};
+			public static string[] names = {"Icon", "Coin", "Value", "Change Day", "Change Day (%)", "Change 24h", "Change 24h (%)",
+											"Volume Day", "Volume 24h", "Total Volume 24h", "Open Day", "Open 24h", "High Day", "High 24h",
+											"Low Day", "Low 24h", "Supply", "Market Cap"};
 			public object this[string prop] {
 				get { return GetType().GetProperty(prop).GetValue(this, null); }
 				set { GetType().GetProperty(prop).SetValue(this, value, null); }
 			}
-			public StColumn Icon { get; set; }
-			public StColumn Coin { get; set; }
-			public StColumn Value { get; set; }
-			public StColumn ChangeDay { get; set; }
-			public StColumn ChangeDayPct { get; set; }
-			public StColumn Change24 { get; set; }
-			public StColumn Change24Pct { get; set; }
-			public StColumn VolumeDay { get; set; }
-			public StColumn Volume24 { get; set; }
-			public StColumn TotalVolume24 { get; set; }
-			public StColumn OpenDay { get; set; }
-			public StColumn Open24 { get; set; }
-			public StColumn HighDay { get; set; }
-			public StColumn High24 { get; set; }
-			public StColumn LowDay { get; set; }
-			public StColumn Low24 { get; set; }
-			public StColumn Supply { get; set; }
-			public StColumn MktCap { get; set; }
+			public StColumn Icon { get; set; } = new StColumn();
+			public StColumn Coin { get; set; } = new StColumn();
+			public StColumn Value { get; set; } = new StColumn();
+			public StColumn ChangeDay { get; set; } = new StColumn();
+			public StColumn ChangeDayPct { get; set; } = new StColumn();
+			public StColumn Change24 { get; set; } = new StColumn();
+			public StColumn Change24Pct { get; set; } = new StColumn();
+			public StColumn VolumeDay { get; set; } = new StColumn();
+			public StColumn Volume24 { get; set; } = new StColumn();
+			public StColumn TotalVolume24 { get; set; } = new StColumn();
+			public StColumn OpenDay { get; set; } = new StColumn();
+			public StColumn Open24 { get; set; } = new StColumn();
+			public StColumn HighDay { get; set; } = new StColumn();
+			public StColumn High24 { get; set; } = new StColumn();
+			public StColumn LowDay { get; set; } = new StColumn();
+			public StColumn Low24 { get; set; } = new StColumn();
+			public StColumn Supply { get; set; } = new StColumn();
+			public StColumn MktCap { get; set; } = new StColumn();
 		}
 
 		public enum DefaultType {
-			Coins = 0x0001,
-			Basic = 0x0002,
+			Coins      = 0x0001,
+			Basic      = 0x0002,
 			Visibility = 0x0004,
 			ColorLight = 0x0008,
-			ColorDark = 0x0010,
-			Coords = 0x0020,
-			Digits = 0x0040,
-			Metrics = 0x0080,
-			Pages = 0x0100,
-			All = 0xFFFF
+			ColorDark  = 0x0010,
+			Coords     = 0x0020,
+			Digits     = 0x0040,
+			Metrics    = 0x0080,
+			Pages      = 0x0100,
+			Grid       = 0x0200,
+			All        = 0xFFFF
 		}
 		public class CoinList : BindingList<StCoin> { }
 
@@ -223,6 +229,7 @@ namespace CryptoGadget {
 		public StDigits Digits		   = new StDigits();
 		public StMetrics Metrics	   = new StMetrics();
 		public StPages Pages		   = new StPages();
+		public StGrid Grid             = new StGrid();
 
 		private string _file_path = "";
 		private IniData _ini = new IniData();
@@ -398,7 +405,6 @@ namespace CryptoGadget {
 			return true;
 		}
 		public void Default(DefaultType type = DefaultType.All) {
-
 			if((type & DefaultType.Coins) != 0) {
 				Coins = CreateCoinList();
 				
@@ -488,7 +494,18 @@ namespace CryptoGadget {
 				Pages.Rotate = false;
 				Pages.RotateRate = 10.0f;
 			}
-
+			if((type & DefaultType.Grid) != 0) {
+				for(int i = 0; i < StGrid.props.Length; i++) {
+					string prop = StGrid.props[i];
+					(Grid[prop] as StColumn).Column = prop;
+					(Grid[prop] as StColumn).Name = StGrid.names[i];
+					(Grid[prop] as StColumn).Width = 60;
+					(Grid[prop] as StColumn).Enabled = false;
+				}
+				Grid.Icon.Enabled = Grid.Coin.Enabled = Grid.Value.Enabled = Grid.Change24.Enabled = true;
+				Grid.Icon.Width = 25;
+				Grid.Coin.Width = 45;
+			}
 		}
 		public object Clone() {
 			return MemberwiseClone();

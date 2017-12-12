@@ -117,6 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="label20.ToolTip" xml:space="preserve">
+    <value>Number of total digtis (including decimals) that will be shown, 
+per example if the Bitcoin has a price of 1234.56789 USD, 
+by setting this feature to 7 and Max Decimals to 2 it will show 
+only 1234.56, however setting Max Decimals to 4 it will show 
+1234,567 instead of 1234,5678 (because the digit limit is 7).</value>
+  </data>
+  <data name="buttonCheck.ToolTip" xml:space="preserve">
+    <value>Makes a request with each coin to ensures that everything is correct,
+this is because little amount of coins only accepts a very specific conversion
+(highly recommended when adding a new coin or swapping the target coin)</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonAddIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAPNJREFUSEtj+E9jMGoBQTBqAUEw3C349+8/AwPD/2OnL0IFSAcEfbBn9y4o6///
+        L1++/H/+/DmU9///ixfP/3//8QPKww4IWgDywbPXb//XVZeD2SD87fv3/zKSYv85uXnA/LXr1kNVYwKi
+        LHjy7CGYfvjsNVhs24ZVYD4IzJ428T8ThwCYjQ3gtKCltQ1Mgwx6+foVmO7r7///+tWr/+dPHYFb4OPu
+        /N/IzBrMxgawWvD9yyewAb9//fxvoKv1/+Wbd//vXLv0X1BQ8D8TMwtYzYSeDrAaU3OL/7//goWwAoJB
+        RCkYtYAgGLWAIBjqFvz/DwA+KKs48/tQFwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="coinGridImg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -129,32 +155,18 @@
   <metadata name="coinGridTargetName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="coinGridColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonAddIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAPNJREFUSEtj+E9jMGoBQTBqAUEw3C349+8/AwPD/2OnL0IFSAcEfbBn9y4o6///
-        L1++/H/+/DmU9///ixfP/3//8QPKww4IWgDywbPXb//XVZeD2SD87fv3/zKSYv85uXnA/LXr1kNVYwKi
-        LHjy7CGYfvjsNVhs24ZVYD4IzJ428T8ThwCYjQ3gtKCltQ1Mgwx6+foVmO7r7///+tWr/+dPHYFb4OPu
-        /N/IzBrMxgawWvD9yyewAb9//fxvoKv1/+Wbd//vXLv0X1BQ8D8TMwtYzYSeDrAaU3OL/7//goWwAoJB
-        RCkYtYAgGLWAIBjqFvz/DwA+KKs48/tQFwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="buttonCheck.ToolTip" xml:space="preserve">
-    <value>Makes a request with each coin to ensures that everything is correct,
-this is because little amount of coins only accepts a very specific conversion
-(highly recommended when adding a new coin or swapping the target coin)</value>
-  </data>
-  <data name="label20.ToolTip" xml:space="preserve">
-    <value>Number of total digtis (including decimals) that will be shown, 
-per example if the Bitcoin has a price of 1234.56789 USD, 
-by setting this feature to 7 and Max Decimals to 2 it will show 
-only 1234.56, however setting Max Decimals to 4 it will show 
-1234,567 instead of 1234,5678 (because the digit limit is 7).</value>
-  </data>
+  <metadata name="colsGridShownName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colsGridWidth.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colsGridEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAEBAAAAAAIABoBAAAVgAAACAgAAAAACAAqBAAAL4EAAAwMAAAAAAgAKglAABmFQAAQEAAAAAA
