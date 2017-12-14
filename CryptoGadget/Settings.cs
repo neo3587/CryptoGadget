@@ -176,18 +176,36 @@ namespace CryptoGadget {
 			public bool Enabled { get; set; }
 		}
 		public class StGrid {
-			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
-											"VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
-											"LowDay", "Low24", "Supply", "MktCap"};
-			public static string[] names = {"Icon", "Coin", "Value", "Change Day", "Change Day (%)", "Change 24h", "Change 24h (%)",
-											"Volume Day", "Volume 24h", "Total Volume 24h", "Open Day", "Open 24h", "High Day", "High 24h",
-											"Low Day", "Low 24h", "Supply", "Market Cap"};
+			// <PropertyName, ShownName, JsonName>
+			public static ValueTuple<string, string, string>[] props = { ("Icon",			"Icon",				""),
+																		 ("Coin",			"Coin",				"FROMSYMBOL"),
+																		 ("TargetIcon",		"Icon2",			""),
+																		 ("Target",			"Target",			"TOSYMBOL"),
+																		 ("Value",			"Value",			"PRICE"),
+																		 ("ChangeDay",		"Change Day",		"CHANGEDAY"),
+																		 ("ChangeDayPct",	"Change Day (%)",	"CHANGEPCTDAY"),
+																		 ("Change24",		"Change 24h",		"CHANGE24HOUR"),
+																		 ("Change24Pct",	"Change 24h (%)",	"CHANGEPCT24HOUR"),
+																		 ("VolumeDay",		"Volume Day",		"VOLUMEDAY"),
+																		 ("Volume24",		"Volume 24h",		"VOLUME24HOUR"),
+																		 ("TotalVolume24",	"Total Volume 24h",	"TOTALVOLUME24H"),
+																		 ("OpenDay",		"Open Day",			"OPENDAY"),
+																		 ("Open24",			"Open 24h",         "OPEN24HOUR"),
+																		 ("HighDay",		"High Day",			"HIGHDAY"),
+																		 ("High24",			"High 24h",			"HIGH24HOUR"),
+																		 ("LowDay",			"Low Day",			"LOWDAY"),
+																		 ("Low24",			"Low 24h",			"LOW24HOUR"),
+																		 ("Supply",			"Supply",			"SUPPLY"),
+																		 ("MktCap",			"Market Cap",		"MKTCAP"),
+																		 ("Market",			"Market",			"lASTMARKET") };
 			public object this[string prop] {
 				get { return GetType().GetProperty(prop).GetValue(this, null); }
 				set { GetType().GetProperty(prop).SetValue(this, value, null); }
 			}
-			public StColumn Icon { get; set; } = new StColumn();
+			public StColumn Icon { get; set; } = new StColumn(); // skip this on json get
 			public StColumn Coin { get; set; } = new StColumn();
+			public StColumn TargetIcon { get; set; } = new StColumn(); // skip this on json get
+			public StColumn Target { get; set; } = new StColumn();
 			public StColumn Value { get; set; } = new StColumn();
 			public StColumn ChangeDay { get; set; } = new StColumn();
 			public StColumn ChangeDayPct { get; set; } = new StColumn();
@@ -204,6 +222,7 @@ namespace CryptoGadget {
 			public StColumn Low24 { get; set; } = new StColumn();
 			public StColumn Supply { get; set; } = new StColumn();
 			public StColumn MktCap { get; set; } = new StColumn();
+			public StColumn Market { get; set; } = new StColumn(); 
 		}
 
 		public enum DefaultType {
@@ -495,12 +514,11 @@ namespace CryptoGadget {
 				Pages.RotateRate = 10.0f;
 			}
 			if((type & DefaultType.Grid) != 0) {
-				for(int i = 0; i < StGrid.props.Length; i++) {
-					string prop = StGrid.props[i];
-					(Grid[prop] as StColumn).Column = prop;
-					(Grid[prop] as StColumn).Name = StGrid.names[i];
-					(Grid[prop] as StColumn).Width = 60;
-					(Grid[prop] as StColumn).Enabled = false;
+				foreach(ValueTuple<string, string, string> prop in StGrid.props) { 
+					(Grid[prop.Item1] as StColumn).Column = prop.Item1;
+					(Grid[prop.Item1] as StColumn).Name = prop.Item2;
+					(Grid[prop.Item1] as StColumn).Width = 60;
+					(Grid[prop.Item1] as StColumn).Enabled = false;
 				}
 				Grid.Icon.Enabled = Grid.Coin.Enabled = Grid.Value.Enabled = Grid.Change24.Enabled = true;
 				Grid.Icon.Width = 25;
@@ -508,6 +526,7 @@ namespace CryptoGadget {
 			}
 		}
 		public object Clone() {
+			var t = new List<(string, string)>();
 			return MemberwiseClone();
 		}
 

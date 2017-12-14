@@ -223,8 +223,8 @@ namespace CryptoGadget {
 			colsGrid.Columns[3].DataPropertyName = "Enabled";
 
 			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
-			foreach(string prop in Settings.StGrid.props) 
-				bl.Add((Settings.StColumn)_sett.Grid[prop]);
+			foreach(ValueTuple<string, string, string> prop in Settings.StGrid.props) 
+				bl.Add((Settings.StColumn)_sett.Grid[prop.Item1]);
 
 			BindingSource cols_bind = new BindingSource();
 			cols_bind.DataSource = bl;
