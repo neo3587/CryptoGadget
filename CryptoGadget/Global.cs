@@ -12,9 +12,10 @@ namespace CryptoGadget {
 
     class Global {
 
-        public static string IniLocation  = Application.StartupPath + "\\settings.ini";
-        public static string IconLocation = Application.StartupPath + "\\ico\\";
-        public static string JsonLocation = Application.StartupPath + "\\CoinList.json";
+        public static string IniLocation	  = Application.StartupPath + "\\settings.ini";
+        public static string IconFolder		  = Application.StartupPath + "\\ico\\";
+        public static string JsonLocation	  = Application.StartupPath + "\\CoinList.json";
+		public static string ProfilesLocation = Application.StartupPath + "\\profiles\\";
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
@@ -31,10 +32,10 @@ namespace CryptoGadget {
             name = name.ToLower();
             try {
                 try {
-                    bmp = (size.IsEmpty ? new Icon(IconLocation + name + ".ico") : new Icon(IconLocation + name + ".ico", size)).ToBitmap(); // it looks slightly better if you can load it as a icon
+                    bmp = (size.IsEmpty ? new Icon(IconFolder + name + ".ico") : new Icon(IconFolder + name + ".ico", size)).ToBitmap(); // it looks slightly better if you can load it as a icon
                 }
                 catch(Exception) {
-                    bmp = size.IsEmpty ? new Bitmap(IconLocation + name + ".ico") : new Bitmap(Image.FromFile(IconLocation + name + ".ico"), size);
+                    bmp = size.IsEmpty ? new Bitmap(IconFolder + name + ".ico") : new Bitmap(Image.FromFile(IconFolder + name + ".ico"), size);
                 }
             }
             catch(Exception) {

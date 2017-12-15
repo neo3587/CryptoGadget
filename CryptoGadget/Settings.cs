@@ -7,6 +7,8 @@ using System.Drawing;
 using IniParser.Model;
 
 
+
+
 namespace CryptoGadget {
 
 	public class Settings : ICloneable {
@@ -14,11 +16,11 @@ namespace CryptoGadget {
 		public class StCoin {
 			public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphSizeX", "GraphSizeY",
 											"GraphLockPos", "GraphExitSave", "GraphRefreshRate", "GraphStartup"};
-			public struct StAlarm {
+			public class StAlarm {
 				public float Up { get; set; }
 				public float Down { get; set; }
 			}
-			public struct StGraph {
+			public class StGraph {
 				public int PosX { get; set; }
 				public int PosY { get; set; }
 				public int SizeX { get; set; }
@@ -33,8 +35,8 @@ namespace CryptoGadget {
 			public string CoinName { get; set; }
 			public string Target { get; set; }
 			public string TargetName { get; set; }
-			public StAlarm Alarm;// = new StAlarm();
-			public StGraph Graph;// = new StGraph();
+			public StAlarm Alarm = new StAlarm();
+			public StGraph Graph = new StGraph();
 		}
 		public class StBasic {
 			public int RefreshRate { get; set; }
@@ -173,6 +175,7 @@ namespace CryptoGadget {
 			public string Column { get; set; }
 			public string Name { get; set; }
 			public int Width { get; set; }
+			public int Digits { get; set; }
 			public bool Enabled { get; set; }
 		}
 		public class StGrid {
@@ -526,7 +529,6 @@ namespace CryptoGadget {
 			}
 		}
 		public object Clone() {
-			var t = new List<(string, string)>();
 			return MemberwiseClone();
 		}
 

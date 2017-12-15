@@ -25,12 +25,11 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.label17 = new System.Windows.Forms.Label();
 			this.label18 = new System.Windows.Forms.Label();
@@ -131,7 +130,9 @@
 			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colsGridWidth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridDigits = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.tabPage3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
@@ -182,20 +183,6 @@
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-			// 
-			// textBox1
-			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBox1.Location = new System.Drawing.Point(9, 473);
-			this.textBox1.MaxLength = 100;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(297, 13);
-			this.textBox1.TabIndex = 9;
-			this.textBox1.TabStop = false;
-			this.textBox1.Text = "BTC Donations: 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv";
-			this.textBox1.WordWrap = false;
 			// 
 			// label17
 			// 
@@ -1499,44 +1486,45 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
             this.colsGridWidth,
+            this.colsGridDigits,
             this.colsGridEnabled});
-			this.colsGrid.Location = new System.Drawing.Point(7, 8);
+			this.colsGrid.Location = new System.Drawing.Point(2, 6);
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
-			this.colsGrid.Size = new System.Drawing.Size(311, 421);
+			this.colsGrid.Size = new System.Drawing.Size(446, 424);
 			this.colsGrid.TabIndex = 0;
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle5;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
 			this.coinGridColumn.ReadOnly = true;
-			this.coinGridColumn.Width = 95;
+			this.coinGridColumn.Width = 120;
 			// 
 			// colsGridShownName
 			// 
@@ -1545,6 +1533,7 @@
 			this.colsGridShownName.HeaderText = "Shown Name";
 			this.colsGridShownName.MaxInputLength = 80;
 			this.colsGridShownName.Name = "colsGridShownName";
+			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
 			// 
 			// colsGridWidth
 			// 
@@ -1552,7 +1541,17 @@
 			this.colsGridWidth.HeaderText = "Width";
 			this.colsGridWidth.MaxInputLength = 5;
 			this.colsGridWidth.Name = "colsGridWidth";
+			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
 			this.colsGridWidth.Width = 50;
+			// 
+			// colsGridDigits
+			// 
+			this.colsGridDigits.HeaderText = "Digits";
+			this.colsGridDigits.Name = "colsGridDigits";
+			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
+    "elete the remaining decimal values, this will be ignored if the actual value has" +
+    " more digits than the allowed. ";
+			this.colsGridDigits.Width = 50;
 			// 
 			// colsGridEnabled
 			// 
@@ -1562,6 +1561,20 @@
 			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.colsGridEnabled.Width = 55;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBox1.Location = new System.Drawing.Point(9, 473);
+			this.textBox1.MaxLength = 100;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(297, 13);
+			this.textBox1.TabIndex = 9;
+			this.textBox1.TabStop = false;
+			this.textBox1.Text = "BTC Donations: 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv";
+			this.textBox1.WordWrap = false;
 			// 
 			// FormSettings
 			// 
@@ -1617,7 +1630,6 @@
         #endregion
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoinName;
 		private System.Windows.Forms.TabPage tabPage4;
@@ -1719,6 +1731,8 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridShownName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridWidth;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
+		private System.Windows.Forms.TextBox textBox1;
 	}
 }

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
+using System.Reflection;
 
 using Newtonsoft.Json.Linq;
 
@@ -29,59 +30,59 @@ namespace CryptoGadget {
             if(form.coindb == null)
                 throw new System.Net.WebException("Couldn't download the Coin List Database");
 
-            string[] fiat = new string[] {
-				"AED", "United Arab Emirates Dirham", "AFN", "Afghan Afghani",
-                "ARS", "Argentine Peso",              "AUD", "Australian Dollar",
-                "AZN", "Azerbaijani Manat",           "BDT", "Bangladeshi Taka",
-                "BGN", "Bulgarian Lev",               "BND", "Brunei Dollar",
-                "BRL", "Brazilian Real",              "BWP", "Botswana Pula",
-                "BYN", "Belarusian Ruble",            "BYR", "Belarusian Ruble",
-                "CAD", "Canadian Dollar",             "CHF", "Swiss Franc",
-                "CNY", "Chinese Yuan Renminbi",       "COP", "Colombian Peso",
-                "CZK", "Czech Koruna",                "DOP", "Dominican Peso",
-                "DZD", "Algerian Dinar",              "DKK", "Danish Krone",
-                "EGP", "Egyptian Pound",              "ETB", "Ethiopian Birr",
-                "EUR", "Euro",                        "GBP", "Great Britain Pound",
-                "GEL", "Georgian Iari",               "GGP", "Guernsey Pound",
-                "GHS", "Ghanaian Cedi",               "GIP", "ibraltar Pound",
-                "GOLD", "Gold Grams",                 "GTQ", "Guatemalan Quetzal",
-                "HKD", "Hong Kong Dollar",            "HNL", "Honduran Lempira",
-                "HRK", "Croatian Kuna",               "HUF", "Hungarian Forint",
-                "IDR", "Indonesian Rupiah",           "ILS", "Isreali New Shekel",
-                "INR", "Indian Rupee",                "IQD", "Iraqi Dinar",
-                "IRR", "Iranian Rial",                "ISK", "Icelandic Krona",
-                "JMD", "Jamaican Dollar",             "JOD", "Jordanian Dinar",
-                "JPY", "Japanese Yen",                "KES", "Kenyan Shilling",
-                "KGS", "Kyryzstani Som",              "KHR", "Cambodian Riel",
-                "KRW", "South Korean Won",            "KWD", "Kuwati Dinar",
-                "KZT", "Kazakhstani Tenge",           "LBP", "Lebanese Pound",
-                "LKR", "Sri Lankan Rupee",            "LSL", "Lesotho Loti",
-                "MDL", "Moldovan Leu",                "MUR", "Mauritian Rupee",   
-                "MXN", "Mexican Peso",                "NAD", "Namibian Dollar",
-                "NGN", "Nigerian Naira",              "NHD", "Bahraini dinar",
-                "MMK", "Burmese Kyat",                "NOK", "Norwegian Krone",
-                "NPR", "Napalese Rupee",              "NZD", "New Zealand Dollar",
-                "OMR", "Omani Rial",                  "PAB", "Panamanian Balboa",
-                "PHP", "Philippine Peso",             "PKR", "Pakistani Rupee",
-                "PLN", "Polish zloty",                "PYG", "Paraguayan Guarani",
-                "QAR", "Qatari Riyal",                "SAR", "Saudi Riyal",
-                "SEK", "Swedish Krona",               "SGD", "Singapore Dollar",
-                "RON", "Romanian Leu",                "RSD", "Serbian Dinar",
-                "RUR", "Russian Ruble",               "RWF", "Rwandan Franc",
-                "THB", "Thai Baht",                   "TND", "unisian Dinar",
-                "TRY", "Turkish Lira",                "TTD", "Trinidad and Tobago Dollar",
-                "TWD", "Taiwan Dollar",               "UAH", "Ukrainian Hryvnia",
-                "UGX", "Ugandan Shilling",            "USD", "United States Dollar",
-                "UYU", "Uruguayan Peso",              "VEF", "Venezuelan Bolivar",
-                "VND", "Vietnamese Dong",             "XAG", "Troy Ounce of Silver",
-                "XOF", "West African CFA Franc",      "ZAR", "South African Rand",
-                "ZMW", "Zambian Kwacha"
+            ValueTuple<string, string>[] fiat = {
+				("AED", "United Arab Emirates Dirham"), ("AFN", "Afghan Afghani"),
+                ("ARS", "Argentine Peso"),             ("AUD", "Australian Dollar"),
+                ("AZN", "Azerbaijani Manat"),          ("BDT", "Bangladeshi Taka"),
+                ("BGN", "Bulgarian Lev"),              ("BND", "Brunei Dollar"),
+                ("BRL", "Brazilian Real"),             ("BWP", "Botswana Pula"),
+                ("BYN", "Belarusian Ruble"),           ("BYR", "Belarusian Ruble"),
+                ("CAD", "Canadian Dollar"),            ("CHF", "Swiss Franc"),
+                ("CNY", "Chinese Yuan Renminbi"),      ("COP", "Colombian Peso"),
+                ("CZK", "Czech Koruna"),               ("DOP", "Dominican Peso"),
+                ("DZD", "Algerian Dinar"),             ("DKK", "Danish Krone"),
+                ("EGP", "Egyptian Pound"),             ("ETB", "Ethiopian Birr"),
+                ("EUR", "Euro"),                       ("GBP", "Great Britain Pound"),
+                ("GEL", "Georgian Iari"),              ("GGP", "Guernsey Pound"),
+				("GHS", "Ghanaian Cedi"),              ("GIP", "ibraltar Pound"),
+				("GOLD", "Gold Grams"),                ("GTQ", "Guatemalan Quetzal"),
+				("HKD", "Hong Kong Dollar"),           ("HNL", "Honduran Lempira"),
+				("HRK", "Croatian Kuna"),              ("HUF", "Hungarian Forint"),
+				("IDR", "Indonesian Rupiah"),          ("ILS", "Isreali New Shekel"),
+				("INR", "Indian Rupee"),               ("IQD", "Iraqi Dinar"),
+				("IRR", "Iranian Rial"),               ("ISK", "Icelandic Krona"),
+				("JMD", "Jamaican Dollar"),            ("JOD", "Jordanian Dinar"),
+				("JPY", "Japanese Yen"),               ("KES", "Kenyan Shilling"),
+				("KGS", "Kyryzstani Som"),             ("KHR", "Cambodian Riel"),
+				("KRW", "South Korean Won"),           ("KWD", "Kuwati Dinar"),
+				("KZT", "Kazakhstani Tenge"),          ("LBP", "Lebanese Pound"),
+				("LKR", "Sri Lankan Rupee"),           ("LSL", "Lesotho Loti"),
+				("MDL", "Moldovan Leu"),               ("MUR", "Mauritian Rupee"),
+				("MXN", "Mexican Peso"),               ("NAD", "Namibian Dollar"),
+				("NGN", "Nigerian Naira"),             ("NHD", "Bahraini dinar"),
+				("MMK", "Burmese Kyat"),               ("NOK", "Norwegian Krone"),
+				("NPR", "Napalese Rupee"),             ("NZD", "New Zealand Dollar"),
+				("OMR", "Omani Rial"),                 ("PAB", "Panamanian Balboa"),
+				("PHP", "Philippine Peso"),            ("PKR", "Pakistani Rupee"),
+				("PLN", "Polish zloty"),               ("PYG", "Paraguayan Guarani"),
+				("QAR", "Qatari Riyal"),               ("SAR", "Saudi Riyal"),
+				("SEK", "Swedish Krona"),              ("SGD", "Singapore Dollar"),
+				("RON", "Romanian Leu"),               ("RSD", "Serbian Dinar"),
+				("RUR", "Russian Ruble"),              ("RWF", "Rwandan Franc"),
+				("THB", "Thai Baht"),                  ("TND", "unisian Dinar"),
+				("TRY", "Turkish Lira"),               ("TTD", "Trinidad and Tobago Dollar"),
+				("TWD", "Taiwan Dollar"),              ("UAH", "Ukrainian Hryvnia"),
+				("UGX", "Ugandan Shilling"),           ("USD", "United States Dollar"),
+				("UYU", "Uruguayan Peso"),             ("VEF", "Venezuelan Bolivar"),
+				("VND", "Vietnamese Dong"),            ("XAG", "Troy Ounce of Silver"),
+				("XOF", "West African CFA Franc"),     ("ZAR", "South African Rand"),
+				("ZMW", "Zambian Kwacha")
 			};
 
-            for(int i = 0; i < fiat.Length; i += 2) {
+            for(int i = 0; i < fiat.Length; i++) {
                 try {
-                    (form.coindb["Data"] as JObject).Add(fiat[i], JToken.Parse("{ \"Name\": \"" + fiat[i] + "\", \"CoinName\": \"" + fiat[i+1] +
-                                                                                   "\", \"FullName\": \"" + fiat[i+1] + " (" + fiat[i] + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
+                    (form.coindb["Data"] as JObject).Add(fiat[i].Item1, JToken.Parse("{ \"Name\": \"" + fiat[i].Item1 + "\", \"CoinName\": \"" + fiat[i].Item2 +
+                                                                                     "\", \"FullName\": \"" + fiat[i].Item2 + " (" + fiat[i].Item1 + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
                 } catch(Exception) { }
             }
 
@@ -154,11 +155,9 @@ namespace CryptoGadget {
 				}
 			}
 
-			coinGrid.Columns[0].DataPropertyName = "Icon";
-			coinGrid.Columns[1].DataPropertyName = "Coin";
-			coinGrid.Columns[2].DataPropertyName = "CoinName";
-			coinGrid.Columns[3].DataPropertyName = "Target";
-			coinGrid.Columns[4].DataPropertyName = "TargetName";
+			PropertyInfo[] coin_props = typeof(Settings.StCoin).GetProperties();
+			for(int i = 0; i < coin_props.Length; i++)
+				coinGrid.Columns[i].DataPropertyName = coin_props[i].Name;
 
 			BindingSource coin_bind = new BindingSource();
 			coin_bind.DataSource = _sett.Coins[_page];
@@ -217,10 +216,9 @@ namespace CryptoGadget {
 
 			// experimental
 
-			colsGrid.Columns[0].DataPropertyName = "Column";
-			colsGrid.Columns[1].DataPropertyName = "Name";
-			colsGrid.Columns[2].DataPropertyName = "Width";
-			colsGrid.Columns[3].DataPropertyName = "Enabled";
+			PropertyInfo[] cols_props = typeof(Settings.StColumn).GetProperties();
+			for(int i = 0; i < cols_props.Length; i++)
+				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
 
 			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
 			foreach(ValueTuple<string, string, string> prop in Settings.StGrid.props) 
@@ -304,7 +302,7 @@ namespace CryptoGadget {
 
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
-                    StreamWriter writer = new StreamWriter(Global.IconLocation + coin.ToLower() + ".ico");
+                    StreamWriter writer = new StreamWriter(Global.IconFolder + coin.ToLower() + ".ico");
                     stream.CopyTo(writer.BaseStream);
                     writer.Close();
                     stream.Close();

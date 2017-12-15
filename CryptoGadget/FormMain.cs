@@ -242,11 +242,13 @@ namespace CryptoGadget {
         }
 		private void RowsInit() {
 
+			// Context Menu, Tooltip and static data init.
 			foreach(Settings.StCoin st in Global.Sett.Coins[_page]) {
 
 				int index = mainGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
 
-				// Context Menu
+				// Context Menu 
+
 				ContextMenuStrip cm = new ContextMenuStrip();
 
 				if(Global.Json != null) {
