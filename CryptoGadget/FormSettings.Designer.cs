@@ -25,9 +25,9 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -40,7 +40,6 @@
 			this.label30 = new System.Windows.Forms.Label();
 			this.checkCoordsExitSave = new System.Windows.Forms.CheckBox();
 			this.checkCoordsLockPos = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityChange24Pct = new System.Windows.Forms.CheckBox();
 			this.buttonSub = new System.Windows.Forms.Button();
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonUp = new System.Windows.Forms.Button();
@@ -71,10 +70,6 @@
 			this.checkStartup = new System.Windows.Forms.CheckBox();
 			this.checkVisibilityEdge = new System.Windows.Forms.CheckBox();
 			this.checkVisibilityHeader = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityChange24 = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityValue = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityCoin = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityIcon = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.buttonColorHeaderText = new System.Windows.Forms.Button();
 			this.label13 = new System.Windows.Forms.Label();
@@ -83,7 +78,7 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
-			this.buttonColorValue = new System.Windows.Forms.Button();
+			this.buttonColorValues = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label31 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -262,18 +257,6 @@
 			this.checkCoordsLockPos.Text = "Lock Position";
 			this.toolTip1.SetToolTip(this.checkCoordsLockPos, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
 			this.checkCoordsLockPos.UseVisualStyleBackColor = true;
-			// 
-			// checkVisibilityChange24Pct
-			// 
-			this.checkVisibilityChange24Pct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityChange24Pct.AutoSize = true;
-			this.checkVisibilityChange24Pct.Location = new System.Drawing.Point(339, 102);
-			this.checkVisibilityChange24Pct.Name = "checkVisibilityChange24Pct";
-			this.checkVisibilityChange24Pct.Size = new System.Drawing.Size(102, 17);
-			this.checkVisibilityChange24Pct.TabIndex = 60;
-			this.checkVisibilityChange24Pct.Text = "Percent Visibility";
-			this.toolTip1.SetToolTip(this.checkVisibilityChange24Pct, "Percent refers to change in percentage instead of flat values");
-			this.checkVisibilityChange24Pct.UseVisualStyleBackColor = true;
 			// 
 			// buttonSub
 			// 
@@ -628,7 +611,6 @@
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.Add(this.checkVisibilityChange24Pct);
 			this.tabPage2.Controls.Add(this.numRefreshRate);
 			this.tabPage2.Controls.Add(this.label1);
 			this.tabPage2.Controls.Add(this.buttonDefaultBasic);
@@ -636,10 +618,6 @@
 			this.tabPage2.Controls.Add(this.checkStartup);
 			this.tabPage2.Controls.Add(this.checkVisibilityEdge);
 			this.tabPage2.Controls.Add(this.checkVisibilityHeader);
-			this.tabPage2.Controls.Add(this.checkVisibilityChange24);
-			this.tabPage2.Controls.Add(this.checkVisibilityValue);
-			this.tabPage2.Controls.Add(this.checkVisibilityCoin);
-			this.tabPage2.Controls.Add(this.checkVisibilityIcon);
 			this.tabPage2.Controls.Add(this.groupBox2);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
@@ -737,50 +715,6 @@
 			this.checkVisibilityHeader.Text = "Header Visibility";
 			this.checkVisibilityHeader.UseVisualStyleBackColor = true;
 			// 
-			// checkVisibilityChange24
-			// 
-			this.checkVisibilityChange24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityChange24.AutoSize = true;
-			this.checkVisibilityChange24.Location = new System.Drawing.Point(339, 79);
-			this.checkVisibilityChange24.Name = "checkVisibilityChange24";
-			this.checkVisibilityChange24.Size = new System.Drawing.Size(102, 17);
-			this.checkVisibilityChange24.TabIndex = 47;
-			this.checkVisibilityChange24.Text = "Change Visibility";
-			this.checkVisibilityChange24.UseVisualStyleBackColor = true;
-			// 
-			// checkVisibilityValue
-			// 
-			this.checkVisibilityValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityValue.AutoSize = true;
-			this.checkVisibilityValue.Location = new System.Drawing.Point(339, 56);
-			this.checkVisibilityValue.Name = "checkVisibilityValue";
-			this.checkVisibilityValue.Size = new System.Drawing.Size(92, 17);
-			this.checkVisibilityValue.TabIndex = 46;
-			this.checkVisibilityValue.Text = "Value Visibility";
-			this.checkVisibilityValue.UseVisualStyleBackColor = true;
-			// 
-			// checkVisibilityCoin
-			// 
-			this.checkVisibilityCoin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityCoin.AutoSize = true;
-			this.checkVisibilityCoin.Location = new System.Drawing.Point(339, 33);
-			this.checkVisibilityCoin.Name = "checkVisibilityCoin";
-			this.checkVisibilityCoin.Size = new System.Drawing.Size(86, 17);
-			this.checkVisibilityCoin.TabIndex = 45;
-			this.checkVisibilityCoin.Text = "Coin Visibility";
-			this.checkVisibilityCoin.UseVisualStyleBackColor = true;
-			// 
-			// checkVisibilityIcon
-			// 
-			this.checkVisibilityIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityIcon.AutoSize = true;
-			this.checkVisibilityIcon.Location = new System.Drawing.Point(339, 10);
-			this.checkVisibilityIcon.Name = "checkVisibilityIcon";
-			this.checkVisibilityIcon.Size = new System.Drawing.Size(86, 17);
-			this.checkVisibilityIcon.TabIndex = 44;
-			this.checkVisibilityIcon.Text = "Icon Visibility";
-			this.checkVisibilityIcon.UseVisualStyleBackColor = true;
-			// 
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.buttonColorHeaderText);
@@ -790,7 +724,7 @@
 			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.buttonColorPositiveRefresh);
-			this.groupBox2.Controls.Add(this.buttonColorValue);
+			this.groupBox2.Controls.Add(this.buttonColorValues);
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.label31);
 			this.groupBox2.Controls.Add(this.label6);
@@ -879,12 +813,12 @@
 			// 
 			// buttonColorValue
 			// 
-			this.buttonColorValue.Location = new System.Drawing.Point(273, 50);
-			this.buttonColorValue.Name = "buttonColorValue";
-			this.buttonColorValue.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorValue.TabIndex = 24;
-			this.buttonColorValue.UseVisualStyleBackColor = true;
-			this.buttonColorValue.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorValues.Location = new System.Drawing.Point(273, 50);
+			this.buttonColorValues.Name = "buttonColorValue";
+			this.buttonColorValues.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorValues.TabIndex = 24;
+			this.buttonColorValues.UseVisualStyleBackColor = true;
+			this.buttonColorValues.Click += new System.EventHandler(this.buttonColorPick);
 			// 
 			// label4
 			// 
@@ -1170,14 +1104,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -1186,14 +1120,14 @@
             this.colsGridEnabled});
 			this.colsGrid.Location = new System.Drawing.Point(2, 6);
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
@@ -1202,8 +1136,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle5;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1331,7 +1265,6 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.CheckBox checkVisibilityChange24Pct;
 		private System.Windows.Forms.NumericUpDown numRefreshRate;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button buttonDefaultBasic;
@@ -1339,10 +1272,6 @@
 		private System.Windows.Forms.CheckBox checkStartup;
 		private System.Windows.Forms.CheckBox checkVisibilityEdge;
 		private System.Windows.Forms.CheckBox checkVisibilityHeader;
-		private System.Windows.Forms.CheckBox checkVisibilityChange24;
-		private System.Windows.Forms.CheckBox checkVisibilityValue;
-		private System.Windows.Forms.CheckBox checkVisibilityCoin;
-		private System.Windows.Forms.CheckBox checkVisibilityIcon;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button buttonColorHeaderText;
 		private System.Windows.Forms.Label label13;
@@ -1351,7 +1280,7 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button buttonColorPositiveRefresh;
-		private System.Windows.Forms.Button buttonColorValue;
+		private System.Windows.Forms.Button buttonColorValues;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label31;
 		private System.Windows.Forms.Label label6;

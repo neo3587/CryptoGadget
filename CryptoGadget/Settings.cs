@@ -122,7 +122,9 @@ namespace CryptoGadget {
 																		 ("Low24",			"Low 24h",			"LOW24HOUR"),
 																		 ("Supply",			"Supply",			"SUPPLY"),
 																		 ("MktCap",			"Market Cap",		"MKTCAP"),
-																		 ("LastMarket",		"Last Market",		"LASTMARKET") };
+																		 ("LastMarket",		"Last Market",		"") };
+			public static ValueTuple<string, string, string>[] jsget = props.Where(tp => tp.Item3 != "").ToArray();
+
 			public StColumn Icon { get; set; } = new StColumn(); // skip this on json get
 			public StColumn Coin { get; set; } = new StColumn(); // skip this on json get
 			public StColumn TargetIcon { get; set; } = new StColumn(); // skip this on json get
@@ -180,7 +182,7 @@ namespace CryptoGadget {
 				    _json = (JObject)JToken.ReadFrom(reader);
 				}
 			} catch {
-				Global.DbgPrint("Settings.BindFile");
+				Global.DbgPrint("ERROR: Settings.BindFile");
 				return false;
 			}
 			return true;
@@ -206,7 +208,7 @@ namespace CryptoGadget {
 				Pages      = JsonConvert.DeserializeObject<StPages>(_json["Pages"].ToString());
 				Grid       = JsonConvert.DeserializeObject<StGrid>(_json["Grid"].ToString());
 			} catch(Exception e) {
-				Global.DbgPrint(e.ToString());
+				Global.DbgPrint("ERROR: " + e.ToString());
 				return false;
 			}
 			
@@ -219,13 +221,14 @@ namespace CryptoGadget {
 			if(_file_path.Length == 0)
 				return false;
 			try {
-				using(StreamWriter file = File.CreateText(_file_path))
+				CreateSettFile(_file_path);
+				using(StreamWriter file = new StreamWriter(_file_path))
 				using(JsonTextWriter writer = new JsonTextWriter(file)) {
 					writer.Formatting = Formatting.Indented;
 					_json.WriteTo(writer);
 				}
 			} catch(Exception e) {
-				System.Windows.Forms.MessageBox.Show(e.ToString());
+				Global.DbgPrint("ERROR: " + e.ToString());
 				return false;
 			}
 			return true;
@@ -309,6 +312,7 @@ namespace CryptoGadget {
 				foreach(ValueTuple<string, string, string> prop in StGrid.props) { 
 					(Grid[prop.Item1] as StColumn).Column = prop.Item1;
 					(Grid[prop.Item1] as StColumn).Name = prop.Item2;
+					(Grid[prop.Item1] as StColumn).Digits = 7;
 					(Grid[prop.Item1] as StColumn).Width = 60;
 					(Grid[prop.Item1] as StColumn).Enabled = false;
 				}
@@ -331,21 +335,24 @@ namespace CryptoGadget {
 		}
 		public static bool CreateSettFile(string file_path) {
 			try {
+				if(!Directory.Exists(file_path)) 
+					Directory.CreateDirectory(Path.GetDirectoryName(file_path));
 				using(StreamWriter file = File.CreateText(file_path))
 				using(JsonTextWriter writer = new JsonTextWriter(file)) {
 					new JObject().WriteTo(writer);
 				}
-			} catch {
+			} catch(Exception e) {
+				Global.DbgPrint("ERROR: " + e.ToString());
 				return false;
 			}
 			return true;
 		}
 
-		public bool ContainsConv(int page, string coin, string target) {
-			foreach(StCoin st in Coins[page])
-				if(st.Coin == coin && st.Target == target)
-					return true;
-			return false;
+		public int FindConv(int page, string coin, string target) {
+			for(int i = 0; i < Coins[page].Count; i++)
+				if(Coins[page][i].Coin == coin && Coins[page][i].Target == target)
+					return i;
+			return -1;
 		}
 
 	}

@@ -36,23 +36,23 @@ namespace CryptoGadget {
 			public string Coin { get; set; } // skip this on json get
 			public Bitmap TargetIcon { get; set; } // skip this on json get
 			public string Target { get; set; } // skip this on json get
-			public string Value { get; set; }
-			public string ChangeDay { get; set; }
-			public string ChangeDayPct { get; set; }
-			public string Change24 { get; set; }
-			public string Change24Pct { get; set; }
-			public string VolumeDay { get; set; }
-			public string Volume24 { get; set; }
-			public string TotalVolume24 { get; set; }
-			public string OpenDay { get; set; }
-			public string Open24 { get; set; }
-			public string HighDay { get; set; }
-			public string High24 { get; set; }
-			public string LowDay { get; set; }
-			public string Low24 { get; set; }
-			public string Supply { get; set; }
-			public string MktCap { get; set; }
-			public string LastMarket { get; set; }
+			public string Value { get; set; } = "0";
+			public string ChangeDay { get; set; } = "0";
+			public string ChangeDayPct { get; set; } = "0";
+			public string Change24 { get; set; } = "0";
+			public string Change24Pct { get; set; } = "0";
+			public string VolumeDay { get; set; } = "0";
+			public string Volume24 { get; set; } = "0";
+			public string TotalVolume24 { get; set; } = "0";
+			public string OpenDay { get; set; } = "0";
+			public string Open24 { get; set; } = "0";
+			public string HighDay { get; set; } = "0";
+			public string High24 { get; set; } = "0";
+			public string LowDay { get; set; } = "0";
+			public string Low24 { get; set; } = "0";
+			public string Supply { get; set; } = "0";
+			public string MktCap { get; set; } = "0";
+			public string LastMarket { get; set; } = "?";
 		}
 		
         private System.Threading.Timer _timer_req;
@@ -77,31 +77,41 @@ namespace CryptoGadget {
 				return Math.Round(val, decimals).ToString("0." + new string('0', decimals));
 			};
 
-			List<double> lastValues = new List<double>();
-            foreach(DataGridViewRow row in mainGrid.Rows)
-                lastValues.Add(double.Parse(row.Cells["Value"].Value.ToString()));
+			List<double> last_values = new List<double>();
+			foreach(CoinRow row in _coinGrid)
+				last_values.Add(double.Parse(row.Value));
 
 			JObject json = CCRequest.HttpRequest(_query);
             if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 				try {
-					for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
+					for(int i = 0; i < _coinGrid.Count; i++) {
 						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
-						mainGrid.Rows[i].Cells["Value"].Value = AdaptValue(jtok["PRICE"].ToObject<double>(), Global.Sett.Grid.Value.Digits);
-						//mainGrid.Rows[i].Cells[mainGridChange24.Index].Value = (chg >= 0 ? "+" : "") + AdaptValue(chg, Global.Sett.Digits.Change24);
-						//mainGrid.Rows[i].Cells[mainGridChange24Pct.Index].Value = (per >= 0 ? "+" : "") + AdaptValue(per, Global.Sett.Digits.Change24Pct) + "%";
-						//mainGrid.Rows[i].Cells[mainGridChange24.Index].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-						//mainGrid.Rows[i].Cells[mainGridChange24Pct.Index].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
 
-						
+						foreach(ValueTuple<string, string, string> tp in Settings.StGrid.jsget) 
+							_coinGrid[i][tp.Item1] = AdaptValue(jtok[tp.Item3].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
+						_coinGrid[i].LastMarket = jtok["LASTMARKET"].ToString();
 
-						//UpdateRow(i, jtok["PRICE"].ToObject<double>(), jtok["CHANGE24HOUR"].ToObject<double>(), jtok["CHANGEPCT24HOUR"].ToObject<double>());
+						string[] changes = {"Change24", "Change24Pct", "ChangeDay", "ChangeDayPct"};
+						foreach(string chg in changes) {
+							if((_coinGrid[i][chg] as string)[0] != '-')
+								_coinGrid[i][chg] = "+" + (_coinGrid[i][chg] as string);
+							mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_coinGrid[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+						}
+						_coinGrid[i].Change24Pct  += "%";
+						_coinGrid[i].ChangeDayPct += "%";
 					}
-				} catch { }
+				}
+				catch (Exception e) {
+					Global.DbgPrint(e.Message);
+				}
 			}
-            
 
-            if(Global.Sett.Visibility.Refresh)
-                TimerHighlight(lastValues);
+			try {
+				Invoke((MethodInvoker)delegate { Refresh(); });
+			} catch { return; }
+
+            //if(Global.Sett.Visibility.Refresh)
+				//TimerHighlight(lastValues);
 
             try {
                 _timer_req.Change(Math.Max(0, Global.Sett.Basic.RefreshRate - watch.ElapsedMilliseconds), Global.Sett.Basic.RefreshRate);
@@ -213,6 +223,8 @@ namespace CryptoGadget {
 			}
 			mainGrid.Columns["Icon"].CellTemplate       = new DataGridViewImageCell();
 			mainGrid.Columns["TargetIcon"].CellTemplate = new DataGridViewImageCell();
+			mainGrid.Columns["Icon"].DefaultCellStyle.Alignment		  = DataGridViewContentAlignment.MiddleCenter;
+			mainGrid.Columns["TargetIcon"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
 			mainGrid.AutoGenerateColumns = false;
 
@@ -319,7 +331,7 @@ namespace CryptoGadget {
                 mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 				
-                //_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate); // DEBUG DISABLE
+                _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate); // DEBUG DISABLE
             };
         }
 

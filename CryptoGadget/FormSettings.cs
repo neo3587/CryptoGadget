@@ -88,14 +88,6 @@ namespace CryptoGadget {
 
             return form.coindb;
         }
-
-        /// <summary>
-        /// Reads and checks the CoinList.json or downloads a new one (if corrupted or not available) and triggers a MessageBox if something goes wrong.
-        /// </summary>
-        /// 
-        /// <returns>
-        /// Returns a valid JObject if everything was correct or null otherwise
-        /// </returns>
         private bool GetCoinDB() {
 
             Action<JObject> JsonToFile = (data) => {
@@ -168,18 +160,13 @@ namespace CryptoGadget {
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
 			
 			// for(int i = 0; i < props.Length; i++) 
-			checkVisibilityIcon.DataBindings.Add("Checked", _sett.Visibility, "Icon");
-			checkVisibilityCoin.DataBindings.Add("Checked", _sett.Visibility, "Coin");
-			checkVisibilityValue.DataBindings.Add("Checked", _sett.Visibility, "Value");
-			checkVisibilityChange24.DataBindings.Add("Checked", _sett.Visibility, "Change24");
-			checkVisibilityChange24Pct.DataBindings.Add("Checked", _sett.Visibility, "Change24Pct");
 			checkVisibilityHeader.DataBindings.Add("Checked", _sett.Visibility, "Header");
 			checkVisibilityEdge.DataBindings.Add("Checked", _sett.Visibility, "Edge");
 			checkVisibilityRefresh.DataBindings.Add("Checked", _sett.Visibility, "Refresh");
 
 			// for(int i = 0; i < props.Length; i++) 
 			buttonColorCoin.DataBindings.Add("BackColor", _sett.Color, "Coin");
-			buttonColorValue.DataBindings.Add("BackColor", _sett.Color, "Value");
+			buttonColorValues.DataBindings.Add("BackColor", _sett.Color, "Values");
 			buttonColorBackground1.DataBindings.Add("BackColor", _sett.Color, "Background1");
 			buttonColorBackground2.DataBindings.Add("BackColor", _sett.Color, "Background2");
 			buttonColorPositiveRefresh.DataBindings.Add("BackColor", _sett.Color, "PositiveRefresh");
