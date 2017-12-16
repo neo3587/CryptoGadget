@@ -21,7 +21,7 @@ namespace CryptoGadget {
 
         public bool accept = false;
 
-
+		
         private JObject DownloadCoinDB() {
 			Enabled = false;
             FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.CoinList);
@@ -155,7 +155,7 @@ namespace CryptoGadget {
 				}
 			}
 
-			PropertyInfo[] coin_props = typeof(Settings.StCoin).GetProperties();
+			PropertyInfo[] coin_props = Settings.StCoin.GetProps();
 			for(int i = 0; i < coin_props.Length; i++)
 				coinGrid.Columns[i].DataPropertyName = coin_props[i].Name;
 
@@ -196,16 +196,6 @@ namespace CryptoGadget {
 			checkCoordsLockPos.DataBindings.Add("Checked", _sett.Coords, "LockPos");
 
 			// for(int i = 0; i < props.Length; i++)
-			numDigitsValue.DataBindings.Add("Value", _sett.Digits, "Value");
-			numDigitsChange24.DataBindings.Add("Value", _sett.Digits, "Change24");
-			numDigitsChange24Pct.DataBindings.Add("Value", _sett.Digits, "Change24Pct");
-
-			// for(int i = 0; i < props.Length; i++)
-			numMetricsIcon.DataBindings.Add("Value", _sett.Metrics, "Icon");
-			numMetricsCoin.DataBindings.Add("Value", _sett.Metrics, "Coin");
-			numMetricsValue.DataBindings.Add("Value", _sett.Metrics, "Value");
-			numMetricsChange24.DataBindings.Add("Value", _sett.Metrics, "Change24");
-			numMetricsChange24Pct.DataBindings.Add("Value", _sett.Metrics, "Change24Pct");
 			numMetricsEdge.DataBindings.Add("Value", _sett.Metrics, "Edge");
 			numMetricsHeader.DataBindings.Add("Value", _sett.Metrics, "Header");
 			numMetricsRows.DataBindings.Add("Value", _sett.Metrics, "Rows");
@@ -214,15 +204,13 @@ namespace CryptoGadget {
 			numMetricsRowsValues.DataBindings.Add("Value", _sett.Metrics, "RowsValues");
 
 
-			// experimental
-
-			PropertyInfo[] cols_props = typeof(Settings.StColumn).GetProperties();
+			PropertyInfo[] cols_props = Settings.StColumn.GetProps();
 			for(int i = 0; i < cols_props.Length; i++)
 				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
 
 			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
-			foreach(ValueTuple<string, string, string> prop in Settings.StGrid.props) 
-				bl.Add((Settings.StColumn)_sett.Grid[prop.Item1]);
+			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
+				bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
 
 			BindingSource cols_bind = new BindingSource();
 			cols_bind.DataSource = bl;
@@ -390,7 +378,7 @@ namespace CryptoGadget {
         #region Advanced Tab
 
         private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Digits | Settings.DefaultType.Metrics);
+			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics);
         }
 
         #endregion
@@ -398,15 +386,10 @@ namespace CryptoGadget {
         #region Shared on all Tabs
 
         private void buttonAccept_Click(object sender, EventArgs e) {
-            if(!_sett.Visibility.Icon && !_sett.Visibility.Coin && !_sett.Visibility.Value && !_sett.Visibility.Change24 && !_sett.Visibility.Change24Pct) {
-                MessageBox.Show("One of the following must be enabled: \"Icon Visibility\", \"Coin Visibility\", \"Value Visibility\", \"Change Visibility\" \"Percent Visibility\"", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else {
-				Global.Sett = (Settings)_sett.Clone();
-				Global.Sett.Save();
-                accept = true;
-                Close();
-            }
+			Global.Sett = (Settings)_sett.Clone();
+			Global.Sett.Save();
+            accept = true;
+            Close();
         }
         private void buttonCancel_Click(object sender, EventArgs e) {
             Close();

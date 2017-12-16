@@ -120,13 +120,6 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label20.ToolTip" xml:space="preserve">
-    <value>Number of total digtis (including decimals) that will be shown, 
-per example if the Bitcoin has a price of 1234.56789 USD, 
-by setting this feature to 7 and Max Decimals to 2 it will show 
-only 1234.56, however setting Max Decimals to 4 it will show 
-1234,567 instead of 1234,5678 (because the digit limit is 7).</value>
-  </data>
   <data name="buttonCheck.ToolTip" xml:space="preserve">
     <value>Makes a request with each coin to ensures that everything is correct,
 this is because little amount of coins only accepts a very specific conversion
@@ -143,18 +136,6 @@ this is because little amount of coins only accepts a very specific conversion
         RCkYtYAgGLWAIBjqFvz/DwA+KKs48/tQFwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="coinGridImg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="coinGridCoin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="coinGridTarget.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="coinGridTargetName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="coinGridImg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

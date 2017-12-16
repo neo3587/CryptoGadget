@@ -13,12 +13,13 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
+using System.Reflection;
+using System.ComponentModel;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
@@ -26,19 +27,42 @@ using Microsoft.Win32;
 using neo;
 
 
-
-
-
-
 namespace CryptoGadget {
 
     public partial class FormMain : Form {
 
+		public class CoinRow : Settings._PropGetter<CoinRow> {
+
+			public Bitmap Icon { get; set; } // skip this on json get
+			public string Coin { get; set; } // skip this on json get
+			public Bitmap TargetIcon { get; set; } // skip this on json get
+			public string Target { get; set; } // skip this on json get
+			public string Value { get; set; }
+			public string ChangeDay { get; set; }
+			public string ChangeDayPct { get; set; }
+			public string Change24 { get; set; }
+			public string Change24Pct { get; set; }
+			public string VolumeDay { get; set; }
+			public string Volume24 { get; set; }
+			public string TotalVolume24 { get; set; }
+			public string OpenDay { get; set; }
+			public string Open24 { get; set; }
+			public string HighDay { get; set; }
+			public string High24 { get; set; }
+			public string LowDay { get; set; }
+			public string Low24 { get; set; }
+			public string Supply { get; set; }
+			public string MktCap { get; set; }
+			public string Market { get; set; }
+
+		}
+		
         private System.Threading.Timer _timer_req;
         private volatile bool _timer_disposed = false;
-		private string[] _queries = new string[10];
+		private string _query;
 		private int _page = 0;
-		private Dictionary<string, string> _digit_adapts = new Dictionary<string, string>();
+		private BindingList<CoinRow> _coinGrid = new BindingList<CoinRow>();
+
 
         private void TimerRoutine(object state) {
 
@@ -54,35 +78,29 @@ namespace CryptoGadget {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
 				return Math.Round(val, decimals).ToString("0." + new string('0', decimals));
 			};
-			Action<int, double, double, double> UpdateRow = (row, val, chg, per) => { 
-
-				// for(int i = 0; i < props.Length; i++) && prop.visible && !specialized(?)
-				mainGrid.Rows[row].Cells[mainGridValue.Index].Value = AdaptValue(val, Global.Sett.Digits.Value);
-				mainGrid.Rows[row].Cells[mainGridChange24.Index].Value = (chg >= 0 ? "+" : "") + AdaptValue(chg, Global.Sett.Digits.Change24);
-				mainGrid.Rows[row].Cells[mainGridChange24Pct.Index].Value = (per >= 0 ? "+" : "") + AdaptValue(per, Global.Sett.Digits.Change24Pct) + "%";
-				mainGrid.Rows[row].Cells[mainGridChange24.Index].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-				mainGrid.Rows[row].Cells[mainGridChange24Pct.Index].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-			};
 
 			List<double> lastValues = new List<double>();
             foreach(DataGridViewRow row in mainGrid.Rows)
-                lastValues.Add(double.Parse(row.Cells[mainGridValue.Index].Value.ToString()));
-            
-            try {
-				JObject json = CCRequest.HttpRequest(_queries[_page]);
-                if(json == null || json["Response"]?.ToString().ToLower() == "error") {
-                    for(int i = 0; i < Global.Sett.Coins[_page].Count; i++)
-                        UpdateRow(i, 0.00, 0.00, 0.00);
-                }
-                else  {
-                    for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
+                lastValues.Add(double.Parse(row.Cells["Value"].Value.ToString()));
+
+			JObject json = CCRequest.HttpRequest(_query);
+            if(json != null && json["Response"]?.ToString().ToLower() != "error") {
+				try {
+					for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
 						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
-						UpdateRow(i, jtok["PRICE"].ToObject<double>(),
-                                     jtok["CHANGE24HOUR"].ToObject<double>(),
-                                     jtok["CHANGEPCT24HOUR"].ToObject<double>());
-                    }
-                }
-            } catch { }
+						mainGrid.Rows[i].Cells["Value"].Value = AdaptValue(jtok["PRICE"].ToObject<double>(), Global.Sett.Grid.Value.Digits);
+						//mainGrid.Rows[i].Cells[mainGridChange24.Index].Value = (chg >= 0 ? "+" : "") + AdaptValue(chg, Global.Sett.Digits.Change24);
+						//mainGrid.Rows[i].Cells[mainGridChange24Pct.Index].Value = (per >= 0 ? "+" : "") + AdaptValue(per, Global.Sett.Digits.Change24Pct) + "%";
+						//mainGrid.Rows[i].Cells[mainGridChange24.Index].Style.ForeColor = chg >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+						//mainGrid.Rows[i].Cells[mainGridChange24Pct.Index].Style.ForeColor = per >= 0.0 ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+
+						
+
+						//UpdateRow(i, jtok["PRICE"].ToObject<double>(), jtok["CHANGE24HOUR"].ToObject<double>(), jtok["CHANGEPCT24HOUR"].ToObject<double>());
+					}
+				} catch { }
+			}
+            
 
             if(Global.Sett.Visibility.Refresh)
                 TimerHighlight(lastValues);
@@ -157,13 +175,11 @@ namespace CryptoGadget {
             Size = new Size(X + edge * 2, Y + edge * 2);
         }
         private void GridInit() {
-
+			
 			mainGrid.Rows.Clear();
 
-			for(int i = 0; i < Global.Sett.Pages.Size; i++) {
-				_queries[i] = CCRequest.ConvertQuery(Global.Sett.Coins[i]);
-			}
 			_page = Global.Sett.Pages.Default;
+			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 
 			if(Global.Json == null && File.Exists(Global.JsonLocation)) {
                 Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
@@ -173,27 +189,24 @@ namespace CryptoGadget {
 
 			RowsInit();
 
-            #region Metrics & Visibility
+			BindingSource coin_bind = new BindingSource();
+			coin_bind.DataSource = _coinGrid;
+			mainGrid.DataSource = coin_bind;
 
-			// for(int i = 0; i < props.length; i++) 
-            mainGrid.Columns[0].Width = Global.Sett.Metrics.Icon;
-            mainGrid.Columns[1].Width = Global.Sett.Metrics.Coin;
-            mainGrid.Columns[2].Width = Global.Sett.Metrics.Value;
-            mainGrid.Columns[3].Width = Global.Sett.Metrics.Change24;
-            mainGrid.Columns[4].Width = Global.Sett.Metrics.Change24Pct;
-            mainGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
+			#region Metrics & Visibility
+
+			mainGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
             mainGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.HeaderText);
             mainGrid.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.RowsValues);
 
             foreach(DataGridViewRow row in mainGrid.Rows)
                 row.Height = Global.Sett.Metrics.Rows;
 
-			// for(int i = 0; i < props.length; i++) 
-			mainGrid.Columns[0].Visible = Global.Sett.Visibility.Icon;
-            mainGrid.Columns[1].Visible = Global.Sett.Visibility.Coin;
-            mainGrid.Columns[2].Visible = Global.Sett.Visibility.Value;
-            mainGrid.Columns[3].Visible = Global.Sett.Visibility.Change24;
-            mainGrid.Columns[4].Visible = Global.Sett.Visibility.Change24Pct;
+			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) {
+				//mainGrid.Columns[prop.Name].Visible = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Enabled; // DEBUG DISABLE
+				mainGrid.Columns[prop.Name].Width   = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Width;
+			}
+			
             mainGrid.ColumnHeadersVisible = Global.Sett.Visibility.Header;
 
             #endregion
@@ -203,7 +216,7 @@ namespace CryptoGadget {
             mainGrid.RowsDefaultCellStyle.BackColor = Global.Sett.Color.Background1;
             mainGrid.AlternatingRowsDefaultCellStyle.BackColor = Global.Sett.Color.Background2;
             mainGrid.Columns[1].DefaultCellStyle.ForeColor = Global.Sett.Color.Coin;
-            mainGrid.Columns[2].DefaultCellStyle.ForeColor = Global.Sett.Color.Value;
+            mainGrid.Columns[2].DefaultCellStyle.ForeColor = Global.Sett.Color.Values;
 
             mainGrid.ColumnHeadersDefaultCellStyle.ForeColor = Global.Sett.Color.HeaderText;
             mainGrid.ColumnHeadersDefaultCellStyle.BackColor = Global.Sett.Color.HeaderBackground;
@@ -242,38 +255,24 @@ namespace CryptoGadget {
         }
 		private void RowsInit() {
 
-			// Context Menu, Tooltip and static data init.
-			foreach(Settings.StCoin st in Global.Sett.Coins[_page]) {
+			_coinGrid = new BindingList<CoinRow>();
 
-				int index = mainGrid.Rows.Add(Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize), st.Coin, 0.00, 0.00);
+			for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
 
-				// Context Menu 
-
-				ContextMenuStrip cm = new ContextMenuStrip();
+				Settings.StCoin st = Global.Sett.Coins[_page][i];
+				CoinRow coin = new CoinRow();
 
 				if(Global.Json != null) {
-					JToken coin = Global.Json["Data"][st.Coin];
-					if(coin != null && coin["Url"] != null) {
-						cm.Items.Add(new ToolStripMenuItem(st.Coin + " website", null, (sender, e) => Process.Start("https://www.cryptocompare.com" + coin["Url"])));
-						cm.Items.Add(new ToolStripSeparator());
-					}
 					st.CoinName   = Global.Json["Data"][st.Coin]["CoinName"].ToString();
 					st.TargetName = Global.Json["Data"][st.Target]["CoinName"].ToString();
 				}
 
-				cm.Items.Add("Settings", null, contextMenuSettings_Click);
-				cm.Items.Add("Hide", null, contextMenuHide_Click);
-				cm.Items.Add("Exit", null, contextMenuExit_Click);
+				coin.Icon		= Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize);
+				coin.Coin		= st.Coin;
+				coin.TargetIcon = Global.IconResize(Global.GetIcon(st.Target), Global.Sett.Metrics.IconSize);
+				coin.Target     = st.Target;
 
-				mainGrid.Rows[index].ContextMenuStrip = cm;
-
-				// Name Tooltip
-				if(Global.Json != null) {
-					string name = Global.Json["Data"][st.Coin]["CoinName"].ToString();
-					foreach(DataGridViewCell cell in mainGrid.Rows[index].Cells)
-						cell.ToolTipText = name;
-				}
-
+				_coinGrid.Add(coin);
 			}
 
 		}
@@ -285,15 +284,11 @@ namespace CryptoGadget {
             notifyIcon.Text = typeof(FormMain).Assembly.GetName().Name + " " + typeof(FormMain).Assembly.GetName().Version;
             notifyIcon.Text = notifyIcon.Text.Remove(notifyIcon.Text.Length - 2);
 
-			#if DEBUG
-			File.Delete(Global.IniLocation);
-			#endif
-
 			Load += (sender, e) => {
 				
-				if(!Global.Sett.BindFile(Global.IniLocation)) {
-					Settings.CreateIni(Global.IniLocation);
-					Global.Sett.BindFile(Global.IniLocation);
+				if(!Global.Sett.BindFile(Global.ProfilesLocation + "Default.json")) {
+					Settings.CreateSettFile(Global.ProfilesLocation + "Default.json");
+					Global.Sett.BindFile(Global.ProfilesLocation + "Default.json");
 					Global.Sett.Default();
 					Global.Sett.Store();
 					Global.Sett.Save();
@@ -311,8 +306,8 @@ namespace CryptoGadget {
 
                 mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
-
-                _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
+				
+                //_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
             };
         }
 
@@ -358,15 +353,34 @@ namespace CryptoGadget {
 			}
         }
 
-        private void coinGrid_SelectionChanged(object sender, EventArgs e) {
+        private void mainGrid_SelectionChanged(object sender, EventArgs e) {
             mainGrid.ClearSelection();
         }
-    }
 
-    /// <summary>
-    /// Adds a double buffer to the grid (avoids flickering)
-    /// </summary>
-    public static class DataGridViewExtensioncs {
+		private void mainGrid_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e) {
+
+			ContextMenuStrip cm = new ContextMenuStrip();
+			DataGridViewRow row = mainGrid.Rows[e.RowIndex];
+			if(Global.Json != null) {
+				JToken jtok = Global.Json["Data"][row.Cells["Coin"].Value];
+				if(jtok != null && jtok["Url"] != null) {
+					cm.Items.Add(new ToolStripMenuItem(row.Cells["Coin"].Value + " website", null, (ts_sender, ts_e) => Process.Start("https://www.cryptocompare.com" + jtok["Url"])));
+					cm.Items.Add(new ToolStripSeparator());
+				}
+			}
+
+			cm.Items.Add("Settings", null, contextMenuSettings_Click);
+			cm.Items.Add("Hide", null, contextMenuHide_Click);
+			cm.Items.Add("Exit", null, contextMenuExit_Click);
+
+			e.ContextMenuStrip = cm;
+		}
+	}
+
+	/// <summary>
+	/// Adds a double buffer to the grid (avoids flickering)
+	/// </summary>
+	public static class DataGridViewExtensioncs {
         public static void DoubleBuffered(this DataGridView dgv, bool setting) {
             Type dgvType = dgv.GetType();
             dgvType.GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(dgv, setting, null);

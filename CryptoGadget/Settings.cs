@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
 using System.Drawing;
 
 using IniParser.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 
@@ -13,14 +16,22 @@ namespace CryptoGadget {
 
 	public class Settings : ICloneable {
 
-		public class StCoin {
-			public static string[] props = {"Coin", "Target", "AlarmUp", "AlarmDown", "GraphPosX", "GraphPosY", "GraphSizeX", "GraphSizeY",
-											"GraphLockPos", "GraphExitSave", "GraphRefreshRate", "GraphStartup"};
-			public class StAlarm {
+		public class _PropGetter<T> {
+			public static PropertyInfo[] GetProps() {
+				return typeof(T).GetProperties().Where(p => p.GetIndexParameters().Length == 0).ToArray();
+			}
+			public object this[string prop] {
+				get { return GetType().GetProperty(prop).GetValue(this, null); }
+				set { GetType().GetProperty(prop).SetValue(this, value, null); }
+			}
+		}
+
+		public class StCoin : _PropGetter<StCoin> {
+			public class StAlarm : _PropGetter<StAlarm> {
 				public float Up { get; set; }
 				public float Down { get; set; }
 			}
-			public class StGraph {
+			public class StGraph : _PropGetter<StAlarm> {
 				public int PosX { get; set; }
 				public int PosY { get; set; }
 				public int SizeX { get; set; }
@@ -38,123 +49,36 @@ namespace CryptoGadget {
 			public StAlarm Alarm = new StAlarm();
 			public StGraph Graph = new StGraph();
 		}
-		public class StBasic {
+		public class StBasic : _PropGetter<StBasic> {
 			public int RefreshRate { get; set; }
 			public bool Startup { get; set; }
 		}
-		public class StVisibility {
-			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
-											"VolumeDay", "VolumeDay", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
-											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Refresh"};
-			public object this[string prop] {
-				get { return GetType().GetProperty(prop).GetValue(this, null); }
-				set { GetType().GetProperty(prop).SetValue(this, value, null); }
-			}
-			public bool Icon { get; set; }
-			public bool Coin { get; set; }
-			public bool Value { get; set; }
-			public bool ChangeDay { get; set; }
-			public bool ChangeDayPct { get; set; }
-			public bool Change24 { get; set; }
-			public bool Change24Pct { get; set; }
-			public bool VolumeDay { get; set; }
-			public bool Volume24 { get; set; }
-			public bool TotalVolume24 { get; set; }
-			public bool OpenDay { get; set; }
-			public bool Open24 { get; set; }
-			public bool HighDay { get; set; }
-			public bool High24 { get; set; }
-			public bool LowDay { get; set; }
-			public bool Low24 { get; set; }
-			public bool Supply { get; set; }
-			public bool MktCap { get; set; }
+		public class StVisibility : _PropGetter<StVisibility> {
 			public bool Header { get; set; }
 			public bool Edge { get; set; }
 			public bool Refresh { get; set; }
 		}
-		public class StColor {
-			public static string[] props = {"Coin", "Value", "PositiveChange", "NegativeChange", "Volume", "Open", "High", "Low",
-											"Supply", "MktCap", "Background1", "Background2", "PositiveRefresh", "NegativeRefresh",
-											"HeaderText", "HeaderBackground", "Edge"};
-			public object this[string prop] {
-				get { return GetType().GetProperty(prop).GetValue(this, null); }
-				set { GetType().GetProperty(prop).SetValue(this, value, null); }
-			}
+		public class StColor : _PropGetter<StColor> {
 			public Color Coin { get; set; }
-			public Color Value { get; set; }
+			public Color Values { get; set; }
 			public Color PositiveChange { get; set; }
 			public Color NegativeChange { get; set; }
-			public Color Volume { get; set; }
-			public Color Open { get; set; }
-			public Color High { get; set; }
-			public Color Low { get; set; }
-			public Color Supply { get; set; }
-			public Color MktCap { get; set; }
 			public Color Background1 { get; set; }
 			public Color Background2 { get; set; }
 			public Color PositiveRefresh { get; set; }
 			public Color NegativeRefresh { get; set; }
 			public Color HeaderText { get; set; }
+			public Color RowsText { get; set; }
 			public Color HeaderBackground { get; set; }
 			public Color Edge { get; set; }
 		}
-		public class StCoords {
+		public class StCoords : _PropGetter<StCoords> {
 			public int PosX { get; set; }
 			public int PosY { get; set; }
 			public bool ExitSave { get; set; }
 			public bool LockPos { get; set; }
 		}
-		public class StDigits {
-			public static string[] props = {"Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct", "VolumeDay", "Volume24", "TotalVolume24",
-											"OpenDay", "Open24", "HighDay", "High24", "LowDay", "Low24", "Supply", "MktCap"};
-			public object this[string prop] {
-				get { return GetType().GetProperty(prop).GetValue(this, null); }
-				set { GetType().GetProperty(prop).SetValue(this, value, null); }
-			}
-			public int Value { get; set; }
-			public int ChangeDay { get; set; }
-			public int ChangeDayPct { get; set; }
-			public int Change24 { get; set; }
-			public int Change24Pct { get; set; }
-			public int VolumeDay { get; set; }
-			public int Volume24 { get; set; }
-			public int TotalVolume24 { get; set; }
-			public int OpenDay { get; set; }
-			public int Open24 { get; set; }
-			public int HighDay { get; set; }
-			public int High24 { get; set; }
-			public int LowDay { get; set; }
-			public int Low24 { get; set; }
-			public int Supply { get; set; }
-			public int MktCap { get; set; }
-		}
-		public class StMetrics {
-			public static string[] props = {"Icon", "Coin", "Value", "ChangeDay", "ChangeDayPct", "Change24", "Change24Pct",
-											"VolumeDay", "Volume24", "TotalVolume24", "OpenDay", "Open24", "HighDay", "High24",
-											"LowDay", "Low24", "Supply", "MktCap", "Header", "Edge", "Rows", "IconSize",
-											"HeaderText", "RowsValues"};
-			public object this[string prop] {
-				get { return GetType().GetProperty(prop).GetValue(this, null); }
-				set { GetType().GetProperty(prop).SetValue(this, value, null); }
-			}
-			public int Icon { get; set; }
-			public int Coin { get; set; }
-			public int Value { get; set; }
-			public int ChangeDay { get; set; }
-			public int ChangeDayPct { get; set; }
-			public int Change24 { get; set; }
-			public int Change24Pct { get; set; }
-			public int VolumeDay { get; set; }
-			public int Volume24 { get; set; }
-			public int TotalVolume24 { get; set; }
-			public int OpenDay { get; set; }
-			public int Open24 { get; set; }
-			public int HighDay { get; set; }
-			public int High24 { get; set; }
-			public int LowDay { get; set; }
-			public int Low24 { get; set; }
-			public int Supply { get; set; }
-			public int MktCap { get; set; }
+		public class StMetrics : _PropGetter<StMetrics> {
 			public int Header { get; set; }
 			public int Edge { get; set; }
 			public int Rows { get; set; }
@@ -162,28 +86,26 @@ namespace CryptoGadget {
 			public float HeaderText { get; set; }
 			public float RowsValues { get; set; }
 		}
-		public class StPages {
+		public class StPages : _PropGetter<StPages> {
 			public int Size { get; set; }
 			public int Default { get; set; }
 			public bool Rotate { get; set; }
 			public float RotateRate { get; set; }
 		}
 
-		// try at this way better ? -> use a datagrid with textbox + checkbox and separate special members Metrics(HeaderText, RowsValues, Header, Edge, Rows, IconSize), Visibility(Header, Edge, Refresh)
-		// joins: visibility, digits and metrics
-		public class StColumn {
+		public class StColumn : _PropGetter<StColumn> {
 			public string Column { get; set; }
 			public string Name { get; set; }
 			public int Width { get; set; }
 			public int Digits { get; set; }
 			public bool Enabled { get; set; }
 		}
-		public class StGrid {
+		public class StGrid : _PropGetter<StGrid> {
 			// <PropertyName, ShownName, JsonName>
-			public static ValueTuple<string, string, string>[] props = { ("Icon",			"Icon",				""),
-																		 ("Coin",			"Coin",				"FROMSYMBOL"),
-																		 ("TargetIcon",		"Icon2",			""),
-																		 ("Target",			"Target",			"TOSYMBOL"),
+			public static ValueTuple<string, string, string>[] props = { ("Icon",			"",					""),
+																		 ("Coin",			"Coin",				""),
+																		 ("TargetIcon",		"",					""),
+																		 ("Target",			"Target",			""),
 																		 ("Value",			"Value",			"PRICE"),
 																		 ("ChangeDay",		"Change Day",		"CHANGEDAY"),
 																		 ("ChangeDayPct",	"Change Day (%)",	"CHANGEPCTDAY"),
@@ -201,14 +123,10 @@ namespace CryptoGadget {
 																		 ("Supply",			"Supply",			"SUPPLY"),
 																		 ("MktCap",			"Market Cap",		"MKTCAP"),
 																		 ("Market",			"Market",			"lASTMARKET") };
-			public object this[string prop] {
-				get { return GetType().GetProperty(prop).GetValue(this, null); }
-				set { GetType().GetProperty(prop).SetValue(this, value, null); }
-			}
 			public StColumn Icon { get; set; } = new StColumn(); // skip this on json get
-			public StColumn Coin { get; set; } = new StColumn();
+			public StColumn Coin { get; set; } = new StColumn(); // skip this on json get
 			public StColumn TargetIcon { get; set; } = new StColumn(); // skip this on json get
-			public StColumn Target { get; set; } = new StColumn();
+			public StColumn Target { get; set; } = new StColumn(); // skip this on json get
 			public StColumn Value { get; set; } = new StColumn();
 			public StColumn ChangeDay { get; set; } = new StColumn();
 			public StColumn ChangeDayPct { get; set; } = new StColumn();
@@ -235,7 +153,6 @@ namespace CryptoGadget {
 			ColorLight = 0x0008,
 			ColorDark  = 0x0010,
 			Coords     = 0x0020,
-			Digits     = 0x0040,
 			Metrics    = 0x0080,
 			Pages      = 0x0100,
 			Grid       = 0x0200,
@@ -248,18 +165,20 @@ namespace CryptoGadget {
 		public StVisibility Visibility = new StVisibility();
 		public StColor Color		   = new StColor();
 		public StCoords Coords		   = new StCoords();
-		public StDigits Digits		   = new StDigits();
 		public StMetrics Metrics	   = new StMetrics();
 		public StPages Pages		   = new StPages();
 		public StGrid Grid             = new StGrid();
 
 		private string _file_path = "";
-		private IniData _ini = new IniData();
+		private JObject _json = new JObject();
 
 		public bool BindFile(string file_path) {
 			_file_path = file_path;
 			try {
-				_ini = new IniParser.FileIniDataParser().ReadFile(file_path);
+				using(StreamReader file = File.OpenText(@"c:\videogames.json"))
+				using(JsonTextReader reader = new JsonTextReader(file)) { 
+				    _json = (JObject)JToken.ReadFrom(reader);
+				}
 			} catch {
 				Global.DbgPrint("Settings.BindFile");
 				return false;
@@ -268,29 +187,6 @@ namespace CryptoGadget {
 		}
 		public bool Load() {
 
-			Func<IniData, bool> MissingAttr = (data) => {
-				Settings check = new Settings();
-				check.Default(~DefaultType.Coins);
-				check.Store();
-				foreach(SectionData sect in check._ini.Sections) {
-					if(!data.Sections.ContainsSection(sect.SectionName))
-						return true;
-					foreach(KeyData key in sect.Keys)
-						if(!sect.Keys.ContainsKey(key.KeyName))
-							return true;
-				}
-				for(int i = 0; i < 10; i++) {
-					foreach(KeyData coin in _ini["Page" + i.ToString()]) {
-						if(!_ini.Sections.ContainsSection(coin.Value))
-							return true;
-						KeyDataCollection coin_sect = _ini[coin.Value];
-						foreach(string prop in StCoin.props)
-							if(!coin_sect.ContainsKey(prop))
-								return true;
-					}
-				}
-				return false;
-			};
 			Func<string, Func<T, bool>, T> AssignRule<T>() where T : IConvertible {
 				return (data, fn) => {
 					T value = (T)Convert.ChangeType(data, default(T).GetTypeCode());
@@ -300,128 +196,36 @@ namespace CryptoGadget {
 				};
 			};
 
-			if(MissingAttr(_ini)) {
-				Global.DbgPrint("Settings.MissingAttr");
-				return false;
-			}
-
 			try {
-
-				Coins = CreateCoinList();
-
-				Basic.RefreshRate = AssignRule<int>()(_ini["Basic"]["RefreshRate"], (x) => x >= 1);
-				Basic.Startup	  = bool.Parse(_ini["Basic"]["Startup"]);
-
-				Coords.PosX		= int.Parse(_ini["Coords"]["PosX"]);
-				Coords.PosY		= int.Parse(_ini["Coords"]["PosY"]);
-				Coords.LockPos  = bool.Parse(_ini["Coords"]["LockPos"]);
-				Coords.ExitSave = bool.Parse(_ini["Coords"]["ExitSave"]);
-
-				Pages.Size		 = AssignRule<int>()(_ini["Pages"]["Size"], (x) => (x >= 1 && x <= 10));
-				Pages.Default    = AssignRule<int>()(_ini["Pages"]["Default"], (x) => (x >= 0 && x < Pages.Size));
-				Pages.Rotate	 = bool.Parse(_ini["Pages"]["Rotate"]);
-				Pages.RotateRate = AssignRule<int>()(_ini["Pages"]["RotateRate"], (x) => x >= 1);
-
-				foreach(string prop in StVisibility.props) { 
-					Visibility[prop] = bool.Parse(_ini["Visibility"][prop]);
-				}
-				foreach(string prop in StColor.props) {
-					Color[prop] = Global.StrHexToColor(_ini["Color"][prop]);
-				}
-				foreach(string prop in StDigits.props) {
-					Digits[prop] = AssignRule<int>()(_ini["Digits"][prop], (x) => x >= 1);
-				}
-				foreach(string prop in StMetrics.props) {
-					try {
-						Metrics[prop] = AssignRule<int>()(_ini["Metrics"][prop], (x) => x >= 1);
-					} 
-					catch {
-						Metrics[prop] = AssignRule<float>()(_ini["Metrics"][prop], (x) => x >= 1.0f);
-					}
-				}
-
-				for(int i = 0; i < 10; i++) {
-					foreach(KeyData coin_sectname in _ini["Page" + i.ToString()]) {
-						KeyDataCollection coin = _ini[coin_sectname.Value];
-						StCoin st = new StCoin();
-						st.Coin			  = coin["Coin"];
-						st.Target		  = coin["Target"];
-						st.Alarm.Up		  = AssignRule<int>()(coin["AlarmUp"], (x) => x >= 0);
-						st.Alarm.Down	  = AssignRule<int>()(coin["AlarmDown"], (x) => x >= 0);
-						st.Graph.PosX	  = int.Parse(coin["GraphPosX"]);
-						st.Graph.PosY	  = int.Parse(coin["GraphPosY"]);
-						st.Graph.SizeX	  = AssignRule<int>()(coin["GraphSizeX"], (x) => x >= 0);
-						st.Graph.SizeY	  = AssignRule<int>()(coin["GraphSizeY"], (x) => x >= 0);
-						st.Graph.LockPos  = bool.Parse(coin["GraphLockPos"]);
-						st.Graph.ExitSave = bool.Parse(coin["GraphExitSave"]);
-						st.Graph.RefreshRate = int.Parse(coin["GraphRefreshRate"]);
-						st.Graph.Startup  = bool.Parse(coin["GraphStartup"]);
-						Coins[i].Add(st);
-					}
-				}
-
+				Coins      = JsonConvert.DeserializeObject<CoinList[]>(_json["Coins"].ToString());
+				Basic	   = JsonConvert.DeserializeObject<StBasic>(_json["Basic"].ToString());
+				Visibility = JsonConvert.DeserializeObject<StVisibility>(_json["Visibility"].ToString());
+				Color	   = JsonConvert.DeserializeObject<StColor>(_json["Color"].ToString());
+				Coords     = JsonConvert.DeserializeObject<StCoords>(_json["Coords"].ToString());
+				Metrics    = JsonConvert.DeserializeObject<StMetrics>(_json["Metrics"].ToString());
+				Pages      = JsonConvert.DeserializeObject<StPages>(_json["Pages"].ToString());
+				Grid       = JsonConvert.DeserializeObject<StGrid>(_json["Grid"].ToString());
 			} catch(Exception e) {
 				Global.DbgPrint(e.ToString());
 				return false;
 			}
-
+			
 			return true;
 		}
 		public void Store() {
-
-			_ini = new IniData();
-
-			_ini["Basic"]["RefreshRate"] = Basic.RefreshRate.ToString();
-			_ini["Basic"]["Startup"]	 = Basic.Startup.ToString();
-
-			_ini["Coords"]["PosX"]     = Coords.PosX.ToString();
-			_ini["Coords"]["PosY"]	   = Coords.PosY.ToString();
-			_ini["Coords"]["LockPos"]  = Coords.LockPos.ToString();
-			_ini["Coords"]["ExitSave"] = Coords.ExitSave.ToString();
-
-			_ini["Pages"]["Size"]		= Pages.Size.ToString();
-			_ini["Pages"]["Default"]    = Pages.Default.ToString();
-			_ini["Pages"]["Rotate"]		= Pages.Rotate.ToString();
-			_ini["Pages"]["RotateRate"] = Pages.RotateRate.ToString();
-
-			foreach(string prop in StVisibility.props)
-				_ini["Visibility"][prop] = Visibility[prop].ToString();
-			foreach(string prop in StColor.props)
-				_ini["Color"][prop] = Global.ColorToStrHex((Color)Color[prop]);
-			foreach(string prop in StDigits.props) 
-				_ini["Digits"][prop] = Digits[prop].ToString();
-			foreach(string prop in StMetrics.props)
-				_ini["Metrics"][prop] = Metrics[prop].ToString();
-
-			for(int i = 0; i < 10; i++) {
-				string strp = "Page" + i.ToString();
-				KeyDataCollection page = _ini[strp];
-				foreach(StCoin st in Coins[i]) {
-					string strconv = st.Coin + "_" + st.Target;
-					page[strconv]  = strp + "_" + strconv;
-					KeyDataCollection coin = _ini[strp + "_" + strconv];
-					coin["Coin"]		  = st.Coin;
-					coin["Target"]		  = st.Target;
-					coin["AlarmUp"]		  = st.Alarm.Up.ToString();
-					coin["AlarmDown"]	  = st.Alarm.Down.ToString();
-					coin["GraphPosX"]	  = st.Graph.PosX.ToString();
-					coin["GraphPosY"]	  = st.Graph.PosY.ToString();
-					coin["GraphSizeX"]	  = st.Graph.SizeX.ToString();
-					coin["GraphSizeY"]	  = st.Graph.SizeY.ToString();
-					coin["GraphLockPos"]  = st.Graph.LockPos.ToString();
-					coin["GraphExitSave"] = st.Graph.ExitSave.ToString();
-					coin["GraphRefreshRate"] = st.Graph.RefreshRate.ToString();
-					coin["GraphStartup"]  = st.Graph.Startup.ToString();
-				}
-			}
-
+			_json = JObject.Parse(JsonConvert.SerializeObject(this));
 		}
 		public bool Save() {
 			if(_file_path.Length == 0)
 				return false;
 			try {
-				new IniParser.FileIniDataParser().WriteFile(_file_path, _ini);
-			} catch {
+				using(StreamWriter file = File.CreateText(_file_path))
+				using(JsonTextWriter writer = new JsonTextWriter(file)) {
+					writer.Formatting = Formatting.Indented;
+					_json.WriteTo(writer);
+				}
+			} catch(Exception e) {
+				System.Windows.Forms.MessageBox.Show(e.ToString());
 				return false;
 			}
 			return true;
@@ -429,7 +233,6 @@ namespace CryptoGadget {
 		public void Default(DefaultType type = DefaultType.All) {
 			if((type & DefaultType.Coins) != 0) {
 				Coins = CreateCoinList();
-				
 				string[] coins = { "BTC", "ETH", "ETC", "LTC", "ZEC", "VTC", "LBC", "DASH", "XMR", "DOGE" };
 				foreach(string coin in coins) {
 					StCoin st = new StCoin();
@@ -451,19 +254,13 @@ namespace CryptoGadget {
 				Basic.Startup		  = false;
 			}
 			if((type & DefaultType.Visibility) != 0) {
-				foreach(string prop in StVisibility.props)
-					Visibility[prop] = false;
-				Visibility.Icon		= true;
-				Visibility.Coin		= true;
-				Visibility.Value	= true;
-				Visibility.Change24 = true;
 				Visibility.Edge     = true;
 				Visibility.Header   = true;
 				Visibility.Refresh  = true;
 			}
 			if((type & DefaultType.ColorLight) != 0) {
-				foreach(string prop in StColor.props)
-					Color[prop] = Global.StrHexToColor("FF000000");
+				foreach(PropertyInfo prop in StColor.GetProps())
+					Color[prop.Name] = Global.StrHexToColor("FF000000");
 				Color.Background1	   = Global.StrHexToColor("FFF3F7F7");
 				Color.Background2	   = Global.StrHexToColor("FFFFFFFF");
 				Color.PositiveRefresh  = Global.StrHexToColor("FFCEEBD3");
@@ -475,8 +272,8 @@ namespace CryptoGadget {
 				Color.HeaderBackground = Global.StrHexToColor("FFF0F0F0");
 			}
 			else if((type & DefaultType.ColorDark) != 0) {
-				foreach(string prop in StColor.props)
-					Color[prop] = Global.StrHexToColor("FFDADADA");
+				foreach(PropertyInfo prop in StColor.GetProps())
+					Color[prop.Name] = Global.StrHexToColor("FFDADADA");
 				Color.Background1	   = Global.StrHexToColor("FF1E1E1E");
 				Color.Background2	   = Global.StrHexToColor("FF2F2F2F");
 				Color.PositiveRefresh  = Global.StrHexToColor("FF3A8F49");
@@ -494,15 +291,7 @@ namespace CryptoGadget {
 				Coords.LockPos  = false;
 				Coords.ExitSave = true;
 			}
-			if((type & DefaultType.Digits) != 0) {
-				foreach(string prop in StDigits.props) 
-					Digits[prop] = 7;
-			}
 			if((type & DefaultType.Metrics) != 0) {
-				foreach(string prop in StMetrics.props)
-					Metrics[prop] = 60;
-				Metrics.Icon	 = 25;
-				Metrics.Coin	 = 40;
 				Metrics.Edge	 = 2;
 				Metrics.Header	 = 15;
 				Metrics.Rows	 = 22;
@@ -526,6 +315,8 @@ namespace CryptoGadget {
 				Grid.Icon.Enabled = Grid.Coin.Enabled = Grid.Value.Enabled = Grid.Change24.Enabled = true;
 				Grid.Icon.Width = 25;
 				Grid.Coin.Width = 45;
+				Grid.TargetIcon.Width = 25;
+				Grid.Target.Width     = 45;
 			}
 		}
 		public object Clone() {
@@ -538,9 +329,12 @@ namespace CryptoGadget {
 				ret[i] = new CoinList();
 			return ret;
 		}
-		public static bool CreateIni(string file_path) {
+		public static bool CreateSettFile(string file_path) {
 			try {
-				new IniParser.FileIniDataParser().WriteFile(file_path, new IniData());
+				using(StreamWriter file = File.CreateText(file_path))
+				using(JsonTextWriter writer = new JsonTextWriter(file)) {
+					new JObject().WriteTo(writer);
+				}
 			} catch {
 				return false;
 			}

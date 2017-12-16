@@ -27,11 +27,6 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.mainGrid = new System.Windows.Forms.DataGridView();
-			this.mainGridImg = new System.Windows.Forms.DataGridViewImageColumn();
-			this.mainGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.mainGridValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.mainGridChange24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.mainGridChange24Pct = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.contextMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,12 +46,6 @@
 			this.mainGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
 			this.mainGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.mainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			this.mainGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.mainGridImg,
-            this.mainGridName,
-            this.mainGridValue,
-            this.mainGridChange24,
-            this.mainGridChange24Pct});
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -78,49 +67,8 @@
 			this.mainGrid.ShowRowErrors = false;
 			this.mainGrid.Size = new System.Drawing.Size(182, 22);
 			this.mainGrid.TabIndex = 0;
-			this.mainGrid.SelectionChanged += new System.EventHandler(this.coinGrid_SelectionChanged);
-			// 
-			// mainGridImg
-			// 
-			this.mainGridImg.FillWeight = 78.32401F;
-			this.mainGridImg.HeaderText = "";
-			this.mainGridImg.Name = "mainGridImg";
-			this.mainGridImg.ReadOnly = true;
-			this.mainGridImg.Width = 25;
-			// 
-			// mainGridName
-			// 
-			this.mainGridName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.mainGridName.FillWeight = 91.44361F;
-			this.mainGridName.HeaderText = "Coin";
-			this.mainGridName.MaxInputLength = 10;
-			this.mainGridName.Name = "mainGridName";
-			this.mainGridName.ReadOnly = true;
-			this.mainGridName.Width = 44;
-			// 
-			// mainGridValue
-			// 
-			this.mainGridValue.FillWeight = 128.7096F;
-			this.mainGridValue.HeaderText = "Value";
-			this.mainGridValue.MaxInputLength = 10;
-			this.mainGridValue.Name = "mainGridValue";
-			this.mainGridValue.ReadOnly = true;
-			this.mainGridValue.Width = 63;
-			// 
-			// mainGridChange24
-			// 
-			this.mainGridChange24.FillWeight = 101.5228F;
-			this.mainGridChange24.HeaderText = "Change";
-			this.mainGridChange24.MaxInputLength = 10;
-			this.mainGridChange24.Name = "mainGridChange24";
-			this.mainGridChange24.ReadOnly = true;
-			this.mainGridChange24.Width = 50;
-			// 
-			// mainGridChange24Pct
-			// 
-			this.mainGridChange24Pct.HeaderText = "Change(%)";
-			this.mainGridChange24Pct.Name = "mainGridChange24Pct";
-			this.mainGridChange24Pct.ReadOnly = true;
+			this.mainGrid.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.mainGrid_RowContextMenuStripNeeded);
+			this.mainGrid.SelectionChanged += new System.EventHandler(this.mainGrid_SelectionChanged);
 			// 
 			// notifyIcon
 			// 
@@ -188,11 +136,6 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuSettings;
         private System.Windows.Forms.ToolStripMenuItem contextMenuHide;
         private System.Windows.Forms.ToolStripMenuItem contextMenuExit;
-		private System.Windows.Forms.DataGridViewImageColumn mainGridImg;
-		private System.Windows.Forms.DataGridViewTextBoxColumn mainGridName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn mainGridValue;
-		private System.Windows.Forms.DataGridViewTextBoxColumn mainGridChange24;
-		private System.Windows.Forms.DataGridViewTextBoxColumn mainGridChange24Pct;
 	}
 }
 
