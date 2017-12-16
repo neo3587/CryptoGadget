@@ -122,7 +122,7 @@ namespace CryptoGadget {
 																		 ("Low24",			"Low 24h",			"LOW24HOUR"),
 																		 ("Supply",			"Supply",			"SUPPLY"),
 																		 ("MktCap",			"Market Cap",		"MKTCAP"),
-																		 ("Market",			"Market",			"lASTMARKET") };
+																		 ("LastMarket",		"Last Market",		"LASTMARKET") };
 			public StColumn Icon { get; set; } = new StColumn(); // skip this on json get
 			public StColumn Coin { get; set; } = new StColumn(); // skip this on json get
 			public StColumn TargetIcon { get; set; } = new StColumn(); // skip this on json get
@@ -143,7 +143,7 @@ namespace CryptoGadget {
 			public StColumn Low24 { get; set; } = new StColumn();
 			public StColumn Supply { get; set; } = new StColumn();
 			public StColumn MktCap { get; set; } = new StColumn();
-			public StColumn Market { get; set; } = new StColumn(); 
+			public StColumn LastMarket { get; set; } = new StColumn(); 
 		}
 
 		public enum DefaultType {

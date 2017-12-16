@@ -1307,7 +1307,6 @@
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ToolTip toolTip1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridCoinName;
 		private System.Windows.Forms.TabPage tabPage4;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.NumericUpDown numCoordsPosY;

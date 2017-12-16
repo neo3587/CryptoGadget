@@ -32,7 +32,6 @@ namespace CryptoGadget {
     public partial class FormMain : Form {
 
 		public class CoinRow : Settings._PropGetter<CoinRow> {
-
 			public Bitmap Icon { get; set; } // skip this on json get
 			public string Coin { get; set; } // skip this on json get
 			public Bitmap TargetIcon { get; set; } // skip this on json get
@@ -53,8 +52,7 @@ namespace CryptoGadget {
 			public string Low24 { get; set; }
 			public string Supply { get; set; }
 			public string MktCap { get; set; }
-			public string Market { get; set; }
-
+			public string LastMarket { get; set; }
 		}
 		
         private System.Threading.Timer _timer_req;
@@ -154,7 +152,9 @@ namespace CryptoGadget {
         }
 
 		private void RotatePage() {
+			// care with thread datashare
 			_page = (_page + 1) % Global.Sett.Pages.Size;
+			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 			RowsInit();
 			ResizeForm();
 		}
@@ -175,25 +175,52 @@ namespace CryptoGadget {
             Size = new Size(X + edge * 2, Y + edge * 2);
         }
         private void GridInit() {
-			
+
+			// change Default.json when profiles are finished
+			if(!Global.Sett.BindFile(Global.ProfilesLocation + "Default.json")) {
+				Settings.CreateSettFile(Global.ProfilesLocation + "Default.json");
+				Global.Sett.BindFile(Global.ProfilesLocation + "Default.json");
+				Global.Sett.Default();
+				Global.Sett.Store();
+				Global.Sett.Save();
+			}
+			if(!Global.Sett.Load()) {
+				MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
+				Global.Sett.Default();
+				Global.Sett.Store();
+				Global.Sett.Save();
+				Global.Sett.Load();
+			}
+
 			mainGrid.Rows.Clear();
 
-			_page = Global.Sett.Pages.Default;
+			_page  = Global.Sett.Pages.Default;
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 
-			if(Global.Json == null && File.Exists(Global.JsonLocation)) {
-                Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
-                if(!Global.JsonIsValid(Global.Json))
-                    Global.Json = null;
-            }
+			// Rows & Columns init and binding
 
 			RowsInit();
+
+			foreach(ValueTuple<string, string, string> prop in Settings.StGrid.props) {
+				DataGridViewColumn col = new DataGridViewColumn();
+				col.HeaderText = prop.Item2;
+				col.Name = prop.Item1;
+				col.DataPropertyName = prop.Item1;
+				col.CellTemplate = new DataGridViewTextBoxCell();
+				//col.Visible = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Enabled; // DEBUG DISABLE
+				col.Width = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Width;
+				mainGrid.Columns.Add(col);
+			}
+			mainGrid.Columns["Icon"].CellTemplate       = new DataGridViewImageCell();
+			mainGrid.Columns["TargetIcon"].CellTemplate = new DataGridViewImageCell();
+
+			mainGrid.AutoGenerateColumns = false;
 
 			BindingSource coin_bind = new BindingSource();
 			coin_bind.DataSource = _coinGrid;
 			mainGrid.DataSource = coin_bind;
 
-			#region Metrics & Visibility
+			// Aditional Columns customization
 
 			mainGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
             mainGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.HeaderText);
@@ -202,14 +229,8 @@ namespace CryptoGadget {
             foreach(DataGridViewRow row in mainGrid.Rows)
                 row.Height = Global.Sett.Metrics.Rows;
 
-			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) {
-				//mainGrid.Columns[prop.Name].Visible = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Enabled; // DEBUG DISABLE
-				mainGrid.Columns[prop.Name].Width   = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Width;
-			}
-			
             mainGrid.ColumnHeadersVisible = Global.Sett.Visibility.Header;
 
-            #endregion
 
             #region Color Init
 
@@ -286,19 +307,10 @@ namespace CryptoGadget {
 
 			Load += (sender, e) => {
 				
-				if(!Global.Sett.BindFile(Global.ProfilesLocation + "Default.json")) {
-					Settings.CreateSettFile(Global.ProfilesLocation + "Default.json");
-					Global.Sett.BindFile(Global.ProfilesLocation + "Default.json");
-					Global.Sett.Default();
-					Global.Sett.Store();
-					Global.Sett.Save();
-				}
-				if(!Global.Sett.Load()) {
-					MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
-					Global.Sett.Default();
-					Global.Sett.Store();
-					Global.Sett.Save();
-					Global.Sett.Load();
+				if(Global.Json == null && File.Exists(Global.JsonLocation)) {
+					Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
+					if(!Global.JsonIsValid(Global.Json))
+						Global.Json = null;
 				}
 
 				GridInit();
@@ -307,7 +319,7 @@ namespace CryptoGadget {
                 mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 				
-                //_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
+                //_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate); // DEBUG DISABLE
             };
         }
 
