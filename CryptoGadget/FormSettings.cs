@@ -15,7 +15,7 @@ namespace CryptoGadget {
 
     public partial class FormSettings : Form {
 
-        private FormMain _ptrForm;
+        private FormMain _ptr_form = null;
 		private Settings _sett = new Settings();
 		private int _page = 0;
 
@@ -206,7 +206,7 @@ namespace CryptoGadget {
 
 		public FormSettings(FormMain form) {
             InitializeComponent();
-            _ptrForm = form;
+            _ptr_form = form;
 			_sett = (Settings)Global.Sett.Clone();
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
@@ -221,7 +221,7 @@ namespace CryptoGadget {
                 MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
                 return;
             }
-            FormAddCoin form = new FormAddCoin(coinGrid);
+            FormAddCoin form = new FormAddCoin(_sett.Coins[_page], coinGrid);
             form.ShowDialog();
         }
         private void buttonSub_Click(object sender, EventArgs e) {

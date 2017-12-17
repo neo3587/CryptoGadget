@@ -9,30 +9,34 @@ using Newtonsoft.Json.Linq;
 using BindList = System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>>;
 
 
+// this will get a full revamp in future versions
+
 namespace CryptoGadget {
 
     public partial class FormAddCoin : Form {
 
-        DataGridView ptrGrid;
-        BindList pairs = new BindList();
-        BindingSource cBind = new BindingSource();
-        BindingSource tBind = new BindingSource();
+        private Settings.CoinList _ptr_sett = null;
+		private DataGridView _ptr_grid = null;
+        private BindList _pairs = new BindList();
+        private BindingSource _c_bind = new BindingSource();
+        private BindingSource _t_bind = new BindingSource();
 
-        public FormAddCoin(DataGridView grid) {
+        public FormAddCoin(Settings.CoinList sett, DataGridView grid) {
 
             InitializeComponent();
-            ptrGrid = grid;
+            _ptr_sett = sett;
+			_ptr_grid = grid;
 
             HandleCreated += (sender, e) => {
 
                 foreach(JProperty coin in Global.Json["Data"])
-                    pairs.Add(new KeyValuePair<string, string>(coin.Value["Name"].ToString(), coin.Value["CoinName"].ToString()));
+                    _pairs.Add(new KeyValuePair<string, string>(coin.Value["Name"].ToString(), coin.Value["CoinName"].ToString()));
 
-                cBind.DataSource = pairs;
-                tBind.DataSource = pairs;
+                _c_bind.DataSource = _pairs;
+                _t_bind.DataSource = _pairs;
                 
-                boxCoin.DataSource   = cBind;
-                boxTarget.DataSource = tBind;
+                boxCoin.DataSource   = _c_bind;
+                boxTarget.DataSource = _t_bind;
 
                 boxCoin.SelectedIndex   = 0;
                 boxTarget.SelectedIndex = Math.Max(boxTarget.FindStringExact("[USD, United States Dollar]"), 0);
@@ -43,13 +47,6 @@ namespace CryptoGadget {
 
         private void buttonAdd_Click(object sender, EventArgs e) {
 
-            Func<string, bool> FindCoin = (l_coin) => {
-                foreach(DataGridViewRow row in ptrGrid.Rows)
-                    if(row.Cells[1].Value.ToString() == l_coin)
-                        return true;
-                return false;
-            };
-
             KeyValuePair<string, string> left = (KeyValuePair<string, string>)boxCoin.SelectedItem;
             KeyValuePair<string, string> right = (KeyValuePair<string, string>)boxTarget.SelectedItem;
 
@@ -58,14 +55,20 @@ namespace CryptoGadget {
                 right = new KeyValuePair<string, string>(right.Value, right.Key);
             }
 
-            if(FindCoin(left.Key)) {
-                MessageBox.Show(boxCoin.SelectedItem.ToString() +  " is already being used");
+            if(_ptr_sett.FindConv(left.Key, right.Key) != -1) {
+                MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
                 return;
             }
 
-            int insertPos = ptrGrid.SelectedRows.Count > 0 ? ptrGrid.SelectedRows[0].Index +1 : 0;
-            ptrGrid.Rows.Insert(insertPos, Global.GetIcon(left.Key, new Size(16, 16)), left.Key, left.Value, right.Key, right.Value);
-            ptrGrid.Rows[Math.Min(ptrGrid.SelectedRows[0].Index +1, ptrGrid.RowCount-1)].Selected = true;
+			Settings.StCoin st = new Settings.StCoin();
+			st.Icon = Global.GetIcon(left.Key, new Size(16, 16));
+			st.Coin = left.Key;
+			st.CoinName = left.Value;
+			st.Target = right.Key;
+			st.TargetName = right.Value;
+			int insertPos = _ptr_grid.SelectedRows.Count > 0 ? _ptr_grid.SelectedRows[0].Index +1 : 0;
+			_ptr_sett.Insert(insertPos, st);
+            _ptr_grid.Rows[Math.Min(_ptr_grid.SelectedRows[0].Index +1, _ptr_grid.RowCount-1)].Selected = true;
         }
         private void buttonDone_Click(object sender, EventArgs e) {
             Close();
@@ -82,13 +85,13 @@ namespace CryptoGadget {
                 foreach(JProperty coin in Global.Json["Data"]) 
                     if(coin.Value["FiatCurrency"] != null)
                         bl.Add(new KeyValuePair<string, string>(coin.Value[left].ToString(), coin.Value[right].ToString()));
-                tBind.DataSource = bl;
+                _t_bind.DataSource = bl;
             }
             else {
-                tBind.DataSource = pairs;
+                _t_bind.DataSource = _pairs;
             }
 
-            tBind.ResetBindings(false);
+            _t_bind.ResetBindings(false);
             boxTarget.SelectedIndex = 0;
         }
         private void checkIndexName_CheckedChanged(object sender, EventArgs e) {
@@ -96,17 +99,17 @@ namespace CryptoGadget {
             string i_left =  "[" + ((KeyValuePair<string, string>)boxCoin.SelectedItem).Value   + ", " + ((KeyValuePair<string, string>)boxCoin.SelectedItem).Key   + "]";
             string i_right = "[" + ((KeyValuePair<string, string>)boxTarget.SelectedItem).Value + ", " + ((KeyValuePair<string, string>)boxTarget.SelectedItem).Key + "]";
 
-            for(int i = 0; i < pairs.Count; i++)
-                pairs[i] = new KeyValuePair<string, string>(pairs[i].Value, pairs[i].Key);
+            for(int i = 0; i < _pairs.Count; i++)
+                _pairs[i] = new KeyValuePair<string, string>(_pairs[i].Value, _pairs[i].Key);
 
             if(checkOnlyFiat.Checked) {
-                BindList ptr = (tBind.DataSource as BindList);
+                BindList ptr = (_t_bind.DataSource as BindList);
                 for(int i = 0; i < ptr.Count; i++)
                     ptr[i] = new KeyValuePair<string, string>(ptr[i].Value, ptr[i].Key);
             }
 
-            cBind.ResetBindings(false);
-            tBind.ResetBindings(false);
+            _c_bind.ResetBindings(false);
+            _t_bind.ResetBindings(false);
 
             boxCoin.SelectedIndex   = boxCoin.FindStringExact(i_left);
             boxTarget.SelectedIndex = boxTarget.FindStringExact(i_right);

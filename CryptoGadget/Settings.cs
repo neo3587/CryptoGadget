@@ -161,7 +161,14 @@ namespace CryptoGadget {
 			Grid       = 0x0200,
 			All        = 0xFFFF
 		}
-		public class CoinList : BindingList<StCoin> { }
+		public class CoinList : BindingList<StCoin> {
+			public int FindConv(string coin, string target) {
+				for(int i = 0; i < Count; i++)
+					if(this[i].Coin == coin && this[i].Target == target)
+						return i;
+				return -1;
+			}
+		}
 
 		public CoinList[] Coins = CreateCoinList(); // Coins[page][coin_pos]
 		public StBasic Basic		   = new StBasic();
@@ -347,13 +354,6 @@ namespace CryptoGadget {
 				return false;
 			}
 			return true;
-		}
-
-		public int FindConv(int page, string coin, string target) {
-			for(int i = 0; i < Coins[page].Count; i++)
-				if(Coins[page][i].Coin == coin && Coins[page][i].Target == target)
-					return i;
-			return -1;
 		}
 
 	}
