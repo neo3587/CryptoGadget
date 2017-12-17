@@ -378,12 +378,6 @@ namespace CryptoGadget {
 			Global.Sett = (Settings)_sett.Clone();
 			Global.Sett.Store();
 			Global.Sett.Save();
-
-			string str = "";
-			foreach(var x in _sett.Coins[_page])
-				str += x.Coin + "\n";
-			MessageBox.Show(str); // DEBUG
-
 			accept = true;
             Close();
         }

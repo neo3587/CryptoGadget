@@ -41,7 +41,8 @@ namespace CryptoGadget {
 				public int RefreshRate { get; set; }
 				public bool Startup { get; set; }
 			}
-			public Bitmap Icon { get; set; }
+			[JsonIgnore]
+			public Bitmap Icon { get; set; } 
 			public string Coin { get; set; }
 			public string CoinName { get; set; }
 			public string Target { get; set; }
@@ -177,12 +178,12 @@ namespace CryptoGadget {
 		public bool BindFile(string file_path) {
 			_file_path = file_path;
 			try {
-				using(StreamReader file = File.OpenText(@"c:\videogames.json"))
+				using(StreamReader file = File.OpenText(file_path))
 				using(JsonTextReader reader = new JsonTextReader(file)) { 
 				    _json = (JObject)JToken.ReadFrom(reader);
 				}
-			} catch {
-				Global.DbgPrint("ERROR: Settings.BindFile");
+			} catch(Exception e) {
+				Global.DbgPrint("ERROR: " + e.Message);
 				return false;
 			}
 			return true;
@@ -199,7 +200,7 @@ namespace CryptoGadget {
 			};
 
 			try {
-				Coins      = JsonConvert.DeserializeObject<CoinList[]>(_json["Coins"].ToString());
+				Coins      = JsonConvert.DeserializeObject<CoinList[]>(_json["Coins"].ToString()); 
 				Basic	   = JsonConvert.DeserializeObject<StBasic>(_json["Basic"].ToString());
 				Visibility = JsonConvert.DeserializeObject<StVisibility>(_json["Visibility"].ToString());
 				Color	   = JsonConvert.DeserializeObject<StColor>(_json["Color"].ToString());

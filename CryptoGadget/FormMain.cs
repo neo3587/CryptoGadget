@@ -8,9 +8,6 @@
 
 
 
-
-
-
 using System;
 using System.IO;
 using System.Drawing;
@@ -18,7 +15,6 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
-using System.Reflection;
 using System.ComponentModel;
 
 using Newtonsoft.Json.Linq;
@@ -183,6 +179,7 @@ namespace CryptoGadget {
 
 			// change Default.json when profiles are finished
 			if(!Global.Sett.BindFile(Global.ProfilesLocation + "Default.json")) {
+				MessageBox.Show("The last profile marked as default is not available, a new default profile will be created and used");
 				Settings.CreateSettFile(Global.ProfilesLocation + "Default.json");
 				Global.Sett.BindFile(Global.ProfilesLocation + "Default.json");
 				Global.Sett.Default();
