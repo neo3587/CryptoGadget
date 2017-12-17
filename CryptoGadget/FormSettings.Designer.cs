@@ -25,21 +25,12 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.label19 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label26 = new System.Windows.Forms.Label();
-			this.label27 = new System.Windows.Forms.Label();
-			this.label28 = new System.Windows.Forms.Label();
-			this.label29 = new System.Windows.Forms.Label();
-			this.label30 = new System.Windows.Forms.Label();
-			this.checkCoordsExitSave = new System.Windows.Forms.CheckBox();
-			this.checkCoordsLockPos = new System.Windows.Forms.CheckBox();
 			this.buttonSub = new System.Windows.Forms.Button();
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonUp = new System.Windows.Forms.Button();
@@ -48,11 +39,19 @@
 			this.buttonAddIcon = new System.Windows.Forms.Button();
 			this.buttonDownloadList = new System.Windows.Forms.Button();
 			this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
+			this.checkCoordsLockPos = new System.Windows.Forms.CheckBox();
+			this.checkCoordsExitSave = new System.Windows.Forms.CheckBox();
+			this.label30 = new System.Windows.Forms.Label();
+			this.label29 = new System.Windows.Forms.Label();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
-			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label24 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -62,14 +61,17 @@
 			this.numMetricsEdge = new System.Windows.Forms.NumericUpDown();
 			this.numMetricsRows = new System.Windows.Forms.NumericUpDown();
 			this.numMetricsHeader = new System.Windows.Forms.NumericUpDown();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.buttonDefaultColumns = new System.Windows.Forms.Button();
+			this.colsGrid = new System.Windows.Forms.DataGridView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.numRefreshRate = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.buttonDefaultBasic = new System.Windows.Forms.Button();
-			this.checkVisibilityRefresh = new System.Windows.Forms.CheckBox();
+			this.checkEnableRefresh = new System.Windows.Forms.CheckBox();
 			this.checkStartup = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityEdge = new System.Windows.Forms.CheckBox();
-			this.checkVisibilityHeader = new System.Windows.Forms.CheckBox();
+			this.checkEnableEdge = new System.Windows.Forms.CheckBox();
+			this.checkEnableHeader = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.buttonColorHeaderText = new System.Windows.Forms.Button();
 			this.label13 = new System.Windows.Forms.Label();
@@ -105,14 +107,12 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.colsGrid = new System.Windows.Forms.DataGridView();
 			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridWidth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridDigits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridWidth = new neo.FormUtil.DataGridViewNumericUpDownColumn();
+			this.colsGridDigits = new neo.FormUtil.DataGridViewNumericUpDownColumn();
 			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.tabPage3.SuspendLayout();
+			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -122,14 +122,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsEdge)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRows)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeader)).BeginInit();
+			this.tabPage3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.tabControl1.SuspendLayout();
-			this.tabPage5.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
@@ -154,109 +154,6 @@
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-			// 
-			// label19
-			// 
-			this.label19.AutoSize = true;
-			this.label19.Location = new System.Drawing.Point(7, 156);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(66, 13);
-			this.label19.TabIndex = 11;
-			this.label19.Text = "Edge Width:";
-			this.toolTip1.SetToolTip(this.label19, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(7, 26);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(79, 13);
-			this.label3.TabIndex = 13;
-			this.label3.Text = "Header Height:";
-			this.toolTip1.SetToolTip(this.label3, "Size in pixels of the Header row of the gadget\r\n(supposing that it is enabled in " +
-        "the \'Basic\' tab).");
-			// 
-			// label26
-			// 
-			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(7, 52);
-			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(71, 13);
-			this.label26.TabIndex = 15;
-			this.label26.Text = "Rows Height:";
-			this.toolTip1.SetToolTip(this.label26, "Size in pixels of each coin row of the gadget\r\n(supposing that it is enabled in t" +
-        "he \'Basic\' tab).");
-			// 
-			// label27
-			// 
-			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(7, 77);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(54, 13);
-			this.label27.TabIndex = 17;
-			this.label27.Text = "Icon Size:";
-			this.toolTip1.SetToolTip(this.label27, "Size in pixels of each icon of the gadget\r\n(supposing that it is enabled in the \'" +
-        "Basic\' tab).");
-			// 
-			// label28
-			// 
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(7, 103);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(69, 13);
-			this.label28.TabIndex = 19;
-			this.label28.Text = "Header Text:";
-			this.toolTip1.SetToolTip(this.label28, "Size in pixels of the header text of the gadget\r\n(supposing that it is enabled in" +
-        " the \'Basic\' tab).");
-			// 
-			// label29
-			// 
-			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(7, 129);
-			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(72, 13);
-			this.label29.TabIndex = 21;
-			this.label29.Text = "Rows Values:";
-			this.toolTip1.SetToolTip(this.label29, "Size in pixels of the Value and Change numbers of the gadget\r\n(supposing that any" +
-        " of both are enabled in the \'Basic\' tab).");
-			// 
-			// label30
-			// 
-			this.label30.AutoSize = true;
-			this.label30.Location = new System.Drawing.Point(6, 0);
-			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(127, 13);
-			this.label30.TabIndex = 23;
-			this.label30.Text = "Metrics (use with caution)";
-			this.toolTip1.SetToolTip(this.label30, "These settings may radically change the size of the gadget\r\ndepending on their va" +
-        "lue, they exists just for the users who\r\nwant a deeper customization of the gadg" +
-        "et.");
-			// 
-			// checkCoordsExitSave
-			// 
-			this.checkCoordsExitSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkCoordsExitSave.AutoSize = true;
-			this.checkCoordsExitSave.Location = new System.Drawing.Point(325, 64);
-			this.checkCoordsExitSave.Name = "checkCoordsExitSave";
-			this.checkCoordsExitSave.Size = new System.Drawing.Size(124, 17);
-			this.checkCoordsExitSave.TabIndex = 58;
-			this.checkCoordsExitSave.Text = "Save Positon on Exit";
-			this.toolTip1.SetToolTip(this.checkCoordsExitSave, "Allows the gadget to remember the last XY position \r\nbefore closing or reloading." +
-        "");
-			this.checkCoordsExitSave.UseVisualStyleBackColor = true;
-			// 
-			// checkCoordsLockPos
-			// 
-			this.checkCoordsLockPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkCoordsLockPos.AutoSize = true;
-			this.checkCoordsLockPos.Location = new System.Drawing.Point(325, 89);
-			this.checkCoordsLockPos.Name = "checkCoordsLockPos";
-			this.checkCoordsLockPos.Size = new System.Drawing.Size(90, 17);
-			this.checkCoordsLockPos.TabIndex = 59;
-			this.checkCoordsLockPos.Text = "Lock Position";
-			this.toolTip1.SetToolTip(this.checkCoordsLockPos, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
-			this.checkCoordsLockPos.UseVisualStyleBackColor = true;
 			// 
 			// buttonSub
 			// 
@@ -350,33 +247,136 @@
 			this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
 			this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
 			// 
+			// checkCoordsLockPos
+			// 
+			this.checkCoordsLockPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkCoordsLockPos.AutoSize = true;
+			this.checkCoordsLockPos.Location = new System.Drawing.Point(325, 89);
+			this.checkCoordsLockPos.Name = "checkCoordsLockPos";
+			this.checkCoordsLockPos.Size = new System.Drawing.Size(90, 17);
+			this.checkCoordsLockPos.TabIndex = 72;
+			this.checkCoordsLockPos.Text = "Lock Position";
+			this.toolTip1.SetToolTip(this.checkCoordsLockPos, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
+			this.checkCoordsLockPos.UseVisualStyleBackColor = true;
+			// 
+			// checkCoordsExitSave
+			// 
+			this.checkCoordsExitSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkCoordsExitSave.AutoSize = true;
+			this.checkCoordsExitSave.Location = new System.Drawing.Point(325, 64);
+			this.checkCoordsExitSave.Name = "checkCoordsExitSave";
+			this.checkCoordsExitSave.Size = new System.Drawing.Size(124, 17);
+			this.checkCoordsExitSave.TabIndex = 71;
+			this.checkCoordsExitSave.Text = "Save Positon on Exit";
+			this.toolTip1.SetToolTip(this.checkCoordsExitSave, "Allows the gadget to remember the last XY position \r\nbefore closing or reloading." +
+        "");
+			this.checkCoordsExitSave.UseVisualStyleBackColor = true;
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Location = new System.Drawing.Point(6, 0);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(127, 13);
+			this.label30.TabIndex = 23;
+			this.label30.Text = "Metrics (use with caution)";
+			this.toolTip1.SetToolTip(this.label30, "These settings may radically change the size of the gadget\r\ndepending on their va" +
+        "lue, they exists just for the users who\r\nwant a deeper customization of the gadg" +
+        "et.");
+			// 
+			// label29
+			// 
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(7, 129);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(72, 13);
+			this.label29.TabIndex = 21;
+			this.label29.Text = "Rows Values:";
+			this.toolTip1.SetToolTip(this.label29, "Size in pixels of the Value and Change numbers of the gadget\r\n(supposing that any" +
+        " of both are enabled in the \'Basic\' tab).");
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(7, 103);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(69, 13);
+			this.label28.TabIndex = 19;
+			this.label28.Text = "Header Text:";
+			this.toolTip1.SetToolTip(this.label28, "Size in pixels of the header text of the gadget\r\n(supposing that it is enabled in" +
+        " the \'Basic\' tab).");
+			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(7, 77);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(54, 13);
+			this.label27.TabIndex = 17;
+			this.label27.Text = "Icon Size:";
+			this.toolTip1.SetToolTip(this.label27, "Size in pixels of each icon of the gadget\r\n(supposing that it is enabled in the \'" +
+        "Basic\' tab).");
+			// 
+			// label26
+			// 
+			this.label26.AutoSize = true;
+			this.label26.Location = new System.Drawing.Point(7, 52);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(71, 13);
+			this.label26.TabIndex = 15;
+			this.label26.Text = "Rows Height:";
+			this.toolTip1.SetToolTip(this.label26, "Size in pixels of each coin row of the gadget\r\n(supposing that it is enabled in t" +
+        "he \'Basic\' tab).");
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(7, 26);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(79, 13);
+			this.label3.TabIndex = 13;
+			this.label3.Text = "Header Height:";
+			this.toolTip1.SetToolTip(this.label3, "Size in pixels of the Header row of the gadget\r\n(supposing that it is enabled in " +
+        "the \'Basic\' tab).");
+			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.Location = new System.Drawing.Point(7, 156);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(66, 13);
+			this.label19.TabIndex = 11;
+			this.label19.Text = "Edge Width:";
+			this.toolTip1.SetToolTip(this.label19, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
+			this.tabPage4.Controls.Add(this.numCoordsPosY);
+			this.tabPage4.Controls.Add(this.numCoordsPosX);
+			this.tabPage4.Controls.Add(this.checkCoordsLockPos);
+			this.tabPage4.Controls.Add(this.checkCoordsExitSave);
+			this.tabPage4.Controls.Add(this.label25);
+			this.tabPage4.Controls.Add(this.label24);
+			this.tabPage4.Controls.Add(this.groupBox1);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage4.Size = new System.Drawing.Size(454, 436);
 			this.tabPage4.TabIndex = 4;
-			this.tabPage4.Text = "Additional";
+			this.tabPage4.Text = "Advanced";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
-			// tabPage3
+			// buttonDefaultAdvanced
 			// 
-			this.tabPage3.Controls.Add(this.numCoordsPosY);
-			this.tabPage3.Controls.Add(this.numCoordsPosX);
-			this.tabPage3.Controls.Add(this.buttonDefaultAdvanced);
-			this.tabPage3.Controls.Add(this.checkCoordsLockPos);
-			this.tabPage3.Controls.Add(this.checkCoordsExitSave);
-			this.tabPage3.Controls.Add(this.label25);
-			this.tabPage3.Controls.Add(this.label24);
-			this.tabPage3.Controls.Add(this.groupBox1);
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(454, 436);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "Advanced";
-			this.tabPage3.UseVisualStyleBackColor = true;
+			this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDefaultAdvanced.Location = new System.Drawing.Point(373, 407);
+			this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
+			this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
+			this.buttonDefaultAdvanced.TabIndex = 75;
+			this.buttonDefaultAdvanced.Text = "Defaults";
+			this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
 			// 
 			// numCoordsPosY
 			// 
@@ -394,7 +394,7 @@
             -2147483648});
 			this.numCoordsPosY.Name = "numCoordsPosY";
 			this.numCoordsPosY.Size = new System.Drawing.Size(100, 20);
-			this.numCoordsPosY.TabIndex = 67;
+			this.numCoordsPosY.TabIndex = 74;
 			// 
 			// numCoordsPosX
 			// 
@@ -412,18 +412,7 @@
             -2147483648});
 			this.numCoordsPosX.Name = "numCoordsPosX";
 			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
-			this.numCoordsPosX.TabIndex = 66;
-			// 
-			// buttonDefaultAdvanced
-			// 
-			this.buttonDefaultAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDefaultAdvanced.Location = new System.Drawing.Point(373, 407);
-			this.buttonDefaultAdvanced.Name = "buttonDefaultAdvanced";
-			this.buttonDefaultAdvanced.Size = new System.Drawing.Size(75, 23);
-			this.buttonDefaultAdvanced.TabIndex = 60;
-			this.buttonDefaultAdvanced.Text = "Defaults";
-			this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
-			this.buttonDefaultAdvanced.Click += new System.EventHandler(this.buttonDefaultAdvanced_Click);
+			this.numCoordsPosX.TabIndex = 73;
 			// 
 			// label25
 			// 
@@ -432,7 +421,7 @@
 			this.label25.Location = new System.Drawing.Point(254, 37);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(82, 13);
-			this.label25.TabIndex = 57;
+			this.label25.TabIndex = 70;
 			this.label25.Text = "Start Position Y:";
 			// 
 			// label24
@@ -442,7 +431,7 @@
 			this.label24.Location = new System.Drawing.Point(254, 11);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(82, 13);
-			this.label24.TabIndex = 55;
+			this.label24.TabIndex = 69;
 			this.label24.Text = "Start Position X:";
 			// 
 			// groupBox1
@@ -462,10 +451,10 @@
 			this.groupBox1.Controls.Add(this.label26);
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label19);
-			this.groupBox1.Location = new System.Drawing.Point(247, 213);
+			this.groupBox1.Location = new System.Drawing.Point(6, 6);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(200, 187);
-			this.groupBox1.TabIndex = 46;
+			this.groupBox1.TabIndex = 68;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "                                        ";
 			// 
@@ -609,15 +598,74 @@
             0,
             0});
 			// 
+			// tabPage3
+			// 
+			this.tabPage3.Controls.Add(this.buttonDefaultColumns);
+			this.tabPage3.Controls.Add(this.colsGrid);
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Size = new System.Drawing.Size(454, 436);
+			this.tabPage3.TabIndex = 2;
+			this.tabPage3.Text = "Columns";
+			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// buttonDefaultColumns
+			// 
+			this.buttonDefaultColumns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDefaultColumns.Location = new System.Drawing.Point(373, 407);
+			this.buttonDefaultColumns.Name = "buttonDefaultColumns";
+			this.buttonDefaultColumns.Size = new System.Drawing.Size(75, 23);
+			this.buttonDefaultColumns.TabIndex = 76;
+			this.buttonDefaultColumns.Text = "Defaults";
+			this.buttonDefaultColumns.UseVisualStyleBackColor = true;
+			this.buttonDefaultColumns.Click += new System.EventHandler(this.buttonDefaultColumns_Click);
+			// 
+			// colsGrid
+			// 
+			this.colsGrid.AllowUserToAddRows = false;
+			this.colsGrid.AllowUserToDeleteRows = false;
+			this.colsGrid.AllowUserToResizeColumns = false;
+			this.colsGrid.AllowUserToResizeRows = false;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.coinGridColumn,
+            this.colsGridShownName,
+            this.colsGridWidth,
+            this.colsGridDigits,
+            this.colsGridEnabled});
+			this.colsGrid.Location = new System.Drawing.Point(5, 6);
+			this.colsGrid.Name = "colsGrid";
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this.colsGrid.RowHeadersVisible = false;
+			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			this.colsGrid.ShowEditingIcon = false;
+			this.colsGrid.Size = new System.Drawing.Size(446, 395);
+			this.colsGrid.TabIndex = 61;
+			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.numRefreshRate);
 			this.tabPage2.Controls.Add(this.label1);
 			this.tabPage2.Controls.Add(this.buttonDefaultBasic);
-			this.tabPage2.Controls.Add(this.checkVisibilityRefresh);
+			this.tabPage2.Controls.Add(this.checkEnableRefresh);
 			this.tabPage2.Controls.Add(this.checkStartup);
-			this.tabPage2.Controls.Add(this.checkVisibilityEdge);
-			this.tabPage2.Controls.Add(this.checkVisibilityHeader);
+			this.tabPage2.Controls.Add(this.checkEnableEdge);
+			this.tabPage2.Controls.Add(this.checkEnableHeader);
 			this.tabPage2.Controls.Add(this.groupBox2);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
@@ -671,49 +719,49 @@
 			this.buttonDefaultBasic.UseVisualStyleBackColor = true;
 			this.buttonDefaultBasic.Click += new System.EventHandler(this.buttonDefaultBasic_Click);
 			// 
-			// checkVisibilityRefresh
+			// checkEnableRefresh
 			// 
-			this.checkVisibilityRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityRefresh.AutoSize = true;
-			this.checkVisibilityRefresh.Location = new System.Drawing.Point(339, 172);
-			this.checkVisibilityRefresh.Name = "checkVisibilityRefresh";
-			this.checkVisibilityRefresh.Size = new System.Drawing.Size(102, 17);
-			this.checkVisibilityRefresh.TabIndex = 51;
-			this.checkVisibilityRefresh.Text = "Refresh Visibility";
-			this.checkVisibilityRefresh.UseVisualStyleBackColor = true;
+			this.checkEnableRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkEnableRefresh.AutoSize = true;
+			this.checkEnableRefresh.Location = new System.Drawing.Point(342, 89);
+			this.checkEnableRefresh.Name = "checkEnableRefresh";
+			this.checkEnableRefresh.Size = new System.Drawing.Size(99, 17);
+			this.checkEnableRefresh.TabIndex = 51;
+			this.checkEnableRefresh.Text = "Enable Refresh";
+			this.checkEnableRefresh.UseVisualStyleBackColor = true;
 			// 
 			// checkStartup
 			// 
 			this.checkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.checkStartup.AutoSize = true;
-			this.checkStartup.Location = new System.Drawing.Point(339, 226);
+			this.checkStartup.Location = new System.Drawing.Point(342, 141);
 			this.checkStartup.Name = "checkStartup";
 			this.checkStartup.Size = new System.Drawing.Size(104, 17);
 			this.checkStartup.TabIndex = 50;
 			this.checkStartup.Text = "Open on Startup";
 			this.checkStartup.UseVisualStyleBackColor = true;
 			// 
-			// checkVisibilityEdge
+			// checkEnableEdge
 			// 
-			this.checkVisibilityEdge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityEdge.AutoSize = true;
-			this.checkVisibilityEdge.Location = new System.Drawing.Point(339, 149);
-			this.checkVisibilityEdge.Name = "checkVisibilityEdge";
-			this.checkVisibilityEdge.Size = new System.Drawing.Size(90, 17);
-			this.checkVisibilityEdge.TabIndex = 49;
-			this.checkVisibilityEdge.Text = "Edge Visibility";
-			this.checkVisibilityEdge.UseVisualStyleBackColor = true;
+			this.checkEnableEdge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkEnableEdge.AutoSize = true;
+			this.checkEnableEdge.Location = new System.Drawing.Point(342, 66);
+			this.checkEnableEdge.Name = "checkEnableEdge";
+			this.checkEnableEdge.Size = new System.Drawing.Size(87, 17);
+			this.checkEnableEdge.TabIndex = 49;
+			this.checkEnableEdge.Text = "Enable Edge";
+			this.checkEnableEdge.UseVisualStyleBackColor = true;
 			// 
-			// checkVisibilityHeader
+			// checkEnableHeader
 			// 
-			this.checkVisibilityHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkVisibilityHeader.AutoSize = true;
-			this.checkVisibilityHeader.Location = new System.Drawing.Point(339, 125);
-			this.checkVisibilityHeader.Name = "checkVisibilityHeader";
-			this.checkVisibilityHeader.Size = new System.Drawing.Size(100, 17);
-			this.checkVisibilityHeader.TabIndex = 48;
-			this.checkVisibilityHeader.Text = "Header Visibility";
-			this.checkVisibilityHeader.UseVisualStyleBackColor = true;
+			this.checkEnableHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkEnableHeader.AutoSize = true;
+			this.checkEnableHeader.Location = new System.Drawing.Point(342, 42);
+			this.checkEnableHeader.Name = "checkEnableHeader";
+			this.checkEnableHeader.Size = new System.Drawing.Size(97, 17);
+			this.checkEnableHeader.TabIndex = 48;
+			this.checkEnableHeader.Text = "Enable Header";
+			this.checkEnableHeader.UseVisualStyleBackColor = true;
 			// 
 			// groupBox2
 			// 
@@ -811,10 +859,10 @@
 			this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
 			this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.buttonColorPick);
 			// 
-			// buttonColorValue
+			// buttonColorValues
 			// 
 			this.buttonColorValues.Location = new System.Drawing.Point(273, 50);
-			this.buttonColorValues.Name = "buttonColorValue";
+			this.buttonColorValues.Name = "buttonColorValues";
 			this.buttonColorValues.Size = new System.Drawing.Size(23, 23);
 			this.buttonColorValues.TabIndex = 24;
 			this.buttonColorValues.UseVisualStyleBackColor = true;
@@ -1089,55 +1137,18 @@
 			// 
 			// tabPage5
 			// 
-			this.tabPage5.Controls.Add(this.colsGrid);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage5.Size = new System.Drawing.Size(454, 436);
 			this.tabPage5.TabIndex = 5;
-			this.tabPage5.Text = "(Debug)";
+			this.tabPage5.Text = "Additional";
 			this.tabPage5.UseVisualStyleBackColor = true;
-			// 
-			// colsGrid
-			// 
-			this.colsGrid.AllowUserToAddRows = false;
-			this.colsGrid.AllowUserToDeleteRows = false;
-			this.colsGrid.AllowUserToResizeColumns = false;
-			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.coinGridColumn,
-            this.colsGridShownName,
-            this.colsGridWidth,
-            this.colsGridDigits,
-            this.colsGridEnabled});
-			this.colsGrid.Location = new System.Drawing.Point(2, 6);
-			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-			this.colsGrid.RowHeadersVisible = false;
-			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			this.colsGrid.ShowEditingIcon = false;
-			this.colsGrid.Size = new System.Drawing.Size(446, 424);
-			this.colsGrid.TabIndex = 0;
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle5.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1157,8 +1168,9 @@
 			// 
 			this.colsGridWidth.FillWeight = 41.11675F;
 			this.colsGridWidth.HeaderText = "Width";
-			this.colsGridWidth.MaxInputLength = 5;
 			this.colsGridWidth.Name = "colsGridWidth";
+			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
 			this.colsGridWidth.Width = 50;
 			// 
@@ -1166,6 +1178,8 @@
 			// 
 			this.colsGridDigits.HeaderText = "Digits";
 			this.colsGridDigits.Name = "colsGridDigits";
+			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
     "elete the remaining decimal values, this will be ignored if the actual value has" +
     " more digits than the allowed. ";
@@ -1180,20 +1194,6 @@
 			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.colsGridEnabled.Width = 55;
 			// 
-			// textBox1
-			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBox1.Location = new System.Drawing.Point(9, 473);
-			this.textBox1.MaxLength = 100;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(297, 13);
-			this.textBox1.TabIndex = 9;
-			this.textBox1.TabStop = false;
-			this.textBox1.Text = "BTC Donations: 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv";
-			this.textBox1.WordWrap = false;
-			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -1202,7 +1202,6 @@
 			this.CancelButton = this.buttonCancel;
 			this.ClientSize = new System.Drawing.Size(467, 496);
 			this.Controls.Add(this.tabControl1);
-			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonAccept);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1210,8 +1209,8 @@
 			this.MaximizeBox = false;
 			this.Name = "FormSettings";
 			this.Text = "CryptoGadget Settings";
-			this.tabPage3.ResumeLayout(false);
-			this.tabPage3.PerformLayout();
+			this.tabPage4.ResumeLayout(false);
+			this.tabPage4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
 			this.groupBox1.ResumeLayout(false);
@@ -1222,6 +1221,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsEdge)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRows)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeader)).EndInit();
+			this.tabPage3.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).EndInit();
@@ -1230,10 +1231,7 @@
 			this.tabPage1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).EndInit();
 			this.tabControl1.ResumeLayout(false);
-			this.tabPage5.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).EndInit();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
         }
 
@@ -1243,35 +1241,14 @@
         private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.TabPage tabPage4;
 		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.NumericUpDown numCoordsPosY;
-		private System.Windows.Forms.NumericUpDown numCoordsPosX;
-		private System.Windows.Forms.Button buttonDefaultAdvanced;
-		private System.Windows.Forms.CheckBox checkCoordsLockPos;
-		private System.Windows.Forms.CheckBox checkCoordsExitSave;
-		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.Label label24;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.NumericUpDown numMetricsRowsValues;
-		private System.Windows.Forms.NumericUpDown numMetricsHeaderText;
-		private System.Windows.Forms.NumericUpDown numMetricsIconSize;
-		private System.Windows.Forms.NumericUpDown numMetricsEdge;
-		private System.Windows.Forms.NumericUpDown numMetricsRows;
-		private System.Windows.Forms.NumericUpDown numMetricsHeader;
-		private System.Windows.Forms.Label label30;
-		private System.Windows.Forms.Label label29;
-		private System.Windows.Forms.Label label28;
-		private System.Windows.Forms.Label label27;
-		private System.Windows.Forms.Label label26;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.NumericUpDown numRefreshRate;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button buttonDefaultBasic;
-		private System.Windows.Forms.CheckBox checkVisibilityRefresh;
+		private System.Windows.Forms.CheckBox checkEnableRefresh;
 		private System.Windows.Forms.CheckBox checkStartup;
-		private System.Windows.Forms.CheckBox checkVisibilityEdge;
-		private System.Windows.Forms.CheckBox checkVisibilityHeader;
+		private System.Windows.Forms.CheckBox checkEnableEdge;
+		private System.Windows.Forms.CheckBox checkEnableHeader;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button buttonColorHeaderText;
 		private System.Windows.Forms.Label label13;
@@ -1315,12 +1292,33 @@
 		private System.Windows.Forms.Button buttonSub;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.NumericUpDown numCoordsPosY;
+		private System.Windows.Forms.NumericUpDown numCoordsPosX;
+		private System.Windows.Forms.CheckBox checkCoordsLockPos;
+		private System.Windows.Forms.CheckBox checkCoordsExitSave;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.NumericUpDown numMetricsRowsValues;
+		private System.Windows.Forms.NumericUpDown numMetricsHeaderText;
+		private System.Windows.Forms.NumericUpDown numMetricsIconSize;
+		private System.Windows.Forms.NumericUpDown numMetricsEdge;
+		private System.Windows.Forms.NumericUpDown numMetricsRows;
+		private System.Windows.Forms.NumericUpDown numMetricsHeader;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Label label29;
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.Label label27;
+		private System.Windows.Forms.Label label26;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.Button buttonDefaultAdvanced;
 		private System.Windows.Forms.DataGridView colsGrid;
+		private System.Windows.Forms.Button buttonDefaultColumns;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridShownName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridWidth;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridDigits;
+		private neo.FormUtil.DataGridViewNumericUpDownColumn colsGridWidth;
+		private neo.FormUtil.DataGridViewNumericUpDownColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
-		private System.Windows.Forms.TextBox textBox1;
 	}
 }

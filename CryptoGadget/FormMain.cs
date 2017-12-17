@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 
-using neo;
 
 
 namespace CryptoGadget {
@@ -110,15 +109,15 @@ namespace CryptoGadget {
 				Invoke((MethodInvoker)delegate { Refresh(); });
 			} catch { return; }
 
-            //if(Global.Sett.Visibility.Refresh)
-				//TimerHighlight(lastValues);
+            if(Global.Sett.Visibility.Refresh)
+				TimerHighlight(last_values);
 
             try {
                 _timer_req.Change(Math.Max(0, Global.Sett.Basic.RefreshRate - watch.ElapsedMilliseconds), Global.Sett.Basic.RefreshRate);
             } catch { }
 
         }
-        private void TimerHighlight(List<double> lastValues) {
+        private void TimerHighlight(List<double> last_values) {
 
             Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
                 byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
@@ -128,7 +127,7 @@ namespace CryptoGadget {
                 return Color.FromArgb(BitConverter.ToInt32(bytecolor, 0));
             };
             Action DefaultColors = () => {
-                for(int i = 0; i < lastValues.Count; i++)
+                for(int i = 0; i < last_values.Count; i++)
                     mainGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
             };
 
@@ -139,19 +138,15 @@ namespace CryptoGadget {
                     return;
                 }
 
-                for(int i = 0; i < lastValues.Count; i++) {
+                for(int i = 0; i < last_values.Count; i++) {
 
                     Color bgcolor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
-                    double currentValue = double.Parse(mainGrid.Rows[i].Cells[2].Value.ToString());
+                    double currentValue = double.Parse(_coinGrid[i].Value);
 
-                    if(currentValue > lastValues[i]) {
-                        Color color = ColorApply(Global.Sett.Color.PositiveRefresh, bgcolor, opacity);
-                        mainGrid.Rows[i].DefaultCellStyle.BackColor = color;
-                    }
-                    else if(currentValue < lastValues[i]) {
-                        Color color = ColorApply(Global.Sett.Color.NegativeRefresh, bgcolor, opacity);
-                        mainGrid.Rows[i].DefaultCellStyle.BackColor = color;
-                    }
+                    if(currentValue > last_values[i]) 
+						mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.PositiveRefresh, bgcolor, opacity);
+                    else if(currentValue < last_values[i]) 
+                        mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.NegativeRefresh, bgcolor, opacity);
                 }
 
                 Thread.Sleep(60);
@@ -217,7 +212,7 @@ namespace CryptoGadget {
 				col.Name = prop.Item1;
 				col.DataPropertyName = prop.Item1;
 				col.CellTemplate = new DataGridViewTextBoxCell();
-				//col.Visible = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Enabled; // DEBUG DISABLE
+				col.Visible = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Enabled;
 				col.Width = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Width;
 				mainGrid.Columns.Add(col);
 			}
@@ -263,11 +258,11 @@ namespace CryptoGadget {
             StartPosition = FormStartPosition.Manual;
             Location = new Point(Global.Sett.Coords.PosX, Global.Sett.Coords.PosY);
 
-            MouseDown -= FormUtil.DragMove;
-            mainGrid.MouseDown -= FormUtil.DragMove;
+            MouseDown -= neo.FormUtil.DragMove;
+            mainGrid.MouseDown -= neo.FormUtil.DragMove;
             if(!Global.Sett.Coords.LockPos) {
-                MouseDown += FormUtil.DragMove;
-                mainGrid.MouseDown += FormUtil.DragMove;
+                MouseDown += neo.FormUtil.DragMove;
+                mainGrid.MouseDown += neo.FormUtil.DragMove;
             }
 
             #endregion
@@ -331,7 +326,7 @@ namespace CryptoGadget {
                 mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 				
-                _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate); // DEBUG DISABLE
+                _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate); 
             };
         }
 

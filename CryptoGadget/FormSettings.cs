@@ -156,13 +156,12 @@ namespace CryptoGadget {
 
 			Invoke((MethodInvoker)delegate { coinGrid.DataSource = coin_bind; });
 
-
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
 			
 			// for(int i = 0; i < props.Length; i++) 
-			checkVisibilityHeader.DataBindings.Add("Checked", _sett.Visibility, "Header");
-			checkVisibilityEdge.DataBindings.Add("Checked", _sett.Visibility, "Edge");
-			checkVisibilityRefresh.DataBindings.Add("Checked", _sett.Visibility, "Refresh");
+			checkEnableHeader.DataBindings.Add("Checked", _sett.Visibility, "Header");
+			checkEnableEdge.DataBindings.Add("Checked", _sett.Visibility, "Edge");
+			checkEnableRefresh.DataBindings.Add("Checked", _sett.Visibility, "Refresh");
 
 			// for(int i = 0; i < props.Length; i++) 
 			buttonColorCoin.DataBindings.Add("BackColor", _sett.Color, "Coin");
@@ -190,10 +189,14 @@ namespace CryptoGadget {
 			numMetricsHeaderText.DataBindings.Add("Value", _sett.Metrics, "HeaderText");
 			numMetricsRowsValues.DataBindings.Add("Value", _sett.Metrics, "RowsValues");
 
-
 			PropertyInfo[] cols_props = Settings.StColumn.GetProps();
 			for(int i = 0; i < cols_props.Length; i++)
 				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
+
+			(colsGrid.Columns[2] as neo.FormUtil.DataGridViewNumericUpDownColumn).Minimum = 1;
+			(colsGrid.Columns[3] as neo.FormUtil.DataGridViewNumericUpDownColumn).Minimum = 1;
+			(colsGrid.Columns[2] as neo.FormUtil.DataGridViewNumericUpDownColumn).Maximum = 999;
+			(colsGrid.Columns[3] as neo.FormUtil.DataGridViewNumericUpDownColumn).Maximum = 20;
 
 			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
 			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
@@ -360,11 +363,19 @@ namespace CryptoGadget {
 			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorLight | Settings.DefaultType.Visibility); 
         }
 
-        #endregion
+		#endregion
 
-        #region Advanced Tab
+		#region Columns Tab
 
-        private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
+		private void buttonDefaultColumns_Click(object sender, EventArgs e) {
+			_sett.Default(Settings.DefaultType.Grid);
+		}
+
+		#endregion
+
+		#region Advanced Tab
+
+		private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
 			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics);
         }
 
