@@ -153,11 +153,11 @@ namespace CryptoGadget {
 
 			BindingSource coin_bind = new BindingSource();
 			coin_bind.DataSource = _sett.Coins[_page];
-
 			Invoke((MethodInvoker)delegate { coinGrid.DataSource = coin_bind; });
 
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
-			
+			checkStartup.DataBindings.Add("Checked", _sett.Basic, "Startup");
+
 			// for(int i = 0; i < props.Length; i++) 
 			checkEnableHeader.DataBindings.Add("Checked", _sett.Visibility, "Header");
 			checkEnableEdge.DataBindings.Add("Checked", _sett.Visibility, "Edge");
@@ -193,11 +193,6 @@ namespace CryptoGadget {
 			for(int i = 0; i < cols_props.Length; i++)
 				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
 
-			(colsGrid.Columns[2] as neo.FormUtil.DataGridViewNumericUpDownColumn).Minimum = 1;
-			(colsGrid.Columns[3] as neo.FormUtil.DataGridViewNumericUpDownColumn).Minimum = 1;
-			(colsGrid.Columns[2] as neo.FormUtil.DataGridViewNumericUpDownColumn).Maximum = 999;
-			(colsGrid.Columns[3] as neo.FormUtil.DataGridViewNumericUpDownColumn).Maximum = 20;
-
 			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
 			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
 				bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
@@ -213,6 +208,8 @@ namespace CryptoGadget {
             InitializeComponent();
             _ptrForm = form;
 			_sett = (Settings)Global.Sett.Clone();
+			coinGrid.DoubleBuffered(true);
+			colsGrid.DoubleBuffered(true);
             HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
         }
         
@@ -235,12 +232,9 @@ namespace CryptoGadget {
             if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index > 0) {
                 int index1 = coinGrid.SelectedRows[0].Index;
                 int index2 = coinGrid.SelectedRows[0].Index - 1;
-                DataGridViewRow tmp1 = coinGrid.Rows[index1];
-                DataGridViewRow tmp2 = coinGrid.Rows[index2];
-                coinGrid.Rows.Remove(tmp1);
-                coinGrid.Rows.Remove(tmp2);
-                coinGrid.Rows.Insert(index2, tmp2);
-                coinGrid.Rows.Insert(index2, tmp1);
+				Settings.StCoin ptr = _sett.Coins[_page][index1];
+				_sett.Coins[_page].RemoveAt(index1);
+				_sett.Coins[_page].Insert(index2, ptr);
                 coinGrid.Rows[index2].Selected = true;
             }
         }
@@ -248,13 +242,10 @@ namespace CryptoGadget {
             if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index < coinGrid.RowCount - 1) {
                 int index1 = coinGrid.SelectedRows[0].Index;
                 int index2 = coinGrid.SelectedRows[0].Index + 1;
-                DataGridViewRow tmp1 = coinGrid.Rows[index1];
-                DataGridViewRow tmp2 = coinGrid.Rows[index2];
-                coinGrid.Rows.Remove(tmp1);
-                coinGrid.Rows.Remove(tmp2);
-                coinGrid.Rows.Insert(index1, tmp1);
-                coinGrid.Rows.Insert(index1, tmp2);
-                coinGrid.Rows[index2].Selected = true;
+				Settings.StCoin ptr = _sett.Coins[_page][index1];
+				_sett.Coins[_page].RemoveAt(index1);
+				_sett.Coins[_page].Insert(index2, ptr);
+				coinGrid.Rows[index2].Selected = true;
             }
         }
 
@@ -385,8 +376,15 @@ namespace CryptoGadget {
 
         private void buttonAccept_Click(object sender, EventArgs e) {
 			Global.Sett = (Settings)_sett.Clone();
+			Global.Sett.Store();
 			Global.Sett.Save();
-            accept = true;
+
+			string str = "";
+			foreach(var x in _sett.Coins[_page])
+				str += x.Coin + "\n";
+			MessageBox.Show(str); // DEBUG
+
+			accept = true;
             Close();
         }
         private void buttonCancel_Click(object sender, EventArgs e) {

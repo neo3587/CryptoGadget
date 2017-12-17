@@ -54,9 +54,9 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 		
-        private System.Threading.Timer _timer_req;
+        private System.Threading.Timer _timer_req = null;
         private volatile bool _timer_disposed = false;
-		private string _query;
+		private string _query = "";
 		private int _page = 0;
 		private BindingList<CoinRow> _coinGrid = new BindingList<CoinRow>();
 
@@ -198,6 +198,8 @@ namespace CryptoGadget {
 			}
 
 			mainGrid.Rows.Clear();
+			mainGrid.Columns.Clear();
+			mainGrid.DataSource = null;
 
 			_page  = Global.Sett.Pages.Default;
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);

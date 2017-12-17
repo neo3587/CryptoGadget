@@ -109,8 +109,8 @@
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridWidth = new neo.FormUtil.DataGridViewNumericUpDownColumn();
-			this.colsGridDigits = new neo.FormUtil.DataGridViewNumericUpDownColumn();
+			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
@@ -1168,15 +1168,35 @@
 			// 
 			this.colsGridWidth.FillWeight = 41.11675F;
 			this.colsGridWidth.HeaderText = "Width";
+			this.colsGridWidth.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.colsGridWidth.Name = "colsGridWidth";
 			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
-			this.colsGridWidth.Width = 50;
+			this.colsGridWidth.Width = 55;
 			// 
 			// colsGridDigits
 			// 
 			this.colsGridDigits.HeaderText = "Digits";
+			this.colsGridDigits.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.colsGridDigits.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.colsGridDigits.Name = "colsGridDigits";
 			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -1317,8 +1337,8 @@
 		private System.Windows.Forms.Button buttonDefaultColumns;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridShownName;
-		private neo.FormUtil.DataGridViewNumericUpDownColumn colsGridWidth;
-		private neo.FormUtil.DataGridViewNumericUpDownColumn colsGridDigits;
+		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridWidth;
+		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
 	}
 }
