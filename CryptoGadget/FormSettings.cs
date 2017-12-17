@@ -282,15 +282,6 @@ namespace CryptoGadget {
             ofd.ShowDialog();
 
         }
-        private void buttonCoinSettings_Click(object sender, EventArgs e) {
-
-            if(coinGrid.Rows.Count <= 0 || coinGrid.SelectedRows.Count == -1)
-                return;
-
-            FormCoinSettings form = new FormCoinSettings();
-            form.ShowDialog();
-
-        }
 
         private void buttonDownloadList_Click(object sender, EventArgs e) {
 

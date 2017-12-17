@@ -28,6 +28,7 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -49,6 +50,12 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.textBoxProfile = new System.Windows.Forms.TextBox();
+			this.buttonProfileMakeDefault = new System.Windows.Forms.Button();
+			this.buttonProfileDelete = new System.Windows.Forms.Button();
+			this.buttonProfileCreate = new System.Windows.Forms.Button();
+			this.buttonProfileOpen = new System.Windows.Forms.Button();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
@@ -64,6 +71,11 @@
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultColumns = new System.Windows.Forms.Button();
 			this.colsGrid = new System.Windows.Forms.DataGridView();
+			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.numRefreshRate = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
@@ -107,12 +119,28 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.label17 = new System.Windows.Forms.Label();
+			this.textBoxDonationDASH = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.textBoxDonationLTC = new System.Windows.Forms.TextBox();
+			this.label15 = new System.Windows.Forms.Label();
+			this.textBoxDonationETH = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.textBoxDonationBTC = new System.Windows.Forms.TextBox();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
+			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
 			this.tabPage4.SuspendLayout();
+			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -130,6 +158,7 @@
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.tabControl1.SuspendLayout();
+			this.tabPage5.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
@@ -352,6 +381,7 @@
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.groupBox3);
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
 			this.tabPage4.Controls.Add(this.numCoordsPosY);
 			this.tabPage4.Controls.Add(this.numCoordsPosX);
@@ -367,6 +397,63 @@
 			this.tabPage4.TabIndex = 4;
 			this.tabPage4.Text = "Advanced";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.textBoxProfile);
+			this.groupBox3.Controls.Add(this.buttonProfileMakeDefault);
+			this.groupBox3.Controls.Add(this.buttonProfileDelete);
+			this.groupBox3.Controls.Add(this.buttonProfileCreate);
+			this.groupBox3.Controls.Add(this.buttonProfileOpen);
+			this.groupBox3.Location = new System.Drawing.Point(6, 327);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(291, 103);
+			this.groupBox3.TabIndex = 76;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Profile";
+			// 
+			// textBoxProfile
+			// 
+			this.textBoxProfile.Location = new System.Drawing.Point(6, 26);
+			this.textBoxProfile.Name = "textBoxProfile";
+			this.textBoxProfile.Size = new System.Drawing.Size(184, 20);
+			this.textBoxProfile.TabIndex = 81;
+			// 
+			// buttonProfileMakeDefault
+			// 
+			this.buttonProfileMakeDefault.Location = new System.Drawing.Point(196, 24);
+			this.buttonProfileMakeDefault.Name = "buttonProfileMakeDefault";
+			this.buttonProfileMakeDefault.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileMakeDefault.TabIndex = 80;
+			this.buttonProfileMakeDefault.Text = "Make Default";
+			this.buttonProfileMakeDefault.UseVisualStyleBackColor = true;
+			// 
+			// buttonProfileDelete
+			// 
+			this.buttonProfileDelete.Location = new System.Drawing.Point(196, 70);
+			this.buttonProfileDelete.Name = "buttonProfileDelete";
+			this.buttonProfileDelete.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileDelete.TabIndex = 79;
+			this.buttonProfileDelete.Text = "Delete Profile";
+			this.buttonProfileDelete.UseVisualStyleBackColor = true;
+			// 
+			// buttonProfileCreate
+			// 
+			this.buttonProfileCreate.Location = new System.Drawing.Point(101, 70);
+			this.buttonProfileCreate.Name = "buttonProfileCreate";
+			this.buttonProfileCreate.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileCreate.TabIndex = 78;
+			this.buttonProfileCreate.Text = "Create Profile";
+			this.buttonProfileCreate.UseVisualStyleBackColor = true;
+			// 
+			// buttonProfileOpen
+			// 
+			this.buttonProfileOpen.Location = new System.Drawing.Point(6, 70);
+			this.buttonProfileOpen.Name = "buttonProfileOpen";
+			this.buttonProfileOpen.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileOpen.TabIndex = 77;
+			this.buttonProfileOpen.Text = "Open Profile";
+			this.buttonProfileOpen.UseVisualStyleBackColor = true;
 			// 
 			// buttonDefaultAdvanced
 			// 
@@ -641,7 +728,9 @@
             this.colsGridWidth,
             this.colsGridDigits,
             this.colsGridEnabled});
+			this.colsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
 			this.colsGrid.Location = new System.Drawing.Point(5, 6);
+			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -656,6 +745,74 @@
 			this.colsGrid.ShowEditingIcon = false;
 			this.colsGrid.Size = new System.Drawing.Size(446, 395);
 			this.colsGrid.TabIndex = 61;
+			// 
+			// coinGridColumn
+			// 
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			this.coinGridColumn.HeaderText = "Column";
+			this.coinGridColumn.MaxInputLength = 50;
+			this.coinGridColumn.Name = "coinGridColumn";
+			this.coinGridColumn.Width = 120;
+			// 
+			// colsGridShownName
+			// 
+			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.colsGridShownName.FillWeight = 182.7411F;
+			this.colsGridShownName.HeaderText = "Shown Name";
+			this.colsGridShownName.MaxInputLength = 80;
+			this.colsGridShownName.Name = "colsGridShownName";
+			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
+			// 
+			// colsGridWidth
+			// 
+			this.colsGridWidth.FillWeight = 41.11675F;
+			this.colsGridWidth.HeaderText = "Width";
+			this.colsGridWidth.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Name = "colsGridWidth";
+			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
+			this.colsGridWidth.Width = 55;
+			// 
+			// colsGridDigits
+			// 
+			this.colsGridDigits.HeaderText = "Digits";
+			this.colsGridDigits.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.colsGridDigits.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.colsGridDigits.Name = "colsGridDigits";
+			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
+    "elete the remaining decimal values, this will be ignored if the actual value has" +
+    " more digits than the allowed. ";
+			this.colsGridDigits.Width = 50;
+			// 
+			// colsGridEnabled
+			// 
+			this.colsGridEnabled.FillWeight = 76.14213F;
+			this.colsGridEnabled.HeaderText = "Enabled";
+			this.colsGridEnabled.Name = "colsGridEnabled";
+			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridEnabled.Width = 55;
 			// 
 			// tabPage2
 			// 
@@ -1137,6 +1294,18 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.buttonDonationCopyLTC);
+			this.tabPage5.Controls.Add(this.buttonDonationCopyDASH);
+			this.tabPage5.Controls.Add(this.buttonDonationCopyETH);
+			this.tabPage5.Controls.Add(this.buttonDonationCopyBTC);
+			this.tabPage5.Controls.Add(this.label17);
+			this.tabPage5.Controls.Add(this.textBoxDonationDASH);
+			this.tabPage5.Controls.Add(this.label16);
+			this.tabPage5.Controls.Add(this.textBoxDonationLTC);
+			this.tabPage5.Controls.Add(this.label15);
+			this.tabPage5.Controls.Add(this.textBoxDonationETH);
+			this.tabPage5.Controls.Add(this.label2);
+			this.tabPage5.Controls.Add(this.textBoxDonationBTC);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -1145,74 +1314,205 @@
 			this.tabPage5.Text = "Additional";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
-			// coinGridColumn
+			// label17
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
-			this.coinGridColumn.HeaderText = "Column";
-			this.coinGridColumn.MaxInputLength = 50;
-			this.coinGridColumn.Name = "coinGridColumn";
-			this.coinGridColumn.ReadOnly = true;
-			this.coinGridColumn.Width = 120;
+			this.label17.AutoSize = true;
+			this.label17.Location = new System.Drawing.Point(17, 370);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(94, 13);
+			this.label17.TabIndex = 7;
+			this.label17.Text = "DASH Donations: ";
 			// 
-			// colsGridShownName
+			// textBoxDonationDASH
 			// 
-			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.colsGridShownName.FillWeight = 182.7411F;
-			this.colsGridShownName.HeaderText = "Shown Name";
-			this.colsGridShownName.MaxInputLength = 80;
-			this.colsGridShownName.Name = "colsGridShownName";
-			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
+			this.textBoxDonationDASH.Location = new System.Drawing.Point(116, 367);
+			this.textBoxDonationDASH.Name = "textBoxDonationDASH";
+			this.textBoxDonationDASH.Size = new System.Drawing.Size(255, 20);
+			this.textBoxDonationDASH.TabIndex = 6;
+			this.textBoxDonationDASH.Text = "Xfe7eN233vQnqMostLo5Hf968RMUP4eR5T";
 			// 
-			// colsGridWidth
+			// label16
 			// 
-			this.colsGridWidth.FillWeight = 41.11675F;
-			this.colsGridWidth.HeaderText = "Width";
-			this.colsGridWidth.Maximum = new decimal(new int[] {
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(17, 396);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(84, 13);
+			this.label16.TabIndex = 5;
+			this.label16.Text = "LTC Donations: ";
+			// 
+			// textBoxDonationLTC
+			// 
+			this.textBoxDonationLTC.Location = new System.Drawing.Point(116, 393);
+			this.textBoxDonationLTC.Name = "textBoxDonationLTC";
+			this.textBoxDonationLTC.Size = new System.Drawing.Size(255, 20);
+			this.textBoxDonationLTC.TabIndex = 4;
+			this.textBoxDonationLTC.Text = "37eRbNQqHtE4twYpVHmmtTkUhh462RHPKR";
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(17, 344);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(86, 13);
+			this.label15.TabIndex = 3;
+			this.label15.Text = "ETH Donations: ";
+			// 
+			// textBoxDonationETH
+			// 
+			this.textBoxDonationETH.Location = new System.Drawing.Point(116, 341);
+			this.textBoxDonationETH.Name = "textBoxDonationETH";
+			this.textBoxDonationETH.Size = new System.Drawing.Size(255, 20);
+			this.textBoxDonationETH.TabIndex = 2;
+			this.textBoxDonationETH.Text = "0xb5996de811913f24eb3d4b1b1052cd95968a7dc1";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(18, 318);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(85, 13);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "BTC Donations: ";
+			// 
+			// textBoxDonationBTC
+			// 
+			this.textBoxDonationBTC.Location = new System.Drawing.Point(116, 315);
+			this.textBoxDonationBTC.Name = "textBoxDonationBTC";
+			this.textBoxDonationBTC.Size = new System.Drawing.Size(255, 20);
+			this.textBoxDonationBTC.TabIndex = 0;
+			this.textBoxDonationBTC.Text = "3HE1kwgHEWvxBa38NHuQbQQrhNZ9wxjhe7";
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this.dataGridViewTextBoxColumn1.FillWeight = 69.76744F;
+			this.dataGridViewTextBoxColumn1.HeaderText = "Coin";
+			this.dataGridViewTextBoxColumn1.MaxInputLength = 20;
+			this.dataGridViewTextBoxColumn1.MinimumWidth = 20;
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn1.Width = 50;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn2.FillWeight = 130.2326F;
+			this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+			this.dataGridViewTextBoxColumn2.MaxInputLength = 20;
+			this.dataGridViewTextBoxColumn2.MinimumWidth = 25;
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+			this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this.dataGridViewTextBoxColumn3.HeaderText = "Target";
+			this.dataGridViewTextBoxColumn3.MaxInputLength = 50;
+			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+			this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn3.Width = 50;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
+			this.dataGridViewTextBoxColumn4.HeaderText = "Target Name";
+			this.dataGridViewTextBoxColumn4.MaxInputLength = 250;
+			this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+			this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn4.Width = 139;
+			// 
+			// dataGridViewTextBoxColumn5
+			// 
+			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
+			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
+			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
+			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+			this.dataGridViewTextBoxColumn5.ReadOnly = true;
+			this.dataGridViewTextBoxColumn5.Width = 120;
+			// 
+			// dataGridViewTextBoxColumn6
+			// 
+			this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn6.FillWeight = 182.7411F;
+			this.dataGridViewTextBoxColumn6.HeaderText = "Shown Name";
+			this.dataGridViewTextBoxColumn6.MaxInputLength = 80;
+			this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+			this.dataGridViewTextBoxColumn6.ToolTipText = "The name that will be displayed on the header of the gadget";
+			// 
+			// dataGridViewNumericUpDownColumn1
+			// 
+			this.dataGridViewNumericUpDownColumn1.FillWeight = 41.11675F;
+			this.dataGridViewNumericUpDownColumn1.HeaderText = "Width";
+			this.dataGridViewNumericUpDownColumn1.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-			this.colsGridWidth.Minimum = new decimal(new int[] {
+			this.dataGridViewNumericUpDownColumn1.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-			this.colsGridWidth.Name = "colsGridWidth";
-			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
-			this.colsGridWidth.Width = 55;
+			this.dataGridViewNumericUpDownColumn1.Name = "dataGridViewNumericUpDownColumn1";
+			this.dataGridViewNumericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewNumericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.dataGridViewNumericUpDownColumn1.ToolTipText = "Size in pixels of the current column";
+			this.dataGridViewNumericUpDownColumn1.Width = 55;
 			// 
-			// colsGridDigits
+			// dataGridViewNumericUpDownColumn2
 			// 
-			this.colsGridDigits.HeaderText = "Digits";
-			this.colsGridDigits.Maximum = new decimal(new int[] {
+			this.dataGridViewNumericUpDownColumn2.HeaderText = "Digits";
+			this.dataGridViewNumericUpDownColumn2.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-			this.colsGridDigits.Minimum = new decimal(new int[] {
+			this.dataGridViewNumericUpDownColumn2.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-			this.colsGridDigits.Name = "colsGridDigits";
-			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
+			this.dataGridViewNumericUpDownColumn2.Name = "dataGridViewNumericUpDownColumn2";
+			this.dataGridViewNumericUpDownColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewNumericUpDownColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.dataGridViewNumericUpDownColumn2.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
     "elete the remaining decimal values, this will be ignored if the actual value has" +
     " more digits than the allowed. ";
-			this.colsGridDigits.Width = 50;
+			this.dataGridViewNumericUpDownColumn2.Width = 50;
 			// 
-			// colsGridEnabled
+			// buttonDonationCopyBTC
 			// 
-			this.colsGridEnabled.FillWeight = 76.14213F;
-			this.colsGridEnabled.HeaderText = "Enabled";
-			this.colsGridEnabled.Name = "colsGridEnabled";
-			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridEnabled.Width = 55;
+			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(377, 313);
+			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
+			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyBTC.TabIndex = 8;
+			this.buttonDonationCopyBTC.Text = "Copy";
+			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyETH
+			// 
+			this.buttonDonationCopyETH.Location = new System.Drawing.Point(377, 339);
+			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
+			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyETH.TabIndex = 9;
+			this.buttonDonationCopyETH.Text = "Copy";
+			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyDASH
+			// 
+			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(377, 365);
+			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
+			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyDASH.TabIndex = 10;
+			this.buttonDonationCopyDASH.Text = "Copy";
+			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyLTC
+			// 
+			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(377, 391);
+			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
+			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyLTC.TabIndex = 11;
+			this.buttonDonationCopyLTC.Text = "Copy";
+			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
 			// 
 			// FormSettings
 			// 
@@ -1231,6 +1531,8 @@
 			this.Text = "CryptoGadget Settings";
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
 			this.groupBox1.ResumeLayout(false);
@@ -1251,6 +1553,8 @@
 			this.tabPage1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).EndInit();
 			this.tabControl1.ResumeLayout(false);
+			this.tabPage5.ResumeLayout(false);
+			this.tabPage5.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -1340,5 +1644,31 @@
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridWidth;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn dataGridViewNumericUpDownColumn1;
+		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn dataGridViewNumericUpDownColumn2;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.TextBox textBoxProfile;
+		private System.Windows.Forms.Button buttonProfileMakeDefault;
+		private System.Windows.Forms.Button buttonProfileDelete;
+		private System.Windows.Forms.Button buttonProfileCreate;
+		private System.Windows.Forms.Button buttonProfileOpen;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.TextBox textBoxDonationDASH;
+		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.TextBox textBoxDonationLTC;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.TextBox textBoxDonationETH;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox textBoxDonationBTC;
+		private System.Windows.Forms.Button buttonDonationCopyLTC;
+		private System.Windows.Forms.Button buttonDonationCopyDASH;
+		private System.Windows.Forms.Button buttonDonationCopyETH;
+		private System.Windows.Forms.Button buttonDonationCopyBTC;
 	}
 }
