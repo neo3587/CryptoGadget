@@ -92,7 +92,7 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
-			this.buttonColorValues = new System.Windows.Forms.Button();
+			this.buttonColorRowsValues = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label31 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -101,7 +101,7 @@
 			this.boxTheme = new System.Windows.Forms.ComboBox();
 			this.label10 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
-			this.buttonColorCoin = new System.Windows.Forms.Button();
+			this.buttonColorRowsText = new System.Windows.Forms.Button();
 			this.buttonColorBackground1 = new System.Windows.Forms.Button();
 			this.buttonColorEdge = new System.Windows.Forms.Button();
 			this.buttonColorBackground2 = new System.Windows.Forms.Button();
@@ -932,7 +932,7 @@
 			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.buttonColorPositiveRefresh);
-			this.groupBox2.Controls.Add(this.buttonColorValues);
+			this.groupBox2.Controls.Add(this.buttonColorRowsValues);
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.label31);
 			this.groupBox2.Controls.Add(this.label6);
@@ -941,7 +941,7 @@
 			this.groupBox2.Controls.Add(this.boxTheme);
 			this.groupBox2.Controls.Add(this.label10);
 			this.groupBox2.Controls.Add(this.label9);
-			this.groupBox2.Controls.Add(this.buttonColorCoin);
+			this.groupBox2.Controls.Add(this.buttonColorRowsText);
 			this.groupBox2.Controls.Add(this.buttonColorBackground1);
 			this.groupBox2.Controls.Add(this.buttonColorEdge);
 			this.groupBox2.Controls.Add(this.buttonColorBackground2);
@@ -1019,32 +1019,32 @@
 			this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
 			this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.buttonColorPick);
 			// 
-			// buttonColorValues
+			// buttonColorRowsValues
 			// 
-			this.buttonColorValues.Location = new System.Drawing.Point(273, 50);
-			this.buttonColorValues.Name = "buttonColorValues";
-			this.buttonColorValues.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorValues.TabIndex = 24;
-			this.buttonColorValues.UseVisualStyleBackColor = true;
-			this.buttonColorValues.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorRowsValues.Location = new System.Drawing.Point(273, 50);
+			this.buttonColorRowsValues.Name = "buttonColorRowsValues";
+			this.buttonColorRowsValues.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorRowsValues.TabIndex = 24;
+			this.buttonColorRowsValues.UseVisualStyleBackColor = true;
+			this.buttonColorRowsValues.Click += new System.EventHandler(this.buttonColorPick);
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(8, 55);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(36, 13);
+			this.label4.Size = new System.Drawing.Size(61, 13);
 			this.label4.TabIndex = 0;
-			this.label4.Text = "Coins:";
+			this.label4.Text = "Rows Text:";
 			// 
 			// label31
 			// 
 			this.label31.AutoSize = true;
 			this.label31.Location = new System.Drawing.Point(162, 55);
 			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(42, 13);
+			this.label31.Size = new System.Drawing.Size(72, 13);
 			this.label31.TabIndex = 23;
-			this.label31.Text = "Values:";
+			this.label31.Text = "Rows Values:";
 			// 
 			// label6
 			// 
@@ -1103,14 +1103,14 @@
 			this.label9.TabIndex = 5;
 			this.label9.Text = "PositiveChange:";
 			// 
-			// buttonColorCoin
+			// buttonColorRowsText
 			// 
-			this.buttonColorCoin.Location = new System.Drawing.Point(119, 50);
-			this.buttonColorCoin.Name = "buttonColorCoin";
-			this.buttonColorCoin.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorCoin.TabIndex = 6;
-			this.buttonColorCoin.UseVisualStyleBackColor = true;
-			this.buttonColorCoin.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorRowsText.Location = new System.Drawing.Point(119, 50);
+			this.buttonColorRowsText.Name = "buttonColorRowsText";
+			this.buttonColorRowsText.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorRowsText.TabIndex = 6;
+			this.buttonColorRowsText.UseVisualStyleBackColor = true;
+			this.buttonColorRowsText.Click += new System.EventHandler(this.buttonColorPick);
 			// 
 			// buttonColorBackground1
 			// 
@@ -1596,7 +1596,7 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button buttonColorPositiveRefresh;
-		private System.Windows.Forms.Button buttonColorValues;
+		private System.Windows.Forms.Button buttonColorRowsValues;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label31;
 		private System.Windows.Forms.Label label6;
@@ -1605,7 +1605,7 @@
 		private System.Windows.Forms.ComboBox boxTheme;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.Button buttonColorCoin;
+		private System.Windows.Forms.Button buttonColorRowsText;
 		private System.Windows.Forms.Button buttonColorBackground1;
 		private System.Windows.Forms.Button buttonColorEdge;
 		private System.Windows.Forms.Button buttonColorBackground2;

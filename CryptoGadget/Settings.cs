@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 using IniParser.Model;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace CryptoGadget {
 	
 	public class Settings {
 		
-		public class _PropGetter<T> {
+		public class _PropManager<T> : INotifyPropertyChanged {
 			public static PropertyInfo[] GetProps() {
 				return typeof(T).GetProperties().Where(p => p.GetIndexParameters().Length == 0).ToArray();
 			}
@@ -25,84 +26,298 @@ namespace CryptoGadget {
 				get { return GetType().GetProperty(prop).GetValue(this, null); }
 				set { GetType().GetProperty(prop).SetValue(this, value, null); }
 			}
+
+			public event PropertyChangedEventHandler PropertyChanged;
+			protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 
-		public class StCoin : _PropGetter<StCoin> {
-			public class StAlarm : _PropGetter<StAlarm> {
-				public float Up { get; set; }
-				public float Down { get; set; }
+		public class StCoin : _PropManager<StCoin> {
+			private Bitmap _icon;
+			private string _coin;
+			private string _coin_name;
+			private string _target;
+			private string _target_name;
+
+			public class StAlarm : _PropManager<StAlarm> {
+				private float _up;
+				private float _down;
+
+				public float Up {
+					get => _up;
+					set { _up = value; NotifyPropertyChanged(); }
+				}
+				public float Down {
+					get => _down;
+					set { _down = value; NotifyPropertyChanged(); }
+				}
 			}
-			public class StGraph : _PropGetter<StAlarm> {
-				public int PosX { get; set; }
-				public int PosY { get; set; }
-				public int SizeX { get; set; }
-				public int SizeY { get; set; }
-				public bool LockPos { get; set; }
-				public bool ExitSave { get; set; } // saves pos & size
-				public int RefreshRate { get; set; }
-				public bool Startup { get; set; }
+			public class StGraph : _PropManager<StAlarm> {
+				private int _pos_x;
+				private int _pos_y;
+				private int _size_x;
+				private int _size_y;
+				private bool _lock_pos;
+				private bool _exit_save;
+				private int _refresh_rate;
+				private bool _startup;
+
+				public int PosX {
+					get => _pos_x;
+					set { _pos_x = value; NotifyPropertyChanged(); }
+				}
+				public int PosY {
+					get => _pos_y;
+					set { _pos_y = value; NotifyPropertyChanged(); }
+				}
+				public int SizeX {
+					get => _size_x;
+					set { _size_x = value; NotifyPropertyChanged(); }
+				}
+				public int SizeY {
+					get => _size_y;
+					set { _size_y = value; NotifyPropertyChanged(); }
+				}
+				public bool LockPos {
+					get => _lock_pos;
+					set { _lock_pos = value; NotifyPropertyChanged(); }
+				}
+				public bool ExitSave { // saves pos & size
+					get => _exit_save;
+					set { _exit_save = value; NotifyPropertyChanged(); }
+				} 
+				public int RefreshRate {
+					get => _refresh_rate;
+					set { _refresh_rate = value; NotifyPropertyChanged(); }
+				}
+				public bool Startup {
+					get => _startup;
+					set { _startup = value; NotifyPropertyChanged(); }
+				}
 			}
 			[JsonIgnore]
-			public Bitmap Icon { get; set; } 
-			public string Coin { get; set; }
-			public string CoinName { get; set; }
-			public string Target { get; set; }
-			public string TargetName { get; set; }
+			public Bitmap Icon {
+				get => _icon;
+				set { _icon = value; NotifyPropertyChanged(); }
+			}
+			public string Coin {
+				get => _coin;
+				set { _coin = value; NotifyPropertyChanged(); }
+			}
+			public string CoinName {
+				get => _coin_name;
+				set { _coin_name = value; NotifyPropertyChanged(); }
+			}
+			public string Target {
+				get => _target;
+				set { _target = value; NotifyPropertyChanged(); }
+			}
+			public string TargetName {
+				get => _target_name;
+				set { _target_name = value; NotifyPropertyChanged(); }
+			}
 			public StAlarm Alarm = new StAlarm();
 			public StGraph Graph = new StGraph();
 		}
-		public class StBasic : _PropGetter<StBasic> {
-			public int RefreshRate { get; set; }
-			public bool Startup { get; set; }
+		public class StBasic : _PropManager<StBasic> {
+			private int _refresh_rate;
+			private bool _startup;
+
+			public int RefreshRate {
+				get => _refresh_rate;
+				set { _refresh_rate = value; NotifyPropertyChanged(); }
+			}
+			public bool Startup {
+				get => _startup;
+				set { _startup = value; NotifyPropertyChanged(); }
+			}
 		}
-		public class StVisibility : _PropGetter<StVisibility> {
-			public bool Header { get; set; }
-			public bool Edge { get; set; }
-			public bool Refresh { get; set; }
+		public class StVisibility : _PropManager<StVisibility> {
+			private bool _header;
+			private bool _edge;
+			private bool _refresh;
+
+			public bool Header {
+				get => _header;
+				set { _header = value; NotifyPropertyChanged(); }
+			}
+			public bool Edge {
+				get => _edge;
+				set { _edge = value; NotifyPropertyChanged(); }
+			}
+			public bool Refresh {
+				get => _refresh;
+				set { _refresh = value; NotifyPropertyChanged(); }
+			}
 		}
-		public class StColor : _PropGetter<StColor> {
-			public Color Coin { get; set; }
-			public Color Values { get; set; }
-			public Color PositiveChange { get; set; }
-			public Color NegativeChange { get; set; }
-			public Color Background1 { get; set; }
-			public Color Background2 { get; set; }
-			public Color PositiveRefresh { get; set; }
-			public Color NegativeRefresh { get; set; }
-			public Color HeaderText { get; set; }
-			public Color RowsText { get; set; }
-			public Color HeaderBackground { get; set; }
-			public Color Edge { get; set; }
+		public class StColor : _PropManager<StColor> {
+			private Color _positive_change;
+			private Color _negative_change;
+			private Color _background1;
+			private Color _background2;
+			private Color _positive_refresh;
+			private Color _negative_refresh;
+			private Color _header_text;
+			private Color _rows_text;
+			private Color _rows_values;
+			private Color _header_background;
+			private Color _edge;
+			
+			public Color PositiveChange {
+				get => _positive_change;
+				set { _positive_change = value; NotifyPropertyChanged(); }
+			}
+			public Color NegativeChange {
+				get => _negative_change;
+				set { _negative_change = value; NotifyPropertyChanged(); }
+			}
+			public Color Background1 {
+				get => _background1;
+				set { _background1 = value; NotifyPropertyChanged(); }
+			}
+			public Color Background2 {
+				get => _background2;
+				set { _background2 = value; NotifyPropertyChanged(); }
+			}
+			public Color PositiveRefresh {
+				get => _positive_refresh;
+				set { _positive_refresh = value; NotifyPropertyChanged(); }
+			}
+			public Color NegativeRefresh {
+				get => _negative_refresh;
+				set { _negative_refresh = value; NotifyPropertyChanged(); }
+			}
+			public Color HeaderText {
+				get => _header_text;
+				set { _header_text = value; NotifyPropertyChanged(); }
+			}
+			public Color RowsText {
+				get => _rows_text;
+				set { _rows_text = value; NotifyPropertyChanged(); }
+			}
+			public Color RowsValues {
+				get => _rows_values;
+				set { _rows_values = value; NotifyPropertyChanged(); }
+			}
+			public Color HeaderBackground {
+				get => _header_background;
+				set { _header_background = value; NotifyPropertyChanged(); }
+			}
+			public Color Edge {
+				get => _edge;
+				set { _edge = value; NotifyPropertyChanged(); }
+			}
 		}
-		public class StCoords : _PropGetter<StCoords> {
-			public int PosX { get; set; }
-			public int PosY { get; set; }
-			public bool ExitSave { get; set; }
-			public bool LockPos { get; set; }
+		public class StCoords : _PropManager<StCoords> {
+			private int _pos_x;
+			private int _pos_y;
+			private bool _exit_save;
+			private bool _lock_pos;
+
+			public int PosX {
+				get => _pos_x;
+				set { _pos_x = value; NotifyPropertyChanged(); }
+			}
+			public int PosY {
+				get => _pos_y;
+				set { _pos_y = value; NotifyPropertyChanged(); }
+			}
+			public bool ExitSave {
+				get => _exit_save;
+				set { _exit_save = value; NotifyPropertyChanged(); }
+			}
+			public bool LockPos {
+				get => _lock_pos;
+				set { _lock_pos = value; NotifyPropertyChanged(); }
+			}
 		}
-		public class StMetrics : _PropGetter<StMetrics> {
-			public int Header { get; set; }
-			public int Edge { get; set; }
-			public int Rows { get; set; }
-			public int IconSize { get; set; }
-			public float HeaderText { get; set; }
-			public float RowsValues { get; set; }
+		public class StMetrics : _PropManager<StMetrics> {
+			private int _header;
+			private int _edge;
+			private int _rows;
+			private int _icon_size;
+			private float _header_text;
+			private float _rows_values;
+
+			public int Header {
+				get => _header;
+				set { _header = value; NotifyPropertyChanged(); }
+			}
+			public int Edge {
+				get => _edge;
+				set { _edge = value; NotifyPropertyChanged(); }
+			}
+			public int Rows {
+				get => _rows;
+				set { _rows = value; NotifyPropertyChanged(); }
+			}
+			public int IconSize {
+				get => _icon_size;
+				set { _icon_size = value; NotifyPropertyChanged(); }
+			}
+			public float HeaderText {
+				get => _header_text;
+				set { _header_text = value; NotifyPropertyChanged(); }
+			}
+			public float RowsValues {
+				get => _rows_values;
+				set { _rows_values = value; NotifyPropertyChanged(); }
+			}
 		}
-		public class StPages : _PropGetter<StPages> {
-			public int Size { get; set; }
-			public int Default { get; set; }
-			public bool Rotate { get; set; }
-			public float RotateRate { get; set; }
+		public class StPages : _PropManager<StPages> {
+			private int _size;
+			private int _default;
+			private bool _rotate;
+			private float _rotate_rate;
+
+			public int Size {
+				get => _size;
+				set { _size = value; NotifyPropertyChanged(); }
+			}
+			public int Default {
+				get => _default;
+				set { _default = value; NotifyPropertyChanged(); }
+			}
+			public bool Rotate {
+				get => _rotate;
+				set { _rotate = value; NotifyPropertyChanged(); }
+			}
+			public float RotateRate {
+				get => _rotate_rate;
+				set { _rotate_rate = value; NotifyPropertyChanged(); }
+			}
 		}
 
-		public class StColumn : _PropGetter<StColumn> {
-			public string Column { get; set; }
-			public string Name { get; set; }
-			public int Width { get; set; }
-			public int Digits { get; set; }
-			public bool Enabled { get; set; }
+		public class StColumn : _PropManager<StColumn> {
+			private string _column;
+			private string _name;
+			private int _width;
+			private int _digits;
+			private bool _enabled;
+
+			public string Column {
+				get => _column;
+				set { _column = value; NotifyPropertyChanged(); }
+			}
+			public string Name {
+				get => _name;
+				set { _name = value; NotifyPropertyChanged(); }
+			}
+			public int Width {
+				get => _width;
+				set { _width = value; NotifyPropertyChanged(); }
+			}
+			public int Digits {
+				get => _digits;
+				set { _digits = value; NotifyPropertyChanged(); }
+			}
+			public bool Enabled {
+				get => _enabled;
+				set { _enabled = value; NotifyPropertyChanged(); }
+			}
 		}
-		public class StGrid : _PropGetter<StGrid> {
+		public class StGrid : _PropManager<StGrid> {
 			// <PropertyName, ShownName, JsonName>
 			public static ValueTuple<string, string, string>[] props = { ("Icon",			"",					""),
 																		 ("Coin",			"Coin",				""),
@@ -172,7 +387,7 @@ namespace CryptoGadget {
 		}
 
 		public CoinList[] Coins = CreateCoinList(); // Coins[page][coin_pos]
-		public StBasic Basic		   = new StBasic();
+		public StBasic Basic 		   = new StBasic();
 		public StVisibility Visibility = new StVisibility();
 		public StColor Color		   = new StColor();
 		public StCoords Coords		   = new StCoords();

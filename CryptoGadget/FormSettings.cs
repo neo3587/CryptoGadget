@@ -170,8 +170,8 @@ namespace CryptoGadget {
 
 			// Color
 
-			buttonColorCoin.DataBindings.Add("BackColor", _sett.Color, "Coin");
-			buttonColorValues.DataBindings.Add("BackColor", _sett.Color, "Values");
+			buttonColorRowsText.DataBindings.Add("BackColor", _sett.Color, "RowsText");
+			buttonColorRowsValues.DataBindings.Add("BackColor", _sett.Color, "RowsValues");
 			buttonColorBackground1.DataBindings.Add("BackColor", _sett.Color, "Background1");
 			buttonColorBackground2.DataBindings.Add("BackColor", _sett.Color, "Background2");
 			buttonColorPositiveRefresh.DataBindings.Add("BackColor", _sett.Color, "PositiveRefresh");

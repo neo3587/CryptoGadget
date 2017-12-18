@@ -25,7 +25,7 @@ using Microsoft.Win32;
 - Fix Shown Name not working on the mainGrid 
 - Make Settings.Check()
 - Make Profile swapping and default stuff
-- Fix Default Buttons not working
+- Fix Default Button on Currencies
 */
 
 
@@ -33,11 +33,11 @@ namespace CryptoGadget {
 
     public partial class FormMain : Form {
 
-		public class CoinRow : Settings._PropGetter<CoinRow> {
-			public Bitmap Icon { get; set; } // skip this on json get
-			public string Coin { get; set; } // skip this on json get
-			public Bitmap TargetIcon { get; set; } // skip this on json get
-			public string Target { get; set; } // skip this on json get
+		public class CoinRow : Settings._PropManager<CoinRow> {
+			public Bitmap Icon { get; set; } = null; // skip this on json get
+			public string Coin { get; set; } = "";// skip this on json get
+			public Bitmap TargetIcon { get; set; } = null; // skip this on json get
+			public string Target { get; set; } = ""; // skip this on json get
 			public string Value { get; set; } = "0";
 			public string ChangeDay { get; set; } = "0";
 			public string ChangeDayPct { get; set; } = "0";
@@ -220,12 +220,18 @@ namespace CryptoGadget {
 				col.CellTemplate = new DataGridViewTextBoxCell();
 				col.Visible = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Enabled;
 				col.Width = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Width;
+				col.DefaultCellStyle.ForeColor = Global.Sett.Color.RowsValues;
 				mainGrid.Columns.Add(col);
 			}
+
 			mainGrid.Columns["Icon"].CellTemplate       = new DataGridViewImageCell();
 			mainGrid.Columns["TargetIcon"].CellTemplate = new DataGridViewImageCell();
 			mainGrid.Columns["Icon"].DefaultCellStyle.Alignment		  = DataGridViewContentAlignment.MiddleCenter;
 			mainGrid.Columns["TargetIcon"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+			mainGrid.Columns["Coin"].DefaultCellStyle.ForeColor       = Global.Sett.Color.RowsText;
+			mainGrid.Columns["Target"].DefaultCellStyle.ForeColor     = Global.Sett.Color.RowsText;
+			mainGrid.Columns["LastMarket"].DefaultCellStyle.ForeColor = Global.Sett.Color.RowsText;
 
 			mainGrid.AutoGenerateColumns = false;
 
@@ -233,7 +239,7 @@ namespace CryptoGadget {
 			coin_bind.DataSource = _coinGrid;
 			mainGrid.DataSource = coin_bind;
 
-			// Metrics % Visibility
+			// Metrics & Visibility
 
 			mainGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
             mainGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.HeaderText);
@@ -246,11 +252,9 @@ namespace CryptoGadget {
 
 			// Color
 
-            mainGrid.RowsDefaultCellStyle.BackColor = Global.Sett.Color.Background1;
+            mainGrid.RowsDefaultCellStyle.BackColor            = Global.Sett.Color.Background1;
             mainGrid.AlternatingRowsDefaultCellStyle.BackColor = Global.Sett.Color.Background2;
-            mainGrid.Columns[1].DefaultCellStyle.ForeColor = Global.Sett.Color.Coin;
-            mainGrid.Columns[2].DefaultCellStyle.ForeColor = Global.Sett.Color.Values;
-
+			
             mainGrid.ColumnHeadersDefaultCellStyle.ForeColor = Global.Sett.Color.HeaderText;
             mainGrid.ColumnHeadersDefaultCellStyle.BackColor = Global.Sett.Color.HeaderBackground;
 
@@ -268,9 +272,8 @@ namespace CryptoGadget {
                 mainGrid.MouseDown += neo.FormUtil.DragMove;
             }
 
-			// Other Stuff
-
             // Open on Startup
+
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if((regKey.GetValue("CryptoGadget", null) != null) != Global.Sett.Basic.Startup) {
                 if(Global.Sett.Basic.Startup)
