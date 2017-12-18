@@ -25,10 +25,10 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -119,6 +119,10 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
+			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
 			this.label17 = new System.Windows.Forms.Label();
 			this.textBoxDonationDASH = new System.Windows.Forms.TextBox();
 			this.label16 = new System.Windows.Forms.Label();
@@ -135,10 +139,6 @@
 			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
-			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
-			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
-			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
 			this.tabPage4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
@@ -714,14 +714,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -732,14 +732,14 @@
 			this.colsGrid.Location = new System.Drawing.Point(5, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
@@ -748,8 +748,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle14.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle14;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1314,6 +1314,46 @@
 			this.tabPage5.Text = "Additional";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// buttonDonationCopyLTC
+			// 
+			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(377, 391);
+			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
+			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyLTC.TabIndex = 11;
+			this.buttonDonationCopyLTC.Text = "Copy";
+			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyLTC.Click += new System.EventHandler(this.buttonDonationCopyLTC_Click);
+			// 
+			// buttonDonationCopyDASH
+			// 
+			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(377, 365);
+			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
+			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyDASH.TabIndex = 10;
+			this.buttonDonationCopyDASH.Text = "Copy";
+			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyDASH.Click += new System.EventHandler(this.buttonDonationCopyDASH_Click);
+			// 
+			// buttonDonationCopyETH
+			// 
+			this.buttonDonationCopyETH.Location = new System.Drawing.Point(377, 339);
+			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
+			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyETH.TabIndex = 9;
+			this.buttonDonationCopyETH.Text = "Copy";
+			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyETH.Click += new System.EventHandler(this.buttonDonationCopyETH_Click);
+			// 
+			// buttonDonationCopyBTC
+			// 
+			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(377, 313);
+			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
+			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyBTC.TabIndex = 8;
+			this.buttonDonationCopyBTC.Text = "Copy";
+			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
+			// 
 			// label17
 			// 
 			this.label17.AutoSize = true;
@@ -1420,8 +1460,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle16.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle16;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1477,42 +1517,6 @@
     "elete the remaining decimal values, this will be ignored if the actual value has" +
     " more digits than the allowed. ";
 			this.dataGridViewNumericUpDownColumn2.Width = 50;
-			// 
-			// buttonDonationCopyBTC
-			// 
-			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(377, 313);
-			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
-			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyBTC.TabIndex = 8;
-			this.buttonDonationCopyBTC.Text = "Copy";
-			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
-			// 
-			// buttonDonationCopyETH
-			// 
-			this.buttonDonationCopyETH.Location = new System.Drawing.Point(377, 339);
-			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
-			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyETH.TabIndex = 9;
-			this.buttonDonationCopyETH.Text = "Copy";
-			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
-			// 
-			// buttonDonationCopyDASH
-			// 
-			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(377, 365);
-			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
-			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyDASH.TabIndex = 10;
-			this.buttonDonationCopyDASH.Text = "Copy";
-			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
-			// 
-			// buttonDonationCopyLTC
-			// 
-			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(377, 391);
-			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
-			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyLTC.TabIndex = 11;
-			this.buttonDonationCopyLTC.Text = "Copy";
-			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
 			// 
 			// FormSettings
 			// 

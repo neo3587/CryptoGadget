@@ -313,7 +313,7 @@ namespace CryptoGadget {
             foreach(DataGridViewRow row in coinGrid.Rows)
                 coinList.Add(new Tuple<string, string>(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString()));
 
-            FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.Check);
+            FormProgressBar form = new FormProgressBar(_sett.Coins[_page], FormProgressBar.FormType.Check);
             form.ShowDialog();
 
             MessageBox.Show(form.badConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.badConvs));
@@ -361,11 +361,32 @@ namespace CryptoGadget {
 			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics);
         }
 
-        #endregion
+		#endregion
 
-        #region Shared on all Tabs
+		#region Additional tab
 
-        private void buttonAccept_Click(object sender, EventArgs e) {
+		private void buttonDonationCopyBTC_Click(object sender, EventArgs e) {
+			Clipboard.SetText(textBoxDonationBTC.Text);
+			MessageBox.Show("BTC Donation Address copied to the clipboard");
+		}
+		private void buttonDonationCopyETH_Click(object sender, EventArgs e) {
+			Clipboard.SetText(textBoxDonationETH.Text);
+			MessageBox.Show("ETH Donation Address copied to the clipboard");
+		}
+		private void buttonDonationCopyDASH_Click(object sender, EventArgs e) {
+			Clipboard.SetText(textBoxDonationDASH.Text);
+			MessageBox.Show("DASH Donation Address copied to the clipboard");
+		}
+		private void buttonDonationCopyLTC_Click(object sender, EventArgs e) {
+			Clipboard.SetText(textBoxDonationLTC.Text);
+			MessageBox.Show("LTC Donation Address copied to the clipboard");
+		}
+
+		#endregion
+
+		#region Shared on all Tabs
+
+		private void buttonAccept_Click(object sender, EventArgs e) {
 			Global.Sett = (Settings)_sett.Clone();
 			Global.Sett.Store();
 			Global.Sett.Save();
@@ -440,6 +461,7 @@ namespace CryptoGadget {
 			}
 		}
 
+		
 	}
 
 }

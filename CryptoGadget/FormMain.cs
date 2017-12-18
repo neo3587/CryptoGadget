@@ -21,6 +21,14 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 
 
+/* TODO:
+- Fix Shown Name not working on the mainGrid 
+- Make Settings.Check()
+- Finish the FormProgressBar refactor 
+- Make TextBoxs copiable and readonly
+- Make Profile swapping and default stuff
+*/
+
 
 namespace CryptoGadget {
 
@@ -290,8 +298,8 @@ namespace CryptoGadget {
 				CoinRow coin = new CoinRow();
 
 				if(Global.Json != null) {
-					st.CoinName   = Global.Json["Data"][st.Coin]["CoinName"].ToString();
-					st.TargetName = Global.Json["Data"][st.Target]["CoinName"].ToString();
+					st.CoinName   = Global.Json["Data"]?[st.Coin]?["CoinName"]?.ToString();
+					st.TargetName = Global.Json["Data"]?[st.Target]?["CoinName"]?.ToString();
 				}
 
 				coin.Icon		= Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize);
