@@ -19,7 +19,7 @@ CryptoGadget is a C# based 'gadget' to view the current cryptocurrencies prices 
 
 # <a name="get_run"></a> How to get and run it ?
 
-<i>**Note:** .NET Framework 4.5 or higher is required, you can download it from here: https://www.microsoft.com/en-us/download/details.aspx?id=30653</i>
+<i>**Note:** .NET Framework 4.7.1 or higher is required, you can download it from here: https://www.microsoft.com/en-US/download/details.aspx?id=56116</i>
 
 Instructions: 
 - Download the binaries from here: https://github.com/neo3587/CryptoGadget/releases
@@ -36,8 +36,10 @@ Instructions:
 
 
 
-**BTC Donations:** 13PwSboRxrHNaprVpPXkxhrrTgMANHTDnv
+**BTC Donations:** 3HE1kwgHEWvxBa38NHuQbQQrhNZ9wxjhe7
 
-**ETH Donations:** 0x7b60ac39d10567229fe5e1166cdb667d04c949e2
+**ETH Donations:** 0xb5996de811913f24eb3d4b1b1052cd95968a7dc1
 
-**LTC Donations:** LMMhPzFLLbdfbxdLRiK2Rh4mtSNpQbag2r
+**DASH Donations:** Xfe7eN233vQnqMostLo5Hf968RMUP4eR5T
+
+**LTC Donations:** 37eRbNQqHtE4twYpVHmmtTkUhh462RHPKR
