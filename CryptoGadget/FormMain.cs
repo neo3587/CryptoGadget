@@ -16,14 +16,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
+using System.Reflection;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 
 
+
 /* TODO:
-- Fix Shown Name not working on the mainGrid 
-- Make Settings.Check()
 - Make Profile swapping and default stuff
 */
 
@@ -192,12 +192,11 @@ namespace CryptoGadget {
 				Global.Sett.Store();
 				Global.Sett.Save();
 			}
-			if(!Global.Sett.Load()) {
+			if(!Global.Sett.Load() || !Global.Sett.Check()) {
 				MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
 				Global.Sett.Default();
 				Global.Sett.Store();
 				Global.Sett.Save();
-				Global.Sett.Load();
 			}
 
 			mainGrid.Rows.Clear();
@@ -211,14 +210,14 @@ namespace CryptoGadget {
 
 			RowsInit();
 
-			foreach(ValueTuple<string, string, string> prop in Settings.StGrid.props) {
+			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) {
 				DataGridViewColumn col = new DataGridViewColumn();
-				col.HeaderText = prop.Item2;
-				col.Name = prop.Item1;
-				col.DataPropertyName = prop.Item1;
+				col.HeaderText = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Name; 
+				col.Name = prop.Name;
+				col.DataPropertyName = prop.Name;
 				col.CellTemplate = new DataGridViewTextBoxCell();
-				col.Visible = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Enabled;
-				col.Width = (Global.Sett.Grid[prop.Item1] as Settings.StColumn).Width;
+				col.Visible = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Enabled;
+				col.Width = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Width;
 				col.DefaultCellStyle.ForeColor = Global.Sett.Color.RowsValues;
 				mainGrid.Columns.Add(col);
 			}

@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
-using IniParser.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -413,15 +412,6 @@ namespace CryptoGadget {
 		}
 		public bool Load() {
 
-			Func<string, Func<T, bool>, T> AssignRule<T>() where T : IConvertible {
-				return (data, fn) => {
-					T value = (T)Convert.ChangeType(data, default(T).GetTypeCode());
-					if(!fn(value))
-						throw new Exception();
-					return value;
-				};
-			};
-
 			try {
 				Coins      = JsonConvert.DeserializeObject<CoinList[]>(_json["Coins"].ToString()); 
 				Basic	   = JsonConvert.DeserializeObject<StBasic>(_json["Basic"].ToString());
@@ -440,6 +430,56 @@ namespace CryptoGadget {
 		}
 		public void Store() {
 			_json = JObject.Parse(JsonConvert.SerializeObject(this));
+		}
+		public bool Check() {
+
+			// Check loaded properties
+
+			Action<object, Func<T, bool>> ThrowRule<T>() {
+				return (data, fn) => {
+					if(!fn((T)data))
+						throw new Exception(data.ToString());
+				};
+			};
+
+			try {
+
+				ThrowRule<int>()(Basic.RefreshRate, x => x >= 1);
+
+				foreach(PropertyInfo prop in StMetrics.GetProps()) {
+					if(Metrics[prop.Name] is int)
+						ThrowRule<int>()(Metrics[prop.Name], x => x >= 1);
+					else
+						ThrowRule<float>()(Metrics[prop.Name], x => x >= 1.0f);
+				}
+
+				ThrowRule<int>()(Pages.Size, x => (x >= 1 && x <= 10));
+				ThrowRule<int>()(Pages.Default, x => (x >= 0 && x < Pages.Size));
+				ThrowRule<float>()(Pages.RotateRate, x => x >= 1.0f);
+
+				foreach(PropertyInfo prop in StGrid.GetProps()) {
+					ThrowRule<int>()((Grid[prop.Name] as StColumn).Width, x => x >= 1);
+					ThrowRule<int>()((Grid[prop.Name] as StColumn).Digits, x => x >= 0);
+				}
+
+				for(int i = 0; i < 10; i++) {
+					foreach(StCoin st in Coins[i]) {
+						ThrowRule<float>()(st.Alarm.Up, x => x >= 0);
+						ThrowRule<float>()(st.Alarm.Down, x => x >= 0);
+						ThrowRule<int>()(st.Graph.SizeX, x => x >= 20);
+						ThrowRule<int>()(st.Graph.SizeY, x => x >= 20);
+						ThrowRule<int>()(st.Graph.RefreshRate, x => x >= 1);
+					}
+				}
+
+			}
+			catch(Exception e) {
+				Global.DbgMsgShow("ERROR: " + e.Message);
+				return false;
+			}
+
+
+			return true;
 		}
 		public bool Save() {
 			if(_file_path.Length == 0)
@@ -478,13 +518,12 @@ namespace CryptoGadget {
 					st.CoinName = tp.Item2;
 					st.Target = "USD";
 					st.TargetName = "United States Dollar";
-					st.Alarm.Up = 0.0f;
-					st.Alarm.Down = 0.0f;
-					st.Graph.PosX = 100;
-					st.Graph.PosY = 100;
+					st.Alarm.Up = st.Alarm.Down = 0.0f;
+					st.Graph.PosX = st.Graph.PosY = 50;
+					st.Graph.SizeX = st.Graph.SizeY = 100;
 					st.Graph.LockPos = false;
 					st.Graph.ExitSave = true;
-					st.Graph.RefreshRate = 10;
+					st.Graph.RefreshRate = 60;
 					st.Graph.Startup = false;
 					Coins[page].Add(st);
 				}
