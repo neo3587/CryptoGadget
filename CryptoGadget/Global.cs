@@ -12,10 +12,10 @@ namespace CryptoGadget {
 
     class Global {
 
-        public static string IniLocation	= Application.StartupPath + "\\profile_default.ini";
-        public static string IconsFolder	= Application.StartupPath + "\\ico\\";
-        public static string JsonLocation	= Application.StartupPath + "\\CoinList.json";
-		public static string ProfilesFolder = Application.StartupPath + "\\profiles\\";
+        public static string ProfileIniLocation	= Application.StartupPath + "\\profile_default.ini";
+        public static string IconsFolder		= Application.StartupPath + "\\ico\\";
+        public static string CoinListLocation	= Application.StartupPath + "\\CoinList.json";
+		public static string ProfilesFolder		= Application.StartupPath + "\\profiles\\";
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;

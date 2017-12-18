@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
 using System.Reflection;
+using System.Diagnostics;
 
 using Newtonsoft.Json.Linq;
+
 
 
 namespace CryptoGadget {
@@ -91,7 +93,7 @@ namespace CryptoGadget {
         private bool GetCoinDB() {
 
             Action<JObject> JsonToFile = (data) => {
-                StreamWriter writer = new StreamWriter(Global.JsonLocation);
+                StreamWriter writer = new StreamWriter(Global.CoinListLocation);
                 writer.Write(data.ToString(Newtonsoft.Json.Formatting.Indented));
                 writer.Close();
             };
@@ -100,13 +102,13 @@ namespace CryptoGadget {
                 return true;
 
             try {
-                if(!File.Exists(Global.JsonLocation)) {
+                if(!File.Exists(Global.CoinListLocation)) {
                     Global.Json = DownloadCoinDB();
                     JsonToFile(Global.Json);
                     return true;
                 }
                 else {
-                    Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
+                    Global.Json = JObject.Parse(new StreamReader(File.Open(Global.CoinListLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
                     if(Global.JsonIsValid(Global.Json)) {
                         return true;
                     }
@@ -210,7 +212,11 @@ namespace CryptoGadget {
 
 			BindingSource cols_bind = new BindingSource();
 			cols_bind.DataSource = bl;
-			Invoke((MethodInvoker)delegate { colsGrid.DataSource = bl; }); 
+			Invoke((MethodInvoker)delegate { colsGrid.DataSource = bl; });
+
+			// Other
+
+			textBoxProfileName.Text = Path.GetFileNameWithoutExtension(Global.Profile);
 
 		}
 
@@ -295,7 +301,7 @@ namespace CryptoGadget {
                 JObject check = DownloadCoinDB();
                 if(!JToken.DeepEquals(check, Global.Json)) {
                     Global.Json = check;
-                    StreamWriter writer = new StreamWriter(Global.JsonLocation);
+                    StreamWriter writer = new StreamWriter(Global.CoinListLocation);
                     writer.Write(Global.Json.ToString(Newtonsoft.Json.Formatting.Indented));
                     writer.Close();
                     MessageBox.Show("New coins were added to the coin list database");
@@ -344,7 +350,10 @@ namespace CryptoGadget {
 		#region Basic Tab
 
 		private void buttonProfileMakeDefault_Click(object sender, EventArgs e) {
-			
+			using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
+				writer.WriteLine(Global.Profile);
+			}
+			MessageBox.Show(Global.Profile + " marked as default profile");
 		}
 		private void buttonProfileOpen_Click(object sender, EventArgs e) {
 
@@ -371,17 +380,32 @@ namespace CryptoGadget {
 					stream.CopyTo(writer.BaseStream);
 				}
 
-				
+				Global.Profile = ofd.SafeFileName;
+				textBoxProfileName.Text = Path.GetFileNameWithoutExtension(Global.Profile);
 			};
 
 			ofd.ShowDialog();
-
 		}
 		private void buttonProfileCreate_Click(object sender, EventArgs e) {
 
-		}
-		private void buttonProfileDelete_Click(object sender, EventArgs e) {
+			string name = Microsoft.VisualBasic.Interaction.InputBox("Enter the name of the new Profile", "Create Profile", "", 100, 100);
 
+			if(File.Exists(Global.ProfilesFolder + name + ".json")) {
+				MessageBox.Show("There's already a profile named " + name);
+				return;
+			}
+
+			Settings.CreateSettFile(Global.ProfilesFolder + name + ".json");
+
+			_sett.BindFile(Global.ProfilesFolder + name + ".json");
+			_sett.Store();
+			_sett.Save();
+
+			Global.Profile = name + ".json";
+			textBoxProfileName.Text = name;
+		}
+		private void buttonProfileOpenFolder_Click(object sender, EventArgs e) {
+			Process.Start(Global.ProfilesFolder);
 		}
 
 		private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {

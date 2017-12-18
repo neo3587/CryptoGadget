@@ -23,9 +23,6 @@ using Microsoft.Win32;
 
 
 
-/* TODO:
-- Make Profile swapping and default stuff
-*/
 
 
 namespace CryptoGadget {
@@ -298,20 +295,20 @@ namespace CryptoGadget {
 
 			Load += (sender, e) => {
 				
-				if(Global.Json == null && File.Exists(Global.JsonLocation)) {
-					Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
+				if(Global.Json == null && File.Exists(Global.CoinListLocation)) {
+					Global.Json = JObject.Parse(new StreamReader(File.Open(Global.CoinListLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
 					if(!Global.JsonIsValid(Global.Json))
 						Global.Json = null;
 				}
 
 				try {
-					using(StreamReader reader = new StreamReader(Global.IniLocation)) {
+					using(StreamReader reader = new StreamReader(Global.ProfileIniLocation)) {
 						Global.Profile = reader.ReadLine();
 					}
 				} catch(Exception exc) {
 					Global.DbgMsgShow("ERROR: " + exc.Message);
 					MessageBox.Show("The default profile can't be determinated because the \"default_profile.ini\" file is missing, the \"Default.json\" profile will be used");
-					using(StreamWriter writer = new StreamWriter(Global.IniLocation)) {
+					using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
 						writer.WriteLine("Default.json");
 					}
   				}
@@ -324,7 +321,7 @@ namespace CryptoGadget {
 					Global.Sett.Store();
 					Global.Sett.Save();
 
-					using(StreamWriter writer = new StreamWriter(Global.IniLocation)) {
+					using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
 						writer.WriteLine("Default.json");
 					}
 					Global.Profile = "Default.json";

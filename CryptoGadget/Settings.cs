@@ -402,9 +402,9 @@ namespace CryptoGadget {
 		public bool BindFile(string file_path) {
 			_file_path = file_path;
 			try {
-				using(StreamReader file = File.OpenText(file_path))
+				using(StreamReader file = File.OpenText(file_path)) 
 				using(JsonTextReader reader = new JsonTextReader(file)) { 
-				    _json = (JObject)JToken.ReadFrom(reader);
+					_json = (JObject)JToken.ReadFrom(reader);
 				}
 			} catch(Exception e) {
 				Global.DbgPrint("ERROR: " + e.Message);
