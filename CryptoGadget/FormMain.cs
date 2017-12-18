@@ -183,22 +183,6 @@ namespace CryptoGadget {
         }
         private void GridInit() {
 
-			// change Default.json when profiles are finished
-			if(!Global.Sett.BindFile(Global.ProfilesLocation + "Default.json")) {
-				MessageBox.Show("The last profile marked as default is not available, a new default profile will be created and used");
-				Settings.CreateSettFile(Global.ProfilesLocation + "Default.json");
-				Global.Sett.BindFile(Global.ProfilesLocation + "Default.json");
-				Global.Sett.Default();
-				Global.Sett.Store();
-				Global.Sett.Save();
-			}
-			if(!Global.Sett.Load() || !Global.Sett.Check()) {
-				MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
-				Global.Sett.Default();
-				Global.Sett.Store();
-				Global.Sett.Save();
-			}
-
 			mainGrid.Rows.Clear();
 			mainGrid.Columns.Clear();
 			mainGrid.DataSource = null;
@@ -318,6 +302,38 @@ namespace CryptoGadget {
 					Global.Json = JObject.Parse(new StreamReader(File.Open(Global.JsonLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)).ReadToEnd());
 					if(!Global.JsonIsValid(Global.Json))
 						Global.Json = null;
+				}
+
+				try {
+					using(StreamReader reader = new StreamReader(Global.IniLocation)) {
+						Global.Profile = reader.ReadLine();
+					}
+				} catch(Exception exc) {
+					Global.DbgMsgShow("ERROR: " + exc.Message);
+					MessageBox.Show("The default profile can't be determinated because the \"default_profile.ini\" file is missing, the \"Default.json\" profile will be used");
+					using(StreamWriter writer = new StreamWriter(Global.IniLocation)) {
+						writer.WriteLine("Default.json");
+					}
+  				}
+				
+				if(!Global.Sett.BindFile(Global.ProfilesFolder + Global.Profile)) {
+					MessageBox.Show("The last profile marked as default is not available, a new default profile will be created and used");
+					Settings.CreateSettFile(Global.ProfilesFolder + "Default.json");
+					Global.Sett.BindFile(Global.ProfilesFolder + "Default.json");
+					Global.Sett.Default();
+					Global.Sett.Store();
+					Global.Sett.Save();
+
+					using(StreamWriter writer = new StreamWriter(Global.IniLocation)) {
+						writer.WriteLine("Default.json");
+					}
+					Global.Profile = "Default.json";
+				}
+				if(!Global.Sett.Load() || !Global.Sett.Check()) {
+					MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
+					Global.Sett.Default();
+					Global.Sett.Store();
+					Global.Sett.Save();
 				}
 
 				GridInit();

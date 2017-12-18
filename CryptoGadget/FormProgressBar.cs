@@ -174,7 +174,7 @@ namespace CryptoGadget {
 							using(MemoryStream data = new MemoryStream()) {
 								byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
 								data.Write(buffer, 0, buffer.Length);
-								Global.IconResize(Image.FromStream(data), 32).Save(Global.IconFolder + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+								Global.IconResize(Image.FromStream(data), 32).Save(Global.IconsFolder + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
 							}
 						} catch(Exception) {
 							failed++;

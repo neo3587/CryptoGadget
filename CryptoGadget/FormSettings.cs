@@ -218,7 +218,7 @@ namespace CryptoGadget {
 		public FormSettings(FormMain form) {
             InitializeComponent();
             _ptr_form = form;
-			_sett = Global.Sett.Clone();
+			Global.Sett.CloneTo(_sett);
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
             HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
@@ -267,25 +267,22 @@ namespace CryptoGadget {
 
             OpenFileDialog ofd = new OpenFileDialog();
 
-            int index = coinGrid.SelectedRows[0].Index;
+            Settings.StCoin st = _sett.Coins[_page][coinGrid.SelectedRows[0].Index];
 
-            ofd.Title = "Select Icon for " + _sett.Coins[_page][index].Coin + " (" + _sett.Coins[_page][index].CoinName + ")";
+            ofd.Title = "Select Icon for " + st.Coin + " (" + st.CoinName + ")";
             ofd.Filter = "Icon Files (.ico)|*.ico";
             ofd.Multiselect = false;
 
             ofd.FileOk += (f_sender, f_ev) => {
 
                 Stream stream = (f_sender as OpenFileDialog).OpenFile();
+                stream.Position = 0;
+
+                st.Icon = Global.GetIcon(stream, 16);
 
                 stream.Position = 0;
-                coinGrid.SelectedRows[0].Cells[0].Value = Global.GetIcon(stream, 16);
-
-                buttonAccept.Click += (b_sender, b_ev) => {
-                    stream.Position = 0;
-                    StreamWriter writer = new StreamWriter(Global.IconFolder + _sett.Coins[_page][index].Coin.ToLower() + ".ico");
-                    stream.CopyTo(writer.BaseStream);
-                };
-
+                StreamWriter writer = new StreamWriter(Global.IconsFolder + st.Coin.ToLower() + ".ico");
+                stream.CopyTo(writer.BaseStream);
             };
 
             ofd.ShowDialog();
@@ -352,7 +349,32 @@ namespace CryptoGadget {
 		private void buttonProfileOpen_Click(object sender, EventArgs e) {
 
 			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.Title = "Select Profile";
+			ofd.Filter = "Profile Files (.json)|*.json";
+			ofd.InitialDirectory = Global.ProfilesFolder;
+			ofd.Multiselect = false;
 
+			ofd.FileOk += (f_sender, f_ev) => {
+
+				Settings sett = new Settings();
+				if(!sett.BindFile(ofd.FileName) || !sett.Load() || !sett.Check()) {
+					MessageBox.Show("The provided profile is either invalid or corrupted");
+					return;
+				}
+
+				sett.CloneTo(_sett);
+
+				if(Global.ProfilesFolder != (Path.GetDirectoryName(ofd.FileName) + "\\")) {
+					Stream stream = (f_sender as OpenFileDialog).OpenFile();
+					stream.Position = 0;
+					StreamWriter writer = new StreamWriter(Global.ProfilesFolder + ofd.SafeFileName);
+					stream.CopyTo(writer.BaseStream);
+				}
+
+				
+			};
+
+			ofd.ShowDialog();
 
 		}
 		private void buttonProfileCreate_Click(object sender, EventArgs e) {

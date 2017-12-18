@@ -393,8 +393,10 @@ namespace CryptoGadget {
 		public StPages Pages		   = new StPages();
 		public StGrid Grid             = new StGrid();
 
+		[JsonIgnore]
 		private string _file_path = "";
 		
+		[JsonIgnore]
 		private JObject _json = new JObject();
 
 		public bool BindFile(string file_path) {
@@ -413,14 +415,7 @@ namespace CryptoGadget {
 		public bool Load() {
 
 			try {
-				Coins      = JsonConvert.DeserializeObject<CoinList[]>(_json["Coins"].ToString()); 
-				Basic	   = JsonConvert.DeserializeObject<StBasic>(_json["Basic"].ToString());
-				Visibility = JsonConvert.DeserializeObject<StVisibility>(_json["Visibility"].ToString());
-				Color	   = JsonConvert.DeserializeObject<StColor>(_json["Color"].ToString());
-				Coords     = JsonConvert.DeserializeObject<StCoords>(_json["Coords"].ToString());
-				Metrics    = JsonConvert.DeserializeObject<StMetrics>(_json["Metrics"].ToString());
-				Pages      = JsonConvert.DeserializeObject<StPages>(_json["Pages"].ToString());
-				Grid       = JsonConvert.DeserializeObject<StGrid>(_json["Grid"].ToString());
+				JsonConvert.PopulateObject(_json.ToString(), this);
 			} catch(Exception e) {
 				Global.DbgMsgShow("ERROR: " + e.ToString());
 				return false;
@@ -498,6 +493,10 @@ namespace CryptoGadget {
 			return true;
 		}
 		public void Default(DefaultType type = DefaultType.All, int page = -1) {
+			Func<string, Color> StrHexToColor = (str) => {
+				return System.Drawing.Color.FromArgb(int.Parse(str, System.Globalization.NumberStyles.HexNumber));
+			};
+
 			if((type & DefaultType.Coins) != 0) {
 				ValueTuple<string, string>[] coins = { ("BTC", "Bitcoin"),
 													   ("ETH", "Ethereum"),
@@ -537,29 +536,29 @@ namespace CryptoGadget {
 			}
 			if((type & DefaultType.ColorLight) != 0) {
 				foreach(PropertyInfo prop in StColor.GetProps())
-					Color[prop.Name] = Global.StrHexToColor("FF000000");
-				Color.Background1	   = Global.StrHexToColor("FFF3F7F7");
-				Color.Background2	   = Global.StrHexToColor("FFFFFFFF");
-				Color.PositiveRefresh  = Global.StrHexToColor("FFCEEBD3");
-				Color.NegativeRefresh  = Global.StrHexToColor("FFF6D4D1");
-				Color.Edge			   = Global.StrHexToColor("FFAFAFAF");
-				Color.PositiveChange   = Global.StrHexToColor("FF27892F");
-				Color.NegativeChange   = Global.StrHexToColor("FFCF6563");
-				Color.HeaderText	   = Global.StrHexToColor("FF000000");
-				Color.HeaderBackground = Global.StrHexToColor("FFF0F0F0");
+					Color[prop.Name] = StrHexToColor("FF000000");
+				Color.Background1	   = StrHexToColor("FFF3F7F7");
+				Color.Background2	   = StrHexToColor("FFFFFFFF");
+				Color.PositiveRefresh  = StrHexToColor("FFCEEBD3");
+				Color.NegativeRefresh  = StrHexToColor("FFF6D4D1");
+				Color.Edge			   = StrHexToColor("FFAFAFAF");
+				Color.PositiveChange   = StrHexToColor("FF27892F");
+				Color.NegativeChange   = StrHexToColor("FFCF6563");
+				Color.HeaderText	   = StrHexToColor("FF000000");
+				Color.HeaderBackground = StrHexToColor("FFF0F0F0");
 			}
 			else if((type & DefaultType.ColorDark) != 0) {
 				foreach(PropertyInfo prop in StColor.GetProps())
-					Color[prop.Name] = Global.StrHexToColor("FFDADADA");
-				Color.Background1	   = Global.StrHexToColor("FF1E1E1E");
-				Color.Background2	   = Global.StrHexToColor("FF2F2F2F");
-				Color.PositiveRefresh  = Global.StrHexToColor("FF3A8F49");
-				Color.NegativeRefresh  = Global.StrHexToColor("FF96261D");
-				Color.Edge			   = Global.StrHexToColor("FF535353");
-				Color.PositiveChange   = Global.StrHexToColor("FF27892F");
-				Color.NegativeChange   = Global.StrHexToColor("FFCF6563");
-				Color.HeaderText	   = Global.StrHexToColor("FFC7C7C7");
-				Color.HeaderBackground = Global.StrHexToColor("FF2C2C2C");
+					Color[prop.Name] = StrHexToColor("FFDADADA");
+				Color.Background1	   = StrHexToColor("FF1E1E1E");
+				Color.Background2	   = StrHexToColor("FF2F2F2F");
+				Color.PositiveRefresh  = StrHexToColor("FF3A8F49");
+				Color.NegativeRefresh  = StrHexToColor("FF96261D");
+				Color.Edge			   = StrHexToColor("FF535353");
+				Color.PositiveChange   = StrHexToColor("FF27892F");
+				Color.NegativeChange   = StrHexToColor("FFCF6563");
+				Color.HeaderText	   = StrHexToColor("FFC7C7C7");
+				Color.HeaderBackground = StrHexToColor("FF2C2C2C");
 
 			}
 			if((type & DefaultType.Coords) != 0) {
@@ -597,18 +596,17 @@ namespace CryptoGadget {
 				Grid.Target.Width     = 45;
 			}
 		}
-		public Settings Clone() {
-			Settings sett = new Settings();
+		public void CloneTo(Settings sett) {
 			sett._json = JObject.Parse(JsonConvert.SerializeObject(this));
 			sett.Load();
 			sett._json = _json;
 			sett._file_path = _file_path;
-			return sett;
 		}
 
 		public static CoinList[] CreateCoinList() {
 			CoinList[] ret = new CoinList[10];
-			ret.Initialize();
+			for(int i = 0; i < 10; i++)
+				ret[i] = new CoinList();
 			return ret;
 		}
 		public static bool CreateSettFile(string file_path) {

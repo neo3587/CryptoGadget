@@ -12,30 +12,24 @@ namespace CryptoGadget {
 
     class Global {
 
-        public static string IniLocation	  = Application.StartupPath + "\\settings.ini";
-        public static string IconFolder		  = Application.StartupPath + "\\ico\\";
-        public static string JsonLocation	  = Application.StartupPath + "\\CoinList.json";
-		public static string ProfilesLocation = Application.StartupPath + "\\profiles\\";
+        public static string IniLocation	= Application.StartupPath + "\\profile_default.ini";
+        public static string IconsFolder	= Application.StartupPath + "\\ico\\";
+        public static string JsonLocation	= Application.StartupPath + "\\CoinList.json";
+		public static string ProfilesFolder = Application.StartupPath + "\\profiles\\";
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
+		public static string Profile = "Default.json";
         
-        public static Color StrHexToColor(string str) {
-            return Color.FromArgb(int.Parse(str, System.Globalization.NumberStyles.HexNumber));
-        }
-        public static string ColorToStrHex(Color col) {
-            return col.ToArgb().ToString("X8");
-        }
-
         public static Bitmap GetIcon(string name, int size = 0) {
             Bitmap bmp;
             name = name.ToLower();
             try {
                 try {
-                    bmp = (size == 0? new Icon(IconFolder + name + ".ico") : new Icon(IconFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
+                    bmp = (size == 0? new Icon(IconsFolder + name + ".ico") : new Icon(IconsFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
                 }
                 catch {
-                    bmp = size == 0 ? new Bitmap(IconFolder + name + ".ico") : new Bitmap(Image.FromFile(IconFolder + name + ".ico"), new Size(size, size));
+                    bmp = size == 0 ? new Bitmap(IconsFolder + name + ".ico") : new Bitmap(Image.FromFile(IconsFolder + name + ".ico"), new Size(size, size));
                 }
             }
             catch {
