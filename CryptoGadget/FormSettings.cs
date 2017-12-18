@@ -267,9 +267,9 @@ namespace CryptoGadget {
 
             OpenFileDialog ofd = new OpenFileDialog();
 
-            string coin = coinGrid.SelectedRows[0].Cells[1].Value.ToString();
+            int index = coinGrid.SelectedRows[0].Index;
 
-            ofd.Title = "Select Icon for " + coin + " (" + coinGrid.SelectedRows[0].Cells[2].Value + ")";
+            ofd.Title = "Select Icon for " + _sett.Coins[_page][index].Coin + " (" + _sett.Coins[_page][index].CoinName + ")";
             ofd.Filter = "Icon Files (.ico)|*.ico";
             ofd.Multiselect = false;
 
@@ -282,10 +282,8 @@ namespace CryptoGadget {
 
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
-                    StreamWriter writer = new StreamWriter(Global.IconFolder + coin.ToLower() + ".ico");
+                    StreamWriter writer = new StreamWriter(Global.IconFolder + _sett.Coins[_page][index].Coin.ToLower() + ".ico");
                     stream.CopyTo(writer.BaseStream);
-                    writer.Close();
-                    stream.Close();
                 };
 
             };
@@ -348,13 +346,30 @@ namespace CryptoGadget {
 
 		#region Basic Tab
 
+		private void buttonProfileMakeDefault_Click(object sender, EventArgs e) {
+			
+		}
+		private void buttonProfileOpen_Click(object sender, EventArgs e) {
+
+			OpenFileDialog ofd = new OpenFileDialog();
+
+
+		}
+		private void buttonProfileCreate_Click(object sender, EventArgs e) {
+
+		}
+		private void buttonProfileDelete_Click(object sender, EventArgs e) {
+
+		}
+
 		private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
 			_sett.Default(boxTheme.SelectedIndex == 0 ? Settings.DefaultType.ColorLight : Settings.DefaultType.ColorDark);
-        }
+		}
 
         private void buttonDefaultBasic_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorLight | Settings.DefaultType.Visibility); 
-        }
+			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorLight | Settings.DefaultType.Visibility);
+			boxTheme.Text = "";
+		}
 
 		#endregion
 

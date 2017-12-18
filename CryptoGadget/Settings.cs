@@ -32,15 +32,15 @@ namespace CryptoGadget {
 		}
 
 		public class StCoin : _PropManager<StCoin> {
-			private Bitmap _icon;
-			private string _coin;
-			private string _coin_name;
-			private string _target;
-			private string _target_name;
+			private Bitmap _icon = null;
+			private string _coin = "";
+			private string _coin_name = "";
+			private string _target = "";
+			private string _target_name = "";
 
 			public class StAlarm : _PropManager<StAlarm> {
-				private float _up;
-				private float _down;
+				private float _up = 0.0f;
+				private float _down = 0.0f;
 
 				public float Up {
 					get => _up;
@@ -52,14 +52,14 @@ namespace CryptoGadget {
 				}
 			}
 			public class StGraph : _PropManager<StAlarm> {
-				private int _pos_x;
-				private int _pos_y;
-				private int _size_x;
-				private int _size_y;
-				private bool _lock_pos;
-				private bool _exit_save;
-				private int _refresh_rate;
-				private bool _startup;
+				private int _pos_x = 50;
+				private int _pos_y = 50;
+				private int _size_x = 100;
+				private int _size_y = 100;
+				private bool _lock_pos = false;
+				private bool _exit_save = true;
+				private int _refresh_rate = 60;
+				private bool _startup = false;
 
 				public int PosX {
 					get => _pos_x;
@@ -497,9 +497,8 @@ namespace CryptoGadget {
 			}
 			return true;
 		}
-		public void Default(DefaultType type = DefaultType.All, int page = 0) {
+		public void Default(DefaultType type = DefaultType.All, int page = -1) {
 			if((type & DefaultType.Coins) != 0) {
-				Coins[page].Clear();
 				ValueTuple<string, string>[] coins = { ("BTC", "Bitcoin"),
 													   ("ETH", "Ethereum"),
 													   ("ETC", "Ethereum Classic"),
@@ -511,21 +510,20 @@ namespace CryptoGadget {
 													   ("XMR", "Monero"),
 													   ("DOGE", "Dogecoin")
 													 };
-				foreach(ValueTuple<string, string> tp in coins) {
-					StCoin st = new StCoin();
-					st.Icon = Global.GetIcon(tp.Item1, 16);
-					st.Coin = tp.Item1;
-					st.CoinName = tp.Item2;
-					st.Target = "USD";
-					st.TargetName = "United States Dollar";
-					st.Alarm.Up = st.Alarm.Down = 0.0f;
-					st.Graph.PosX = st.Graph.PosY = 50;
-					st.Graph.SizeX = st.Graph.SizeY = 100;
-					st.Graph.LockPos = false;
-					st.Graph.ExitSave = true;
-					st.Graph.RefreshRate = 60;
-					st.Graph.Startup = false;
-					Coins[page].Add(st);
+
+				int from = page >= 0 ? page : 0;
+				int to = page >= 0 ? page+1 : 10;
+				for(int i = from; i < to; i++) {
+					Coins[i].Clear();
+					foreach(ValueTuple<string, string> tp in coins) {
+						StCoin st = new StCoin();
+						st.Icon = Global.GetIcon(tp.Item1, 16);
+						st.Coin = tp.Item1;
+						st.CoinName = tp.Item2;
+						st.Target = "USD";
+						st.TargetName = "United States Dollar";
+						Coins[i].Add(st);
+					}
 				}
 			}
 			if((type & DefaultType.Basic) != 0) {

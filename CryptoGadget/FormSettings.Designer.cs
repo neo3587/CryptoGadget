@@ -25,10 +25,10 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -50,12 +50,6 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.textBoxProfile = new System.Windows.Forms.TextBox();
-			this.buttonProfileMakeDefault = new System.Windows.Forms.Button();
-			this.buttonProfileDelete = new System.Windows.Forms.Button();
-			this.buttonProfileCreate = new System.Windows.Forms.Button();
-			this.buttonProfileOpen = new System.Windows.Forms.Button();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
@@ -77,6 +71,12 @@
 			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.textBoxProfileName = new System.Windows.Forms.TextBox();
+			this.buttonProfileMakeDefault = new System.Windows.Forms.Button();
+			this.buttonProfileDelete = new System.Windows.Forms.Button();
+			this.buttonProfileCreate = new System.Windows.Forms.Button();
+			this.buttonProfileOpen = new System.Windows.Forms.Button();
 			this.numRefreshRate = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.buttonDefaultBasic = new System.Windows.Forms.Button();
@@ -140,7 +140,6 @@
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.tabPage4.SuspendLayout();
-			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -153,6 +152,7 @@
 			this.tabPage3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).BeginInit();
 			this.tabPage2.SuspendLayout();
+			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -381,7 +381,6 @@
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.Add(this.groupBox3);
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
 			this.tabPage4.Controls.Add(this.numCoordsPosY);
 			this.tabPage4.Controls.Add(this.numCoordsPosX);
@@ -397,65 +396,6 @@
 			this.tabPage4.TabIndex = 4;
 			this.tabPage4.Text = "Advanced";
 			this.tabPage4.UseVisualStyleBackColor = true;
-			// 
-			// groupBox3
-			// 
-			this.groupBox3.Controls.Add(this.textBoxProfile);
-			this.groupBox3.Controls.Add(this.buttonProfileMakeDefault);
-			this.groupBox3.Controls.Add(this.buttonProfileDelete);
-			this.groupBox3.Controls.Add(this.buttonProfileCreate);
-			this.groupBox3.Controls.Add(this.buttonProfileOpen);
-			this.groupBox3.Location = new System.Drawing.Point(6, 327);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(291, 103);
-			this.groupBox3.TabIndex = 76;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Profile";
-			// 
-			// textBoxProfile
-			// 
-			this.textBoxProfile.BackColor = System.Drawing.Color.White;
-			this.textBoxProfile.Location = new System.Drawing.Point(6, 26);
-			this.textBoxProfile.Name = "textBoxProfile";
-			this.textBoxProfile.ReadOnly = true;
-			this.textBoxProfile.Size = new System.Drawing.Size(184, 20);
-			this.textBoxProfile.TabIndex = 81;
-			// 
-			// buttonProfileMakeDefault
-			// 
-			this.buttonProfileMakeDefault.Location = new System.Drawing.Point(196, 24);
-			this.buttonProfileMakeDefault.Name = "buttonProfileMakeDefault";
-			this.buttonProfileMakeDefault.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileMakeDefault.TabIndex = 80;
-			this.buttonProfileMakeDefault.Text = "Make Default";
-			this.buttonProfileMakeDefault.UseVisualStyleBackColor = true;
-			// 
-			// buttonProfileDelete
-			// 
-			this.buttonProfileDelete.Location = new System.Drawing.Point(196, 70);
-			this.buttonProfileDelete.Name = "buttonProfileDelete";
-			this.buttonProfileDelete.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileDelete.TabIndex = 79;
-			this.buttonProfileDelete.Text = "Delete Profile";
-			this.buttonProfileDelete.UseVisualStyleBackColor = true;
-			// 
-			// buttonProfileCreate
-			// 
-			this.buttonProfileCreate.Location = new System.Drawing.Point(101, 70);
-			this.buttonProfileCreate.Name = "buttonProfileCreate";
-			this.buttonProfileCreate.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileCreate.TabIndex = 78;
-			this.buttonProfileCreate.Text = "Create Profile";
-			this.buttonProfileCreate.UseVisualStyleBackColor = true;
-			// 
-			// buttonProfileOpen
-			// 
-			this.buttonProfileOpen.Location = new System.Drawing.Point(6, 70);
-			this.buttonProfileOpen.Name = "buttonProfileOpen";
-			this.buttonProfileOpen.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileOpen.TabIndex = 77;
-			this.buttonProfileOpen.Text = "Open Profile";
-			this.buttonProfileOpen.UseVisualStyleBackColor = true;
 			// 
 			// buttonDefaultAdvanced
 			// 
@@ -717,14 +657,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -735,14 +675,14 @@
 			this.colsGrid.Location = new System.Drawing.Point(5, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
@@ -751,8 +691,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle6;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -819,6 +759,7 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.groupBox3);
 			this.tabPage2.Controls.Add(this.numRefreshRate);
 			this.tabPage2.Controls.Add(this.label1);
 			this.tabPage2.Controls.Add(this.buttonDefaultBasic);
@@ -834,6 +775,69 @@
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Basic";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.textBoxProfileName);
+			this.groupBox3.Controls.Add(this.buttonProfileMakeDefault);
+			this.groupBox3.Controls.Add(this.buttonProfileDelete);
+			this.groupBox3.Controls.Add(this.buttonProfileCreate);
+			this.groupBox3.Controls.Add(this.buttonProfileOpen);
+			this.groupBox3.Location = new System.Drawing.Point(6, 327);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(291, 103);
+			this.groupBox3.TabIndex = 76;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Profile";
+			// 
+			// textBoxProfileName
+			// 
+			this.textBoxProfileName.BackColor = System.Drawing.Color.White;
+			this.textBoxProfileName.Location = new System.Drawing.Point(6, 26);
+			this.textBoxProfileName.Name = "textBoxProfileName";
+			this.textBoxProfileName.ReadOnly = true;
+			this.textBoxProfileName.Size = new System.Drawing.Size(184, 20);
+			this.textBoxProfileName.TabIndex = 81;
+			// 
+			// buttonProfileMakeDefault
+			// 
+			this.buttonProfileMakeDefault.Location = new System.Drawing.Point(196, 24);
+			this.buttonProfileMakeDefault.Name = "buttonProfileMakeDefault";
+			this.buttonProfileMakeDefault.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileMakeDefault.TabIndex = 80;
+			this.buttonProfileMakeDefault.Text = "Make Default";
+			this.buttonProfileMakeDefault.UseVisualStyleBackColor = true;
+			this.buttonProfileMakeDefault.Click += new System.EventHandler(this.buttonProfileMakeDefault_Click);
+			// 
+			// buttonProfileDelete
+			// 
+			this.buttonProfileDelete.Location = new System.Drawing.Point(196, 70);
+			this.buttonProfileDelete.Name = "buttonProfileDelete";
+			this.buttonProfileDelete.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileDelete.TabIndex = 79;
+			this.buttonProfileDelete.Text = "Delete Profile";
+			this.buttonProfileDelete.UseVisualStyleBackColor = true;
+			this.buttonProfileDelete.Click += new System.EventHandler(this.buttonProfileDelete_Click);
+			// 
+			// buttonProfileCreate
+			// 
+			this.buttonProfileCreate.Location = new System.Drawing.Point(101, 70);
+			this.buttonProfileCreate.Name = "buttonProfileCreate";
+			this.buttonProfileCreate.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileCreate.TabIndex = 78;
+			this.buttonProfileCreate.Text = "Create Profile";
+			this.buttonProfileCreate.UseVisualStyleBackColor = true;
+			this.buttonProfileCreate.Click += new System.EventHandler(this.buttonProfileCreate_Click);
+			// 
+			// buttonProfileOpen
+			// 
+			this.buttonProfileOpen.Location = new System.Drawing.Point(6, 70);
+			this.buttonProfileOpen.Name = "buttonProfileOpen";
+			this.buttonProfileOpen.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileOpen.TabIndex = 77;
+			this.buttonProfileOpen.Text = "Open Profile";
+			this.buttonProfileOpen.UseVisualStyleBackColor = true;
+			this.buttonProfileOpen.Click += new System.EventHandler(this.buttonProfileOpen_Click);
 			// 
 			// numRefreshRate
 			// 
@@ -1471,8 +1475,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle8;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1546,8 +1550,6 @@
 			this.Text = "CryptoGadget Settings";
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
-			this.groupBox3.ResumeLayout(false);
-			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
 			this.groupBox1.ResumeLayout(false);
@@ -1562,6 +1564,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
@@ -1667,12 +1671,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn dataGridViewNumericUpDownColumn1;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn dataGridViewNumericUpDownColumn2;
-		private System.Windows.Forms.GroupBox groupBox3;
-		private System.Windows.Forms.TextBox textBoxProfile;
-		private System.Windows.Forms.Button buttonProfileMakeDefault;
-		private System.Windows.Forms.Button buttonProfileDelete;
-		private System.Windows.Forms.Button buttonProfileCreate;
-		private System.Windows.Forms.Button buttonProfileOpen;
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.TextBox textBoxDonationDASH;
 		private System.Windows.Forms.Label label16;
@@ -1685,5 +1683,11 @@
 		private System.Windows.Forms.Button buttonDonationCopyDASH;
 		private System.Windows.Forms.Button buttonDonationCopyETH;
 		private System.Windows.Forms.Button buttonDonationCopyBTC;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.TextBox textBoxProfileName;
+		private System.Windows.Forms.Button buttonProfileMakeDefault;
+		private System.Windows.Forms.Button buttonProfileDelete;
+		private System.Windows.Forms.Button buttonProfileCreate;
+		private System.Windows.Forms.Button buttonProfileOpen;
 	}
 }
