@@ -147,6 +147,8 @@ namespace CryptoGadget {
 				}
 			}
 
+			// Coins
+
 			PropertyInfo[] coin_props = Settings.StCoin.GetProps();
 			for(int i = 0; i < coin_props.Length; i++)
 				coinGrid.Columns[i].DataPropertyName = coin_props[i].Name;
@@ -155,15 +157,19 @@ namespace CryptoGadget {
 			coin_bind.DataSource = _sett.Coins[_page];
 			Invoke((MethodInvoker)delegate { coinGrid.DataSource = coin_bind; });
 
+			// Basic
+
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
 			checkStartup.DataBindings.Add("Checked", _sett.Basic, "Startup");
 
-			// for(int i = 0; i < props.Length; i++) 
+			// Visibility
+
 			checkEnableHeader.DataBindings.Add("Checked", _sett.Visibility, "Header");
 			checkEnableEdge.DataBindings.Add("Checked", _sett.Visibility, "Edge");
 			checkEnableRefresh.DataBindings.Add("Checked", _sett.Visibility, "Refresh");
 
-			// for(int i = 0; i < props.Length; i++) 
+			// Color
+
 			buttonColorCoin.DataBindings.Add("BackColor", _sett.Color, "Coin");
 			buttonColorValues.DataBindings.Add("BackColor", _sett.Color, "Values");
 			buttonColorBackground1.DataBindings.Add("BackColor", _sett.Color, "Background1");
@@ -176,18 +182,23 @@ namespace CryptoGadget {
 			buttonColorHeaderBackground.DataBindings.Add("BackColor", _sett.Color, "HeaderBackground");
 			buttonColorEdge.DataBindings.Add("BackColor", _sett.Color, "Edge");
 
+			// Coords
+
 			numCoordsPosX.DataBindings.Add("Value", _sett.Coords, "PosX");
 			numCoordsPosY.DataBindings.Add("Value", _sett.Coords, "PosY");
 			checkCoordsExitSave.DataBindings.Add("Checked", _sett.Coords, "ExitSave");
 			checkCoordsLockPos.DataBindings.Add("Checked", _sett.Coords, "LockPos");
 
-			// for(int i = 0; i < props.Length; i++)
+			// Metrics
+
 			numMetricsEdge.DataBindings.Add("Value", _sett.Metrics, "Edge");
 			numMetricsHeader.DataBindings.Add("Value", _sett.Metrics, "Header");
 			numMetricsRows.DataBindings.Add("Value", _sett.Metrics, "Rows");
 			numMetricsIconSize.DataBindings.Add("Value", _sett.Metrics, "IconSize");
 			numMetricsHeaderText.DataBindings.Add("Value", _sett.Metrics, "HeaderText");
 			numMetricsRowsValues.DataBindings.Add("Value", _sett.Metrics, "RowsValues");
+
+			// Grid
 
 			PropertyInfo[] cols_props = Settings.StColumn.GetProps();
 			for(int i = 0; i < cols_props.Length; i++)
@@ -207,7 +218,7 @@ namespace CryptoGadget {
 		public FormSettings(FormMain form) {
             InitializeComponent();
             _ptr_form = form;
-			_sett = (Settings)Global.Sett.Clone();
+			_sett = Global.Sett.Clone();
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
             HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
@@ -387,7 +398,7 @@ namespace CryptoGadget {
 		#region Shared on all Tabs
 
 		private void buttonAccept_Click(object sender, EventArgs e) {
-			Global.Sett = (Settings)_sett.Clone();
+			Global.Sett = _sett;
 			Global.Sett.Store();
 			Global.Sett.Save();
 			accept = true;

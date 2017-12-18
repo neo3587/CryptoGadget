@@ -14,8 +14,9 @@ using Newtonsoft.Json.Linq;
 
 namespace CryptoGadget {
 
-	public class Settings : ICloneable {
-
+	
+	public class Settings {
+		
 		public class _PropGetter<T> {
 			public static PropertyInfo[] GetProps() {
 				return typeof(T).GetProperties().Where(p => p.GetIndexParameters().Length == 0).ToArray();
@@ -180,6 +181,7 @@ namespace CryptoGadget {
 		public StGrid Grid             = new StGrid();
 
 		private string _file_path = "";
+		
 		private JObject _json = new JObject();
 
 		public bool BindFile(string file_path) {
@@ -216,7 +218,7 @@ namespace CryptoGadget {
 				Pages      = JsonConvert.DeserializeObject<StPages>(_json["Pages"].ToString());
 				Grid       = JsonConvert.DeserializeObject<StGrid>(_json["Grid"].ToString());
 			} catch(Exception e) {
-				Global.DbgPrint("ERROR: " + e.ToString());
+				Global.DbgMsgShow("ERROR: " + e.ToString());
 				return false;
 			}
 			
@@ -236,7 +238,7 @@ namespace CryptoGadget {
 					_json.WriteTo(writer);
 				}
 			} catch(Exception e) {
-				Global.DbgPrint("ERROR: " + e.ToString());
+				Global.DbgMsgShow("ERROR: " + e.ToString());
 				return false;
 			}
 			return true;
@@ -331,8 +333,13 @@ namespace CryptoGadget {
 				Grid.Target.Width     = 45;
 			}
 		}
-		public object Clone() {
-			return MemberwiseClone();
+		public Settings Clone() {
+			Settings sett = new Settings();
+			sett._json = JObject.Parse(JsonConvert.SerializeObject(this));
+			sett.Load();
+			sett._json = _json;
+			sett._file_path = _file_path;
+			return sett;
 		}
 
 		public static CoinList[] CreateCoinList() {

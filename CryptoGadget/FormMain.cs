@@ -24,9 +24,8 @@ using Microsoft.Win32;
 /* TODO:
 - Fix Shown Name not working on the mainGrid 
 - Make Settings.Check()
-- Finish the FormProgressBar refactor 
-- Make TextBoxs copiable and readonly
 - Make Profile swapping and default stuff
+- Fix Default Buttons not working
 */
 
 
@@ -234,7 +233,7 @@ namespace CryptoGadget {
 			coin_bind.DataSource = _coinGrid;
 			mainGrid.DataSource = coin_bind;
 
-			// Aditional Columns customization
+			// Metrics % Visibility
 
 			mainGrid.ColumnHeadersHeight = Global.Sett.Metrics.Header;
             mainGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", Global.Sett.Metrics.HeaderText);
@@ -245,8 +244,7 @@ namespace CryptoGadget {
 
             mainGrid.ColumnHeadersVisible = Global.Sett.Visibility.Header;
 
-
-            #region Color Init
+			// Color
 
             mainGrid.RowsDefaultCellStyle.BackColor = Global.Sett.Color.Background1;
             mainGrid.AlternatingRowsDefaultCellStyle.BackColor = Global.Sett.Color.Background2;
@@ -258,9 +256,7 @@ namespace CryptoGadget {
 
             BackColor = Global.Sett.Color.Edge;
 
-            #endregion
-
-            #region Coordinates Init
+			// Coords
 
             StartPosition = FormStartPosition.Manual;
             Location = new Point(Global.Sett.Coords.PosX, Global.Sett.Coords.PosY);
@@ -272,9 +268,7 @@ namespace CryptoGadget {
                 mainGrid.MouseDown += neo.FormUtil.DragMove;
             }
 
-            #endregion
-
-            #region Other Stuff Init
+			// Other Stuff
 
             // Open on Startup
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -284,8 +278,6 @@ namespace CryptoGadget {
                 else
                     regKey.DeleteValue("CryptoGadget", false);
             }
-
-            #endregion
 
         }
 		private void RowsInit() {
@@ -345,13 +337,13 @@ namespace CryptoGadget {
 
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
-
-            wait.WaitOne();
+			
+			wait.WaitOne();
 
             if(form2.accept) {
 				Point currLoc = Location; // prevent the form realocation
                 GridInit();
-                ResizeForm();
+				ResizeForm();
                 Location = currLoc;
 			}
 

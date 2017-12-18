@@ -84,7 +84,12 @@ namespace CryptoGadget {
 			Console.WriteLine(text.ToString());
 			#endif
 		}
+		public static void DbgMsgShow<T>(T text) {
+			#if DEBUG
+			MessageBox.Show(text.ToString());
+			#endif
+		}
 
-    }
+	}
 
 }

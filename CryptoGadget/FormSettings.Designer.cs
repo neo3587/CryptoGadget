@@ -25,10 +25,10 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -414,8 +414,10 @@
 			// 
 			// textBoxProfile
 			// 
+			this.textBoxProfile.BackColor = System.Drawing.Color.White;
 			this.textBoxProfile.Location = new System.Drawing.Point(6, 26);
 			this.textBoxProfile.Name = "textBoxProfile";
+			this.textBoxProfile.ReadOnly = true;
 			this.textBoxProfile.Size = new System.Drawing.Size(184, 20);
 			this.textBoxProfile.TabIndex = 81;
 			// 
@@ -464,6 +466,7 @@
 			this.buttonDefaultAdvanced.TabIndex = 75;
 			this.buttonDefaultAdvanced.Text = "Defaults";
 			this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
+			this.buttonDefaultAdvanced.Click += new System.EventHandler(this.buttonDefaultAdvanced_Click);
 			// 
 			// numCoordsPosY
 			// 
@@ -714,14 +717,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -732,14 +735,14 @@
 			this.colsGrid.Location = new System.Drawing.Point(5, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
@@ -748,8 +751,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle14.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle14;
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1316,7 +1319,7 @@
 			// 
 			// buttonDonationCopyLTC
 			// 
-			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(377, 391);
+			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(372, 391);
 			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
 			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyLTC.TabIndex = 11;
@@ -1326,7 +1329,7 @@
 			// 
 			// buttonDonationCopyDASH
 			// 
-			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(377, 365);
+			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(372, 365);
 			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
 			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyDASH.TabIndex = 10;
@@ -1336,7 +1339,7 @@
 			// 
 			// buttonDonationCopyETH
 			// 
-			this.buttonDonationCopyETH.Location = new System.Drawing.Point(377, 339);
+			this.buttonDonationCopyETH.Location = new System.Drawing.Point(372, 339);
 			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
 			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyETH.TabIndex = 9;
@@ -1346,7 +1349,7 @@
 			// 
 			// buttonDonationCopyBTC
 			// 
-			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(377, 313);
+			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(372, 313);
 			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
 			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyBTC.TabIndex = 8;
@@ -1365,8 +1368,10 @@
 			// 
 			// textBoxDonationDASH
 			// 
-			this.textBoxDonationDASH.Location = new System.Drawing.Point(116, 367);
+			this.textBoxDonationDASH.BackColor = System.Drawing.Color.White;
+			this.textBoxDonationDASH.Location = new System.Drawing.Point(111, 367);
 			this.textBoxDonationDASH.Name = "textBoxDonationDASH";
+			this.textBoxDonationDASH.ReadOnly = true;
 			this.textBoxDonationDASH.Size = new System.Drawing.Size(255, 20);
 			this.textBoxDonationDASH.TabIndex = 6;
 			this.textBoxDonationDASH.Text = "Xfe7eN233vQnqMostLo5Hf968RMUP4eR5T";
@@ -1382,8 +1387,10 @@
 			// 
 			// textBoxDonationLTC
 			// 
-			this.textBoxDonationLTC.Location = new System.Drawing.Point(116, 393);
+			this.textBoxDonationLTC.BackColor = System.Drawing.Color.White;
+			this.textBoxDonationLTC.Location = new System.Drawing.Point(111, 393);
 			this.textBoxDonationLTC.Name = "textBoxDonationLTC";
+			this.textBoxDonationLTC.ReadOnly = true;
 			this.textBoxDonationLTC.Size = new System.Drawing.Size(255, 20);
 			this.textBoxDonationLTC.TabIndex = 4;
 			this.textBoxDonationLTC.Text = "37eRbNQqHtE4twYpVHmmtTkUhh462RHPKR";
@@ -1399,8 +1406,10 @@
 			// 
 			// textBoxDonationETH
 			// 
-			this.textBoxDonationETH.Location = new System.Drawing.Point(116, 341);
+			this.textBoxDonationETH.BackColor = System.Drawing.Color.White;
+			this.textBoxDonationETH.Location = new System.Drawing.Point(111, 341);
 			this.textBoxDonationETH.Name = "textBoxDonationETH";
+			this.textBoxDonationETH.ReadOnly = true;
 			this.textBoxDonationETH.Size = new System.Drawing.Size(255, 20);
 			this.textBoxDonationETH.TabIndex = 2;
 			this.textBoxDonationETH.Text = "0xb5996de811913f24eb3d4b1b1052cd95968a7dc1";
@@ -1416,8 +1425,10 @@
 			// 
 			// textBoxDonationBTC
 			// 
-			this.textBoxDonationBTC.Location = new System.Drawing.Point(116, 315);
+			this.textBoxDonationBTC.BackColor = System.Drawing.Color.White;
+			this.textBoxDonationBTC.Location = new System.Drawing.Point(111, 315);
 			this.textBoxDonationBTC.Name = "textBoxDonationBTC";
+			this.textBoxDonationBTC.ReadOnly = true;
 			this.textBoxDonationBTC.Size = new System.Drawing.Size(255, 20);
 			this.textBoxDonationBTC.TabIndex = 0;
 			this.textBoxDonationBTC.Text = "3HE1kwgHEWvxBa38NHuQbQQrhNZ9wxjhe7";
@@ -1460,8 +1471,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle16.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle16;
+			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
