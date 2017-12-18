@@ -27,35 +27,35 @@ namespace CryptoGadget {
             return col.ToArgb().ToString("X8");
         }
 
-        public static Bitmap GetIcon(string name, Size size = new Size()) {
+        public static Bitmap GetIcon(string name, int size = 0) {
             Bitmap bmp;
             name = name.ToLower();
             try {
                 try {
-                    bmp = (size.IsEmpty ? new Icon(IconFolder + name + ".ico") : new Icon(IconFolder + name + ".ico", size)).ToBitmap(); // it looks slightly better if you can load it as a icon
+                    bmp = (size == 0? new Icon(IconFolder + name + ".ico") : new Icon(IconFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
                 }
-                catch(Exception) {
-                    bmp = size.IsEmpty ? new Bitmap(IconFolder + name + ".ico") : new Bitmap(Image.FromFile(IconFolder + name + ".ico"), size);
+                catch {
+                    bmp = size == 0 ? new Bitmap(IconFolder + name + ".ico") : new Bitmap(Image.FromFile(IconFolder + name + ".ico"), new Size(size, size));
                 }
             }
-            catch(Exception) {
+            catch {
                 bmp = new Bitmap(1,1);
             }
-            return bmp;
-        }
-        public static Bitmap GetIcon(Stream stream, Size size = new Size()) {
+			return size > 0 ? IconResize(bmp, size) : bmp;
+		}
+        public static Bitmap GetIcon(Stream stream, int size = 0) {
             Bitmap bmp;
             try {
                 try {
-                    bmp = (size.IsEmpty ? new Icon(stream) : new Icon(stream, size)).ToBitmap(); // it looks slightly better if you can load it as a icon
+                    bmp = (size == 0 ? new Icon(stream) : new Icon(stream, new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
                 } catch(Exception) {
-                    bmp = size.IsEmpty ? new Bitmap(stream) : new Bitmap(Image.FromStream(stream), size);
+                    bmp = size == 0 ? new Bitmap(stream) : new Bitmap(Image.FromStream(stream), new Size(size, size));
                 }
             } catch(Exception) {
-                bmp = new Bitmap(0, 0);
+                bmp = new Bitmap(1,1);
             }
-            return bmp;
-        }
+			return size > 0 ? IconResize(bmp, size) : bmp;			
+		}
 
         public static bool JsonIsValid(JObject js) {
             System.Threading.Tasks.ParallelLoopResult result = System.Threading.Tasks.Parallel.ForEach(js["Data"], (coin, state) => {

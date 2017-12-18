@@ -15,7 +15,6 @@ using Newtonsoft.Json.Linq;
 
 namespace CryptoGadget {
 
-	
 	public class Settings {
 		
 		public class _PropManager<T> : INotifyPropertyChanged {
@@ -458,14 +457,27 @@ namespace CryptoGadget {
 			}
 			return true;
 		}
-		public void Default(DefaultType type = DefaultType.All) {
+		public void Default(DefaultType type = DefaultType.All, int page = 0) {
 			if((type & DefaultType.Coins) != 0) {
-				Coins = CreateCoinList();
-				string[] coins = { "BTC", "ETH", "ETC", "LTC", "ZEC", "VTC", "LBC", "DASH", "XMR", "DOGE" };
-				foreach(string coin in coins) {
+				Coins[page].Clear();
+				ValueTuple<string, string>[] coins = { ("BTC", "Bitcoin"),
+													   ("ETH", "Ethereum"),
+													   ("ETC", "Ethereum Classic"),
+													   ("LTC", "Litecoin"),
+													   ("ZEC", "ZCash"),
+													   ("VTC", "VertCoin"),
+													   ("LBC", "LBRY Credits"),
+													   ("DASH", "DigitalCash"),
+													   ("XMR", "Monero"),
+													   ("DOGE", "Dogecoin")
+													 };
+				foreach(ValueTuple<string, string> tp in coins) {
 					StCoin st = new StCoin();
-					st.Coin = coin;
+					st.Icon = Global.GetIcon(tp.Item1, 16);
+					st.Coin = tp.Item1;
+					st.CoinName = tp.Item2;
 					st.Target = "USD";
+					st.TargetName = "United States Dollar";
 					st.Alarm.Up = 0.0f;
 					st.Alarm.Down = 0.0f;
 					st.Graph.PosX = 100;
@@ -474,7 +486,7 @@ namespace CryptoGadget {
 					st.Graph.ExitSave = true;
 					st.Graph.RefreshRate = 10;
 					st.Graph.Startup = false;
-					Coins[0].Add(st);
+					Coins[page].Add(st);
 				}
 			}
 			if((type & DefaultType.Basic) != 0) {
@@ -559,8 +571,7 @@ namespace CryptoGadget {
 
 		public static CoinList[] CreateCoinList() {
 			CoinList[] ret = new CoinList[10];
-			for(int i = 0; i < 10; i++)
-				ret[i] = new CoinList();
+			ret.Initialize();
 			return ret;
 		}
 		public static bool CreateSettFile(string file_path) {

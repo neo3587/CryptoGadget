@@ -25,7 +25,6 @@ using Microsoft.Win32;
 - Fix Shown Name not working on the mainGrid 
 - Make Settings.Check()
 - Make Profile swapping and default stuff
-- Fix Default Button on Currencies
 */
 
 
@@ -297,9 +296,9 @@ namespace CryptoGadget {
 					st.TargetName = Global.Json["Data"]?[st.Target]?["CoinName"]?.ToString();
 				}
 
-				coin.Icon		= Global.IconResize(Global.GetIcon(st.Coin), Global.Sett.Metrics.IconSize);
+				coin.Icon		= Global.GetIcon(st.Coin, Global.Sett.Metrics.IconSize);
 				coin.Coin		= st.Coin;
-				coin.TargetIcon = Global.IconResize(Global.GetIcon(st.Target), Global.Sett.Metrics.IconSize);
+				coin.TargetIcon = Global.GetIcon(st.Target, Global.Sett.Metrics.IconSize);
 				coin.Target     = st.Target;
 
 				_coinGrid.Add(coin);

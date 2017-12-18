@@ -61,7 +61,7 @@ namespace CryptoGadget {
             }
 
 			Settings.StCoin st = new Settings.StCoin();
-			st.Icon = Global.GetIcon(left.Key, new Size(16, 16));
+			st.Icon = Global.GetIcon(left.Key, 16);
 			st.Coin = left.Key;
 			st.CoinName = left.Value;
 			st.Target = right.Key;

@@ -138,7 +138,7 @@ namespace CryptoGadget {
 		private void BindSettings() {
 
 			foreach(Settings.StCoin st in _sett.Coins[_page]) {
-				st.Icon = Global.GetIcon(st.Coin, new Size(16, 16));
+				st.Icon = Global.GetIcon(st.Coin, 16);
 			}
 			if(Global.Json == null && GetCoinDB()) {
 				foreach(Settings.StCoin st in _sett.Coins[_page]) {
@@ -278,7 +278,7 @@ namespace CryptoGadget {
                 Stream stream = (f_sender as OpenFileDialog).OpenFile();
 
                 stream.Position = 0;
-                coinGrid.SelectedRows[0].Cells[0].Value = Global.GetIcon(stream, new Size(16, 16));
+                coinGrid.SelectedRows[0].Cells[0].Value = Global.GetIcon(stream, 16);
 
                 buttonAccept.Click += (b_sender, b_ev) => {
                     stream.Position = 0;
