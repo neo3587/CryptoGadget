@@ -85,8 +85,8 @@ namespace CryptoGadget {
 					for(int i = 0; i < _coinGrid.Count; i++) {
 						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
 
-						foreach(ValueTuple<string, string, string> tp in Settings.StGrid.jsget) 
-							_coinGrid[i][tp.Item1] = AdaptValue(jtok[tp.Item3].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
+						foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget) 
+							_coinGrid[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
 						_coinGrid[i].LastMarket = jtok["LASTMARKET"].ToString();
 
 						string[] changes = {"Change24", "Change24Pct", "ChangeDay", "ChangeDayPct"};

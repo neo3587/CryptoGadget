@@ -316,29 +316,29 @@ namespace CryptoGadget {
 			}
 		}
 		public class StGrid : _PropManager<StGrid> {
-			// <PropertyName, ShownName, JsonName>
-			public static ValueTuple<string, string, string>[] props = { ("Icon",			"",					""),
-																		 ("Coin",			"Coin",				""),
-																		 ("TargetIcon",		"",					""),
-																		 ("Target",			"Target",			""),
-																		 ("Value",			"Value",			"PRICE"),
-																		 ("ChangeDay",		"Change Day",		"CHANGEDAY"),
-																		 ("ChangeDayPct",	"Change Day (%)",	"CHANGEPCTDAY"),
-																		 ("Change24",		"Change 24h",		"CHANGE24HOUR"),
-																		 ("Change24Pct",	"Change 24h (%)",	"CHANGEPCT24HOUR"),
-																		 ("VolumeDay",		"Volume Day",		"VOLUMEDAY"),
-																		 ("Volume24",		"Volume 24h",		"VOLUME24HOUR"),
-																		 ("TotalVolume24",	"Total Volume 24h",	"TOTALVOLUME24H"),
-																		 ("OpenDay",		"Open Day",			"OPENDAY"),
-																		 ("Open24",			"Open 24h",         "OPEN24HOUR"),
-																		 ("HighDay",		"High Day",			"HIGHDAY"),
-																		 ("High24",			"High 24h",			"HIGH24HOUR"),
-																		 ("LowDay",			"Low Day",			"LOWDAY"),
-																		 ("Low24",			"Low 24h",			"LOW24HOUR"),
-																		 ("Supply",			"Supply",			"SUPPLY"),
-																		 ("MktCap",			"Market Cap",		"MKTCAP"),
-																		 ("LastMarket",		"Last Market",		"") };
-			public static ValueTuple<string, string, string>[] jsget = props.Where(tp => tp.Item3 != "").ToArray();
+			// <PropertyName, default_ShownName, JsonName, default_width, default_digits, default_enabled>
+			public static ValueTuple<string, string, string, int, int, bool>[] props = { ("Icon",			"",					"",					25, 0, true),
+																						 ("Coin",			"Coin",				"",					40, 0, true),
+																						 ("TargetIcon",		"",					"",					25, 0, false),
+																						 ("Target",			"Target",			"",					40, 0, false),
+																						 ("Value",			"Value",			"PRICE",			60, 7, true),
+																						 ("ChangeDay",		"Chg Day",			"CHANGEDAY",		60, 7, false),
+																						 ("ChangeDayPct",	"Chg Day (%)",		"CHANGEPCTDAY",		70, 7, false),
+																						 ("Change24",		"Chg 24h",			"CHANGE24HOUR",		60, 7, true),
+																						 ("Change24Pct",	"Chg 24h (%)",		"CHANGEPCT24HOUR",  70, 7, false),
+																						 ("VolumeDay",		"Vol Day",			"VOLUMEDAY",        70, 8, false),
+																						 ("Volume24",		"Vol 24h",			"VOLUME24HOUR",     70, 8, false),
+																						 ("TotalVolume24",	"Total Vol 24h",	"TOTALVOLUME24H",   70, 8, false),
+																						 ("OpenDay",		"Open Day",			"OPENDAY",          60, 7, false),
+																						 ("Open24",			"Open 24h",         "OPEN24HOUR",       60, 7, false),
+																						 ("HighDay",		"High Day",			"HIGHDAY",          60, 7, false),
+																						 ("High24",			"High 24h",			"HIGH24HOUR",       60, 7, false),
+																						 ("LowDay",			"Low Day",			"LOWDAY",           60, 7, false),
+																						 ("Low24",			"Low 24h",			"LOW24HOUR",        60, 7, false),
+																						 ("Supply",			"Supply",			"SUPPLY",           80, 9, false),
+																						 ("MktCap",			"Mkt Cap",			"MKTCAP",           80, 9, false),
+																						 ("LastMarket",		"Last Mkt",			"",                 60, 0, false) };
+			public static ValueTuple<string, string>[] jsget = props.Where(tp => tp.Item3 != "").Select(tp => (tp.Item1, tp.Item3)).ToArray();
 
 			public StColumn Icon { get; set; } = new StColumn(); // skip this on json get
 			public StColumn Coin { get; set; } = new StColumn(); // skip this on json get
@@ -582,18 +582,13 @@ namespace CryptoGadget {
 				Pages.RotateRate = 10.0f;
 			}
 			if((type & DefaultType.Grid) != 0) {
-				foreach(ValueTuple<string, string, string> prop in StGrid.props) { 
+				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) { 
 					(Grid[prop.Item1] as StColumn).Column = prop.Item1;
 					(Grid[prop.Item1] as StColumn).Name = prop.Item2;
-					(Grid[prop.Item1] as StColumn).Digits = 7;
-					(Grid[prop.Item1] as StColumn).Width = 60;
-					(Grid[prop.Item1] as StColumn).Enabled = false;
+					(Grid[prop.Item1] as StColumn).Width = prop.Item4;
+					(Grid[prop.Item1] as StColumn).Digits = prop.Item5;
+					(Grid[prop.Item1] as StColumn).Enabled = prop.Item6;
 				}
-				Grid.Icon.Enabled = Grid.Coin.Enabled = Grid.Value.Enabled = Grid.Change24.Enabled = true;
-				Grid.Icon.Width = 25;
-				Grid.Coin.Width = 45;
-				Grid.TargetIcon.Width = 25;
-				Grid.Target.Width     = 45;
 			}
 		}
 		public void CloneTo(Settings sett) {

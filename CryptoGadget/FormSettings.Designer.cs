@@ -27,8 +27,8 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -49,6 +49,34 @@
 			this.label26 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
+			this.buttonProfileMakeDefault = new System.Windows.Forms.Button();
+			this.buttonProfileCreate = new System.Windows.Forms.Button();
+			this.buttonProfileOpen = new System.Windows.Forms.Button();
+			this.checkEnableRefresh = new System.Windows.Forms.CheckBox();
+			this.checkEnableEdge = new System.Windows.Forms.CheckBox();
+			this.checkEnableHeader = new System.Windows.Forms.CheckBox();
+			this.buttonColorHeaderText = new System.Windows.Forms.Button();
+			this.label13 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
+			this.buttonColorNegativeRefresh = new System.Windows.Forms.Button();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
+			this.buttonColorRowsValues = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label31 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.buttonColorHeaderBackground = new System.Windows.Forms.Button();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.buttonColorRowsText = new System.Windows.Forms.Button();
+			this.buttonColorBackground1 = new System.Windows.Forms.Button();
+			this.buttonColorEdge = new System.Windows.Forms.Button();
+			this.buttonColorBackground2 = new System.Windows.Forms.Button();
+			this.label12 = new System.Windows.Forms.Label();
+			this.buttonColorNegativeChange = new System.Windows.Forms.Button();
+			this.label11 = new System.Windows.Forms.Label();
+			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
@@ -65,50 +93,17 @@
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultColumns = new System.Windows.Forms.Button();
 			this.colsGrid = new System.Windows.Forms.DataGridView();
-			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.textBoxProfileName = new System.Windows.Forms.TextBox();
-			this.buttonProfileMakeDefault = new System.Windows.Forms.Button();
 			this.buttonProfileOpenFolder = new System.Windows.Forms.Button();
-			this.buttonProfileCreate = new System.Windows.Forms.Button();
-			this.buttonProfileOpen = new System.Windows.Forms.Button();
 			this.numRefreshRate = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.buttonDefaultBasic = new System.Windows.Forms.Button();
-			this.checkEnableRefresh = new System.Windows.Forms.CheckBox();
 			this.checkStartup = new System.Windows.Forms.CheckBox();
-			this.checkEnableEdge = new System.Windows.Forms.CheckBox();
-			this.checkEnableHeader = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.buttonColorHeaderText = new System.Windows.Forms.Button();
-			this.label13 = new System.Windows.Forms.Label();
-			this.label8 = new System.Windows.Forms.Label();
-			this.buttonColorNegativeRefresh = new System.Windows.Forms.Button();
-			this.label7 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.buttonColorPositiveRefresh = new System.Windows.Forms.Button();
-			this.buttonColorRowsValues = new System.Windows.Forms.Button();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label31 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.buttonColorHeaderBackground = new System.Windows.Forms.Button();
-			this.label14 = new System.Windows.Forms.Label();
 			this.boxTheme = new System.Windows.Forms.ComboBox();
 			this.label10 = new System.Windows.Forms.Label();
-			this.label9 = new System.Windows.Forms.Label();
-			this.buttonColorRowsText = new System.Windows.Forms.Button();
-			this.buttonColorBackground1 = new System.Windows.Forms.Button();
-			this.buttonColorEdge = new System.Windows.Forms.Button();
-			this.buttonColorBackground2 = new System.Windows.Forms.Button();
-			this.label12 = new System.Windows.Forms.Label();
-			this.buttonColorNegativeChange = new System.Windows.Forms.Button();
-			this.label11 = new System.Windows.Forms.Label();
-			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
 			this.coinGrid = new System.Windows.Forms.DataGridView();
@@ -139,6 +134,11 @@
 			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
@@ -236,7 +236,7 @@
 			this.buttonCheck.Size = new System.Drawing.Size(75, 23);
 			this.buttonCheck.TabIndex = 25;
 			this.buttonCheck.Text = "Check";
-			this.toolTip1.SetToolTip(this.buttonCheck, resources.GetString("buttonCheck.ToolTip"));
+			this.toolTip1.SetToolTip(this.buttonCheck, "Ensures that all the coin conversions are accepted from the server");
 			this.buttonCheck.UseVisualStyleBackColor = true;
 			this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
 			// 
@@ -272,7 +272,8 @@
 			this.buttonDownloadMissingIcons.Size = new System.Drawing.Size(153, 23);
 			this.buttonDownloadMissingIcons.TabIndex = 57;
 			this.buttonDownloadMissingIcons.Text = "Download Missing Icons";
-			this.toolTip1.SetToolTip(this.buttonDownloadMissingIcons, "Downloads any missing icon if possible, note that this may take a while");
+			this.toolTip1.SetToolTip(this.buttonDownloadMissingIcons, "Downloads any missing icon if possible, note that this may take a while\r\n(Note: t" +
+        "he icons won\'t be overwrritten, even if they are different)");
 			this.buttonDownloadMissingIcons.UseVisualStyleBackColor = true;
 			this.buttonDownloadMissingIcons.Click += new System.EventHandler(this.buttonDownloadMissingIcons_Click);
 			// 
@@ -378,6 +379,299 @@
 			this.label19.Text = "Edge Width:";
 			this.toolTip1.SetToolTip(this.label19, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
         "asic\' tab).");
+			// 
+			// buttonProfileMakeDefault
+			// 
+			this.buttonProfileMakeDefault.Location = new System.Drawing.Point(215, 24);
+			this.buttonProfileMakeDefault.Name = "buttonProfileMakeDefault";
+			this.buttonProfileMakeDefault.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileMakeDefault.TabIndex = 80;
+			this.buttonProfileMakeDefault.Text = "Make Default";
+			this.toolTip1.SetToolTip(this.buttonProfileMakeDefault, "Mark the current profile as default (will be opened when the gadget loads)");
+			this.buttonProfileMakeDefault.UseVisualStyleBackColor = true;
+			this.buttonProfileMakeDefault.Click += new System.EventHandler(this.buttonProfileMakeDefault_Click);
+			// 
+			// buttonProfileCreate
+			// 
+			this.buttonProfileCreate.Location = new System.Drawing.Point(101, 70);
+			this.buttonProfileCreate.Name = "buttonProfileCreate";
+			this.buttonProfileCreate.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileCreate.TabIndex = 78;
+			this.buttonProfileCreate.Text = "Create Profile";
+			this.toolTip1.SetToolTip(this.buttonProfileCreate, "Creates a new profile");
+			this.buttonProfileCreate.UseVisualStyleBackColor = true;
+			this.buttonProfileCreate.Click += new System.EventHandler(this.buttonProfileCreate_Click);
+			// 
+			// buttonProfileOpen
+			// 
+			this.buttonProfileOpen.Location = new System.Drawing.Point(6, 70);
+			this.buttonProfileOpen.Name = "buttonProfileOpen";
+			this.buttonProfileOpen.Size = new System.Drawing.Size(89, 23);
+			this.buttonProfileOpen.TabIndex = 77;
+			this.buttonProfileOpen.Text = "Open Profile";
+			this.toolTip1.SetToolTip(this.buttonProfileOpen, "Opens a profile ");
+			this.buttonProfileOpen.UseVisualStyleBackColor = true;
+			this.buttonProfileOpen.Click += new System.EventHandler(this.buttonProfileOpen_Click);
+			// 
+			// checkEnableRefresh
+			// 
+			this.checkEnableRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkEnableRefresh.AutoSize = true;
+			this.checkEnableRefresh.Location = new System.Drawing.Point(342, 89);
+			this.checkEnableRefresh.Name = "checkEnableRefresh";
+			this.checkEnableRefresh.Size = new System.Drawing.Size(99, 17);
+			this.checkEnableRefresh.TabIndex = 51;
+			this.checkEnableRefresh.Text = "Enable Refresh";
+			this.toolTip1.SetToolTip(this.checkEnableRefresh, "Enables the refresh animation when the value of the coin changes");
+			this.checkEnableRefresh.UseVisualStyleBackColor = true;
+			// 
+			// checkEnableEdge
+			// 
+			this.checkEnableEdge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkEnableEdge.AutoSize = true;
+			this.checkEnableEdge.Location = new System.Drawing.Point(342, 66);
+			this.checkEnableEdge.Name = "checkEnableEdge";
+			this.checkEnableEdge.Size = new System.Drawing.Size(87, 17);
+			this.checkEnableEdge.TabIndex = 49;
+			this.checkEnableEdge.Text = "Enable Edge";
+			this.toolTip1.SetToolTip(this.checkEnableEdge, "Enables a visual edge on the gadget");
+			this.checkEnableEdge.UseVisualStyleBackColor = true;
+			// 
+			// checkEnableHeader
+			// 
+			this.checkEnableHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkEnableHeader.AutoSize = true;
+			this.checkEnableHeader.Location = new System.Drawing.Point(342, 42);
+			this.checkEnableHeader.Name = "checkEnableHeader";
+			this.checkEnableHeader.Size = new System.Drawing.Size(97, 17);
+			this.checkEnableHeader.TabIndex = 48;
+			this.checkEnableHeader.Text = "Enable Header";
+			this.toolTip1.SetToolTip(this.checkEnableHeader, "Enables the header of each column from the gadget to see their names");
+			this.checkEnableHeader.UseVisualStyleBackColor = true;
+			// 
+			// buttonColorHeaderText
+			// 
+			this.buttonColorHeaderText.Location = new System.Drawing.Point(119, 166);
+			this.buttonColorHeaderText.Name = "buttonColorHeaderText";
+			this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorHeaderText.TabIndex = 57;
+			this.toolTip1.SetToolTip(this.buttonColorHeaderText, "Color of the text of the header (not the rows)");
+			this.buttonColorHeaderText.UseVisualStyleBackColor = true;
+			this.buttonColorHeaderText.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(8, 171);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(66, 13);
+			this.label13.TabIndex = 56;
+			this.label13.Text = "HeaderText:";
+			this.toolTip1.SetToolTip(this.label13, "Color of the text of the header (not the rows)");
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(162, 113);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(90, 13);
+			this.label8.TabIndex = 54;
+			this.label8.Text = "NegativeRefresh:";
+			this.toolTip1.SetToolTip(this.label8, "Color of the refresh animation when the change is negative");
+			// 
+			// buttonColorNegativeRefresh
+			// 
+			this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(273, 108);
+			this.buttonColorNegativeRefresh.Name = "buttonColorNegativeRefresh";
+			this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorNegativeRefresh.TabIndex = 55;
+			this.toolTip1.SetToolTip(this.buttonColorNegativeRefresh, "Color of the refresh animation when the change is negative");
+			this.buttonColorNegativeRefresh.UseVisualStyleBackColor = true;
+			this.buttonColorNegativeRefresh.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(8, 113);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(84, 13);
+			this.label7.TabIndex = 52;
+			this.label7.Text = "PositiveRefresh:";
+			this.toolTip1.SetToolTip(this.label7, "Color of the refresh animation when the change is positive");
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(8, 84);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(76, 13);
+			this.label5.TabIndex = 1;
+			this.label5.Text = "BackGround1:";
+			this.toolTip1.SetToolTip(this.label5, "Color of the even rows");
+			// 
+			// buttonColorPositiveRefresh
+			// 
+			this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(119, 108);
+			this.buttonColorPositiveRefresh.Name = "buttonColorPositiveRefresh";
+			this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorPositiveRefresh.TabIndex = 53;
+			this.toolTip1.SetToolTip(this.buttonColorPositiveRefresh, "Color of the refresh animation when the change is positive");
+			this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
+			this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// buttonColorRowsValues
+			// 
+			this.buttonColorRowsValues.Location = new System.Drawing.Point(273, 50);
+			this.buttonColorRowsValues.Name = "buttonColorRowsValues";
+			this.buttonColorRowsValues.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorRowsValues.TabIndex = 24;
+			this.toolTip1.SetToolTip(this.buttonColorRowsValues, "Color of the numbers (not text) of the rows");
+			this.buttonColorRowsValues.UseVisualStyleBackColor = true;
+			this.buttonColorRowsValues.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(8, 55);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(61, 13);
+			this.label4.TabIndex = 0;
+			this.label4.Text = "Rows Text:";
+			this.toolTip1.SetToolTip(this.label4, "Color of the text (not numbers) of the rows");
+			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Location = new System.Drawing.Point(162, 55);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(72, 13);
+			this.label31.TabIndex = 23;
+			this.label31.Text = "Rows Values:";
+			this.toolTip1.SetToolTip(this.label31, "Color of the numbers (not text) of the rows");
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(162, 84);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(76, 13);
+			this.label6.TabIndex = 2;
+			this.label6.Text = "BackGround2:";
+			this.toolTip1.SetToolTip(this.label6, "Color of the odd rows");
+			// 
+			// buttonColorHeaderBackground
+			// 
+			this.buttonColorHeaderBackground.Location = new System.Drawing.Point(273, 166);
+			this.buttonColorHeaderBackground.Name = "buttonColorHeaderBackground";
+			this.buttonColorHeaderBackground.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorHeaderBackground.TabIndex = 21;
+			this.toolTip1.SetToolTip(this.buttonColorHeaderBackground, "Color of the header (not the rows)");
+			this.buttonColorHeaderBackground.UseVisualStyleBackColor = true;
+			this.buttonColorHeaderBackground.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Location = new System.Drawing.Point(162, 171);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(105, 13);
+			this.label14.TabIndex = 20;
+			this.label14.Text = "HeaderBackGround:";
+			this.toolTip1.SetToolTip(this.label14, "Color of the header (not the rows)");
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(8, 142);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(84, 13);
+			this.label9.TabIndex = 5;
+			this.label9.Text = "PositiveChange:";
+			this.toolTip1.SetToolTip(this.label9, "Color of the values of the columns Change24h, Change24Pct, ChangeDay \r\nand Change" +
+        "DayPct when they are positive");
+			// 
+			// buttonColorRowsText
+			// 
+			this.buttonColorRowsText.Location = new System.Drawing.Point(119, 50);
+			this.buttonColorRowsText.Name = "buttonColorRowsText";
+			this.buttonColorRowsText.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorRowsText.TabIndex = 6;
+			this.toolTip1.SetToolTip(this.buttonColorRowsText, "Color of the text (not numbers) of the rows");
+			this.buttonColorRowsText.UseVisualStyleBackColor = true;
+			this.buttonColorRowsText.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// buttonColorBackground1
+			// 
+			this.buttonColorBackground1.Location = new System.Drawing.Point(119, 79);
+			this.buttonColorBackground1.Name = "buttonColorBackground1";
+			this.buttonColorBackground1.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorBackground1.TabIndex = 7;
+			this.toolTip1.SetToolTip(this.buttonColorBackground1, "Color of the even rows");
+			this.buttonColorBackground1.UseVisualStyleBackColor = true;
+			this.buttonColorBackground1.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// buttonColorEdge
+			// 
+			this.buttonColorEdge.Location = new System.Drawing.Point(119, 195);
+			this.buttonColorEdge.Name = "buttonColorEdge";
+			this.buttonColorEdge.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorEdge.TabIndex = 17;
+			this.toolTip1.SetToolTip(this.buttonColorEdge, "Color of the edge");
+			this.buttonColorEdge.UseVisualStyleBackColor = true;
+			this.buttonColorEdge.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// buttonColorBackground2
+			// 
+			this.buttonColorBackground2.Location = new System.Drawing.Point(273, 79);
+			this.buttonColorBackground2.Name = "buttonColorBackground2";
+			this.buttonColorBackground2.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorBackground2.TabIndex = 8;
+			this.toolTip1.SetToolTip(this.buttonColorBackground2, "Color of the odd rows");
+			this.buttonColorBackground2.UseVisualStyleBackColor = true;
+			this.buttonColorBackground2.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Location = new System.Drawing.Point(8, 200);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(35, 13);
+			this.label12.TabIndex = 16;
+			this.label12.Text = "Edge:";
+			this.toolTip1.SetToolTip(this.label12, "Color of the edge");
+			// 
+			// buttonColorNegativeChange
+			// 
+			this.buttonColorNegativeChange.Location = new System.Drawing.Point(273, 137);
+			this.buttonColorNegativeChange.Name = "buttonColorNegativeChange";
+			this.buttonColorNegativeChange.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorNegativeChange.TabIndex = 15;
+			this.toolTip1.SetToolTip(this.buttonColorNegativeChange, "Color of the values of the columns Change24h, Change24Pct, ChangeDay \r\nand Change" +
+        "DayPct when they are negative\r\n");
+			this.buttonColorNegativeChange.UseVisualStyleBackColor = true;
+			this.buttonColorNegativeChange.Click += new System.EventHandler(this.buttonColorPick);
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(162, 142);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(90, 13);
+			this.label11.TabIndex = 14;
+			this.label11.Text = "NegativeChange:";
+			this.toolTip1.SetToolTip(this.label11, "Color of the values of the columns Change24h, Change24Pct, ChangeDay \r\nand Change" +
+        "DayPct when they are negative\r\n");
+			// 
+			// buttonColorPositiveChange
+			// 
+			this.buttonColorPositiveChange.Location = new System.Drawing.Point(119, 137);
+			this.buttonColorPositiveChange.Name = "buttonColorPositiveChange";
+			this.buttonColorPositiveChange.Size = new System.Drawing.Size(23, 23);
+			this.buttonColorPositiveChange.TabIndex = 11;
+			this.toolTip1.SetToolTip(this.buttonColorPositiveChange, "Color of the values of the columns Change24h, Change24Pct, ChangeDay \r\nand Change" +
+        "DayPct when they are positive");
+			this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
+			this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
 			// 
 			// tabPage4
 			// 
@@ -689,74 +983,6 @@
 			this.colsGrid.Size = new System.Drawing.Size(446, 395);
 			this.colsGrid.TabIndex = 61;
 			// 
-			// coinGridColumn
-			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
-			this.coinGridColumn.HeaderText = "Column";
-			this.coinGridColumn.MaxInputLength = 50;
-			this.coinGridColumn.Name = "coinGridColumn";
-			this.coinGridColumn.Width = 120;
-			// 
-			// colsGridShownName
-			// 
-			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.colsGridShownName.FillWeight = 182.7411F;
-			this.colsGridShownName.HeaderText = "Shown Name";
-			this.colsGridShownName.MaxInputLength = 80;
-			this.colsGridShownName.Name = "colsGridShownName";
-			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
-			// 
-			// colsGridWidth
-			// 
-			this.colsGridWidth.FillWeight = 41.11675F;
-			this.colsGridWidth.HeaderText = "Width";
-			this.colsGridWidth.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-			this.colsGridWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.colsGridWidth.Name = "colsGridWidth";
-			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
-			this.colsGridWidth.Width = 55;
-			// 
-			// colsGridDigits
-			// 
-			this.colsGridDigits.HeaderText = "Digits";
-			this.colsGridDigits.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.colsGridDigits.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.colsGridDigits.Name = "colsGridDigits";
-			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
-    "elete the remaining decimal values, this will be ignored if the actual value has" +
-    " more digits than the allowed. ";
-			this.colsGridDigits.Width = 50;
-			// 
-			// colsGridEnabled
-			// 
-			this.colsGridEnabled.FillWeight = 76.14213F;
-			this.colsGridEnabled.HeaderText = "Enabled";
-			this.colsGridEnabled.Name = "colsGridEnabled";
-			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridEnabled.Width = 55;
-			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.groupBox3);
@@ -799,16 +1025,6 @@
 			this.textBoxProfileName.Size = new System.Drawing.Size(203, 20);
 			this.textBoxProfileName.TabIndex = 81;
 			// 
-			// buttonProfileMakeDefault
-			// 
-			this.buttonProfileMakeDefault.Location = new System.Drawing.Point(215, 24);
-			this.buttonProfileMakeDefault.Name = "buttonProfileMakeDefault";
-			this.buttonProfileMakeDefault.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileMakeDefault.TabIndex = 80;
-			this.buttonProfileMakeDefault.Text = "Make Default";
-			this.buttonProfileMakeDefault.UseVisualStyleBackColor = true;
-			this.buttonProfileMakeDefault.Click += new System.EventHandler(this.buttonProfileMakeDefault_Click);
-			// 
 			// buttonProfileOpenFolder
 			// 
 			this.buttonProfileOpenFolder.Location = new System.Drawing.Point(196, 70);
@@ -818,26 +1034,6 @@
 			this.buttonProfileOpenFolder.Text = "Open Profile Folder";
 			this.buttonProfileOpenFolder.UseVisualStyleBackColor = true;
 			this.buttonProfileOpenFolder.Click += new System.EventHandler(this.buttonProfileOpenFolder_Click);
-			// 
-			// buttonProfileCreate
-			// 
-			this.buttonProfileCreate.Location = new System.Drawing.Point(101, 70);
-			this.buttonProfileCreate.Name = "buttonProfileCreate";
-			this.buttonProfileCreate.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileCreate.TabIndex = 78;
-			this.buttonProfileCreate.Text = "Create Profile";
-			this.buttonProfileCreate.UseVisualStyleBackColor = true;
-			this.buttonProfileCreate.Click += new System.EventHandler(this.buttonProfileCreate_Click);
-			// 
-			// buttonProfileOpen
-			// 
-			this.buttonProfileOpen.Location = new System.Drawing.Point(6, 70);
-			this.buttonProfileOpen.Name = "buttonProfileOpen";
-			this.buttonProfileOpen.Size = new System.Drawing.Size(89, 23);
-			this.buttonProfileOpen.TabIndex = 77;
-			this.buttonProfileOpen.Text = "Open Profile";
-			this.buttonProfileOpen.UseVisualStyleBackColor = true;
-			this.buttonProfileOpen.Click += new System.EventHandler(this.buttonProfileOpen_Click);
 			// 
 			// numRefreshRate
 			// 
@@ -883,17 +1079,6 @@
 			this.buttonDefaultBasic.UseVisualStyleBackColor = true;
 			this.buttonDefaultBasic.Click += new System.EventHandler(this.buttonDefaultBasic_Click);
 			// 
-			// checkEnableRefresh
-			// 
-			this.checkEnableRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkEnableRefresh.AutoSize = true;
-			this.checkEnableRefresh.Location = new System.Drawing.Point(342, 89);
-			this.checkEnableRefresh.Name = "checkEnableRefresh";
-			this.checkEnableRefresh.Size = new System.Drawing.Size(99, 17);
-			this.checkEnableRefresh.TabIndex = 51;
-			this.checkEnableRefresh.Text = "Enable Refresh";
-			this.checkEnableRefresh.UseVisualStyleBackColor = true;
-			// 
 			// checkStartup
 			// 
 			this.checkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -904,28 +1089,6 @@
 			this.checkStartup.TabIndex = 50;
 			this.checkStartup.Text = "Open on Startup";
 			this.checkStartup.UseVisualStyleBackColor = true;
-			// 
-			// checkEnableEdge
-			// 
-			this.checkEnableEdge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkEnableEdge.AutoSize = true;
-			this.checkEnableEdge.Location = new System.Drawing.Point(342, 66);
-			this.checkEnableEdge.Name = "checkEnableEdge";
-			this.checkEnableEdge.Size = new System.Drawing.Size(87, 17);
-			this.checkEnableEdge.TabIndex = 49;
-			this.checkEnableEdge.Text = "Enable Edge";
-			this.checkEnableEdge.UseVisualStyleBackColor = true;
-			// 
-			// checkEnableHeader
-			// 
-			this.checkEnableHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkEnableHeader.AutoSize = true;
-			this.checkEnableHeader.Location = new System.Drawing.Point(342, 42);
-			this.checkEnableHeader.Name = "checkEnableHeader";
-			this.checkEnableHeader.Size = new System.Drawing.Size(97, 17);
-			this.checkEnableHeader.TabIndex = 48;
-			this.checkEnableHeader.Text = "Enable Header";
-			this.checkEnableHeader.UseVisualStyleBackColor = true;
 			// 
 			// groupBox2
 			// 
@@ -960,123 +1123,6 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Colors";
 			// 
-			// buttonColorHeaderText
-			// 
-			this.buttonColorHeaderText.Location = new System.Drawing.Point(119, 166);
-			this.buttonColorHeaderText.Name = "buttonColorHeaderText";
-			this.buttonColorHeaderText.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorHeaderText.TabIndex = 57;
-			this.buttonColorHeaderText.UseVisualStyleBackColor = true;
-			this.buttonColorHeaderText.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// label13
-			// 
-			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(8, 171);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(66, 13);
-			this.label13.TabIndex = 56;
-			this.label13.Text = "HeaderText:";
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(162, 113);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(90, 13);
-			this.label8.TabIndex = 54;
-			this.label8.Text = "NegativeRefresh:";
-			// 
-			// buttonColorNegativeRefresh
-			// 
-			this.buttonColorNegativeRefresh.Location = new System.Drawing.Point(273, 108);
-			this.buttonColorNegativeRefresh.Name = "buttonColorNegativeRefresh";
-			this.buttonColorNegativeRefresh.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorNegativeRefresh.TabIndex = 55;
-			this.buttonColorNegativeRefresh.UseVisualStyleBackColor = true;
-			this.buttonColorNegativeRefresh.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(8, 113);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(84, 13);
-			this.label7.TabIndex = 52;
-			this.label7.Text = "PositiveRefresh:";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(8, 84);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(76, 13);
-			this.label5.TabIndex = 1;
-			this.label5.Text = "BackGround1:";
-			// 
-			// buttonColorPositiveRefresh
-			// 
-			this.buttonColorPositiveRefresh.Location = new System.Drawing.Point(119, 108);
-			this.buttonColorPositiveRefresh.Name = "buttonColorPositiveRefresh";
-			this.buttonColorPositiveRefresh.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorPositiveRefresh.TabIndex = 53;
-			this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
-			this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// buttonColorRowsValues
-			// 
-			this.buttonColorRowsValues.Location = new System.Drawing.Point(273, 50);
-			this.buttonColorRowsValues.Name = "buttonColorRowsValues";
-			this.buttonColorRowsValues.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorRowsValues.TabIndex = 24;
-			this.buttonColorRowsValues.UseVisualStyleBackColor = true;
-			this.buttonColorRowsValues.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(8, 55);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(61, 13);
-			this.label4.TabIndex = 0;
-			this.label4.Text = "Rows Text:";
-			// 
-			// label31
-			// 
-			this.label31.AutoSize = true;
-			this.label31.Location = new System.Drawing.Point(162, 55);
-			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(72, 13);
-			this.label31.TabIndex = 23;
-			this.label31.Text = "Rows Values:";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(162, 84);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(76, 13);
-			this.label6.TabIndex = 2;
-			this.label6.Text = "BackGround2:";
-			// 
-			// buttonColorHeaderBackground
-			// 
-			this.buttonColorHeaderBackground.Location = new System.Drawing.Point(273, 166);
-			this.buttonColorHeaderBackground.Name = "buttonColorHeaderBackground";
-			this.buttonColorHeaderBackground.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorHeaderBackground.TabIndex = 21;
-			this.buttonColorHeaderBackground.UseVisualStyleBackColor = true;
-			this.buttonColorHeaderBackground.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// label14
-			// 
-			this.label14.AutoSize = true;
-			this.label14.Location = new System.Drawing.Point(162, 171);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(105, 13);
-			this.label14.TabIndex = 20;
-			this.label14.Text = "HeaderBackGround:";
-			// 
 			// boxTheme
 			// 
 			this.boxTheme.FormattingEnabled = true;
@@ -1097,87 +1143,6 @@
 			this.label10.Size = new System.Drawing.Size(46, 13);
 			this.label10.TabIndex = 40;
 			this.label10.Text = "Theme: ";
-			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(8, 142);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(84, 13);
-			this.label9.TabIndex = 5;
-			this.label9.Text = "PositiveChange:";
-			// 
-			// buttonColorRowsText
-			// 
-			this.buttonColorRowsText.Location = new System.Drawing.Point(119, 50);
-			this.buttonColorRowsText.Name = "buttonColorRowsText";
-			this.buttonColorRowsText.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorRowsText.TabIndex = 6;
-			this.buttonColorRowsText.UseVisualStyleBackColor = true;
-			this.buttonColorRowsText.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// buttonColorBackground1
-			// 
-			this.buttonColorBackground1.Location = new System.Drawing.Point(119, 79);
-			this.buttonColorBackground1.Name = "buttonColorBackground1";
-			this.buttonColorBackground1.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorBackground1.TabIndex = 7;
-			this.buttonColorBackground1.UseVisualStyleBackColor = true;
-			this.buttonColorBackground1.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// buttonColorEdge
-			// 
-			this.buttonColorEdge.Location = new System.Drawing.Point(119, 195);
-			this.buttonColorEdge.Name = "buttonColorEdge";
-			this.buttonColorEdge.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorEdge.TabIndex = 17;
-			this.buttonColorEdge.UseVisualStyleBackColor = true;
-			this.buttonColorEdge.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// buttonColorBackground2
-			// 
-			this.buttonColorBackground2.Location = new System.Drawing.Point(273, 79);
-			this.buttonColorBackground2.Name = "buttonColorBackground2";
-			this.buttonColorBackground2.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorBackground2.TabIndex = 8;
-			this.buttonColorBackground2.UseVisualStyleBackColor = true;
-			this.buttonColorBackground2.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// label12
-			// 
-			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(8, 200);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(35, 13);
-			this.label12.TabIndex = 16;
-			this.label12.Text = "Edge:";
-			// 
-			// buttonColorNegativeChange
-			// 
-			this.buttonColorNegativeChange.Location = new System.Drawing.Point(273, 137);
-			this.buttonColorNegativeChange.Name = "buttonColorNegativeChange";
-			this.buttonColorNegativeChange.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorNegativeChange.TabIndex = 15;
-			this.buttonColorNegativeChange.UseVisualStyleBackColor = true;
-			this.buttonColorNegativeChange.Click += new System.EventHandler(this.buttonColorPick);
-			// 
-			// label11
-			// 
-			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(162, 142);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(90, 13);
-			this.label11.TabIndex = 14;
-			this.label11.Text = "NegativeChange:";
-			// 
-			// buttonColorPositiveChange
-			// 
-			this.buttonColorPositiveChange.Location = new System.Drawing.Point(119, 137);
-			this.buttonColorPositiveChange.Name = "buttonColorPositiveChange";
-			this.buttonColorPositiveChange.Size = new System.Drawing.Size(23, 23);
-			this.buttonColorPositiveChange.TabIndex = 11;
-			this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
-			this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
 			// 
 			// tabPage1
 			// 
@@ -1533,6 +1498,69 @@
     " more digits than the allowed. ";
 			this.dataGridViewNumericUpDownColumn2.Width = 50;
 			// 
+			// coinGridColumn
+			// 
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			this.coinGridColumn.HeaderText = "Column";
+			this.coinGridColumn.MaxInputLength = 50;
+			this.coinGridColumn.Name = "coinGridColumn";
+			this.coinGridColumn.Width = 120;
+			// 
+			// colsGridShownName
+			// 
+			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.colsGridShownName.FillWeight = 182.7411F;
+			this.colsGridShownName.HeaderText = "Shown Name";
+			this.colsGridShownName.MaxInputLength = 80;
+			this.colsGridShownName.Name = "colsGridShownName";
+			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
+			// 
+			// colsGridWidth
+			// 
+			this.colsGridWidth.FillWeight = 41.11675F;
+			this.colsGridWidth.HeaderText = "Width";
+			this.colsGridWidth.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Name = "colsGridWidth";
+			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
+			this.colsGridWidth.Width = 55;
+			// 
+			// colsGridDigits
+			// 
+			this.colsGridDigits.HeaderText = "Digits";
+			this.colsGridDigits.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.colsGridDigits.Name = "colsGridDigits";
+			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
+    "elete the remaining decimal values, this will be ignored if the actual value has" +
+    " more digits than the allowed. ";
+			this.colsGridDigits.Width = 50;
+			// 
+			// colsGridEnabled
+			// 
+			this.colsGridEnabled.FillWeight = 76.14213F;
+			this.colsGridEnabled.HeaderText = "Enabled";
+			this.colsGridEnabled.Name = "colsGridEnabled";
+			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridEnabled.Width = 55;
+			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -1658,11 +1686,6 @@
 		private System.Windows.Forms.Button buttonDefaultAdvanced;
 		private System.Windows.Forms.DataGridView colsGrid;
 		private System.Windows.Forms.Button buttonDefaultColumns;
-		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridShownName;
-		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridWidth;
-		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -1689,5 +1712,10 @@
 		private System.Windows.Forms.Button buttonProfileOpenFolder;
 		private System.Windows.Forms.Button buttonProfileCreate;
 		private System.Windows.Forms.Button buttonProfileOpen;
+		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colsGridShownName;
+		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridWidth;
+		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
 	}
 }

@@ -157,7 +157,7 @@ namespace CryptoGadget {
 
 			BindingSource coin_bind = new BindingSource();
 			coin_bind.DataSource = _sett.Coins[_page];
-			Invoke((MethodInvoker)delegate { coinGrid.DataSource = coin_bind; });
+			coinGrid.DataSource = coin_bind; 
 
 			// Basic
 
@@ -212,7 +212,7 @@ namespace CryptoGadget {
 
 			BindingSource cols_bind = new BindingSource();
 			cols_bind.DataSource = bl;
-			Invoke((MethodInvoker)delegate { colsGrid.DataSource = bl; });
+			colsGrid.DataSource = bl;
 
 			// Other
 
@@ -227,8 +227,8 @@ namespace CryptoGadget {
 			Global.Sett.CloneTo(_sett);
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
-            HandleCreated += (sender, e) => new Thread(() => BindSettings()).Start();
-        }
+            HandleCreated += (sender, e) => BindSettings();
+		}
         
 
         #region Currencies Tab

@@ -98,16 +98,16 @@ namespace CryptoGadget {
 							progressBar.Value = dpc_ev.ProgressPercentage;
 						});
 					});
-					client.DownloadDataCompleted += new DownloadDataCompletedEventHandler((orc_sender, orc_ev) => {
+					client.DownloadDataCompleted += new DownloadDataCompletedEventHandler((ddc_sender, ddc_ev) => {
 						try {
-							data.Write(orc_ev.Result, 0, orc_ev.Result.Length);
-						} catch(Exception) { }
+							data.Write(ddc_ev.Result, 0, ddc_ev.Result.Length);
+						} catch { }
 					});
 
 					try {
 						await client.DownloadDataTaskAsync(new Uri("https://www.cryptocompare.com/api/data/coinlist/"));
 
-					} catch(Exception) {
+					} catch {
 						Invoke((MethodInvoker)delegate { Close(); });
 						return;
 					}
@@ -121,7 +121,7 @@ namespace CryptoGadget {
 							Invoke((MethodInvoker)delegate { Close(); });
 							return;
 						}
-					} catch(Exception) {
+					} catch {
 						Invoke((MethodInvoker)delegate { Close(); });
 						return;
 					}
@@ -146,18 +146,18 @@ namespace CryptoGadget {
 					WebClient client = new WebClient();
 					List<Tuple<string, string>> misses = new List<Tuple<string, string>>();
 
-					int coinCount = 0, noUrl = 0, failed = 0;
+					int coin_count = 0, no_url = 0, failed = 0;
 					foreach(JToken coin in Global.Json["Data"].Values()) {
 						Invoke((MethodInvoker)delegate {
-							labelProgress.Text = "Searching missing icons (" + coinCount + "/" + ((JObject)Global.Json["Data"]).Count + ")";
-							progressBar.Value = coinCount++;
+							labelProgress.Text = "Searching missing icons (" + coin_count + "/" + ((JObject)Global.Json["Data"]).Count + ")";
+							progressBar.Value = coin_count++;
 						});
 
 						if(Global.GetIcon(coin["Name"].ToString()).Height == 1) {
 							if(coin["ImageUrl"] != null)
 								misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
 							else
-								noUrl++;
+								no_url++;
 						}
 					}
 
@@ -176,13 +176,13 @@ namespace CryptoGadget {
 								data.Write(buffer, 0, buffer.Length);
 								Global.IconResize(Image.FromStream(data), 32).Save(Global.IconsFolder + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
 							}
-						} catch(Exception) {
+						} catch {
 							failed++;
 						}
 					}
 
 					MessageBox.Show((misses.Count - failed).ToString() + " icons were downloaded\n" +
-									noUrl.ToString() + " coins doesn't have an associated download address\n" +
+									no_url.ToString() + " coins doesn't have an associated download address\n" +
 									failed.ToString() + " icons couldn't be downloaded");
 
 
