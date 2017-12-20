@@ -17,11 +17,10 @@ using System.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
-
-
 
 
 
@@ -29,7 +28,7 @@ namespace CryptoGadget {
 
     public partial class FormMain : Form {
 
-		public class CoinRow : Settings._PropManager<CoinRow> {
+		public class CoinRow : PropManager<CoinRow> {
 			public Bitmap Icon { get; set; } = null; // skip this on json get
 			public string Coin { get; set; } = "";// skip this on json get
 			public Bitmap TargetIcon { get; set; } = null; // skip this on json get
@@ -59,8 +58,24 @@ namespace CryptoGadget {
 		private int _page = 0;
 		private BindingList<CoinRow> _coinGrid = new BindingList<CoinRow>();
 
+		#region DragMove Method Details
 
-        private void TimerRoutine(object state) {
+		[DllImport("user32.dll")]
+		private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+		[DllImport("user32.dll")]
+		private static extern bool ReleaseCapture();
+
+		public static void DragMove(object sender, MouseEventArgs e) {
+			if(e.Button == MouseButtons.Left) {
+				ReleaseCapture();
+				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
+			}
+		}
+
+		#endregion
+
+
+		private void TimerRoutine(object state) {
 
             try {
                 _timer_req.Change(Timeout.Infinite, Timeout.Infinite);
@@ -244,11 +259,11 @@ namespace CryptoGadget {
             StartPosition = FormStartPosition.Manual;
             Location = new Point(Global.Sett.Coords.PosX, Global.Sett.Coords.PosY);
 
-            MouseDown -= neo.FormUtil.DragMove;
-            mainGrid.MouseDown -= neo.FormUtil.DragMove;
+            MouseDown -= DragMove;
+            mainGrid.MouseDown -= DragMove;
             if(!Global.Sett.Coords.LockPos) {
-                MouseDown += neo.FormUtil.DragMove;
-                mainGrid.MouseDown += neo.FormUtil.DragMove;
+                MouseDown += DragMove;
+                mainGrid.MouseDown += DragMove;
             }
 
             // Open on Startup
@@ -303,7 +318,7 @@ namespace CryptoGadget {
 
 				try {
 					using(StreamReader reader = new StreamReader(Global.ProfileIniLocation)) {
-						Global.Profile = reader.ReadLine();
+						Global.Binds.Profile = reader.ReadLine();
 					}
 				} catch(Exception exc) {
 					Global.DbgMsgShow("ERROR: " + exc.Message);
@@ -313,7 +328,7 @@ namespace CryptoGadget {
 					}
   				}
 				
-				if(!Global.Sett.BindFile(Global.ProfilesFolder + Global.Profile)) {
+				if(!Global.Sett.BindFile(Global.ProfilesFolder + Global.Binds.Profile)) {
 					MessageBox.Show("The last profile marked as default is not available, a new default profile will be created and used");
 					Settings.CreateSettFile(Global.ProfilesFolder + "Default.json");
 					Global.Sett.BindFile(Global.ProfilesFolder + "Default.json");
@@ -324,7 +339,7 @@ namespace CryptoGadget {
 					using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
 						writer.WriteLine("Default.json");
 					}
-					Global.Profile = "Default.json";
+					Global.Binds.Profile = "Default.json";
 				}
 				if(!Global.Sett.Load() || !Global.Sett.Check()) {
 					MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");

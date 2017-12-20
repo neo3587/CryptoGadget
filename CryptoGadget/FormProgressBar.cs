@@ -156,7 +156,7 @@ namespace CryptoGadget {
 						if(Global.GetIcon(coin["Name"].ToString()).Height == 1) {
 							if(coin["ImageUrl"] != null)
 								misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
-							else
+							else if(coin["FiatCurrency"] == null)
 								no_url++;
 						}
 					}
@@ -168,7 +168,7 @@ namespace CryptoGadget {
 					for(int i = 0; i < misses.Count; i++) {
 						try {
 							Invoke((MethodInvoker)delegate {
-								labelProgress.Text = "Downloading Missing Icons (" + i + "/" + misses.Count + ")";
+								labelProgress.Text = "Trying to download the missing icons (" + i + "/" + misses.Count + ")";
 								progressBar.Value = i;
 							});
 							using(MemoryStream data = new MemoryStream()) {

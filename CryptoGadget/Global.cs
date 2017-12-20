@@ -10,16 +10,24 @@ using Newtonsoft.Json.Linq;
 
 namespace CryptoGadget {
 
-    class Global {
+    public class Global : PropManager<Global> {
 
-        public static string ProfileIniLocation	= Application.StartupPath + "\\profile_default.ini";
-        public static string IconsFolder		= Application.StartupPath + "\\ico\\";
+		private string _profile = "Default.json";
+
+		public string Profile {
+			get => _profile;
+			set { _profile = value; NotifyPropertyChanged(); }
+		}
+
+
+		public static string ProfileIniLocation	= Application.StartupPath + "\\profile_default.ini";
         public static string CoinListLocation	= Application.StartupPath + "\\CoinList.json";
+		public static string IconsFolder		= Application.StartupPath + "\\ico\\";
 		public static string ProfilesFolder		= Application.StartupPath + "\\profiles\\";
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
-		public static string Profile = "Default.json";
+
         
         public static Bitmap GetIcon(string name, int size = 0) {
             Bitmap bmp;
@@ -84,6 +92,9 @@ namespace CryptoGadget {
 			#endif
 		}
 
-	}
+
+		public static Global Binds { get; set; } = new Global();
+
+	};
 
 }

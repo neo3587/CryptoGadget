@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
@@ -85,7 +84,7 @@ namespace CryptoGadget {
                 try {
                     (form.coindb["Data"] as JObject).Add(fiat[i].Item1, JToken.Parse("{ \"Name\": \"" + fiat[i].Item1 + "\", \"CoinName\": \"" + fiat[i].Item2 +
                                                                                      "\", \"FullName\": \"" + fiat[i].Item2 + " (" + fiat[i].Item1 + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
-                } catch(Exception) { }
+                } catch { }
             }
 
             return form.coindb;
@@ -216,7 +215,7 @@ namespace CryptoGadget {
 
 			// Other
 
-			textBoxProfileName.Text = Path.GetFileNameWithoutExtension(Global.Profile);
+			textBoxProfileName.DataBindings.Add("Text", Global.Binds, "Profile");
 
 		}
 
@@ -351,9 +350,9 @@ namespace CryptoGadget {
 
 		private void buttonProfileMakeDefault_Click(object sender, EventArgs e) {
 			using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
-				writer.WriteLine(Global.Profile);
+				writer.WriteLine(Global.Binds.Profile);
 			}
-			MessageBox.Show(Global.Profile + " marked as default profile");
+			MessageBox.Show(Global.Binds.Profile + " marked as default profile");
 		}
 		private void buttonProfileOpen_Click(object sender, EventArgs e) {
 
@@ -380,8 +379,7 @@ namespace CryptoGadget {
 					stream.CopyTo(writer.BaseStream);
 				}
 
-				Global.Profile = ofd.SafeFileName;
-				textBoxProfileName.Text = Path.GetFileNameWithoutExtension(Global.Profile);
+				Global.Binds.Profile = ofd.SafeFileName;
 			};
 
 			ofd.ShowDialog();
@@ -401,8 +399,7 @@ namespace CryptoGadget {
 			_sett.Store();
 			_sett.Save();
 
-			Global.Profile = name + ".json";
-			textBoxProfileName.Text = name;
+			Global.Binds.Profile = name + ".json";
 		}
 		private void buttonProfileOpenFolder_Click(object sender, EventArgs e) {
 			Process.Start(Global.ProfilesFolder);
@@ -469,12 +466,18 @@ namespace CryptoGadget {
             Close();
         }
 
-        private void buttonColorPick(object sender, EventArgs e) => neo.FormUtil.buttonColorPick(sender, e);
+        private void buttonColorPick(object sender, EventArgs e) {
+			ColorDialog cd = new ColorDialog();
+			cd.Color = (sender as Button).BackColor;
+			cd.FullOpen = true;
+			cd.ShowDialog();
+			(sender as Button).BackColor = cd.Color;
+		}
 
 		#endregion
 
 
-		// drag and drop test -> note: need to use the bound data (thx stack overflow)
+			// drag and drop test -> note: need to use the bound data (thx stack overflow)
 		private DataGridView dataGridView1 = new DataGridView();
 		private Rectangle dragBoxFromMouseDown;
 		private int rowIndexFromMouseDown;

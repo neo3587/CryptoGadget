@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,29 +15,14 @@ namespace CryptoGadget {
 
 	public class Settings {
 		
-		public class _PropManager<T> : INotifyPropertyChanged {
-			public static PropertyInfo[] GetProps() {
-				return typeof(T).GetProperties().Where(p => p.GetIndexParameters().Length == 0).ToArray();
-			}
-			public object this[string prop] {
-				get { return GetType().GetProperty(prop).GetValue(this, null); }
-				set { GetType().GetProperty(prop).SetValue(this, value, null); }
-			}
-
-			public event PropertyChangedEventHandler PropertyChanged;
-			protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-
-		public class StCoin : _PropManager<StCoin> {
+		public class StCoin : PropManager<StCoin> {
 			private Bitmap _icon = null;
 			private string _coin = "";
 			private string _coin_name = "";
 			private string _target = "";
 			private string _target_name = "";
 
-			public class StAlarm : _PropManager<StAlarm> {
+			public class StAlarm : PropManager<StAlarm> {
 				private float _up = 0.0f;
 				private float _down = 0.0f;
 
@@ -51,7 +35,7 @@ namespace CryptoGadget {
 					set { _down = value; NotifyPropertyChanged(); }
 				}
 			}
-			public class StGraph : _PropManager<StAlarm> {
+			public class StGraph : PropManager<StAlarm> {
 				private int _pos_x = 50;
 				private int _pos_y = 50;
 				private int _size_x = 100;
@@ -118,7 +102,7 @@ namespace CryptoGadget {
 			public StAlarm Alarm = new StAlarm();
 			public StGraph Graph = new StGraph();
 		}
-		public class StBasic : _PropManager<StBasic> {
+		public class StBasic : PropManager<StBasic> {
 			private int _refresh_rate;
 			private bool _startup;
 
@@ -131,7 +115,7 @@ namespace CryptoGadget {
 				set { _startup = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StVisibility : _PropManager<StVisibility> {
+		public class StVisibility : PropManager<StVisibility> {
 			private bool _header;
 			private bool _edge;
 			private bool _refresh;
@@ -149,7 +133,7 @@ namespace CryptoGadget {
 				set { _refresh = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StColor : _PropManager<StColor> {
+		public class StColor : PropManager<StColor> {
 			private Color _positive_change;
 			private Color _negative_change;
 			private Color _background1;
@@ -207,7 +191,7 @@ namespace CryptoGadget {
 				set { _edge = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StCoords : _PropManager<StCoords> {
+		public class StCoords : PropManager<StCoords> {
 			private int _pos_x;
 			private int _pos_y;
 			private bool _exit_save;
@@ -230,7 +214,7 @@ namespace CryptoGadget {
 				set { _lock_pos = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StMetrics : _PropManager<StMetrics> {
+		public class StMetrics : PropManager<StMetrics> {
 			private int _header;
 			private int _edge;
 			private int _rows;
@@ -263,7 +247,7 @@ namespace CryptoGadget {
 				set { _rows_values = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StPages : _PropManager<StPages> {
+		public class StPages : PropManager<StPages> {
 			private int _size;
 			private int _default;
 			private bool _rotate;
@@ -287,7 +271,7 @@ namespace CryptoGadget {
 			}
 		}
 
-		public class StColumn : _PropManager<StColumn> {
+		public class StColumn : PropManager<StColumn> {
 			private string _column;
 			private string _name;
 			private int _width;
@@ -315,7 +299,7 @@ namespace CryptoGadget {
 				set { _enabled = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StGrid : _PropManager<StGrid> {
+		public class StGrid : PropManager<StGrid> {
 			// <PropertyName, default_ShownName, JsonName, default_width, default_digits, default_enabled>
 			public static ValueTuple<string, string, string, int, int, bool>[] props = { ("Icon",			"",					"",					25, 0, true),
 																						 ("Coin",			"Coin",				"",					40, 0, true),
@@ -600,6 +584,7 @@ namespace CryptoGadget {
 
 		public static CoinList[] CreateCoinList() {
 			CoinList[] ret = new CoinList[10];
+			ret.Initialize();
 			for(int i = 0; i < 10; i++)
 				ret[i] = new CoinList();
 			return ret;
