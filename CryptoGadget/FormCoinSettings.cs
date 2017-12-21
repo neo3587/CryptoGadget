@@ -10,7 +10,7 @@ using CoinPair = System.Collections.Generic.KeyValuePair<string, string>;
 
 
 
-// this will get a full revamp in future versions
+// this will get some additions in future versions (Alarms, Graphs, ??)
 
 namespace CryptoGadget {
 
@@ -155,12 +155,16 @@ namespace CryptoGadget {
 				_ptr_coin.Icon = Global.GetIcon(stream, 16);
 
 				stream.Position = 0;
-				StreamWriter writer = new StreamWriter(Global.IconsFolder +  coin.Key.ToLower() + ".ico");
-				stream.CopyTo(writer.BaseStream);
+				try {
+					using(StreamWriter writer = new StreamWriter(Global.IconsFolder + coin.Key.ToLower() + ".ico")) {
+						stream.CopyTo(writer.BaseStream);
+					}
+				} catch { }
 			};
 
 			ofd.ShowDialog();
 		}
+
 	}
 
 }

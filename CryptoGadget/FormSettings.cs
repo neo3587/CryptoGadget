@@ -92,9 +92,9 @@ namespace CryptoGadget {
         private bool GetCoinDB() {
 
             Action<JObject> JsonToFile = (data) => {
-                StreamWriter writer = new StreamWriter(Global.CoinListLocation);
-                writer.Write(data.ToString(Newtonsoft.Json.Formatting.Indented));
-                writer.Close();
+				using(StreamWriter writer = new StreamWriter(Global.CoinListLocation)) {
+					writer.Write(data.ToString(Newtonsoft.Json.Formatting.Indented));
+				}
             };
 
             if(Global.Json != null)
@@ -293,9 +293,9 @@ namespace CryptoGadget {
                 JObject check = DownloadCoinDB();
                 if(!JToken.DeepEquals(check, Global.Json)) {
                     Global.Json = check;
-                    StreamWriter writer = new StreamWriter(Global.CoinListLocation);
-                    writer.Write(Global.Json.ToString(Newtonsoft.Json.Formatting.Indented));
-                    writer.Close();
+					using(StreamWriter writer = new StreamWriter(Global.CoinListLocation)) {
+						writer.Write(Global.Json.ToString(Newtonsoft.Json.Formatting.Indented));
+					}
                     MessageBox.Show("New coins were added to the coin list database");
                 }
                 else {
@@ -368,8 +368,9 @@ namespace CryptoGadget {
 				if(Global.ProfilesFolder != (Path.GetDirectoryName(ofd.FileName) + "\\")) {
 					Stream stream = (f_sender as OpenFileDialog).OpenFile();
 					stream.Position = 0;
-					StreamWriter writer = new StreamWriter(Global.ProfilesFolder + ofd.SafeFileName);
-					stream.CopyTo(writer.BaseStream);
+					using(StreamWriter writer = new StreamWriter(Global.ProfilesFolder + ofd.SafeFileName)) {
+						stream.CopyTo(writer.BaseStream);
+					}
 				}
 
 				Global.Binds.Profile = ofd.SafeFileName;
