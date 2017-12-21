@@ -477,7 +477,7 @@ namespace CryptoGadget {
 		#endregion
 
 
-			// drag and drop test -> note: need to use the bound data (thx stack overflow)
+		// drag and drop test -> note: need to use the bound data (thx stack overflow)
 		private DataGridView dataGridView1 = new DataGridView();
 		private Rectangle dragBoxFromMouseDown;
 		private int rowIndexFromMouseDown;
