@@ -20,7 +20,7 @@ namespace CryptoGadget {
 		private Settings _sett = new Settings();
 		private int _page = 0;
 
-        public bool accept = false;
+        public bool Accept = false;
 
 		
         private JObject DownloadCoinDB() {
@@ -237,14 +237,36 @@ namespace CryptoGadget {
                 MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
                 return;
             }
-            FormAddCoin form = new FormAddCoin(_sett.Coins[_page], coinGrid);
-            form.ShowDialog();
+            FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], new Settings.StCoin());
+			form.ShowDialog();
+			if(form.CoinResult != null) {
+				int insertPos = coinGrid.SelectedRows.Count > 0 ? coinGrid.SelectedRows[0].Index : 0;
+				_sett.Coins[_page].Insert(insertPos, form.CoinResult);
+				coinGrid.Rows[insertPos].Selected = true;
+			}
         }
         private void buttonSub_Click(object sender, EventArgs e) {
-            if(coinGrid.SelectedRows.Count > 0) 
+			if(coinGrid.SelectedRows.Count > 0) {
 				_sett.Coins[_page].RemoveAt(coinGrid.SelectedRows[0].Index);
+				if(coinGrid.SelectedRows.Count <= 0 && coinGrid.RowCount > 0)
+					coinGrid.Rows[coinGrid.RowCount - 1].Selected = true;
+			}
         }
-        private void buttonUp_Click(object sender, EventArgs e) {
+		private void buttonCoinSettings_Click(object sender, EventArgs e) {
+			if(coinGrid.SelectedRows.Count <= 0) {
+				return;
+			}
+			if(Global.Json == null) {
+				MessageBox.Show("You cannot modify a coin to the grid until the coin list is obtained, there's a good reason for that, trust me :)");
+				return;
+			}
+			FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], _sett.Coins[_page][coinGrid.SelectedRows[0].Index]);
+			form.ShowDialog();
+			if(form.CoinResult != null) {
+				_sett.Coins[_page][coinGrid.SelectedRows[0].Index] = form.CoinResult;
+			}
+		}
+		private void buttonUp_Click(object sender, EventArgs e) {
             if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index > 0) {
                 int index1 = coinGrid.SelectedRows[0].Index;
                 int index2 = coinGrid.SelectedRows[0].Index - 1;
@@ -263,35 +285,6 @@ namespace CryptoGadget {
 				_sett.Coins[_page].Insert(index2, ptr);
 				coinGrid.Rows[index2].Selected = true;
             }
-        }
-
-        private void buttonAddIcon_Click(object sender, EventArgs e) {
-
-            if(coinGrid.Rows.Count <= 0 || coinGrid.SelectedRows.Count == -1)
-                return;
-
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            Settings.StCoin st = _sett.Coins[_page][coinGrid.SelectedRows[0].Index];
-
-            ofd.Title = "Select Icon for " + st.Coin + " (" + st.CoinName + ")";
-            ofd.Filter = "Icon Files (.ico)|*.ico";
-            ofd.Multiselect = false;
-
-            ofd.FileOk += (f_sender, f_ev) => {
-
-                Stream stream = (f_sender as OpenFileDialog).OpenFile();
-                stream.Position = 0;
-
-                st.Icon = Global.GetIcon(stream, 16);
-
-                stream.Position = 0;
-                StreamWriter writer = new StreamWriter(Global.IconsFolder + st.Coin.ToLower() + ".ico");
-                stream.CopyTo(writer.BaseStream);
-            };
-
-            ofd.ShowDialog();
-
         }
 
         private void buttonDownloadList_Click(object sender, EventArgs e) {
@@ -459,7 +452,7 @@ namespace CryptoGadget {
 			Global.Sett = _sett;
 			Global.Sett.Store();
 			Global.Sett.Save();
-			accept = true;
+			Accept = true;
             Close();
         }
         private void buttonCancel_Click(object sender, EventArgs e) {
@@ -536,7 +529,6 @@ namespace CryptoGadget {
 			}
 		}
 
-		
 	}
 
 }

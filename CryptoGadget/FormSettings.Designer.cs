@@ -27,8 +27,8 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -37,7 +37,6 @@
 			this.buttonUp = new System.Windows.Forms.Button();
 			this.buttonDown = new System.Windows.Forms.Button();
 			this.buttonCheck = new System.Windows.Forms.Button();
-			this.buttonAddIcon = new System.Windows.Forms.Button();
 			this.buttonDownloadList = new System.Windows.Forms.Button();
 			this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
 			this.checkCoordsLockPos = new System.Windows.Forms.CheckBox();
@@ -77,6 +76,7 @@
 			this.buttonColorNegativeChange = new System.Windows.Forms.Button();
 			this.label11 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
+			this.buttonCoinSettings = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
@@ -93,6 +93,11 @@
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultColumns = new System.Windows.Forms.Button();
 			this.colsGrid = new System.Windows.Forms.DataGridView();
+			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.textBoxProfileName = new System.Windows.Forms.TextBox();
@@ -134,11 +139,6 @@
 			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.coinGridColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridShownName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colsGridWidth = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
-			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
@@ -186,29 +186,29 @@
 			// 
 			// buttonSub
 			// 
-			this.buttonSub.Location = new System.Drawing.Point(420, 72);
+			this.buttonSub.Location = new System.Drawing.Point(420, 58);
 			this.buttonSub.Name = "buttonSub";
 			this.buttonSub.Size = new System.Drawing.Size(25, 25);
 			this.buttonSub.TabIndex = 12;
 			this.buttonSub.Text = "-";
-			this.toolTip1.SetToolTip(this.buttonSub, "Delete coin");
+			this.toolTip1.SetToolTip(this.buttonSub, "Delete Selected Conversion");
 			this.buttonSub.UseVisualStyleBackColor = true;
 			this.buttonSub.Click += new System.EventHandler(this.buttonSub_Click);
 			// 
 			// buttonAdd
 			// 
-			this.buttonAdd.Location = new System.Drawing.Point(420, 41);
+			this.buttonAdd.Location = new System.Drawing.Point(420, 27);
 			this.buttonAdd.Name = "buttonAdd";
 			this.buttonAdd.Size = new System.Drawing.Size(25, 25);
 			this.buttonAdd.TabIndex = 11;
 			this.buttonAdd.Text = "+";
-			this.toolTip1.SetToolTip(this.buttonAdd, "Add coin");
+			this.toolTip1.SetToolTip(this.buttonAdd, "Add Conversion");
 			this.buttonAdd.UseVisualStyleBackColor = true;
 			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
 			// 
 			// buttonUp
 			// 
-			this.buttonUp.Location = new System.Drawing.Point(420, 145);
+			this.buttonUp.Location = new System.Drawing.Point(420, 186);
 			this.buttonUp.Name = "buttonUp";
 			this.buttonUp.Size = new System.Drawing.Size(25, 25);
 			this.buttonUp.TabIndex = 17;
@@ -219,7 +219,7 @@
 			// 
 			// buttonDown
 			// 
-			this.buttonDown.Location = new System.Drawing.Point(420, 176);
+			this.buttonDown.Location = new System.Drawing.Point(420, 217);
 			this.buttonDown.Name = "buttonDown";
 			this.buttonDown.Size = new System.Drawing.Size(25, 25);
 			this.buttonDown.TabIndex = 18;
@@ -239,17 +239,6 @@
 			this.toolTip1.SetToolTip(this.buttonCheck, "Ensures that all the coin conversions are accepted from the server");
 			this.buttonCheck.UseVisualStyleBackColor = true;
 			this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
-			// 
-			// buttonAddIcon
-			// 
-			this.buttonAddIcon.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddIcon.Image")));
-			this.buttonAddIcon.Location = new System.Drawing.Point(420, 251);
-			this.buttonAddIcon.Name = "buttonAddIcon";
-			this.buttonAddIcon.Size = new System.Drawing.Size(25, 25);
-			this.buttonAddIcon.TabIndex = 26;
-			this.toolTip1.SetToolTip(this.buttonAddIcon, "Add or Swap the Icon");
-			this.buttonAddIcon.UseVisualStyleBackColor = true;
-			this.buttonAddIcon.Click += new System.EventHandler(this.buttonAddIcon_Click);
 			// 
 			// buttonDownloadList
 			// 
@@ -673,6 +662,18 @@
 			this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
 			this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
 			// 
+			// buttonCoinSettings
+			// 
+			this.buttonCoinSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonCoinSettings.BackgroundImage")));
+			this.buttonCoinSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonCoinSettings.Location = new System.Drawing.Point(420, 117);
+			this.buttonCoinSettings.Name = "buttonCoinSettings";
+			this.buttonCoinSettings.Size = new System.Drawing.Size(25, 25);
+			this.buttonCoinSettings.TabIndex = 58;
+			this.toolTip1.SetToolTip(this.buttonCoinSettings, "Selected Conversion Settings");
+			this.buttonCoinSettings.UseVisualStyleBackColor = true;
+			this.buttonCoinSettings.Click += new System.EventHandler(this.buttonCoinSettings_Click);
+			// 
 			// tabPage4
 			// 
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
@@ -983,6 +984,69 @@
 			this.colsGrid.Size = new System.Drawing.Size(446, 395);
 			this.colsGrid.TabIndex = 61;
 			// 
+			// coinGridColumn
+			// 
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			this.coinGridColumn.HeaderText = "Column";
+			this.coinGridColumn.MaxInputLength = 50;
+			this.coinGridColumn.Name = "coinGridColumn";
+			this.coinGridColumn.Width = 120;
+			// 
+			// colsGridShownName
+			// 
+			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.colsGridShownName.FillWeight = 182.7411F;
+			this.colsGridShownName.HeaderText = "Shown Name";
+			this.colsGridShownName.MaxInputLength = 80;
+			this.colsGridShownName.Name = "colsGridShownName";
+			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
+			// 
+			// colsGridWidth
+			// 
+			this.colsGridWidth.FillWeight = 41.11675F;
+			this.colsGridWidth.HeaderText = "Width";
+			this.colsGridWidth.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.colsGridWidth.Name = "colsGridWidth";
+			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
+			this.colsGridWidth.Width = 55;
+			// 
+			// colsGridDigits
+			// 
+			this.colsGridDigits.HeaderText = "Digits";
+			this.colsGridDigits.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.colsGridDigits.Name = "colsGridDigits";
+			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
+    "elete the remaining decimal values, this will be ignored if the actual value has" +
+    " more digits than the allowed. ";
+			this.colsGridDigits.Width = 50;
+			// 
+			// colsGridEnabled
+			// 
+			this.colsGridEnabled.FillWeight = 76.14213F;
+			this.colsGridEnabled.HeaderText = "Enabled";
+			this.colsGridEnabled.Name = "colsGridEnabled";
+			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.colsGridEnabled.Width = 55;
+			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.groupBox3);
@@ -1146,10 +1210,10 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.buttonCoinSettings);
 			this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
 			this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
 			this.tabPage1.Controls.Add(this.buttonDownloadList);
-			this.tabPage1.Controls.Add(this.buttonAddIcon);
 			this.tabPage1.Controls.Add(this.buttonCheck);
 			this.tabPage1.Controls.Add(this.coinGrid);
 			this.tabPage1.Controls.Add(this.buttonDown);
@@ -1498,69 +1562,6 @@
     " more digits than the allowed. ";
 			this.dataGridViewNumericUpDownColumn2.Width = 50;
 			// 
-			// coinGridColumn
-			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
-			this.coinGridColumn.HeaderText = "Column";
-			this.coinGridColumn.MaxInputLength = 50;
-			this.coinGridColumn.Name = "coinGridColumn";
-			this.coinGridColumn.Width = 120;
-			// 
-			// colsGridShownName
-			// 
-			this.colsGridShownName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.colsGridShownName.FillWeight = 182.7411F;
-			this.colsGridShownName.HeaderText = "Shown Name";
-			this.colsGridShownName.MaxInputLength = 80;
-			this.colsGridShownName.Name = "colsGridShownName";
-			this.colsGridShownName.ToolTipText = "The name that will be displayed on the header of the gadget";
-			// 
-			// colsGridWidth
-			// 
-			this.colsGridWidth.FillWeight = 41.11675F;
-			this.colsGridWidth.HeaderText = "Width";
-			this.colsGridWidth.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-			this.colsGridWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.colsGridWidth.Name = "colsGridWidth";
-			this.colsGridWidth.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridWidth.ToolTipText = "Size in pixels of the current column";
-			this.colsGridWidth.Width = 55;
-			// 
-			// colsGridDigits
-			// 
-			this.colsGridDigits.HeaderText = "Digits";
-			this.colsGridDigits.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.colsGridDigits.Name = "colsGridDigits";
-			this.colsGridDigits.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridDigits.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridDigits.ToolTipText = "The max amount of digits allowed for this column, note that this only will only d" +
-    "elete the remaining decimal values, this will be ignored if the actual value has" +
-    " more digits than the allowed. ";
-			this.colsGridDigits.Width = 50;
-			// 
-			// colsGridEnabled
-			// 
-			this.colsGridEnabled.FillWeight = 76.14213F;
-			this.colsGridEnabled.HeaderText = "Enabled";
-			this.colsGridEnabled.Name = "colsGridEnabled";
-			this.colsGridEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colsGridEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.colsGridEnabled.Width = 55;
-			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -1649,7 +1650,6 @@
 		private System.Windows.Forms.Button buttonDownloadMissingIcons;
 		private System.Windows.Forms.Button buttonDefaultCurrencies;
 		private System.Windows.Forms.Button buttonDownloadList;
-		private System.Windows.Forms.Button buttonAddIcon;
 		private System.Windows.Forms.Button buttonCheck;
 		internal System.Windows.Forms.DataGridView coinGrid;
 		private System.Windows.Forms.DataGridViewImageColumn coinGridImg;
@@ -1717,5 +1717,6 @@
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridWidth;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
+		private System.Windows.Forms.Button buttonCoinSettings;
 	}
 }

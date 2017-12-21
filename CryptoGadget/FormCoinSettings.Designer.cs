@@ -1,5 +1,5 @@
 ﻿namespace CryptoGadget {
-    partial class FormAddCoin {
+    partial class FormCoinSettings {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -23,9 +23,9 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddCoin));
-			this.buttonAdd = new System.Windows.Forms.Button();
-			this.buttonDone = new System.Windows.Forms.Button();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCoinSettings));
+			this.buttonAccept = new System.Windows.Forms.Button();
+			this.buttonCancel = new System.Windows.Forms.Button();
 			this.boxCoin = new System.Windows.Forms.ComboBox();
 			this.boxTarget = new System.Windows.Forms.ComboBox();
 			this.checkTargetOnlyFiat = new System.Windows.Forms.CheckBox();
@@ -34,32 +34,33 @@
 			this.checkTargetIndexName = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.buttonIcon = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// buttonAdd
+			// buttonAccept
 			// 
-			this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonAdd.Location = new System.Drawing.Point(269, 112);
-			this.buttonAdd.Name = "buttonAdd";
-			this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-			this.buttonAdd.TabIndex = 0;
-			this.buttonAdd.Text = "Add";
-			this.buttonAdd.UseVisualStyleBackColor = true;
-			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			this.buttonAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonAccept.Location = new System.Drawing.Point(270, 111);
+			this.buttonAccept.Name = "buttonAccept";
+			this.buttonAccept.Size = new System.Drawing.Size(75, 23);
+			this.buttonAccept.TabIndex = 0;
+			this.buttonAccept.Text = "Accept";
+			this.buttonAccept.UseVisualStyleBackColor = true;
+			this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
 			// 
-			// buttonDone
+			// buttonCancel
 			// 
-			this.buttonDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDone.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonDone.Location = new System.Drawing.Point(350, 112);
-			this.buttonDone.Name = "buttonDone";
-			this.buttonDone.Size = new System.Drawing.Size(75, 23);
-			this.buttonDone.TabIndex = 1;
-			this.buttonDone.Text = "Done";
-			this.buttonDone.UseVisualStyleBackColor = true;
-			this.buttonDone.Click += new System.EventHandler(this.buttonDone_Click);
+			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.buttonCancel.Location = new System.Drawing.Point(351, 111);
+			this.buttonCancel.Name = "buttonCancel";
+			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+			this.buttonCancel.TabIndex = 1;
+			this.buttonCancel.Text = "Cancel";
+			this.buttonCancel.UseVisualStyleBackColor = true;
+			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
 			// boxCoin
 			// 
@@ -153,24 +154,35 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Target Coin";
 			// 
-			// FormAddCoin
+			// buttonIcon
 			// 
-			this.AcceptButton = this.buttonAdd;
+			this.buttonIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonIcon.BackgroundImage")));
+			this.buttonIcon.Location = new System.Drawing.Point(12, 111);
+			this.buttonIcon.Name = "buttonIcon";
+			this.buttonIcon.Size = new System.Drawing.Size(23, 23);
+			this.buttonIcon.TabIndex = 12;
+			this.buttonIcon.UseVisualStyleBackColor = true;
+			this.buttonIcon.Click += new System.EventHandler(this.buttonIcon_Click);
+			// 
+			// FormCoinSettings
+			// 
+			this.AcceptButton = this.buttonAccept;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.buttonDone;
-			this.ClientSize = new System.Drawing.Size(437, 146);
+			this.CancelButton = this.buttonCancel;
+			this.ClientSize = new System.Drawing.Size(437, 142);
+			this.Controls.Add(this.buttonIcon);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.buttonDone);
-			this.Controls.Add(this.buttonAdd);
+			this.Controls.Add(this.buttonAccept);
+			this.Controls.Add(this.buttonCancel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "FormAddCoin";
+			this.Name = "FormCoinSettings";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "CryptoGadget Settings [Add Coins]";
+			this.Text = "CryptoGadget Settings [Coin Settings]";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -181,8 +193,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonDone;
+        private System.Windows.Forms.Button buttonAccept;
+        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ComboBox boxCoin;
         private System.Windows.Forms.ComboBox boxTarget;
         private System.Windows.Forms.CheckBox checkTargetOnlyFiat;
@@ -191,5 +203,6 @@
 		private System.Windows.Forms.CheckBox checkTargetIndexName;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Button buttonIcon;
 	}
 }

@@ -121,14 +121,15 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonAddIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="buttonCoinSettings.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAPNJREFUSEtj+E9jMGoBQTBqAUEw3C349+8/AwPD/2OnL0IFSAcEfbBn9y4o6///
-        L1++/H/+/DmU9///ixfP/3//8QPKww4IWgDywbPXb//XVZeD2SD87fv3/zKSYv85uXnA/LXr1kNVYwKi
-        LHjy7CGYfvjsNVhs24ZVYD4IzJ428T8ThwCYjQ3gtKCltQ1Mgwx6+foVmO7r7///+tWr/+dPHYFb4OPu
-        /N/IzBrMxgawWvD9yyewAb9//fxvoKv1/+Wbd//vXLv0X1BQ8D8TMwtYzYSeDrAaU3OL/7//goWwAoJB
-        RCkYtYAgGLWAIBjqFvz/DwA+KKs48/tQFwAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAFMSURBVEhL5dTPKkVRFMfx48+MayrJU4i6TyElBkTyBgbULRMpCQOlZKDEgCdgQIoBE2PJSBJ5
+        AuTv91d2rdbZ++rczohffQb3tNde56xzz87+TWr4cmZQWvbhG+yitFzCN7hA4TTjHEcYQg90px/wDd6x
+        jW4M4xhnaEIyU7CbfLrfMX7NOKLpwBPs4kY8oB25LCFWEFxhGSu4/rmWsoBcxvCCWMEa9H5CWrCO2Npn
+        jCCaPtzBFujO7eYhauKf5Ba9qJs52CKNJZVV2LWz+DW+gWaeSuEGVdzDFmkMGodPK25g12q8/YhmAq+w
+        BYFeqG2izTcQW6s/yihyWUSsINCTaCTi79ybRy4VPCJWUIRG3IZoJmEXN3JU6HtKRgfVKQ4wgC5sQQeb
+        3UTesIlODOIQJ6h72KVS2nGdyh58gx2UFn1AGlOg8UzjzyfLvgFlgd1k8VxhzQAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="coinGridColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

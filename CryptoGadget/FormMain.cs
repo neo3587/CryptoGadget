@@ -369,7 +369,7 @@ namespace CryptoGadget {
 			
 			wait.WaitOne();
 
-            if(form2.accept) {
+            if(form2.Accept) {
 				Point currLoc = Location; // prevent the form realocation
                 GridInit();
 				ResizeForm();

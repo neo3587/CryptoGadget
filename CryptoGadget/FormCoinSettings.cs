@@ -1,9 +1,10 @@
 ﻿
 using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
+using System.IO;
 
 using Newtonsoft.Json.Linq;
+
 
 using CoinPair = System.Collections.Generic.KeyValuePair<string, string>;
 
@@ -13,12 +14,15 @@ using CoinPair = System.Collections.Generic.KeyValuePair<string, string>;
 
 namespace CryptoGadget {
 
-    public partial class FormAddCoin : Form {
+    public partial class FormCoinSettings : Form {
 
-        private Settings.CoinList _ptr_sett = null;
-		private DataGridView	  _ptr_grid = null;
+        private Settings.CoinList _ptr_list = null;
+		private Settings.StCoin _ptr_coin   = null;
         private BindingSource _coin_bind   = new BindingSource();
 		private BindingSource _target_bind = new BindingSource();
+
+		public Settings.StCoin CoinResult = null;
+
 
 		private void IndexName(ComboBox combo_box) {
 
@@ -55,11 +59,11 @@ namespace CryptoGadget {
 		}
 
 
-        public FormAddCoin(Settings.CoinList sett, DataGridView grid) {
+        public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin coin) {
 
             InitializeComponent();
-            _ptr_sett = sett;
-			_ptr_grid = grid;
+            _ptr_list = coin_list;
+			_ptr_coin = coin;
 
             HandleCreated += (sender, e) => {
 
@@ -73,15 +77,15 @@ namespace CryptoGadget {
 				boxCoin.DataSource   = _coin_bind;
                 boxTarget.DataSource = _target_bind;
 
-                boxCoin.SelectedIndex   = 0;
-                boxTarget.SelectedIndex = Math.Max(boxTarget.FindStringExact("[USD, United States Dollar]"), 0);
+                boxCoin.SelectedIndex   = coin.Coin == ""   ? 0 : Math.Max(boxCoin.FindStringExact("[" + coin.Coin + ", " + coin.CoinName + "]"), 0);
+				boxTarget.SelectedIndex = Math.Max(boxTarget.FindStringExact(coin.Target == "" ? "[USD, United States Dollar]" : "[" + coin.Target + ", " + coin.TargetName + "]"), 0);
 
             };
 
         }
 
 
-        private void buttonAdd_Click(object sender, EventArgs e) {
+        private void buttonAccept_Click(object sender, EventArgs e) {
 
             CoinPair left = (CoinPair)boxCoin.SelectedItem;
             CoinPair right = (CoinPair)boxTarget.SelectedItem;
@@ -91,23 +95,21 @@ namespace CryptoGadget {
 			if(checkTargetIndexName.Checked)
                 right = new CoinPair(right.Value, right.Key);
             
-            if(_ptr_sett.FindConv(left.Key, right.Key) != -1) {
+            if(_ptr_list.FindConv(left.Key, right.Key) != -1) {
                 MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
                 return;
             }
 
-			Settings.StCoin st = new Settings.StCoin();
-			st.Icon       = Global.GetIcon(left.Key, 16);
-			st.Coin       = left.Key;
-			st.CoinName   = left.Value;
-			st.Target	  = right.Key;
-			st.TargetName = right.Value;
+			CoinResult = new Settings.StCoin();
+			CoinResult.Icon       = Global.GetIcon(left.Key, 16);
+			CoinResult.Coin       = left.Key;
+			CoinResult.CoinName   = left.Value;
+			CoinResult.Target	  = right.Key;
+			CoinResult.TargetName = right.Value;
 
-			int insertPos = _ptr_grid.SelectedRows.Count > 0 ? _ptr_grid.SelectedRows[0].Index +1 : 0;
-			_ptr_sett.Insert(insertPos, st);
-            _ptr_grid.Rows[Math.Min(_ptr_grid.SelectedRows[0].Index +1, _ptr_grid.RowCount-1)].Selected = true;
+			Close();
         }
-        private void buttonDone_Click(object sender, EventArgs e) {
+        private void buttonCancel_Click(object sender, EventArgs e) {
             Close();
         }
 
@@ -133,7 +135,32 @@ namespace CryptoGadget {
 			(sender as ComboBox).DroppedDown = true;
 		}
 
+		private void buttonIcon_Click(object sender, EventArgs e) {
 
+			OpenFileDialog ofd = new OpenFileDialog();
+
+			CoinPair coin = (CoinPair)boxCoin.SelectedItem;
+			if(checkCoinIndexName.Checked)
+				coin = new CoinPair(coin.Value, coin.Key);
+
+			ofd.Title = "Select Icon for " + coin.Key + " (" + coin.Value + ")";
+			ofd.Filter = "Icon Files (.ico)|*.ico";
+			ofd.Multiselect = false;
+
+			ofd.FileOk += (f_sender, f_ev) => {
+
+				Stream stream = (f_sender as OpenFileDialog).OpenFile();
+				stream.Position = 0;
+
+				_ptr_coin.Icon = Global.GetIcon(stream, 16);
+
+				stream.Position = 0;
+				StreamWriter writer = new StreamWriter(Global.IconsFolder +  coin.Key.ToLower() + ".ico");
+				stream.CopyTo(writer.BaseStream);
+			};
+
+			ofd.ShowDialog();
+		}
 	}
 
 }
