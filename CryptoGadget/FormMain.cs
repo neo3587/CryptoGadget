@@ -177,10 +177,9 @@ namespace CryptoGadget {
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
 
-			Point curr_loc = Location; // prevent the form realocation
-			GridInit();
+			RowsInit();
+			mainGrid.DataSource = _coin_list;
 			ResizeForm();
-			Location = curr_loc;
 
 			TimerRoutineStart();
 		}
@@ -203,8 +202,8 @@ namespace CryptoGadget {
         private void GridInit() {
 
 			mainGrid.Rows.Clear();
-			mainGrid.Columns.Clear();
 			mainGrid.DataSource = null;
+			mainGrid.Columns.Clear();
 
 			// Rows & Columns init and binding
 
@@ -233,9 +232,7 @@ namespace CryptoGadget {
 
 			mainGrid.AutoGenerateColumns = false;
 
-			BindingSource coin_bind = new BindingSource();
-			coin_bind.DataSource = _coin_list;
-			mainGrid.DataSource = coin_bind;
+			mainGrid.DataSource = _coin_list;
 
 			// Metrics & Visibility
 
@@ -283,7 +280,6 @@ namespace CryptoGadget {
 		}
 		private void RowsInit() {
 
-			// TODO: improve and use this for page swap
 			_coin_list = new BindingList<CoinRow>();
 
 			for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
@@ -359,8 +355,13 @@ namespace CryptoGadget {
 				GridInit();
                 ResizeForm();
 
-				for(int i = 0; i < 10; i++)
-					(contextMenu.Items[0] as ToolStripMenuItem).DropDownItems.Add("Page " + i, null, (cm_sender, cm_ev) => SwapPage(int.Parse(cm_sender.ToString()[5].ToString())));
+				for(int i = 0; i < 10; i++) {
+					ToolStripMenuItem ts_item = new ToolStripMenuItem();
+					ts_item.Text = "Page " + i;
+					ts_item.Tag = i;
+					ts_item.Click += (cm_sender, cm_ev) => SwapPage((int)(cm_sender as ToolStripMenuItem).Tag);
+					(contextMenu.Items[0] as ToolStripMenuItem).DropDownItems.Add(ts_item);
+				}
 				((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
 
 				mainGrid.DoubleBuffered(true);
