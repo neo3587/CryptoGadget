@@ -174,7 +174,6 @@ namespace CryptoGadget {
 
 			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page; 
-			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
 
 			RowsInit();
@@ -299,6 +298,8 @@ namespace CryptoGadget {
 
 				_coin_list.Add(coin);
 			}
+
+			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 		}
 
 
@@ -350,7 +351,6 @@ namespace CryptoGadget {
 				}
 
 				_page = Global.Sett.Pages.Default;
-				_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 
 				GridInit();
                 ResizeForm();
