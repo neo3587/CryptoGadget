@@ -29,9 +29,11 @@
 			this.mainGrid = new System.Windows.Forms.DataGridView();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.contextMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
-			this.contextMenuHide = new System.Windows.Forms.ToolStripMenuItem();
-			this.contextMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripPages = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSettings = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripHide = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripExit = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.mainGrid)).BeginInit();
 			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -81,32 +83,47 @@
 			// contextMenu
 			// 
 			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextMenuSettings,
-            this.contextMenuHide,
-            this.contextMenuExit});
+            this.toolStripPages,
+            this.toolStripSeparator1,
+            this.toolStripSettings,
+            this.toolStripHide,
+            this.toolStripExit});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(117, 70);
+			this.contextMenu.Size = new System.Drawing.Size(117, 98);
 			// 
-			// contextMenuSettings
+			// toolStripPages
 			// 
-			this.contextMenuSettings.Name = "contextMenuSettings";
-			this.contextMenuSettings.Size = new System.Drawing.Size(116, 22);
-			this.contextMenuSettings.Text = "Settings";
-			this.contextMenuSettings.Click += new System.EventHandler(this.contextMenuSettings_Click);
+			this.toolStripPages.AccessibleName = "";
+			this.toolStripPages.Name = "toolStripPages";
+			this.toolStripPages.Size = new System.Drawing.Size(116, 22);
+			this.toolStripPages.Tag = "";
+			this.toolStripPages.Text = "Pages";
 			// 
-			// contextMenuHide
+			// toolStripSeparator1
 			// 
-			this.contextMenuHide.Name = "contextMenuHide";
-			this.contextMenuHide.Size = new System.Drawing.Size(116, 22);
-			this.contextMenuHide.Text = "Hide";
-			this.contextMenuHide.Click += new System.EventHandler(this.contextMenuHide_Click);
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
 			// 
-			// contextMenuExit
+			// toolStripSettings
 			// 
-			this.contextMenuExit.Name = "contextMenuExit";
-			this.contextMenuExit.Size = new System.Drawing.Size(116, 22);
-			this.contextMenuExit.Text = "Exit";
-			this.contextMenuExit.Click += new System.EventHandler(this.contextMenuExit_Click);
+			this.toolStripSettings.Name = "toolStripSettings";
+			this.toolStripSettings.Size = new System.Drawing.Size(116, 22);
+			this.toolStripSettings.Text = "Settings";
+			this.toolStripSettings.Click += new System.EventHandler(this.contextMenuSettings_Click);
+			// 
+			// toolStripHide
+			// 
+			this.toolStripHide.Name = "toolStripHide";
+			this.toolStripHide.Size = new System.Drawing.Size(116, 22);
+			this.toolStripHide.Text = "Hide";
+			this.toolStripHide.Click += new System.EventHandler(this.contextMenuHide_Click);
+			// 
+			// toolStripExit
+			// 
+			this.toolStripExit.Name = "toolStripExit";
+			this.toolStripExit.Size = new System.Drawing.Size(116, 22);
+			this.toolStripExit.Text = "Exit";
+			this.toolStripExit.Click += new System.EventHandler(this.contextMenuExit_Click);
 			// 
 			// FormMain
 			// 
@@ -133,9 +150,11 @@
         private System.Windows.Forms.DataGridView mainGrid;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip  contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuSettings;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuHide;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuExit;
+        private System.Windows.Forms.ToolStripMenuItem toolStripSettings;
+        private System.Windows.Forms.ToolStripMenuItem toolStripHide;
+        private System.Windows.Forms.ToolStripMenuItem toolStripExit;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripPages;
 	}
 }
 

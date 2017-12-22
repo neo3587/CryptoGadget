@@ -77,7 +77,16 @@
 			this.label11 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
 			this.buttonCoinSettings = new System.Windows.Forms.Button();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.checkPagesRotate = new System.Windows.Forms.CheckBox();
+			this.label21 = new System.Windows.Forms.Label();
+			this.label22 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
+			this.numPagesRotateRate = new System.Windows.Forms.NumericUpDown();
+			this.numPagesSize = new System.Windows.Forms.NumericUpDown();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
@@ -139,7 +148,12 @@
 			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
+			this.comboPages = new System.Windows.Forms.ComboBox();
 			this.tabPage4.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesSize)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -446,7 +460,7 @@
 			this.buttonColorHeaderText.TabIndex = 57;
 			this.toolTip1.SetToolTip(this.buttonColorHeaderText, "Color of the text of the header (not the rows)");
 			this.buttonColorHeaderText.UseVisualStyleBackColor = true;
-			this.buttonColorHeaderText.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorHeaderText.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label13
 			// 
@@ -476,7 +490,7 @@
 			this.buttonColorNegativeRefresh.TabIndex = 55;
 			this.toolTip1.SetToolTip(this.buttonColorNegativeRefresh, "Color of the refresh animation when the change is negative");
 			this.buttonColorNegativeRefresh.UseVisualStyleBackColor = true;
-			this.buttonColorNegativeRefresh.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorNegativeRefresh.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label7
 			// 
@@ -506,7 +520,7 @@
 			this.buttonColorPositiveRefresh.TabIndex = 53;
 			this.toolTip1.SetToolTip(this.buttonColorPositiveRefresh, "Color of the refresh animation when the change is positive");
 			this.buttonColorPositiveRefresh.UseVisualStyleBackColor = true;
-			this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorPositiveRefresh.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonColorRowsValues
 			// 
@@ -516,7 +530,7 @@
 			this.buttonColorRowsValues.TabIndex = 24;
 			this.toolTip1.SetToolTip(this.buttonColorRowsValues, "Color of the numbers (not text) of the rows");
 			this.buttonColorRowsValues.UseVisualStyleBackColor = true;
-			this.buttonColorRowsValues.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorRowsValues.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label4
 			// 
@@ -556,7 +570,7 @@
 			this.buttonColorHeaderBackground.TabIndex = 21;
 			this.toolTip1.SetToolTip(this.buttonColorHeaderBackground, "Color of the header (not the rows)");
 			this.buttonColorHeaderBackground.UseVisualStyleBackColor = true;
-			this.buttonColorHeaderBackground.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorHeaderBackground.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label14
 			// 
@@ -587,7 +601,7 @@
 			this.buttonColorRowsText.TabIndex = 6;
 			this.toolTip1.SetToolTip(this.buttonColorRowsText, "Color of the text (not numbers) of the rows");
 			this.buttonColorRowsText.UseVisualStyleBackColor = true;
-			this.buttonColorRowsText.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorRowsText.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonColorBackground1
 			// 
@@ -597,7 +611,7 @@
 			this.buttonColorBackground1.TabIndex = 7;
 			this.toolTip1.SetToolTip(this.buttonColorBackground1, "Color of the even rows");
 			this.buttonColorBackground1.UseVisualStyleBackColor = true;
-			this.buttonColorBackground1.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorBackground1.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonColorEdge
 			// 
@@ -607,7 +621,7 @@
 			this.buttonColorEdge.TabIndex = 17;
 			this.toolTip1.SetToolTip(this.buttonColorEdge, "Color of the edge");
 			this.buttonColorEdge.UseVisualStyleBackColor = true;
-			this.buttonColorEdge.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorEdge.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonColorBackground2
 			// 
@@ -617,7 +631,7 @@
 			this.buttonColorBackground2.TabIndex = 8;
 			this.toolTip1.SetToolTip(this.buttonColorBackground2, "Color of the odd rows");
 			this.buttonColorBackground2.UseVisualStyleBackColor = true;
-			this.buttonColorBackground2.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorBackground2.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label12
 			// 
@@ -638,7 +652,7 @@
 			this.toolTip1.SetToolTip(this.buttonColorNegativeChange, "Color of the values of the columns Change24h, Change24Pct, ChangeDay \r\nand Change" +
         "DayPct when they are negative\r\n");
 			this.buttonColorNegativeChange.UseVisualStyleBackColor = true;
-			this.buttonColorNegativeChange.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorNegativeChange.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label11
 			// 
@@ -660,7 +674,7 @@
 			this.toolTip1.SetToolTip(this.buttonColorPositiveChange, "Color of the values of the columns Change24h, Change24Pct, ChangeDay \r\nand Change" +
         "DayPct when they are positive");
 			this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
-			this.buttonColorPositiveChange.Click += new System.EventHandler(this.buttonColorPick);
+			this.buttonColorPositiveChange.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonCoinSettings
 			// 
@@ -674,8 +688,65 @@
 			this.buttonCoinSettings.UseVisualStyleBackColor = true;
 			this.buttonCoinSettings.Click += new System.EventHandler(this.buttonCoinSettings_Click);
 			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Location = new System.Drawing.Point(7, 21);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(71, 13);
+			this.label18.TabIndex = 77;
+			this.label18.Text = "Pages Count:";
+			this.toolTip1.SetToolTip(this.label18, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.Location = new System.Drawing.Point(7, 95);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(68, 13);
+			this.label20.TabIndex = 78;
+			this.label20.Text = "Rotate Rate:";
+			this.toolTip1.SetToolTip(this.label20, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+			// 
+			// checkPagesRotate
+			// 
+			this.checkPagesRotate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkPagesRotate.AutoSize = true;
+			this.checkPagesRotate.Location = new System.Drawing.Point(92, 72);
+			this.checkPagesRotate.Name = "checkPagesRotate";
+			this.checkPagesRotate.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.checkPagesRotate.Size = new System.Drawing.Size(15, 14);
+			this.checkPagesRotate.TabIndex = 77;
+			this.toolTip1.SetToolTip(this.checkPagesRotate, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
+			this.checkPagesRotate.UseVisualStyleBackColor = true;
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Location = new System.Drawing.Point(7, 71);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(75, 13);
+			this.label21.TabIndex = 80;
+			this.label21.Text = "Rotate Pages:";
+			this.toolTip1.SetToolTip(this.label21, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(7, 47);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(72, 13);
+			this.label22.TabIndex = 78;
+			this.label22.Text = "Default Page:";
+			this.toolTip1.SetToolTip(this.label22, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
+			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.groupBox4);
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
 			this.tabPage4.Controls.Add(this.numCoordsPosY);
 			this.tabPage4.Controls.Add(this.numCoordsPosX);
@@ -691,6 +762,87 @@
 			this.tabPage4.TabIndex = 4;
 			this.tabPage4.Text = "Advanced";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.label21);
+			this.groupBox4.Controls.Add(this.label20);
+			this.groupBox4.Controls.Add(this.label22);
+			this.groupBox4.Controls.Add(this.numPagesDefault);
+			this.groupBox4.Controls.Add(this.label18);
+			this.groupBox4.Controls.Add(this.numPagesRotateRate);
+			this.groupBox4.Controls.Add(this.numPagesSize);
+			this.groupBox4.Controls.Add(this.checkPagesRotate);
+			this.groupBox4.Location = new System.Drawing.Point(6, 306);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(200, 124);
+			this.groupBox4.TabIndex = 76;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Pages";
+			// 
+			// numPagesDefault
+			// 
+			this.numPagesDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numPagesDefault.Location = new System.Drawing.Point(92, 45);
+			this.numPagesDefault.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+			this.numPagesDefault.Name = "numPagesDefault";
+			this.numPagesDefault.Size = new System.Drawing.Size(100, 20);
+			this.numPagesDefault.TabIndex = 79;
+			this.numPagesDefault.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// numPagesRotateRate
+			// 
+			this.numPagesRotateRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numPagesRotateRate.Location = new System.Drawing.Point(92, 93);
+			this.numPagesRotateRate.Maximum = new decimal(new int[] {
+            21600,
+            0,
+            0,
+            0});
+			this.numPagesRotateRate.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			this.numPagesRotateRate.Name = "numPagesRotateRate";
+			this.numPagesRotateRate.Size = new System.Drawing.Size(100, 20);
+			this.numPagesRotateRate.TabIndex = 79;
+			this.numPagesRotateRate.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			// 
+			// numPagesSize
+			// 
+			this.numPagesSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numPagesSize.Location = new System.Drawing.Point(92, 19);
+			this.numPagesSize.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.numPagesSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numPagesSize.Name = "numPagesSize";
+			this.numPagesSize.Size = new System.Drawing.Size(100, 20);
+			this.numPagesSize.TabIndex = 77;
+			this.numPagesSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// buttonDefaultAdvanced
 			// 
@@ -1562,6 +1714,27 @@
     " more digits than the allowed. ";
 			this.dataGridViewNumericUpDownColumn2.Width = 50;
 			// 
+			// comboPages
+			// 
+			this.comboPages.FormattingEnabled = true;
+			this.comboPages.Items.AddRange(new object[] {
+            "Page 0",
+            "Page 1",
+            "Page 2",
+            "Page 3",
+            "Page 4",
+            "Page 5",
+            "Page 6",
+            "Page 7",
+            "Page 8",
+            "Page 9"});
+			this.comboPages.Location = new System.Drawing.Point(6, 469);
+			this.comboPages.Name = "comboPages";
+			this.comboPages.Size = new System.Drawing.Size(121, 21);
+			this.comboPages.TabIndex = 20;
+			this.comboPages.SelectedIndexChanged += new System.EventHandler(this.comboPages_SelectedIndexChanged);
+			this.comboPages.Click += new System.EventHandler(this.DropDownOnClick);
+			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -1569,6 +1742,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
 			this.ClientSize = new System.Drawing.Size(467, 496);
+			this.Controls.Add(this.comboPages);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonAccept);
@@ -1579,6 +1753,11 @@
 			this.Text = "CryptoGadget Settings";
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesSize)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
 			this.groupBox1.ResumeLayout(false);
@@ -1718,5 +1897,15 @@
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
 		private System.Windows.Forms.Button buttonCoinSettings;
+		private System.Windows.Forms.ComboBox comboPages;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.NumericUpDown numPagesSize;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.NumericUpDown numPagesRotateRate;
+		private System.Windows.Forms.CheckBox checkPagesRotate;
+		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.NumericUpDown numPagesDefault;
 	}
 }

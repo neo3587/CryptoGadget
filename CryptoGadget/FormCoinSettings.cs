@@ -74,11 +74,11 @@ namespace CryptoGadget {
 					_target_bind.Add(new CoinPair(name, full_name));
 				}
 
-				boxCoin.DataSource   = _coin_bind;
-                boxTarget.DataSource = _target_bind;
+				comboCoin.DataSource   = _coin_bind;
+                comboTarget.DataSource = _target_bind;
 
-                boxCoin.SelectedIndex   = coin.Coin == ""   ? 0 : Math.Max(boxCoin.FindStringExact("[" + coin.Coin + ", " + coin.CoinName + "]"), 0);
-				boxTarget.SelectedIndex = Math.Max(boxTarget.FindStringExact(coin.Target == "" ? "[USD, United States Dollar]" : "[" + coin.Target + ", " + coin.TargetName + "]"), 0);
+                comboCoin.SelectedIndex   = coin.Coin == ""   ? 0 : Math.Max(comboCoin.FindStringExact("[" + coin.Coin + ", " + coin.CoinName + "]"), 0);
+				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(coin.Target == "" ? "[USD, United States Dollar]" : "[" + coin.Target + ", " + coin.TargetName + "]"), 0);
 
             };
 
@@ -87,8 +87,8 @@ namespace CryptoGadget {
 
         private void buttonAccept_Click(object sender, EventArgs e) {
 
-            CoinPair left = (CoinPair)boxCoin.SelectedItem;
-            CoinPair right = (CoinPair)boxTarget.SelectedItem;
+            CoinPair left = (CoinPair)comboCoin.SelectedItem;
+            CoinPair right = (CoinPair)comboTarget.SelectedItem;
 
             if(checkCoinIndexName.Checked) 
                 left = new CoinPair(left.Value, left.Key);
@@ -115,17 +115,17 @@ namespace CryptoGadget {
 
 
 		private void checkCoinIndexName_CheckedChanged(object sender, EventArgs e) {
-			IndexName(boxCoin);			
+			IndexName(comboCoin);			
 		}
 		private void checkCoinOnlyFiat_CheckedChanged(object sender, EventArgs e) {
-			OnlyFiat(boxCoin, _coin_bind, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
+			OnlyFiat(comboCoin, _coin_bind, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
 		}
 
 		private void checkTargetIndexName_CheckedChanged(object sender, EventArgs e) {
-			IndexName(boxTarget);
+			IndexName(comboTarget);
 		}
 		private void checkTargetOnlyFiat_CheckedChanged(object sender, EventArgs e) {
-			OnlyFiat(boxTarget, _target_bind, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
+			OnlyFiat(comboTarget, _target_bind, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
 		}
 
 		private void DropDownOnClick(object sender, EventArgs e) {
@@ -139,7 +139,7 @@ namespace CryptoGadget {
 
 			OpenFileDialog ofd = new OpenFileDialog();
 
-			CoinPair coin = (CoinPair)boxCoin.SelectedItem;
+			CoinPair coin = (CoinPair)comboCoin.SelectedItem;
 			if(checkCoinIndexName.Checked)
 				coin = new CoinPair(coin.Value, coin.Key);
 

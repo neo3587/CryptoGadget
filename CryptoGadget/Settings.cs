@@ -251,7 +251,7 @@ namespace CryptoGadget {
 			private int _size;
 			private int _default;
 			private bool _rotate;
-			private float _rotate_rate;
+			private int _rotate_rate;
 
 			public int Size {
 				get => _size;
@@ -265,7 +265,7 @@ namespace CryptoGadget {
 				get => _rotate;
 				set { _rotate = value; NotifyPropertyChanged(); }
 			}
-			public float RotateRate {
+			public int RotateRate {
 				get => _rotate_rate;
 				set { _rotate_rate = value; NotifyPropertyChanged(); }
 			}
@@ -434,7 +434,7 @@ namespace CryptoGadget {
 
 				ThrowRule<int>()(Pages.Size, x => (x >= 1 && x <= 10));
 				ThrowRule<int>()(Pages.Default, x => (x >= 0 && x < Pages.Size));
-				ThrowRule<float>()(Pages.RotateRate, x => x >= 1.0f);
+				ThrowRule<int>()(Pages.RotateRate, x => x >= 1);
 
 				foreach(PropertyInfo prop in StGrid.GetProps()) {
 					ThrowRule<int>()((Grid[prop.Name] as StColumn).Width, x => x >= 1);
@@ -560,10 +560,10 @@ namespace CryptoGadget {
 				Metrics.RowsValues = 8.25f;
 			}
 			if((type & DefaultType.Pages) != 0) {
-				Pages.Size = 1;
+				Pages.Size = 10;
 				Pages.Default = 0;
 				Pages.Rotate = false;
-				Pages.RotateRate = 10.0f;
+				Pages.RotateRate = 60;
 			}
 			if((type & DefaultType.Grid) != 0) {
 				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) { 

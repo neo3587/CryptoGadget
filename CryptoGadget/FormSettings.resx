@@ -123,13 +123,13 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCoinSettings.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAFMSURBVEhL5dTPKkVRFMfx48+MayrJU4i6TyElBkTyBgbULRMpCQOlZKDEgCdgQIoBE2PJSBJ5
-        AuTv91d2rdbZ++rczohffQb3tNde56xzz87+TWr4cmZQWvbhG+yitFzCN7hA4TTjHEcYQg90px/wDd6x
-        jW4M4xhnaEIyU7CbfLrfMX7NOKLpwBPs4kY8oB25LCFWEFxhGSu4/rmWsoBcxvCCWMEa9H5CWrCO2Npn
-        jCCaPtzBFujO7eYhauKf5Ba9qJs52CKNJZVV2LWz+DW+gWaeSuEGVdzDFmkMGodPK25g12q8/YhmAq+w
-        BYFeqG2izTcQW6s/yihyWUSsINCTaCTi79ybRy4VPCJWUIRG3IZoJmEXN3JU6HtKRgfVKQ4wgC5sQQeb
-        3UTesIlODOIQJ6h72KVS2nGdyh58gx2UFn1AGlOg8UzjzyfLvgFlgd1k8VxhzQAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAUxJREFUSEvl
+        1M8qRVEUx/Hjz4xrKslTiLpPISUGRPIGBtQtEykJA6VkoMSAJ2BAigETY8lIEnkC5O/3V3at1tn76tzO
+        iF99Bve0117nrHPPzv5NavhyZlBa9uEb7KK0XMI3uEDhNOMcRxhCD3SnH/AN3rGNbgzjGGdoQjJTsJt8
+        ut8xfs04ounAE+ziRjygHbksIVYQXGEZK7j+uZaygFzG8IJYwRr0fkJasI7Y2meMIJo+3MEW6M7t5iFq
+        4p/kFr2omznYIo0llVXYtbP4Nb6BZp5K4QZV3MMWaQwah08rbmDXarz9iGYCr7AFgV6obaLNNxBbqz/K
+        KHJZRKwg0JNoJOLv3JtHLhU8IlZQhEbchmgmYRc3clToe0pGB9UpDjCALmxBB5vdRN6wiU4M4hAnqHvY
+        pVLacZ3KHnyDHZQWfUAaU6DxTOPPJ8u+AWWB3WTxXGHNAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="coinGridColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

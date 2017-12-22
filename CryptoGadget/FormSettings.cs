@@ -24,11 +24,12 @@ namespace CryptoGadget {
 
 		
         private JObject DownloadCoinDB() {
+
 			Enabled = false;
             FormProgressBar form = new FormProgressBar(this, FormProgressBar.FormType.CoinList);
             form.ShowDialog();
             Enabled = true;
-            if(form.coindb == null)
+            if(form.CoinDataBase == null)
                 throw new System.Net.WebException("Couldn't download the Coin List Database");
 
             ValueTuple<string, string>[] fiat = {
@@ -82,12 +83,12 @@ namespace CryptoGadget {
 
             for(int i = 0; i < fiat.Length; i++) {
                 try {
-                    (form.coindb["Data"] as JObject).Add(fiat[i].Item1, JToken.Parse("{ \"Name\": \"" + fiat[i].Item1 + "\", \"CoinName\": \"" + fiat[i].Item2 +
-                                                                                     "\", \"FullName\": \"" + fiat[i].Item2 + " (" + fiat[i].Item1 + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
+                    (form.CoinDataBase["Data"] as JObject).Add(fiat[i].Item1, JToken.Parse("{ \"Name\": \"" + fiat[i].Item1 + "\", \"CoinName\": \"" + fiat[i].Item2 +
+																						   "\", \"FullName\": \"" + fiat[i].Item2 + " (" + fiat[i].Item1 + ")\"" + ", \"FiatCurrency\": \"true\"" + " }"));
                 } catch { }
             }
 
-            return form.coindb;
+            return form.CoinDataBase;
         }
         private bool GetCoinDB() {
 
@@ -213,7 +214,15 @@ namespace CryptoGadget {
 			cols_bind.DataSource = bl;
 			colsGrid.DataSource = bl;
 
-			// Other
+			// Pages
+
+			numPagesSize.DataBindings.Add("Value", _sett.Pages, "Size");
+			numPagesDefault.DataBindings.Add("Value", _sett.Pages, "Default");
+			checkPagesRotate.DataBindings.Add("Checked", _sett.Pages, "Rotate");
+			numPagesRotateRate.DataBindings.Add("Value", _sett.Pages, "RotateRate");
+			comboPages.SelectedIndex = 0;
+
+			// Profile
 
 			textBoxProfileName.DataBindings.Add("Text", Global.Binds, "Profile");
 
@@ -226,7 +235,7 @@ namespace CryptoGadget {
 			Global.Sett.CloneTo(_sett);
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
-            HandleCreated += (sender, e) => BindSettings();
+			HandleCreated += (sender, e) => BindSettings();
 		}
         
 
@@ -299,7 +308,7 @@ namespace CryptoGadget {
                     MessageBox.Show("New coins were added to the coin list database");
                 }
                 else {
-                    MessageBox.Show("There are not new coins to add to the coin list database");
+                    MessageBox.Show("There are not new coins to add on the coin list database");
                 }
             } catch(System.Net.WebException ex) {
                 MessageBox.Show(ex.Message);
@@ -460,12 +469,19 @@ namespace CryptoGadget {
             Close();
         }
 
-        private void buttonColorPick(object sender, EventArgs e) {
+        private void ButtonColorPick(object sender, EventArgs e) {
 			ColorDialog cd = new ColorDialog();
 			cd.Color = (sender as Button).BackColor;
 			cd.FullOpen = true;
 			cd.ShowDialog();
 			(sender as Button).BackColor = cd.Color;
+		}
+		private void DropDownOnClick(object sender, EventArgs e) {
+			(sender as ComboBox).DroppedDown = true;
+		}
+
+		private void comboPages_SelectedIndexChanged(object sender, EventArgs e) {
+
 		}
 
 		#endregion

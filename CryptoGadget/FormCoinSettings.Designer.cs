@@ -26,8 +26,8 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCoinSettings));
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
-			this.boxCoin = new System.Windows.Forms.ComboBox();
-			this.boxTarget = new System.Windows.Forms.ComboBox();
+			this.comboCoin = new System.Windows.Forms.ComboBox();
+			this.comboTarget = new System.Windows.Forms.ComboBox();
 			this.checkTargetOnlyFiat = new System.Windows.Forms.CheckBox();
 			this.checkCoinIndexName = new System.Windows.Forms.CheckBox();
 			this.checkCoinOnlyFiat = new System.Windows.Forms.CheckBox();
@@ -62,29 +62,29 @@
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
-			// boxCoin
+			// comboCoin
 			// 
-			this.boxCoin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-			this.boxCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-			this.boxCoin.Location = new System.Drawing.Point(6, 19);
-			this.boxCoin.Name = "boxCoin";
-			this.boxCoin.Size = new System.Drawing.Size(192, 21);
-			this.boxCoin.Sorted = true;
-			this.boxCoin.TabIndex = 2;
-			this.boxCoin.Click += new System.EventHandler(this.DropDownOnClick);
-			this.boxCoin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
+			this.comboCoin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.comboCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+			this.comboCoin.Location = new System.Drawing.Point(6, 19);
+			this.comboCoin.Name = "comboCoin";
+			this.comboCoin.Size = new System.Drawing.Size(192, 21);
+			this.comboCoin.Sorted = true;
+			this.comboCoin.TabIndex = 2;
+			this.comboCoin.Click += new System.EventHandler(this.DropDownOnClick);
+			this.comboCoin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
 			// 
-			// boxTarget
+			// comboTarget
 			// 
-			this.boxTarget.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.boxTarget.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-			this.boxTarget.Location = new System.Drawing.Point(6, 19);
-			this.boxTarget.Name = "boxTarget";
-			this.boxTarget.Size = new System.Drawing.Size(192, 21);
-			this.boxTarget.Sorted = true;
-			this.boxTarget.TabIndex = 4;
-			this.boxTarget.Click += new System.EventHandler(this.DropDownOnClick);
-			this.boxTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
+			this.comboTarget.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.comboTarget.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+			this.comboTarget.Location = new System.Drawing.Point(6, 19);
+			this.comboTarget.Name = "comboTarget";
+			this.comboTarget.Size = new System.Drawing.Size(192, 21);
+			this.comboTarget.Sorted = true;
+			this.comboTarget.TabIndex = 4;
+			this.comboTarget.Click += new System.EventHandler(this.DropDownOnClick);
+			this.comboTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
 			// 
 			// checkTargetOnlyFiat
 			// 
@@ -132,7 +132,7 @@
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.boxCoin);
+			this.groupBox1.Controls.Add(this.comboCoin);
 			this.groupBox1.Controls.Add(this.checkCoinIndexName);
 			this.groupBox1.Controls.Add(this.checkCoinOnlyFiat);
 			this.groupBox1.Location = new System.Drawing.Point(12, 9);
@@ -146,7 +146,7 @@
 			// 
 			this.groupBox2.Controls.Add(this.checkTargetIndexName);
 			this.groupBox2.Controls.Add(this.checkTargetOnlyFiat);
-			this.groupBox2.Controls.Add(this.boxTarget);
+			this.groupBox2.Controls.Add(this.comboTarget);
 			this.groupBox2.Location = new System.Drawing.Point(222, 9);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(204, 96);
@@ -195,8 +195,8 @@
 
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox boxCoin;
-        private System.Windows.Forms.ComboBox boxTarget;
+        private System.Windows.Forms.ComboBox comboCoin;
+        private System.Windows.Forms.ComboBox comboTarget;
         private System.Windows.Forms.CheckBox checkTargetOnlyFiat;
         private System.Windows.Forms.CheckBox checkCoinIndexName;
 		private System.Windows.Forms.CheckBox checkCoinOnlyFiat;

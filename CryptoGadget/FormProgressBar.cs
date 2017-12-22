@@ -17,7 +17,7 @@ namespace CryptoGadget {
     public partial class FormProgressBar : Form {
         
         public List<string> badConvs = new List<string>(); // FormType.Check
-        public JObject coindb = null; // FormType.CoinList
+        public JObject CoinDataBase = null; // FormType.CoinList
 
         public enum FormType {
             Check = 0x01,
@@ -115,7 +115,7 @@ namespace CryptoGadget {
 					data.Position = 0;
 					try {
 						if(data.Length > 0) {
-							coindb = JObject.Parse(new StreamReader(data).ReadToEnd());
+							CoinDataBase = JObject.Parse(new StreamReader(data).ReadToEnd());
 						}
 						else {
 							Invoke((MethodInvoker)delegate { Close(); });

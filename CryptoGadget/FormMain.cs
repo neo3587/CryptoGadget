@@ -74,6 +74,16 @@ namespace CryptoGadget {
 
 		#endregion
 
+		private void TimerStart() {
+			_timer_disposed = false;
+			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
+		}
+		private WaitHandle TimerWaitKill() {
+			WaitHandle wait = new AutoResetEvent(false);
+			_timer_req.Dispose(wait);
+			_timer_disposed = true;
+			return wait;
+		}
 
 		private void TimerRoutine(object state) {
 
@@ -178,6 +188,17 @@ namespace CryptoGadget {
 			ResizeForm();
 		}
 
+		private void GenerateContextPages() {
+
+			ToolStripMenuItem page_menu = (contextMenu.Items[0] as ToolStripMenuItem);
+
+			for(int i = 0; i < Global.Sett.Pages.Size; i++) {
+				page_menu.DropDownItems.Add("Page " + i, null, (cm_sender, cm_ev) => {
+					MessageBox.Show(cm_sender.GetType().ToString());
+				});
+			}
+
+		}
 		private void ResizeForm() {
             
             int X = 0;
@@ -342,7 +363,7 @@ namespace CryptoGadget {
 					Global.Binds.Profile = "Default.json";
 				}
 				if(!Global.Sett.Load() || !Global.Sett.Check()) {
-					MessageBox.Show("The settings file is corrupted, a new settings file with the default values will be used");
+					MessageBox.Show("The settings file is corrupted or outdated (not valid for this version), a new settings file with the default values will be used");
 					Global.Sett.Default();
 					Global.Sett.Store();
 					Global.Sett.Save();
@@ -350,19 +371,18 @@ namespace CryptoGadget {
 
 				GridInit();
                 ResizeForm();
+				GenerateContextPages();
 
                 mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
-				
-                _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate); 
+
+				TimerStart();
             };
         }
 
         private void contextMenuSettings_Click(object sender, EventArgs e) {
 
-            WaitHandle wait = new AutoResetEvent(false);
-            _timer_req.Dispose(wait);
-            _timer_disposed = true;
+			WaitHandle wait = TimerWaitKill();
 
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
@@ -373,15 +393,15 @@ namespace CryptoGadget {
 				Point currLoc = Location; // prevent the form realocation
                 GridInit();
 				ResizeForm();
+				GenerateContextPages();
                 Location = currLoc;
 			}
 
-            _timer_disposed = false;
-            _timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
+			TimerStart();
         }
         private void contextMenuHide_Click(object sender, EventArgs e) {
             Visible = !Visible;
-			contextMenuHide.Checked = !Visible;
+			toolStripHide.Checked = !Visible;
         }
         private void contextMenuExit_Click(object sender, EventArgs e) {
             Close();
@@ -408,6 +428,7 @@ namespace CryptoGadget {
 
 			ContextMenuStrip cm = new ContextMenuStrip();
 			DataGridViewRow row = mainGrid.Rows[e.RowIndex];
+
 			if(Global.Json != null) {
 				JToken jtok = Global.Json["Data"][row.Cells["Coin"].Value];
 				if(jtok != null && jtok["Url"] != null) {
@@ -416,9 +437,8 @@ namespace CryptoGadget {
 				}
 			}
 
-			cm.Items.Add("Settings", null, contextMenuSettings_Click);
-			cm.Items.Add("Hide", null, contextMenuHide_Click);
-			cm.Items.Add("Exit", null, contextMenuExit_Click);
+			ToolStripManager.Merge(contextMenu, cm);
+			cm.Closed += (cm_sender, cm_ev) => ToolStripManager.RevertMerge(cm, contextMenu);
 
 			e.ContextMenuStrip = cm;
 		}
