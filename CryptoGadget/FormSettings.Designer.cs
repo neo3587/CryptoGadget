@@ -85,11 +85,11 @@
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
-			this.numPagesRotateRate = new System.Windows.Forms.NumericUpDown();
 			this.numPagesSize = new System.Windows.Forms.NumericUpDown();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
+			this.numPagesRotateRate = new System.Windows.Forms.NumericUpDown();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label24 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -128,6 +128,11 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label32 = new System.Windows.Forms.Label();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+			this.labelCryptoGadgetVersion = new System.Windows.Forms.Label();
 			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
 			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
 			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
@@ -152,10 +157,10 @@
 			this.tabPage4.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesSize)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRowsValues)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeaderText)).BeginInit();
@@ -702,36 +707,39 @@
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(7, 95);
+			this.label20.Location = new System.Drawing.Point(254, 301);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(68, 13);
 			this.label20.TabIndex = 78;
 			this.label20.Text = "Rotate Rate:";
 			this.toolTip1.SetToolTip(this.label20, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
         "asic\' tab).");
+			this.label20.Visible = false;
 			// 
 			// checkPagesRotate
 			// 
 			this.checkPagesRotate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.checkPagesRotate.AutoSize = true;
-			this.checkPagesRotate.Location = new System.Drawing.Point(92, 72);
+			this.checkPagesRotate.Location = new System.Drawing.Point(339, 278);
 			this.checkPagesRotate.Name = "checkPagesRotate";
 			this.checkPagesRotate.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.checkPagesRotate.Size = new System.Drawing.Size(15, 14);
 			this.checkPagesRotate.TabIndex = 77;
 			this.toolTip1.SetToolTip(this.checkPagesRotate, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
 			this.checkPagesRotate.UseVisualStyleBackColor = true;
+			this.checkPagesRotate.Visible = false;
 			// 
 			// label21
 			// 
 			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(7, 71);
+			this.label21.Location = new System.Drawing.Point(254, 277);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(75, 13);
 			this.label21.TabIndex = 80;
 			this.label21.Text = "Rotate Pages:";
 			this.toolTip1.SetToolTip(this.label21, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
         "asic\' tab).");
+			this.label21.Visible = false;
 			// 
 			// label22
 			// 
@@ -746,12 +754,16 @@
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.label21);
+			this.tabPage4.Controls.Add(this.label20);
 			this.tabPage4.Controls.Add(this.groupBox4);
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
 			this.tabPage4.Controls.Add(this.numCoordsPosY);
 			this.tabPage4.Controls.Add(this.numCoordsPosX);
+			this.tabPage4.Controls.Add(this.numPagesRotateRate);
 			this.tabPage4.Controls.Add(this.checkCoordsLockPos);
 			this.tabPage4.Controls.Add(this.checkCoordsExitSave);
+			this.tabPage4.Controls.Add(this.checkPagesRotate);
 			this.tabPage4.Controls.Add(this.label25);
 			this.tabPage4.Controls.Add(this.label24);
 			this.tabPage4.Controls.Add(this.groupBox1);
@@ -765,17 +777,13 @@
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Controls.Add(this.label21);
-			this.groupBox4.Controls.Add(this.label20);
 			this.groupBox4.Controls.Add(this.label22);
 			this.groupBox4.Controls.Add(this.numPagesDefault);
 			this.groupBox4.Controls.Add(this.label18);
-			this.groupBox4.Controls.Add(this.numPagesRotateRate);
 			this.groupBox4.Controls.Add(this.numPagesSize);
-			this.groupBox4.Controls.Add(this.checkPagesRotate);
-			this.groupBox4.Location = new System.Drawing.Point(6, 306);
+			this.groupBox4.Location = new System.Drawing.Point(6, 354);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(200, 124);
+			this.groupBox4.Size = new System.Drawing.Size(200, 76);
 			this.groupBox4.TabIndex = 76;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Pages";
@@ -792,34 +800,6 @@
 			this.numPagesDefault.Name = "numPagesDefault";
 			this.numPagesDefault.Size = new System.Drawing.Size(100, 20);
 			this.numPagesDefault.TabIndex = 79;
-			this.numPagesDefault.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
-			// numPagesRotateRate
-			// 
-			this.numPagesRotateRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numPagesRotateRate.Location = new System.Drawing.Point(92, 93);
-			this.numPagesRotateRate.Maximum = new decimal(new int[] {
-            21600,
-            0,
-            0,
-            0});
-			this.numPagesRotateRate.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-			this.numPagesRotateRate.Name = "numPagesRotateRate";
-			this.numPagesRotateRate.Size = new System.Drawing.Size(100, 20);
-			this.numPagesRotateRate.TabIndex = 79;
-			this.numPagesRotateRate.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
 			// 
 			// numPagesSize
 			// 
@@ -843,6 +823,7 @@
             0,
             0,
             0});
+			this.numPagesSize.ValueChanged += new System.EventHandler(this.numPagesSize_ValueChanged);
 			// 
 			// buttonDefaultAdvanced
 			// 
@@ -890,6 +871,30 @@
 			this.numCoordsPosX.Name = "numCoordsPosX";
 			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
 			this.numCoordsPosX.TabIndex = 73;
+			// 
+			// numPagesRotateRate
+			// 
+			this.numPagesRotateRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numPagesRotateRate.Location = new System.Drawing.Point(339, 299);
+			this.numPagesRotateRate.Maximum = new decimal(new int[] {
+            21600,
+            0,
+            0,
+            0});
+			this.numPagesRotateRate.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			this.numPagesRotateRate.Name = "numPagesRotateRate";
+			this.numPagesRotateRate.Size = new System.Drawing.Size(100, 20);
+			this.numPagesRotateRate.TabIndex = 79;
+			this.numPagesRotateRate.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			this.numPagesRotateRate.Visible = false;
 			// 
 			// label25
 			// 
@@ -1482,6 +1487,11 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.linkLabel2);
+			this.tabPage5.Controls.Add(this.label23);
+			this.tabPage5.Controls.Add(this.label32);
+			this.tabPage5.Controls.Add(this.linkLabel1);
+			this.tabPage5.Controls.Add(this.labelCryptoGadgetVersion);
 			this.tabPage5.Controls.Add(this.buttonDonationCopyLTC);
 			this.tabPage5.Controls.Add(this.buttonDonationCopyDASH);
 			this.tabPage5.Controls.Add(this.buttonDonationCopyETH);
@@ -1501,6 +1511,54 @@
 			this.tabPage5.TabIndex = 5;
 			this.tabPage5.Text = "Additional";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// linkLabel2
+			// 
+			this.linkLabel2.AutoSize = true;
+			this.linkLabel2.Location = new System.Drawing.Point(127, 256);
+			this.linkLabel2.Name = "linkLabel2";
+			this.linkLabel2.Size = new System.Drawing.Size(256, 13);
+			this.linkLabel2.TabIndex = 16;
+			this.linkLabel2.TabStop = true;
+			this.linkLabel2.Text = "https://github.com/neo3587/CryptoGadget/releases";
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(39, 256);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(82, 13);
+			this.label23.TabIndex = 15;
+			this.label23.Text = "Binary Updates:";
+			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(49, 231);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(72, 13);
+			this.label32.TabIndex = 14;
+			this.label32.Text = "Source Code:";
+			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.AutoSize = true;
+			this.linkLabel1.Location = new System.Drawing.Point(127, 231);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(212, 13);
+			this.linkLabel1.TabIndex = 13;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "https://github.com/neo3587/CryptoGadget";
+			// 
+			// labelCryptoGadgetVersion
+			// 
+			this.labelCryptoGadgetVersion.AutoSize = true;
+			this.labelCryptoGadgetVersion.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(161, 166);
+			this.labelCryptoGadgetVersion.Name = "labelCryptoGadgetVersion";
+			this.labelCryptoGadgetVersion.Size = new System.Drawing.Size(108, 13);
+			this.labelCryptoGadgetVersion.TabIndex = 12;
+			this.labelCryptoGadgetVersion.Text = "CryptoGadget vX.X.X";
 			// 
 			// buttonDonationCopyLTC
 			// 
@@ -1717,17 +1775,6 @@
 			// comboPages
 			// 
 			this.comboPages.FormattingEnabled = true;
-			this.comboPages.Items.AddRange(new object[] {
-            "Page 0",
-            "Page 1",
-            "Page 2",
-            "Page 3",
-            "Page 4",
-            "Page 5",
-            "Page 6",
-            "Page 7",
-            "Page 8",
-            "Page 9"});
 			this.comboPages.Location = new System.Drawing.Point(6, 469);
 			this.comboPages.Name = "comboPages";
 			this.comboPages.Size = new System.Drawing.Size(121, 21);
@@ -1756,10 +1803,10 @@
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesSize)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRowsValues)).EndInit();
@@ -1907,5 +1954,10 @@
 		private System.Windows.Forms.CheckBox checkPagesRotate;
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.NumericUpDown numPagesDefault;
+		private System.Windows.Forms.LinkLabel linkLabel2;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.Label labelCryptoGadgetVersion;
 	}
 }

@@ -53,10 +53,10 @@ namespace CryptoGadget {
 		}
 		
         private System.Threading.Timer _timer_req = null;
-        private volatile bool _timer_disposed = false;
+        private volatile bool _timer_req_disposed  = false;
 		private string _query = "";
 		private int _page = 0;
-		private BindingList<CoinRow> _coinGrid = new BindingList<CoinRow>();
+		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
 
 		#region DragMove Method Details
 
@@ -74,14 +74,14 @@ namespace CryptoGadget {
 
 		#endregion
 
-		private void TimerStart() {
-			_timer_disposed = false;
+		private void TimerRoutineStart() {
+			_timer_req_disposed = false;
 			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
 		}
-		private WaitHandle TimerWaitKill() {
+		private WaitHandle TimerRoutineWaitKill() {
 			WaitHandle wait = new AutoResetEvent(false);
+			_timer_req_disposed = true;
 			_timer_req.Dispose(wait);
-			_timer_disposed = true;
 			return wait;
 		}
 
@@ -101,31 +101,28 @@ namespace CryptoGadget {
 			};
 
 			List<double> last_values = new List<double>();
-			foreach(CoinRow row in _coinGrid)
+			foreach(CoinRow row in _coin_list)
 				last_values.Add(double.Parse(row.Value));
 
 			JObject json = CCRequest.HttpRequest(_query);
             if(json != null && json["Response"]?.ToString().ToLower() != "error") {
-				try {
-					for(int i = 0; i < _coinGrid.Count; i++) {
+				for(int i = 0; i < _coin_list.Count; i++) {
+					try {
 						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
 
-						foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget) 
-							_coinGrid[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
-						_coinGrid[i].LastMarket = jtok["LASTMARKET"].ToString();
+						foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
+							_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
+						_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString();
 
-						string[] changes = {"Change24", "Change24Pct", "ChangeDay", "ChangeDayPct"};
+						string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" };
 						foreach(string chg in changes) {
-							if((_coinGrid[i][chg] as string)[0] != '-')
-								_coinGrid[i][chg] = "+" + (_coinGrid[i][chg] as string);
-							mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_coinGrid[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+							if((_coin_list[i][chg] as string)[0] != '-')
+								_coin_list[i][chg] = "+" + (_coin_list[i][chg] as string);
+							mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_coin_list[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
 						}
-						_coinGrid[i].Change24Pct  += "%";
-						_coinGrid[i].ChangeDayPct += "%";
-					}
-				}
-				catch (Exception e) {
-					Global.DbgPrint(e.Message);
+						_coin_list[i].Change24Pct += "%";
+						_coin_list[i].ChangeDayPct += "%";
+					} catch { }
 				}
 			}
 
@@ -157,7 +154,7 @@ namespace CryptoGadget {
 
             for(float opacity = 0.0f; opacity < 1.0f; opacity += 0.05f) {
 
-                if(_timer_disposed) {
+                if(_timer_req_disposed) {
                     DefaultColors();
                     return;
                 }
@@ -165,7 +162,7 @@ namespace CryptoGadget {
                 for(int i = 0; i < last_values.Count; i++) {
 
                     Color bgcolor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
-                    double currentValue = double.Parse(_coinGrid[i].Value);
+                    double currentValue = double.Parse(_coin_list[i].Value);
 
                     if(currentValue > last_values[i]) 
 						mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.PositiveRefresh, bgcolor, opacity);
@@ -180,22 +177,22 @@ namespace CryptoGadget {
 
         }
 
-		private void RotatePage() {
-			// care with thread datashare
-			_page = (_page + 1) % Global.Sett.Pages.Size;
+		private void SwapPage(int page) {
+			TimerRoutineWaitKill().WaitOne();
+			_page = page; 
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
-			RowsInit();
+			GridInit();
 			ResizeForm();
+			TimerRoutineStart();
 		}
 
 		private void GenerateContextPages() {
 
 			ToolStripMenuItem page_menu = (contextMenu.Items[0] as ToolStripMenuItem);
+			page_menu.DropDown.Items.Clear();
 
 			for(int i = 0; i < Global.Sett.Pages.Size; i++) {
-				page_menu.DropDownItems.Add("Page " + i, null, (cm_sender, cm_ev) => {
-					MessageBox.Show(cm_sender.GetType().ToString());
-				});
+				page_menu.DropDownItems.Add("Page " + i, null, (cm_sender, cm_ev) => SwapPage(int.Parse(cm_sender.ToString()[5].ToString())));
 			}
 
 		}
@@ -219,9 +216,6 @@ namespace CryptoGadget {
 			mainGrid.Rows.Clear();
 			mainGrid.Columns.Clear();
 			mainGrid.DataSource = null;
-
-			_page  = Global.Sett.Pages.Default;
-			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 
 			// Rows & Columns init and binding
 
@@ -251,7 +245,7 @@ namespace CryptoGadget {
 			mainGrid.AutoGenerateColumns = false;
 
 			BindingSource coin_bind = new BindingSource();
-			coin_bind.DataSource = _coinGrid;
+			coin_bind.DataSource = _coin_list;
 			mainGrid.DataSource = coin_bind;
 
 			// Metrics & Visibility
@@ -300,7 +294,8 @@ namespace CryptoGadget {
         }
 		private void RowsInit() {
 
-			_coinGrid = new BindingList<CoinRow>();
+			// TODO: improve and use this for page swap
+			_coin_list = new BindingList<CoinRow>();
 
 			for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
 
@@ -308,19 +303,19 @@ namespace CryptoGadget {
 				CoinRow coin = new CoinRow();
 
 				if(Global.Json != null) {
-					st.CoinName   = Global.Json["Data"]?[st.Coin]?["CoinName"]?.ToString();
+					st.CoinName = Global.Json["Data"]?[st.Coin]?["CoinName"]?.ToString();
 					st.TargetName = Global.Json["Data"]?[st.Target]?["CoinName"]?.ToString();
 				}
 
-				coin.Icon		= Global.GetIcon(st.Coin, Global.Sett.Metrics.IconSize);
-				coin.Coin		= st.Coin;
+				coin.Icon = Global.GetIcon(st.Coin, Global.Sett.Metrics.IconSize);
+				coin.Coin = st.Coin;
 				coin.TargetIcon = Global.GetIcon(st.Target, Global.Sett.Metrics.IconSize);
-				coin.Target     = st.Target;
+				coin.Target = st.Target;
 
-				_coinGrid.Add(coin);
+				_coin_list.Add(coin);
 			}
-
 		}
+
 
 		public FormMain() {
 
@@ -369,6 +364,9 @@ namespace CryptoGadget {
 					Global.Sett.Save();
 				}
 
+				_page = Global.Sett.Pages.Default;
+				_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
+
 				GridInit();
                 ResizeForm();
 				GenerateContextPages();
@@ -376,13 +374,13 @@ namespace CryptoGadget {
                 mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-				TimerStart();
+				TimerRoutineStart();
             };
         }
 
         private void contextMenuSettings_Click(object sender, EventArgs e) {
 
-			WaitHandle wait = TimerWaitKill();
+			WaitHandle wait = TimerRoutineWaitKill();
 
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
@@ -397,7 +395,7 @@ namespace CryptoGadget {
                 Location = currLoc;
 			}
 
-			TimerStart();
+			TimerRoutineStart();
         }
         private void contextMenuHide_Click(object sender, EventArgs e) {
             Visible = !Visible;

@@ -137,19 +137,24 @@ namespace CryptoGadget {
             return false;
         }
 
-		private void BindSettings() {
+		private void ResizeComboPages() {
+			comboPages.Items.Clear();
+			for(int i = 0; i < _sett.Pages.Size; i++)
+				comboPages.Items.Add("Page " + i);
+			//numPagesDefault.Maximum =_sett.Pages.Size -1;
+			//MessageBox.Show(numPagesDefault.Minimum + " " + numPagesDefault.Value + " " + numPagesDefault.Maximum);
+		}
+		private void BindCoins() {
 
 			foreach(Settings.StCoin st in _sett.Coins[_page]) {
 				st.Icon = Global.GetIcon(st.Coin, 16);
 			}
 			if(Global.Json == null && GetCoinDB()) {
 				foreach(Settings.StCoin st in _sett.Coins[_page]) {
-					st.CoinName   = Global.Json["Data"][st.Coin]["CoinName"].ToString();
+					st.CoinName = Global.Json["Data"][st.Coin]["CoinName"].ToString();
 					st.TargetName = Global.Json["Data"][st.Target]["CoinName"].ToString();
 				}
 			}
-
-			// Coins
 
 			PropertyInfo[] coin_props = Settings.StCoin.GetProps();
 			for(int i = 0; i < coin_props.Length; i++)
@@ -157,7 +162,14 @@ namespace CryptoGadget {
 
 			BindingSource coin_bind = new BindingSource();
 			coin_bind.DataSource = _sett.Coins[_page];
-			coinGrid.DataSource = coin_bind; 
+			coinGrid.DataSource = coin_bind;
+
+		}
+		private void BindSettings() {
+
+			// Coins
+
+			BindCoins();
 
 			// Basic
 
@@ -210,8 +222,6 @@ namespace CryptoGadget {
 			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
 				bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
 
-			BindingSource cols_bind = new BindingSource();
-			cols_bind.DataSource = bl;
 			colsGrid.DataSource = bl;
 
 			// Pages
@@ -220,6 +230,7 @@ namespace CryptoGadget {
 			numPagesDefault.DataBindings.Add("Value", _sett.Pages, "Default");
 			checkPagesRotate.DataBindings.Add("Checked", _sett.Pages, "Rotate");
 			numPagesRotateRate.DataBindings.Add("Value", _sett.Pages, "RotateRate");
+			ResizeComboPages();
 			comboPages.SelectedIndex = 0;
 
 			// Profile
@@ -228,13 +239,20 @@ namespace CryptoGadget {
 
 		}
 
-
 		public FormSettings(FormMain form) {
-            InitializeComponent();
-            _ptr_form = form;
+
+			InitializeComponent();
+
+			labelCryptoGadgetVersion.Text = typeof(FormMain).Assembly.GetName().Name + " " + typeof(FormMain).Assembly.GetName().Version;
+			labelCryptoGadgetVersion.Text = labelCryptoGadgetVersion.Text.Remove(labelCryptoGadgetVersion.Text.Length - 2);
+
+			_ptr_form = form;
+
 			Global.Sett.CloneTo(_sett);
+
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
+
 			HandleCreated += (sender, e) => BindSettings();
 		}
         
@@ -429,6 +447,10 @@ namespace CryptoGadget {
 
 		#region Advanced Tab
 
+		private void numPagesSize_ValueChanged(object sender, EventArgs e) {
+			ResizeComboPages();
+		}
+
 		private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
 			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics);
         }
@@ -481,7 +503,8 @@ namespace CryptoGadget {
 		}
 
 		private void comboPages_SelectedIndexChanged(object sender, EventArgs e) {
-
+			_page = comboPages.SelectedIndex;
+			BindCoins();
 		}
 
 		#endregion
@@ -545,7 +568,7 @@ namespace CryptoGadget {
 
 			}
 		}
-
+		
 	}
 
 }
