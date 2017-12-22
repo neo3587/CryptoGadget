@@ -137,13 +137,6 @@ namespace CryptoGadget {
             return false;
         }
 
-		private void ResizeComboPages() {
-			comboPages.Items.Clear();
-			for(int i = 0; i < _sett.Pages.Size; i++)
-				comboPages.Items.Add("Page " + i);
-			//numPagesDefault.Maximum =_sett.Pages.Size -1;
-			//MessageBox.Show(numPagesDefault.Minimum + " " + numPagesDefault.Value + " " + numPagesDefault.Maximum);
-		}
 		private void BindCoins() {
 
 			foreach(Settings.StCoin st in _sett.Coins[_page]) {
@@ -226,12 +219,8 @@ namespace CryptoGadget {
 
 			// Pages
 
-			numPagesSize.DataBindings.Add("Value", _sett.Pages, "Size");
 			numPagesDefault.DataBindings.Add("Value", _sett.Pages, "Default");
-			checkPagesRotate.DataBindings.Add("Checked", _sett.Pages, "Rotate");
-			numPagesRotateRate.DataBindings.Add("Value", _sett.Pages, "RotateRate");
-			ResizeComboPages();
-			comboPages.SelectedIndex = 0;
+			checkPagesExitSave.DataBindings.Add("Checked", _sett.Pages, "ExitSave");
 
 			// Profile
 
@@ -252,6 +241,8 @@ namespace CryptoGadget {
 
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
+
+			comboPages.SelectedIndex = 0;
 
 			HandleCreated += (sender, e) => BindSettings();
 		}
@@ -447,12 +438,8 @@ namespace CryptoGadget {
 
 		#region Advanced Tab
 
-		private void numPagesSize_ValueChanged(object sender, EventArgs e) {
-			ResizeComboPages();
-		}
-
 		private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics);
+			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics | Settings.DefaultType.Pages);
         }
 
 		#endregion

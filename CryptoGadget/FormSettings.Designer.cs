@@ -25,10 +25,10 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -77,19 +77,10 @@
 			this.label11 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
 			this.buttonCoinSettings = new System.Windows.Forms.Button();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.checkPagesRotate = new System.Windows.Forms.CheckBox();
-			this.label21 = new System.Windows.Forms.Label();
-			this.label22 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
-			this.numPagesSize = new System.Windows.Forms.NumericUpDown();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
-			this.numPagesRotateRate = new System.Windows.Forms.NumericUpDown();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label24 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -154,13 +145,13 @@
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.comboPages = new System.Windows.Forms.ComboBox();
+			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
+			this.checkPagesExitSave = new System.Windows.Forms.CheckBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label18 = new System.Windows.Forms.Label();
 			this.tabPage4.SuspendLayout();
-			this.groupBox4.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesSize)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRowsValues)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeaderText)).BeginInit();
@@ -178,6 +169,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
@@ -693,77 +686,14 @@
 			this.buttonCoinSettings.UseVisualStyleBackColor = true;
 			this.buttonCoinSettings.Click += new System.EventHandler(this.buttonCoinSettings_Click);
 			// 
-			// label18
-			// 
-			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(7, 21);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(71, 13);
-			this.label18.TabIndex = 77;
-			this.label18.Text = "Pages Count:";
-			this.toolTip1.SetToolTip(this.label18, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(254, 301);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(68, 13);
-			this.label20.TabIndex = 78;
-			this.label20.Text = "Rotate Rate:";
-			this.toolTip1.SetToolTip(this.label20, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			this.label20.Visible = false;
-			// 
-			// checkPagesRotate
-			// 
-			this.checkPagesRotate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkPagesRotate.AutoSize = true;
-			this.checkPagesRotate.Location = new System.Drawing.Point(339, 278);
-			this.checkPagesRotate.Name = "checkPagesRotate";
-			this.checkPagesRotate.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.checkPagesRotate.Size = new System.Drawing.Size(15, 14);
-			this.checkPagesRotate.TabIndex = 77;
-			this.toolTip1.SetToolTip(this.checkPagesRotate, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
-			this.checkPagesRotate.UseVisualStyleBackColor = true;
-			this.checkPagesRotate.Visible = false;
-			// 
-			// label21
-			// 
-			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(254, 277);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(75, 13);
-			this.label21.TabIndex = 80;
-			this.label21.Text = "Rotate Pages:";
-			this.toolTip1.SetToolTip(this.label21, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			this.label21.Visible = false;
-			// 
-			// label22
-			// 
-			this.label22.AutoSize = true;
-			this.label22.Location = new System.Drawing.Point(7, 47);
-			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(72, 13);
-			this.label22.TabIndex = 78;
-			this.label22.Text = "Default Page:";
-			this.toolTip1.SetToolTip(this.label22, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
-        "asic\' tab).");
-			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.Add(this.label21);
-			this.tabPage4.Controls.Add(this.label20);
 			this.tabPage4.Controls.Add(this.groupBox4);
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
 			this.tabPage4.Controls.Add(this.numCoordsPosY);
 			this.tabPage4.Controls.Add(this.numCoordsPosX);
-			this.tabPage4.Controls.Add(this.numPagesRotateRate);
 			this.tabPage4.Controls.Add(this.checkCoordsLockPos);
 			this.tabPage4.Controls.Add(this.checkCoordsExitSave);
-			this.tabPage4.Controls.Add(this.checkPagesRotate);
 			this.tabPage4.Controls.Add(this.label25);
 			this.tabPage4.Controls.Add(this.label24);
 			this.tabPage4.Controls.Add(this.groupBox1);
@@ -774,56 +704,6 @@
 			this.tabPage4.TabIndex = 4;
 			this.tabPage4.Text = "Advanced";
 			this.tabPage4.UseVisualStyleBackColor = true;
-			// 
-			// groupBox4
-			// 
-			this.groupBox4.Controls.Add(this.label22);
-			this.groupBox4.Controls.Add(this.numPagesDefault);
-			this.groupBox4.Controls.Add(this.label18);
-			this.groupBox4.Controls.Add(this.numPagesSize);
-			this.groupBox4.Location = new System.Drawing.Point(6, 354);
-			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(200, 76);
-			this.groupBox4.TabIndex = 76;
-			this.groupBox4.TabStop = false;
-			this.groupBox4.Text = "Pages";
-			// 
-			// numPagesDefault
-			// 
-			this.numPagesDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numPagesDefault.Location = new System.Drawing.Point(92, 45);
-			this.numPagesDefault.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-			this.numPagesDefault.Name = "numPagesDefault";
-			this.numPagesDefault.Size = new System.Drawing.Size(100, 20);
-			this.numPagesDefault.TabIndex = 79;
-			// 
-			// numPagesSize
-			// 
-			this.numPagesSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numPagesSize.Location = new System.Drawing.Point(92, 19);
-			this.numPagesSize.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.numPagesSize.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numPagesSize.Name = "numPagesSize";
-			this.numPagesSize.Size = new System.Drawing.Size(100, 20);
-			this.numPagesSize.TabIndex = 77;
-			this.numPagesSize.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numPagesSize.ValueChanged += new System.EventHandler(this.numPagesSize_ValueChanged);
 			// 
 			// buttonDefaultAdvanced
 			// 
@@ -871,30 +751,6 @@
 			this.numCoordsPosX.Name = "numCoordsPosX";
 			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
 			this.numCoordsPosX.TabIndex = 73;
-			// 
-			// numPagesRotateRate
-			// 
-			this.numPagesRotateRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numPagesRotateRate.Location = new System.Drawing.Point(339, 299);
-			this.numPagesRotateRate.Maximum = new decimal(new int[] {
-            21600,
-            0,
-            0,
-            0});
-			this.numPagesRotateRate.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-			this.numPagesRotateRate.Name = "numPagesRotateRate";
-			this.numPagesRotateRate.Size = new System.Drawing.Size(100, 20);
-			this.numPagesRotateRate.TabIndex = 79;
-			this.numPagesRotateRate.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-			this.numPagesRotateRate.Visible = false;
 			// 
 			// label25
 			// 
@@ -1109,14 +965,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -1127,14 +983,14 @@
 			this.colsGrid.Location = new System.Drawing.Point(5, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
@@ -1143,8 +999,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle6;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1515,7 +1371,7 @@
 			// linkLabel2
 			// 
 			this.linkLabel2.AutoSize = true;
-			this.linkLabel2.Location = new System.Drawing.Point(127, 256);
+			this.linkLabel2.Location = new System.Drawing.Point(131, 256);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(256, 13);
 			this.linkLabel2.TabIndex = 16;
@@ -1525,7 +1381,7 @@
 			// label23
 			// 
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(39, 256);
+			this.label23.Location = new System.Drawing.Point(43, 256);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(82, 13);
 			this.label23.TabIndex = 15;
@@ -1534,7 +1390,7 @@
 			// label32
 			// 
 			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(49, 231);
+			this.label32.Location = new System.Drawing.Point(53, 231);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(72, 13);
 			this.label32.TabIndex = 14;
@@ -1543,7 +1399,7 @@
 			// linkLabel1
 			// 
 			this.linkLabel1.AutoSize = true;
-			this.linkLabel1.Location = new System.Drawing.Point(127, 231);
+			this.linkLabel1.Location = new System.Drawing.Point(131, 231);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(212, 13);
 			this.linkLabel1.TabIndex = 13;
@@ -1554,7 +1410,7 @@
 			// 
 			this.labelCryptoGadgetVersion.AutoSize = true;
 			this.labelCryptoGadgetVersion.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(161, 166);
+			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(173, 166);
 			this.labelCryptoGadgetVersion.Name = "labelCryptoGadgetVersion";
 			this.labelCryptoGadgetVersion.Size = new System.Drawing.Size(108, 13);
 			this.labelCryptoGadgetVersion.TabIndex = 12;
@@ -1714,8 +1570,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle8;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1775,12 +1631,72 @@
 			// comboPages
 			// 
 			this.comboPages.FormattingEnabled = true;
+			this.comboPages.Items.AddRange(new object[] {
+            "Page 0",
+            "Page 1",
+            "Page 2",
+            "Page 3",
+            "Page 4",
+            "Page 5",
+            "Page 6",
+            "Page 7",
+            "Page 8",
+            "Page 9"});
 			this.comboPages.Location = new System.Drawing.Point(6, 469);
 			this.comboPages.Name = "comboPages";
 			this.comboPages.Size = new System.Drawing.Size(121, 21);
 			this.comboPages.TabIndex = 20;
 			this.comboPages.SelectedIndexChanged += new System.EventHandler(this.comboPages_SelectedIndexChanged);
 			this.comboPages.Click += new System.EventHandler(this.DropDownOnClick);
+			// 
+			// numPagesDefault
+			// 
+			this.numPagesDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numPagesDefault.Location = new System.Drawing.Point(94, 19);
+			this.numPagesDefault.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+			this.numPagesDefault.Name = "numPagesDefault";
+			this.numPagesDefault.Size = new System.Drawing.Size(100, 20);
+			this.numPagesDefault.TabIndex = 77;
+			// 
+			// checkPagesExitSave
+			// 
+			this.checkPagesExitSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkPagesExitSave.AutoSize = true;
+			this.checkPagesExitSave.Location = new System.Drawing.Point(6, 45);
+			this.checkPagesExitSave.Name = "checkPagesExitSave";
+			this.checkPagesExitSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.checkPagesExitSave.Size = new System.Drawing.Size(151, 17);
+			this.checkPagesExitSave.TabIndex = 78;
+			this.checkPagesExitSave.Text = "Save Current Page on Exit";
+			this.toolTip1.SetToolTip(this.checkPagesExitSave, "Locks or unlocks the ability to use the mouse to \r\nmove the gadget position.");
+			this.checkPagesExitSave.UseVisualStyleBackColor = true;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.label18);
+			this.groupBox4.Controls.Add(this.checkPagesExitSave);
+			this.groupBox4.Controls.Add(this.numPagesDefault);
+			this.groupBox4.Location = new System.Drawing.Point(6, 358);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(200, 72);
+			this.groupBox4.TabIndex = 79;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Pages";
+			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Location = new System.Drawing.Point(7, 21);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(72, 13);
+			this.label18.TabIndex = 77;
+			this.label18.Text = "Default Page:";
+			this.toolTip1.SetToolTip(this.label18, "Size in pixels of the Edge of the gadget\r\n(supposing that it is enabled in the \'B" +
+        "asic\' tab).");
 			// 
 			// FormSettings
 			// 
@@ -1800,13 +1716,8 @@
 			this.Text = "CryptoGadget Settings";
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
-			this.groupBox4.ResumeLayout(false);
-			this.groupBox4.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesSize)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesRotateRate)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRowsValues)).EndInit();
@@ -1829,6 +1740,9 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -1945,19 +1859,14 @@
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
 		private System.Windows.Forms.Button buttonCoinSettings;
 		private System.Windows.Forms.ComboBox comboPages;
-		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.Label label18;
-		private System.Windows.Forms.NumericUpDown numPagesSize;
-		private System.Windows.Forms.Label label21;
-		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.NumericUpDown numPagesRotateRate;
-		private System.Windows.Forms.CheckBox checkPagesRotate;
-		private System.Windows.Forms.Label label22;
-		private System.Windows.Forms.NumericUpDown numPagesDefault;
 		private System.Windows.Forms.LinkLabel linkLabel2;
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.Label labelCryptoGadgetVersion;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.CheckBox checkPagesExitSave;
+		private System.Windows.Forms.NumericUpDown numPagesDefault;
 	}
 }

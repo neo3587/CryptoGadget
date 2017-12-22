@@ -52,8 +52,9 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 		
-        private System.Threading.Timer _timer_req = null;
-        private volatile bool _timer_req_disposed  = false;
+        private System.Threading.Timer _timer_req =null;
+        private volatile bool _timer_disposed  = false;
+		private AutoResetEvent _timer_reset_ev = new AutoResetEvent(false);
 		private string _query = "";
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
@@ -75,25 +76,23 @@ namespace CryptoGadget {
 		#endregion
 
 		private void TimerRoutineStart() {
-			_timer_req_disposed = false;
-			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate);
+			_timer_disposed = false;
+			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate * 1000);
+			_timer_reset_ev.Set();
 		}
-		private WaitHandle TimerRoutineWaitKill() {
-			WaitHandle wait = new AutoResetEvent(false);
-			_timer_req_disposed = true;
-			_timer_req.Dispose(wait);
-			return wait;
+		private void TimerRoutineKill() {
+			using(AutoResetEvent wait = new AutoResetEvent(false)) {
+				_timer_disposed = true;
+				_timer_reset_ev.WaitOne();
+				_timer_req.Dispose(wait);
+				wait.WaitOne();
+			}
+			
 		}
 
 		private void TimerRoutine(object state) {
 
-            try {
-                _timer_req.Change(Timeout.Infinite, Timeout.Infinite);
-            } catch {
-                return;
-            }
-
-            Stopwatch watch = Stopwatch.StartNew();
+			_timer_reset_ev.WaitOne();
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
@@ -105,7 +104,7 @@ namespace CryptoGadget {
 				last_values.Add(double.Parse(row.Value));
 
 			JObject json = CCRequest.HttpRequest(_query);
-            if(json != null && json["Response"]?.ToString().ToLower() != "error") {
+			if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 				for(int i = 0; i < _coin_list.Count; i++) {
 					try {
 						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
@@ -126,21 +125,17 @@ namespace CryptoGadget {
 				}
 			}
 
-			try {
-				Invoke((MethodInvoker)delegate { Refresh(); });
-			} catch { return; }
+			Invoke((MethodInvoker)delegate { Refresh(); });
 
-            if(Global.Sett.Visibility.Refresh)
+			if(Global.Sett.Visibility.Refresh)
 				TimerHighlight(last_values);
 
-            try {
-                _timer_req.Change(Math.Max(0, Global.Sett.Basic.RefreshRate - watch.ElapsedMilliseconds), Global.Sett.Basic.RefreshRate);
-            } catch { }
+			_timer_reset_ev.Set();
 
-        }
-        private void TimerHighlight(List<double> last_values) {
+		}
+		private void TimerHighlight(List<double> last_values) {
 
-            Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
+			Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
                 byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
                 byte[] bytebgcolor = BitConverter.GetBytes(bgcolor.ToArgb());
                 for(int i = 0; i < 4; i++)
@@ -152,12 +147,7 @@ namespace CryptoGadget {
                     mainGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
             };
 
-            for(float opacity = 0.0f; opacity < 1.0f; opacity += 0.05f) {
-
-                if(_timer_req_disposed) {
-                    DefaultColors();
-                    return;
-                }
+            for(float opacity = 0.0f; opacity < 1.0f && !_timer_disposed; opacity += 0.05f) {
 
                 for(int i = 0; i < last_values.Count; i++) {
 
@@ -168,9 +158,10 @@ namespace CryptoGadget {
 						mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.PositiveRefresh, bgcolor, opacity);
                     else if(currentValue < last_values[i]) 
                         mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.NegativeRefresh, bgcolor, opacity);
-                }
 
-                Thread.Sleep(60);
+				}
+
+				Thread.Sleep(60);
             }
 
             DefaultColors();
@@ -178,24 +169,22 @@ namespace CryptoGadget {
         }
 
 		private void SwapPage(int page) {
-			TimerRoutineWaitKill().WaitOne();
+
+			TimerRoutineKill();
+
+			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page; 
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
+			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
+
+			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
+			Location = curr_loc;
+
 			TimerRoutineStart();
 		}
 
-		private void GenerateContextPages() {
-
-			ToolStripMenuItem page_menu = (contextMenu.Items[0] as ToolStripMenuItem);
-			page_menu.DropDown.Items.Clear();
-
-			for(int i = 0; i < Global.Sett.Pages.Size; i++) {
-				page_menu.DropDownItems.Add("Page " + i, null, (cm_sender, cm_ev) => SwapPage(int.Parse(cm_sender.ToString()[5].ToString())));
-			}
-
-		}
 		private void ResizeForm() {
             
             int X = 0;
@@ -291,7 +280,7 @@ namespace CryptoGadget {
                     regKey.DeleteValue("CryptoGadget", false);
             }
 
-        }
+		}
 		private void RowsInit() {
 
 			// TODO: improve and use this for page swap
@@ -369,9 +358,12 @@ namespace CryptoGadget {
 
 				GridInit();
                 ResizeForm();
-				GenerateContextPages();
 
-                mainGrid.DoubleBuffered(true);
+				for(int i = 0; i < 10; i++)
+					(contextMenu.Items[0] as ToolStripMenuItem).DropDownItems.Add("Page " + i, null, (cm_sender, cm_ev) => SwapPage(int.Parse(cm_sender.ToString()[5].ToString())));
+				((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
+
+				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
 				TimerRoutineStart();
@@ -380,19 +372,16 @@ namespace CryptoGadget {
 
         private void contextMenuSettings_Click(object sender, EventArgs e) {
 
-			WaitHandle wait = TimerRoutineWaitKill();
+			TimerRoutineKill();
 
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
 			
-			wait.WaitOne();
-
             if(form2.Accept) {
-				Point currLoc = Location; // prevent the form realocation
+				Point curr_loc = Location; // prevent the form realocation
                 GridInit();
 				ResizeForm();
-				GenerateContextPages();
-                Location = currLoc;
+                Location = curr_loc;
 			}
 
 			TimerRoutineStart();
@@ -410,9 +399,20 @@ namespace CryptoGadget {
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
+
+			bool change = false;
+
 			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
 				Global.Sett.Coords.PosX = Location.X;
 				Global.Sett.Coords.PosY = Location.Y;
+				change = true;
+			}
+			if(Global.Sett.Pages.ExitSave && Global.Sett.Pages.Default != _page) {
+				Global.Sett.Pages.Default = _page;
+				change = true;
+			}
+
+			if(change) {
 				Global.Sett.Store();
 				Global.Sett.Save();
 			}
