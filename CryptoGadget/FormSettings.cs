@@ -19,6 +19,7 @@ namespace CryptoGadget {
         private FormMain _ptr_form = null;
 		private Settings _sett = new Settings();
 		private int _page = 0;
+		private Settings.StCoin _last_conv = new Settings.StCoin();
 
         public bool Accept = false;
 
@@ -251,14 +252,18 @@ namespace CryptoGadget {
         #region Currencies Tab
 
         private void buttonAdd_Click(object sender, EventArgs e) {
-            if(Global.Json == null) {
+
+			if(Global.Json == null) {
                 MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
                 return;
             }
-            FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], new Settings.StCoin());
+
+			FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], _last_conv);
 			form.ShowDialog();
+
 			if(form.CoinResult != null) {
-				int insertPos = coinGrid.SelectedRows.Count > 0 ? coinGrid.SelectedRows[0].Index : 0;
+				_last_conv = form.CoinResult;
+				int insertPos = coinGrid.SelectedRows.Count > 0 ? coinGrid.SelectedRows[0].Index +1 : 0;
 				_sett.Coins[_page].Insert(insertPos, form.CoinResult);
 				coinGrid.Rows[insertPos].Selected = true;
 			}
@@ -352,7 +357,7 @@ namespace CryptoGadget {
         }
 
         private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Coins);
+			_sett.Default(Settings.DefaultType.Coins, _page);
 		}
 
 		#endregion

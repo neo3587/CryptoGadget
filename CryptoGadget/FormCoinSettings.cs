@@ -17,7 +17,6 @@ namespace CryptoGadget {
     public partial class FormCoinSettings : Form {
 
         private Settings.CoinList _ptr_list = null;
-		private Settings.StCoin _ptr_coin   = null;
         private BindingSource _coin_bind   = new BindingSource();
 		private BindingSource _target_bind = new BindingSource();
 
@@ -59,11 +58,10 @@ namespace CryptoGadget {
 		}
 
 
-        public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin coin) {
+        public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin default_conv) {
 
             InitializeComponent();
             _ptr_list = coin_list;
-			_ptr_coin = coin;
 
             HandleCreated += (sender, e) => {
 
@@ -77,8 +75,8 @@ namespace CryptoGadget {
 				comboCoin.DataSource   = _coin_bind;
                 comboTarget.DataSource = _target_bind;
 
-                comboCoin.SelectedIndex   = coin.Coin == ""   ? 0 : Math.Max(comboCoin.FindStringExact("[" + coin.Coin + ", " + coin.CoinName + "]"), 0);
-				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(coin.Target == "" ? "[USD, United States Dollar]" : "[" + coin.Target + ", " + coin.TargetName + "]"), 0);
+				comboCoin.SelectedIndex   = default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + default_conv.Coin + ", " + default_conv.CoinName + "]"), 0);
+				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + default_conv.Target + ", " + default_conv.TargetName + "]"), 0);
 
             };
 
@@ -151,8 +149,6 @@ namespace CryptoGadget {
 
 				Stream stream = (f_sender as OpenFileDialog).OpenFile();
 				stream.Position = 0;
-
-				_ptr_coin.Icon = Global.GetIcon(stream, 16);
 
 				stream.Position = 0;
 				try {

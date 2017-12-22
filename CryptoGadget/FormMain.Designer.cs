@@ -109,21 +109,21 @@
 			this.toolStripSettings.Name = "toolStripSettings";
 			this.toolStripSettings.Size = new System.Drawing.Size(116, 22);
 			this.toolStripSettings.Text = "Settings";
-			this.toolStripSettings.Click += new System.EventHandler(this.contextMenuSettings_Click);
+			this.toolStripSettings.Click += new System.EventHandler(this.toolStripSettings_Click);
 			// 
 			// toolStripHide
 			// 
 			this.toolStripHide.Name = "toolStripHide";
 			this.toolStripHide.Size = new System.Drawing.Size(116, 22);
 			this.toolStripHide.Text = "Hide";
-			this.toolStripHide.Click += new System.EventHandler(this.contextMenuHide_Click);
+			this.toolStripHide.Click += new System.EventHandler(this.toolStripHide_Click);
 			// 
 			// toolStripExit
 			// 
 			this.toolStripExit.Name = "toolStripExit";
 			this.toolStripExit.Size = new System.Drawing.Size(116, 22);
 			this.toolStripExit.Text = "Exit";
-			this.toolStripExit.Click += new System.EventHandler(this.contextMenuExit_Click);
+			this.toolStripExit.Click += new System.EventHandler(this.toolStripExit_Click);
 			// 
 			// FormMain
 			// 

@@ -1,7 +1,7 @@
 ﻿
 
 /*
-*	This application is possible thanks to CryptoCompare: https://www.cryptocompare.com
+*	This application is possible thanks to the CryptoCompare API: https://www.cryptocompare.com/api/
 *   
 * 
 */
@@ -52,9 +52,9 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 		
-        private System.Threading.Timer _timer_req =null;
-        private volatile bool _timer_disposed  = false;
-		private AutoResetEvent _timer_reset_ev = new AutoResetEvent(false);
+        private System.Threading.Timer _timer_req = null;
+        private volatile bool _timer_disposed = false;
+		private Mutex _timer_mtx = new Mutex();
 		private string _query = "";
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
@@ -78,21 +78,21 @@ namespace CryptoGadget {
 		private void TimerRoutineStart() {
 			_timer_disposed = false;
 			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate * 1000);
-			_timer_reset_ev.Set();
 		}
 		private void TimerRoutineKill() {
 			using(AutoResetEvent wait = new AutoResetEvent(false)) {
 				_timer_disposed = true;
-				_timer_reset_ev.WaitOne();
-				_timer_req.Dispose(wait);
-				wait.WaitOne();
+				_timer_mtx.WaitOne();
+				if(_timer_req.Dispose(wait))
+					wait.WaitOne();
+				_timer_mtx.ReleaseMutex();
 			}
 			
 		}
 
 		private void TimerRoutine(object state) {
 
-			_timer_reset_ev.WaitOne();
+			_timer_mtx.WaitOne();
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
@@ -130,7 +130,7 @@ namespace CryptoGadget {
 			if(Global.Sett.Visibility.Refresh)
 				TimerHighlight(last_values);
 
-			_timer_reset_ev.Set();
+			_timer_mtx.ReleaseMutex();
 
 		}
 		private void TimerHighlight(List<double> last_values) {
@@ -302,6 +302,9 @@ namespace CryptoGadget {
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 		}
 
+		private void WaitClosing() {
+
+		}
 
 		public FormMain() {
 
@@ -359,19 +362,22 @@ namespace CryptoGadget {
 					ToolStripMenuItem ts_item = new ToolStripMenuItem();
 					ts_item.Text = "Page " + i;
 					ts_item.Tag = i;
-					ts_item.Click += (cm_sender, cm_ev) => SwapPage((int)(cm_sender as ToolStripMenuItem).Tag);
+					ts_item.Click += (cm_sender, cm_ev) => {
+						SwapPage((int)(cm_sender as ToolStripMenuItem).Tag);
+					};
 					(contextMenu.Items[0] as ToolStripMenuItem).DropDownItems.Add(ts_item);
 				}
 				((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
-
+				
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
 				TimerRoutineStart();
             };
+
         }
 
-        private void contextMenuSettings_Click(object sender, EventArgs e) {
+        private void toolStripSettings_Click(object sender, EventArgs e) {
 
 			TimerRoutineKill();
 
@@ -387,11 +393,11 @@ namespace CryptoGadget {
 
 			TimerRoutineStart();
         }
-        private void contextMenuHide_Click(object sender, EventArgs e) {
+        private void toolStripHide_Click(object sender, EventArgs e) {
             Visible = !Visible;
 			toolStripHide.Checked = !Visible;
         }
-        private void contextMenuExit_Click(object sender, EventArgs e) {
+        private void toolStripExit_Click(object sender, EventArgs e) {
             Close();
         }
 
@@ -400,6 +406,9 @@ namespace CryptoGadget {
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
+
+			_timer_disposed = true;
+			_timer_mtx.WaitOne(500);
 
 			bool change = false;
 
@@ -437,7 +446,14 @@ namespace CryptoGadget {
 			}
 
 			ToolStripManager.Merge(contextMenu, cm);
-			cm.Closed += (cm_sender, cm_ev) => ToolStripManager.RevertMerge(cm, contextMenu);
+			cm.Closing += (cm_sender, cm_e) => {
+				if((cm.Items[2] as ToolStripMenuItem).DropDown.Visible) {
+					cm_e.Cancel = true;
+					(cm.Items[2] as ToolStripMenuItem).DropDown.Closed += (ts_sender, ts_e) => cm.Close();
+					(cm.Items[2] as ToolStripMenuItem).DropDown.Close();
+				}
+			};
+			cm.Closed += (cm_sender, cm_e) => ToolStripManager.RevertMerge(cm, contextMenu); 
 
 			e.ContextMenuStrip = cm;
 		}
