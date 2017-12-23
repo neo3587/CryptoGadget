@@ -343,7 +343,10 @@ namespace CryptoGadget {
             FormProgressBar form = new FormProgressBar(_sett.Coins[_page], FormProgressBar.FormType.Check);
             form.ShowDialog();
 
-            MessageBox.Show(form.badConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.badConvs));
+			if(form.BadConvs != null)
+				MessageBox.Show(form.BadConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.BadConvs));
+			else
+				MessageBox.Show("Couldn't check the currencies conversions");
         }
         private void buttonDownloadMissingIcons_Click(object sender, EventArgs e) {
 

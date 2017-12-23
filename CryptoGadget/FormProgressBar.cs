@@ -16,7 +16,7 @@ namespace CryptoGadget {
 
     public partial class FormProgressBar : Form {
         
-        public List<string> badConvs = new List<string>(); // FormType.Check
+        public List<string> BadConvs = null; // FormType.Check
         public JObject CoinDataBase = null; // FormType.CoinList
 
         public enum FormType {
@@ -54,23 +54,29 @@ namespace CryptoGadget {
 
 				new Thread(() => {
 
-					JObject json = CCRequest.HttpRequest(CCRequest.ConvertQuery(coin_list));
+					try {
 
-					for(int i = 0; i < coin_list.Count; i++) {
+						JObject json = CCRequest.HttpRequest(CCRequest.ConvertQuery(coin_list));
 
-						Settings.StCoin st = coin_list[i];
+						BadConvs = new List<string>();
 
-						try {
-							Invoke((MethodInvoker)delegate {
-								labelProgress.Text = st.Coin + " (" + st.CoinName + ") -> " + st.Target + " (" + st.TargetName + ")";
-								progressBar.Value = i;
-							});
-						} catch { }
+						for(int i = 0; i < coin_list.Count; i++) {
 
-						if(json["RAW"]?[st.Coin]?[st.Target] == null)
-							badConvs.Add(st.Coin + " (" + st.CoinName + ") -> " + st.Target + " (" + st.TargetName + ")");
-						
-					}
+							Settings.StCoin st = coin_list[i];
+
+							try {
+								Invoke((MethodInvoker)delegate {
+									labelProgress.Text = st.Coin + " (" + st.CoinName + ") -> " + st.Target + " (" + st.TargetName + ")";
+									progressBar.Value = i;
+								});
+							} catch { }
+
+							if(json["RAW"]?[st.Coin]?[st.Target] == null)
+								BadConvs.Add(st.Coin + " (" + st.CoinName + ") -> " + st.Target + " (" + st.TargetName + ")");
+
+						}
+
+					} catch { }
 
 					Invoke((MethodInvoker)delegate { Close(); });
 

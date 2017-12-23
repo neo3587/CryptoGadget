@@ -103,32 +103,36 @@ namespace CryptoGadget {
 			foreach(CoinRow row in _coin_list)
 				last_values.Add(double.Parse(row.Value));
 
-			JObject json = CCRequest.HttpRequest(_query);
-			if(json != null && json["Response"]?.ToString().ToLower() != "error") {
-				for(int i = 0; i < _coin_list.Count; i++) {
-					try {
-						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
+			try {
 
-						foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
-							_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
-						_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString();
+				JObject json = CCRequest.HttpRequest(_query);
 
-						string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" };
-						foreach(string chg in changes) {
-							if((_coin_list[i][chg] as string)[0] != '-')
-								_coin_list[i][chg] = "+" + (_coin_list[i][chg] as string);
-							mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_coin_list[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-						}
-						_coin_list[i].Change24Pct += "%";
-						_coin_list[i].ChangeDayPct += "%";
-					} catch { }
+				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
+					for(int i = 0; i < _coin_list.Count; i++) {
+						try {
+							JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
+
+							foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
+								_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
+							_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString();
+
+							string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" };
+							foreach(string chg in changes) {
+								if((_coin_list[i][chg] as string)[0] != '-')
+									_coin_list[i][chg] = "+" + (_coin_list[i][chg] as string);
+								mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_coin_list[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+							}
+							_coin_list[i].Change24Pct += "%";
+							_coin_list[i].ChangeDayPct += "%";
+						} catch { }
+					}
 				}
-			}
 
-			Invoke((MethodInvoker)delegate { Refresh(); });
+				Invoke((MethodInvoker)delegate { Refresh(); });
 
-			if(Global.Sett.Visibility.Refresh)
-				TimerHighlight(last_values);
+				if(Global.Sett.Visibility.Refresh)
+					TimerHighlight(last_values);
+			} catch { }
 
 			_timer_mtx.ReleaseMutex();
 
@@ -446,7 +450,7 @@ namespace CryptoGadget {
 			}
 
 			ToolStripManager.Merge(contextMenu, cm);
-			cm.Closing += (cm_sender, cm_e) => {
+			cm.Closing += (cm_sender, cm_e) => { // Avoid weird random flickers when closing the dropdown toolstrip
 				if((cm.Items[2] as ToolStripMenuItem).DropDown.Visible) {
 					cm_e.Cancel = true;
 					(cm.Items[2] as ToolStripMenuItem).DropDown.Closed += (ts_sender, ts_e) => cm.Close();
