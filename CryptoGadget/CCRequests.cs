@@ -1,8 +1,11 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.IO;
 using System.Collections.Generic;
+using System.Drawing;
 
 using Newtonsoft.Json.Linq;
+
 
 
 namespace CryptoGadget {
@@ -34,6 +37,15 @@ namespace CryptoGadget {
 		public static JObject HttpRequest(string query) {
 			HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create(query);
 			return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
+		}
+
+		public static Bitmap DownloadIcon(string query) {
+			WebClient client = new WebClient();
+			using(MemoryStream data = new MemoryStream()) {
+				byte[] buffer = client.DownloadData(new Uri(query));
+				data.Write(buffer, 0, buffer.Length);
+				return Global.IconResize(Image.FromStream(data), 32);
+			}
 		}
 
 	}

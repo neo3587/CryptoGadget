@@ -133,7 +133,7 @@ namespace CryptoGadget {
 			(sender as ComboBox).DroppedDown = true;
 		}
 
-		private void buttonIcon_Click(object sender, EventArgs e) {
+		private void buttonIconSwap_Click(object sender, EventArgs e) {
 
 			OpenFileDialog ofd = new OpenFileDialog();
 
@@ -159,6 +159,23 @@ namespace CryptoGadget {
 			};
 
 			ofd.ShowDialog();
+		}
+		private void buttonIconReDownload_Click(object sender, EventArgs e) {
+
+			CoinPair coin = (CoinPair)comboCoin.SelectedItem;
+			if(checkCoinIndexName.Checked)
+				coin = new CoinPair(coin.Value, coin.Key);
+			try {
+				CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin.Key]["ImageUrl"]["LOL"]).Save(Global.IconsFolder + coin.Key + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+				MessageBox.Show(coin.Key + " succesfully updated");
+			} catch(System.Net.WebException) {
+				MessageBox.Show("Couldn't download the " + coin.Key + "icon from the server");
+			} catch(InvalidOperationException) {
+				MessageBox.Show(coin.Key + " doesn't have an associated url for this coin, it may get fixed by re-downloading the coin list");
+			} catch {
+				MessageBox.Show("Unexpected error");
+			}
+			
 		}
 
 	}

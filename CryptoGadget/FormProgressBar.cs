@@ -149,7 +149,6 @@ namespace CryptoGadget {
 
 				new Thread(() => {
 
-					WebClient client = new WebClient();
 					List<Tuple<string, string>> misses = new List<Tuple<string, string>>();
 
 					int coin_count = 0, no_url = 0, failed = 0;
@@ -177,11 +176,7 @@ namespace CryptoGadget {
 								labelProgress.Text = "Trying to download the missing icons (" + i + "/" + misses.Count + ")";
 								progressBar.Value = i;
 							});
-							using(MemoryStream data = new MemoryStream()) {
-								byte[] buffer = client.DownloadData(new Uri("https://www.cryptocompare.com" + misses[i].Item2));
-								data.Write(buffer, 0, buffer.Length);
-								Global.IconResize(Image.FromStream(data), 32).Save(Global.IconsFolder + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
-							}
+							CCRequest.DownloadIcon("https://www.cryptocompare.com" + misses[i].Item2).Save(Global.IconsFolder + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
 						} catch {
 							failed++;
 						}

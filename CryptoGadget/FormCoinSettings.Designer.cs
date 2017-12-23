@@ -34,7 +34,8 @@
 			this.checkTargetIndexName = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.buttonIcon = new System.Windows.Forms.Button();
+			this.buttonIconSwap = new System.Windows.Forms.Button();
+			this.buttonIconReDownload = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -154,15 +155,25 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Target Coin";
 			// 
-			// buttonIcon
+			// buttonIconSwap
 			// 
-			this.buttonIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonIcon.BackgroundImage")));
-			this.buttonIcon.Location = new System.Drawing.Point(12, 111);
-			this.buttonIcon.Name = "buttonIcon";
-			this.buttonIcon.Size = new System.Drawing.Size(23, 23);
-			this.buttonIcon.TabIndex = 12;
-			this.buttonIcon.UseVisualStyleBackColor = true;
-			this.buttonIcon.Click += new System.EventHandler(this.buttonIcon_Click);
+			this.buttonIconSwap.Location = new System.Drawing.Point(141, 111);
+			this.buttonIconSwap.Name = "buttonIconSwap";
+			this.buttonIconSwap.Size = new System.Drawing.Size(75, 23);
+			this.buttonIconSwap.TabIndex = 12;
+			this.buttonIconSwap.Text = "Swap Icon";
+			this.buttonIconSwap.UseVisualStyleBackColor = true;
+			this.buttonIconSwap.Click += new System.EventHandler(this.buttonIconSwap_Click);
+			// 
+			// buttonIconReDownload
+			// 
+			this.buttonIconReDownload.Location = new System.Drawing.Point(12, 111);
+			this.buttonIconReDownload.Name = "buttonIconReDownload";
+			this.buttonIconReDownload.Size = new System.Drawing.Size(126, 23);
+			this.buttonIconReDownload.TabIndex = 13;
+			this.buttonIconReDownload.Text = "Re-Download Icon";
+			this.buttonIconReDownload.UseVisualStyleBackColor = true;
+			this.buttonIconReDownload.Click += new System.EventHandler(this.buttonIconReDownload_Click);
 			// 
 			// FormCoinSettings
 			// 
@@ -171,7 +182,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
 			this.ClientSize = new System.Drawing.Size(437, 142);
-			this.Controls.Add(this.buttonIcon);
+			this.Controls.Add(this.buttonIconReDownload);
+			this.Controls.Add(this.buttonIconSwap);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.buttonAccept);
@@ -203,6 +215,7 @@
 		private System.Windows.Forms.CheckBox checkTargetIndexName;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.Button buttonIcon;
+		private System.Windows.Forms.Button buttonIconSwap;
+		private System.Windows.Forms.Button buttonIconReDownload;
 	}
 }
