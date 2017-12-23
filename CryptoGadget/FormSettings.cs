@@ -332,7 +332,7 @@ namespace CryptoGadget {
         private void buttonCheck_Click(object sender, EventArgs e) {
 
             if(coinGrid.RowCount <= 0) {
-                MessageBox.Show("You need to provide at least one coin to compare", "Error");
+                MessageBox.Show("You need to provide at least one conversion to compare", "Error");
                 return;
             }
 
@@ -460,19 +460,44 @@ namespace CryptoGadget {
 
 		private void buttonDonationCopyBTC_Click(object sender, EventArgs e) {
 			Clipboard.SetText(textBoxDonationBTC.Text);
-			MessageBox.Show("BTC Donation Address copied to the clipboard");
+			MessageBox.Show("Bitcoin (BTC) Donation Address copied to the clipboard");
+		}
+		private void buttonDonationCopyBCH_Click(object sender, EventArgs e) {
+			Clipboard.SetText(textBoxDonationBCH.Text);
+			MessageBox.Show("Bitcoin Cash (BCH) Donation Address copied to the clipboard");
 		}
 		private void buttonDonationCopyETH_Click(object sender, EventArgs e) {
 			Clipboard.SetText(textBoxDonationETH.Text);
-			MessageBox.Show("ETH Donation Address copied to the clipboard");
+			MessageBox.Show("Ethereum (ETH) Donation Address copied to the clipboard");
 		}
 		private void buttonDonationCopyDASH_Click(object sender, EventArgs e) {
 			Clipboard.SetText(textBoxDonationDASH.Text);
-			MessageBox.Show("DASH Donation Address copied to the clipboard");
+			MessageBox.Show("Digital Cash (DASH) Donation Address copied to the clipboard");
 		}
 		private void buttonDonationCopyLTC_Click(object sender, EventArgs e) {
 			Clipboard.SetText(textBoxDonationLTC.Text);
-			MessageBox.Show("LTC Donation Address copied to the clipboard");
+			MessageBox.Show("Litecoin (LTC) Donation Address copied to the clipboard");
+		}
+
+		private void buttonDonationQrBTC_Click(object sender, EventArgs e) {
+			labelQrCodeName.Text = "BTC QR Code";
+			pictureBoxQrCode.Image = Properties.Resources.qr_btc_icon;
+		}
+		private void buttonDonationQrBCH_Click(object sender, EventArgs e) {
+			labelQrCodeName.Text = "BCH QR Code";
+			pictureBoxQrCode.Image = Properties.Resources.qr_bch_icon;
+		}
+		private void buttonDonationQrETH_Click(object sender, EventArgs e) {
+			labelQrCodeName.Text = "ETH QR Code";
+			pictureBoxQrCode.Image = Properties.Resources.qr_eth_icon;
+		}
+		private void buttonDonationQrDASH_Click(object sender, EventArgs e) {
+			labelQrCodeName.Text = "DASH QR Code";
+			pictureBoxQrCode.Image = Properties.Resources.qr_dash_icon;
+		}
+		private void buttonDonationQrLTC_Click(object sender, EventArgs e) {
+			labelQrCodeName.Text = "LTC QR Code";
+			pictureBoxQrCode.Image = Properties.Resources.qr_ltc_icon;
 		}
 
 		#endregion
@@ -568,7 +593,6 @@ namespace CryptoGadget {
 			}
 		}
 
-		
 	}
 
 }

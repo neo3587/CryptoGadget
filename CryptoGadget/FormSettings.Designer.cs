@@ -84,6 +84,12 @@
 			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
 			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
 			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
+			this.buttonDonationCopyBCH = new System.Windows.Forms.Button();
+			this.buttonDonationQrBTC = new System.Windows.Forms.Button();
+			this.buttonDonationQrBCH = new System.Windows.Forms.Button();
+			this.buttonDonationQrETH = new System.Windows.Forms.Button();
+			this.buttonDonationQrDASH = new System.Windows.Forms.Button();
+			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
@@ -127,6 +133,10 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.labelQrCodeName = new System.Windows.Forms.Label();
+			this.pictureBoxQrCode = new System.Windows.Forms.PictureBox();
+			this.label20 = new System.Windows.Forms.Label();
+			this.textBoxDonationBCH = new System.Windows.Forms.TextBox();
 			this.linkLabel2 = new System.Windows.Forms.LinkLabel();
 			this.label23 = new System.Windows.Forms.Label();
 			this.label32 = new System.Windows.Forms.Label();
@@ -171,6 +181,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBoxQrCode)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
@@ -718,7 +729,7 @@
 			// 
 			// buttonDonationCopyLTC
 			// 
-			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(372, 391);
+			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(362, 403);
 			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
 			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyLTC.TabIndex = 11;
@@ -729,7 +740,7 @@
 			// 
 			// buttonDonationCopyDASH
 			// 
-			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(372, 365);
+			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(362, 377);
 			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
 			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyDASH.TabIndex = 10;
@@ -740,7 +751,7 @@
 			// 
 			// buttonDonationCopyETH
 			// 
-			this.buttonDonationCopyETH.Location = new System.Drawing.Point(372, 339);
+			this.buttonDonationCopyETH.Location = new System.Drawing.Point(362, 351);
 			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
 			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyETH.TabIndex = 9;
@@ -751,7 +762,7 @@
 			// 
 			// buttonDonationCopyBTC
 			// 
-			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(372, 313);
+			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(362, 299);
 			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
 			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyBTC.TabIndex = 8;
@@ -759,6 +770,77 @@
 			this.toolTip1.SetToolTip(this.buttonDonationCopyBTC, "Copy BTC adress to clipboard");
 			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
 			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
+			// 
+			// buttonDonationCopyBCH
+			// 
+			this.buttonDonationCopyBCH.Location = new System.Drawing.Point(362, 325);
+			this.buttonDonationCopyBCH.Name = "buttonDonationCopyBCH";
+			this.buttonDonationCopyBCH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyBCH.TabIndex = 19;
+			this.buttonDonationCopyBCH.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyBCH, "Copy BTC adress to clipboard");
+			this.buttonDonationCopyBCH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyBCH.Click += new System.EventHandler(this.buttonDonationCopyBCH_Click);
+			// 
+			// buttonDonationQrBTC
+			// 
+			this.buttonDonationQrBTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrBTC.BackgroundImage")));
+			this.buttonDonationQrBTC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrBTC.Location = new System.Drawing.Point(423, 299);
+			this.buttonDonationQrBTC.Name = "buttonDonationQrBTC";
+			this.buttonDonationQrBTC.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrBTC.TabIndex = 20;
+			this.toolTip1.SetToolTip(this.buttonDonationQrBTC, "Copy BTC adress to clipboard");
+			this.buttonDonationQrBTC.UseVisualStyleBackColor = true;
+			this.buttonDonationQrBTC.Click += new System.EventHandler(this.buttonDonationQrBTC_Click);
+			// 
+			// buttonDonationQrBCH
+			// 
+			this.buttonDonationQrBCH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrBCH.BackgroundImage")));
+			this.buttonDonationQrBCH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrBCH.Location = new System.Drawing.Point(423, 325);
+			this.buttonDonationQrBCH.Name = "buttonDonationQrBCH";
+			this.buttonDonationQrBCH.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrBCH.TabIndex = 21;
+			this.toolTip1.SetToolTip(this.buttonDonationQrBCH, "Copy BTC adress to clipboard");
+			this.buttonDonationQrBCH.UseVisualStyleBackColor = true;
+			this.buttonDonationQrBCH.Click += new System.EventHandler(this.buttonDonationQrBCH_Click);
+			// 
+			// buttonDonationQrETH
+			// 
+			this.buttonDonationQrETH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrETH.BackgroundImage")));
+			this.buttonDonationQrETH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrETH.Location = new System.Drawing.Point(423, 350);
+			this.buttonDonationQrETH.Name = "buttonDonationQrETH";
+			this.buttonDonationQrETH.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrETH.TabIndex = 22;
+			this.toolTip1.SetToolTip(this.buttonDonationQrETH, "Copy BTC adress to clipboard");
+			this.buttonDonationQrETH.UseVisualStyleBackColor = true;
+			this.buttonDonationQrETH.Click += new System.EventHandler(this.buttonDonationQrETH_Click);
+			// 
+			// buttonDonationQrDASH
+			// 
+			this.buttonDonationQrDASH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrDASH.BackgroundImage")));
+			this.buttonDonationQrDASH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrDASH.Location = new System.Drawing.Point(423, 377);
+			this.buttonDonationQrDASH.Name = "buttonDonationQrDASH";
+			this.buttonDonationQrDASH.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrDASH.TabIndex = 23;
+			this.toolTip1.SetToolTip(this.buttonDonationQrDASH, "Copy BTC adress to clipboard");
+			this.buttonDonationQrDASH.UseVisualStyleBackColor = true;
+			this.buttonDonationQrDASH.Click += new System.EventHandler(this.buttonDonationQrDASH_Click);
+			// 
+			// buttonDonationQrLTC
+			// 
+			this.buttonDonationQrLTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrLTC.BackgroundImage")));
+			this.buttonDonationQrLTC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrLTC.Location = new System.Drawing.Point(423, 403);
+			this.buttonDonationQrLTC.Name = "buttonDonationQrLTC";
+			this.buttonDonationQrLTC.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrLTC.TabIndex = 24;
+			this.toolTip1.SetToolTip(this.buttonDonationQrLTC, "Copy BTC adress to clipboard");
+			this.buttonDonationQrLTC.UseVisualStyleBackColor = true;
+			this.buttonDonationQrLTC.Click += new System.EventHandler(this.buttonDonationQrLTC_Click);
 			// 
 			// tabPage4
 			// 
@@ -1429,6 +1511,16 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.labelQrCodeName);
+			this.tabPage5.Controls.Add(this.pictureBoxQrCode);
+			this.tabPage5.Controls.Add(this.buttonDonationQrLTC);
+			this.tabPage5.Controls.Add(this.buttonDonationQrDASH);
+			this.tabPage5.Controls.Add(this.buttonDonationQrETH);
+			this.tabPage5.Controls.Add(this.buttonDonationQrBCH);
+			this.tabPage5.Controls.Add(this.buttonDonationQrBTC);
+			this.tabPage5.Controls.Add(this.buttonDonationCopyBCH);
+			this.tabPage5.Controls.Add(this.label20);
+			this.tabPage5.Controls.Add(this.textBoxDonationBCH);
 			this.tabPage5.Controls.Add(this.linkLabel2);
 			this.tabPage5.Controls.Add(this.label23);
 			this.tabPage5.Controls.Add(this.label32);
@@ -1454,10 +1546,47 @@
 			this.tabPage5.Text = "Additional";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// labelQrCodeName
+			// 
+			this.labelQrCodeName.AutoSize = true;
+			this.labelQrCodeName.Location = new System.Drawing.Point(183, 21);
+			this.labelQrCodeName.Name = "labelQrCodeName";
+			this.labelQrCodeName.Size = new System.Drawing.Size(0, 13);
+			this.labelQrCodeName.TabIndex = 26;
+			// 
+			// pictureBoxQrCode
+			// 
+			this.pictureBoxQrCode.ErrorImage = null;
+			this.pictureBoxQrCode.InitialImage = null;
+			this.pictureBoxQrCode.Location = new System.Drawing.Point(161, 39);
+			this.pictureBoxQrCode.Name = "pictureBoxQrCode";
+			this.pictureBoxQrCode.Size = new System.Drawing.Size(132, 132);
+			this.pictureBoxQrCode.TabIndex = 25;
+			this.pictureBoxQrCode.TabStop = false;
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.Location = new System.Drawing.Point(8, 330);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(86, 13);
+			this.label20.TabIndex = 18;
+			this.label20.Text = "BCH Donations: ";
+			// 
+			// textBoxDonationBCH
+			// 
+			this.textBoxDonationBCH.BackColor = System.Drawing.Color.White;
+			this.textBoxDonationBCH.Location = new System.Drawing.Point(101, 327);
+			this.textBoxDonationBCH.Name = "textBoxDonationBCH";
+			this.textBoxDonationBCH.ReadOnly = true;
+			this.textBoxDonationBCH.Size = new System.Drawing.Size(255, 20);
+			this.textBoxDonationBCH.TabIndex = 17;
+			this.textBoxDonationBCH.Text = "13rtJZ7RkDuGEEEAQVKTLSB7QRaktkqpaA";
+			// 
 			// linkLabel2
 			// 
 			this.linkLabel2.AutoSize = true;
-			this.linkLabel2.Location = new System.Drawing.Point(131, 256);
+			this.linkLabel2.Location = new System.Drawing.Point(131, 253);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(256, 13);
 			this.linkLabel2.TabIndex = 16;
@@ -1468,7 +1597,7 @@
 			// label23
 			// 
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(43, 256);
+			this.label23.Location = new System.Drawing.Point(43, 253);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(82, 13);
 			this.label23.TabIndex = 15;
@@ -1477,7 +1606,7 @@
 			// label32
 			// 
 			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(53, 231);
+			this.label32.Location = new System.Drawing.Point(53, 228);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(72, 13);
 			this.label32.TabIndex = 14;
@@ -1486,7 +1615,7 @@
 			// linkLabel1
 			// 
 			this.linkLabel1.AutoSize = true;
-			this.linkLabel1.Location = new System.Drawing.Point(131, 231);
+			this.linkLabel1.Location = new System.Drawing.Point(131, 228);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(212, 13);
 			this.linkLabel1.TabIndex = 13;
@@ -1498,7 +1627,7 @@
 			// 
 			this.labelCryptoGadgetVersion.AutoSize = true;
 			this.labelCryptoGadgetVersion.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(173, 166);
+			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(173, 187);
 			this.labelCryptoGadgetVersion.Name = "labelCryptoGadgetVersion";
 			this.labelCryptoGadgetVersion.Size = new System.Drawing.Size(108, 13);
 			this.labelCryptoGadgetVersion.TabIndex = 12;
@@ -1507,7 +1636,7 @@
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(17, 370);
+			this.label17.Location = new System.Drawing.Point(7, 382);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(94, 13);
 			this.label17.TabIndex = 7;
@@ -1516,7 +1645,7 @@
 			// textBoxDonationDASH
 			// 
 			this.textBoxDonationDASH.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationDASH.Location = new System.Drawing.Point(111, 367);
+			this.textBoxDonationDASH.Location = new System.Drawing.Point(101, 379);
 			this.textBoxDonationDASH.Name = "textBoxDonationDASH";
 			this.textBoxDonationDASH.ReadOnly = true;
 			this.textBoxDonationDASH.Size = new System.Drawing.Size(255, 20);
@@ -1526,7 +1655,7 @@
 			// label16
 			// 
 			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(17, 396);
+			this.label16.Location = new System.Drawing.Point(7, 408);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(84, 13);
 			this.label16.TabIndex = 5;
@@ -1535,7 +1664,7 @@
 			// textBoxDonationLTC
 			// 
 			this.textBoxDonationLTC.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationLTC.Location = new System.Drawing.Point(111, 393);
+			this.textBoxDonationLTC.Location = new System.Drawing.Point(101, 405);
 			this.textBoxDonationLTC.Name = "textBoxDonationLTC";
 			this.textBoxDonationLTC.ReadOnly = true;
 			this.textBoxDonationLTC.Size = new System.Drawing.Size(255, 20);
@@ -1545,7 +1674,7 @@
 			// label15
 			// 
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(17, 344);
+			this.label15.Location = new System.Drawing.Point(7, 356);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(86, 13);
 			this.label15.TabIndex = 3;
@@ -1554,7 +1683,7 @@
 			// textBoxDonationETH
 			// 
 			this.textBoxDonationETH.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationETH.Location = new System.Drawing.Point(111, 341);
+			this.textBoxDonationETH.Location = new System.Drawing.Point(101, 353);
 			this.textBoxDonationETH.Name = "textBoxDonationETH";
 			this.textBoxDonationETH.ReadOnly = true;
 			this.textBoxDonationETH.Size = new System.Drawing.Size(255, 20);
@@ -1564,7 +1693,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(18, 318);
+			this.label2.Location = new System.Drawing.Point(8, 304);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(85, 13);
 			this.label2.TabIndex = 1;
@@ -1573,7 +1702,7 @@
 			// textBoxDonationBTC
 			// 
 			this.textBoxDonationBTC.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationBTC.Location = new System.Drawing.Point(111, 315);
+			this.textBoxDonationBTC.Location = new System.Drawing.Point(101, 301);
 			this.textBoxDonationBTC.Name = "textBoxDonationBTC";
 			this.textBoxDonationBTC.ReadOnly = true;
 			this.textBoxDonationBTC.Size = new System.Drawing.Size(255, 20);
@@ -1742,6 +1871,7 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBoxQrCode)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -1867,5 +1997,15 @@
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.CheckBox checkPagesExitSave;
 		private System.Windows.Forms.NumericUpDown numPagesDefault;
+		private System.Windows.Forms.Button buttonDonationCopyBCH;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.TextBox textBoxDonationBCH;
+		private System.Windows.Forms.Button buttonDonationQrBTC;
+		private System.Windows.Forms.Button buttonDonationQrLTC;
+		private System.Windows.Forms.Button buttonDonationQrDASH;
+		private System.Windows.Forms.Button buttonDonationQrETH;
+		private System.Windows.Forms.Button buttonDonationQrBCH;
+		private System.Windows.Forms.Label labelQrCodeName;
+		private System.Windows.Forms.PictureBox pictureBoxQrCode;
 	}
 }
