@@ -80,19 +80,19 @@ namespace CryptoGadget {
 			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate * 1000);
 		}
 		private void TimerRoutineKill() {
-			using(AutoResetEvent wait = new AutoResetEvent(false)) {
+			using(ManualResetEvent wait = new ManualResetEvent(false)) {
 				_timer_disposed = true;
 				_timer_mtx.WaitOne();
-				if(_timer_req.Dispose(wait))
+				if(_timer_req.Dispose(wait)) 
 					wait.WaitOne();
 				_timer_mtx.ReleaseMutex();
 			}
-			
 		}
 
 		private void TimerRoutine(object state) {
 
-			_timer_mtx.WaitOne();
+			if(!_timer_mtx.WaitOne(10)) // prevent deadlock if Dispose() is called just before executing this lock
+				return;
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
@@ -306,9 +306,6 @@ namespace CryptoGadget {
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
 		}
 
-		private void WaitClosing() {
-
-		}
 
 		public FormMain() {
 
