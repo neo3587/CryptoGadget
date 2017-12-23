@@ -25,10 +25,10 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -79,9 +79,13 @@
 			this.buttonCoinSettings = new System.Windows.Forms.Button();
 			this.checkPagesExitSave = new System.Windows.Forms.CheckBox();
 			this.label18 = new System.Windows.Forms.Label();
+			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
+			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
+			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
 			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
@@ -128,10 +132,6 @@
 			this.label32 = new System.Windows.Forms.Label();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.labelCryptoGadgetVersion = new System.Windows.Forms.Label();
-			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
-			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
-			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
-			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
 			this.label17 = new System.Windows.Forms.Label();
 			this.textBoxDonationDASH = new System.Windows.Forms.TextBox();
 			this.label16 = new System.Windows.Forms.Label();
@@ -149,9 +149,9 @@
 			this.dataGridViewNumericUpDownColumn1 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.dataGridViewNumericUpDownColumn2 = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.comboPages = new System.Windows.Forms.ComboBox();
+			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			this.groupBox4.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -702,6 +702,64 @@
 			this.label18.Text = "Default Page:";
 			this.toolTip1.SetToolTip(this.label18, "Number of the page that will be loaded by default.");
 			// 
+			// numPagesDefault
+			// 
+			this.numPagesDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numPagesDefault.Location = new System.Drawing.Point(94, 19);
+			this.numPagesDefault.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+			this.numPagesDefault.Name = "numPagesDefault";
+			this.numPagesDefault.Size = new System.Drawing.Size(100, 20);
+			this.numPagesDefault.TabIndex = 77;
+			this.toolTip1.SetToolTip(this.numPagesDefault, "Number of the page that will be loaded by default.");
+			// 
+			// buttonDonationCopyLTC
+			// 
+			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(372, 391);
+			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
+			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyLTC.TabIndex = 11;
+			this.buttonDonationCopyLTC.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyLTC, "Copy LTC adress to clipboard");
+			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyLTC.Click += new System.EventHandler(this.buttonDonationCopyLTC_Click);
+			// 
+			// buttonDonationCopyDASH
+			// 
+			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(372, 365);
+			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
+			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyDASH.TabIndex = 10;
+			this.buttonDonationCopyDASH.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyDASH, "Copy DASH adress to clipboard");
+			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyDASH.Click += new System.EventHandler(this.buttonDonationCopyDASH_Click);
+			// 
+			// buttonDonationCopyETH
+			// 
+			this.buttonDonationCopyETH.Location = new System.Drawing.Point(372, 339);
+			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
+			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyETH.TabIndex = 9;
+			this.buttonDonationCopyETH.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyETH, "Copy ETH adress to clipboard");
+			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyETH.Click += new System.EventHandler(this.buttonDonationCopyETH_Click);
+			// 
+			// buttonDonationCopyBTC
+			// 
+			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(372, 313);
+			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
+			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyBTC.TabIndex = 8;
+			this.buttonDonationCopyBTC.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyBTC, "Copy BTC adress to clipboard");
+			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
+			// 
 			// tabPage4
 			// 
 			this.tabPage4.Controls.Add(this.groupBox4);
@@ -732,20 +790,6 @@
 			this.groupBox4.TabIndex = 79;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Pages";
-			// 
-			// numPagesDefault
-			// 
-			this.numPagesDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numPagesDefault.Location = new System.Drawing.Point(94, 19);
-			this.numPagesDefault.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-			this.numPagesDefault.Name = "numPagesDefault";
-			this.numPagesDefault.Size = new System.Drawing.Size(100, 20);
-			this.numPagesDefault.TabIndex = 77;
-			this.toolTip1.SetToolTip(this.numPagesDefault, "Number of the page that will be loaded by default.");
 			// 
 			// buttonDefaultAdvanced
 			// 
@@ -1007,14 +1051,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -1025,14 +1069,14 @@
 			this.colsGrid.Location = new System.Drawing.Point(5, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
@@ -1041,8 +1085,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle10.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle10;
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1419,6 +1463,7 @@
 			this.linkLabel2.TabIndex = 16;
 			this.linkLabel2.TabStop = true;
 			this.linkLabel2.Text = "https://github.com/neo3587/CryptoGadget/releases";
+			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenUrlLink);
 			// 
 			// label23
 			// 
@@ -1447,6 +1492,7 @@
 			this.linkLabel1.TabIndex = 13;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "https://github.com/neo3587/CryptoGadget";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenUrlLink);
 			// 
 			// labelCryptoGadgetVersion
 			// 
@@ -1457,50 +1503,6 @@
 			this.labelCryptoGadgetVersion.Size = new System.Drawing.Size(108, 13);
 			this.labelCryptoGadgetVersion.TabIndex = 12;
 			this.labelCryptoGadgetVersion.Text = "CryptoGadget vX.X.X";
-			// 
-			// buttonDonationCopyLTC
-			// 
-			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(372, 391);
-			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
-			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyLTC.TabIndex = 11;
-			this.buttonDonationCopyLTC.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyLTC, "Copy LTC adress to clipboard");
-			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyLTC.Click += new System.EventHandler(this.buttonDonationCopyLTC_Click);
-			// 
-			// buttonDonationCopyDASH
-			// 
-			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(372, 365);
-			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
-			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyDASH.TabIndex = 10;
-			this.buttonDonationCopyDASH.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyDASH, "Copy DASH adress to clipboard");
-			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyDASH.Click += new System.EventHandler(this.buttonDonationCopyDASH_Click);
-			// 
-			// buttonDonationCopyETH
-			// 
-			this.buttonDonationCopyETH.Location = new System.Drawing.Point(372, 339);
-			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
-			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyETH.TabIndex = 9;
-			this.buttonDonationCopyETH.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyETH, "Copy ETH adress to clipboard");
-			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyETH.Click += new System.EventHandler(this.buttonDonationCopyETH_Click);
-			// 
-			// buttonDonationCopyBTC
-			// 
-			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(372, 313);
-			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
-			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyBTC.TabIndex = 8;
-			this.buttonDonationCopyBTC.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyBTC, "Copy BTC adress to clipboard");
-			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
 			// 
 			// label17
 			// 
@@ -1616,8 +1618,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle12.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle12;
+			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1711,11 +1713,11 @@
 			this.MaximizeBox = false;
 			this.Name = "FormSettings";
 			this.Text = "CryptoGadget Settings";
+			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
 			this.groupBox1.ResumeLayout(false);

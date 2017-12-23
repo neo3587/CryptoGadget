@@ -451,6 +451,10 @@ namespace CryptoGadget {
 
 		#region Additional tab
 
+		private void OpenUrlLink(object sender, LinkLabelLinkClickedEventArgs e) {
+			Process.Start((sender as LinkLabel).Text);
+		}
+
 		private void buttonDonationCopyBTC_Click(object sender, EventArgs e) {
 			Clipboard.SetText(textBoxDonationBTC.Text);
 			MessageBox.Show("BTC Donation Address copied to the clipboard");
@@ -560,6 +564,7 @@ namespace CryptoGadget {
 
 			}
 		}
+
 		
 	}
 
