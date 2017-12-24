@@ -146,16 +146,10 @@ namespace CryptoGadget {
 			ofd.Multiselect = false;
 
 			ofd.FileOk += (f_sender, f_ev) => {
-
-				Stream stream = (f_sender as OpenFileDialog).OpenFile();
-				stream.Position = 0;
-
-				stream.Position = 0;
-				try {
-					using(StreamWriter writer = new StreamWriter(Global.IconsFolder + coin.Key.ToLower() + ".ico")) {
-						stream.CopyTo(writer.BaseStream);
-					}
-				} catch { }
+				using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {
+					stream.Position = 0;
+					Global.SetIcon(coin.Key, stream);
+				}
 			};
 
 			ofd.ShowDialog();
@@ -166,7 +160,7 @@ namespace CryptoGadget {
 			if(checkCoinIndexName.Checked)
 				coin = new CoinPair(coin.Value, coin.Key);
 			try {
-				CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin.Key]["ImageUrl"]["LOL"]).Save(Global.IconsFolder + coin.Key + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+				Global.SetIcon(coin.Key, CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin.Key]["ImageUrl"]));
 				MessageBox.Show(coin.Key + " succesfully updated");
 			} catch(System.Net.WebException) {
 				MessageBox.Show("Couldn't download the " + coin.Key + "icon from the server");

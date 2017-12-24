@@ -2,7 +2,6 @@
 using System;
 using System.Windows.Forms;
 using System.IO;
-using System.ComponentModel;
 using System.Reflection;
 using System.Diagnostics;
 
@@ -19,6 +18,14 @@ namespace CryptoGadget {
 		private int _page = 0;
 		private Settings.StCoin _last_conv = new Settings.StCoin();
 
+
+		private void ApplySettings() {
+			_sett.CloneTo(Global.Sett);
+			Global.Sett.Store();
+			Global.Sett.Save();
+			_ptr_form.ApplySettings();
+			Global.Profile = textBoxProfileName.Text;
+		}
 		
         private JObject DownloadCoinDB() {
 
@@ -217,15 +224,11 @@ namespace CryptoGadget {
 			for(int i = 0; i < cols_props.Length; i++)
 				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
 
-			//BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
-			//foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
-				//bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
-
 			colsGrid.DataSource = _sett.Grid.Columns;
 
 			// Profile
 
-			textBoxProfileName.DataBindings.Add("Text", Global.Binds, "Profile");
+			textBoxProfileName.Text = Global.Profile;
 
 		}
 
@@ -365,9 +368,9 @@ namespace CryptoGadget {
 
 		private void buttonProfileMakeDefault_Click(object sender, EventArgs e) {
 			using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
-				writer.WriteLine(Global.Binds.Profile);
+				writer.WriteLine(textBoxProfileName.Text);
 			}
-			MessageBox.Show(Global.Binds.Profile + " marked as default profile");
+			MessageBox.Show(textBoxProfileName.Text + " marked as default profile");
 		}
 		private void buttonProfileOpen_Click(object sender, EventArgs e) {
 
@@ -381,7 +384,7 @@ namespace CryptoGadget {
 
 				Settings sett = new Settings();
 				if(!sett.BindFile(ofd.FileName) || !sett.Load() || !sett.Check()) {
-					MessageBox.Show("The provided profile is either invalid or corrupted");
+					MessageBox.Show("The provided profile is either invalid for this version or corrupted");
 					return;
 				}
 
@@ -395,10 +398,13 @@ namespace CryptoGadget {
 					}
 				}
 
-				Global.Binds.Profile = ofd.SafeFileName;
+				textBoxProfileName.Text = ofd.SafeFileName;
+				ApplySettings();
+				BindCoins();
 			};
 
 			ofd.ShowDialog();
+			
 		}
 		private void buttonProfileCreate_Click(object sender, EventArgs e) {
 
@@ -416,7 +422,8 @@ namespace CryptoGadget {
 				_sett.Store();
 				_sett.Save();
 
-				Global.Binds.Profile = name + ".json";
+				textBoxProfileName.Text = name + ".json";
+				ApplySettings();
 			}
 		}
 		private void buttonProfileOpenFolder_Click(object sender, EventArgs e) {
@@ -531,16 +538,10 @@ namespace CryptoGadget {
 			_ptr_form.SwapPage(_page);
 		}
 		private void buttonApply_Click(object sender, EventArgs e) {
-			Global.Sett = _sett;
-			Global.Sett.Store();
-			Global.Sett.Save();
-			_ptr_form.ApplySettings();
+			ApplySettings();
 		}
 		private void buttonAccept_Click(object sender, EventArgs e) {
-			Global.Sett = _sett;
-			Global.Sett.Store();
-			Global.Sett.Save();
-			_ptr_form.ApplySettings();
+			ApplySettings();
             Close();
         }
         private void buttonCancel_Click(object sender, EventArgs e) {

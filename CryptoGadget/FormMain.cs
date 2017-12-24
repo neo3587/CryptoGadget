@@ -319,7 +319,7 @@ namespace CryptoGadget {
 
 				try {
 					using(StreamReader reader = new StreamReader(Global.ProfileIniLocation)) {
-						Global.Binds.Profile = reader.ReadLine();
+						Global.Profile = reader.ReadLine();
 					}
 				} catch(Exception exc) {
 					Global.DbgMsgShow("ERROR: " + exc.Message);
@@ -329,7 +329,7 @@ namespace CryptoGadget {
 					}
   				}
 				
-				if(!Global.Sett.BindFile(Global.ProfilesFolder + Global.Binds.Profile)) {
+				if(!Global.Sett.BindFile(Global.ProfilesFolder + Global.Profile)) {
 					MessageBox.Show("The last profile marked as default is not available, a new default profile will be created and used");
 					Settings.CreateSettFile(Global.ProfilesFolder + "Default.json");
 					Global.Sett.BindFile(Global.ProfilesFolder + "Default.json");
@@ -340,7 +340,7 @@ namespace CryptoGadget {
 					using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
 						writer.WriteLine("Default.json");
 					}
-					Global.Binds.Profile = "Default.json";
+					Global.Profile = "Default.json";
 				}
 				if(!Global.Sett.Load() || !Global.Sett.Check()) {
 					MessageBox.Show("The settings file is corrupted or outdated (not valid for this version), a new settings file with the default values will be used");

@@ -186,7 +186,7 @@ namespace CryptoGadget {
 								labelProgress.Text = "Trying to download the missing icons (" + i + "/" + misses.Count + ")";
 								progressBar.Value = i;
 							});
-							CCRequest.DownloadIcon("https://www.cryptocompare.com" + misses[i].Item2).Save(Global.IconsFolder + misses[i].Item1.ToLower() + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+							Global.SetIcon(misses[i].Item1, CCRequest.DownloadIcon("https://www.cryptocompare.com" + misses[i].Item2));
 						} catch {
 							failed++;
 						}

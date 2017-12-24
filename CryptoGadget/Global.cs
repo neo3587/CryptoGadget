@@ -20,22 +20,15 @@ namespace CryptoGadget {
 		private static extern bool ReleaseCapture();
 		#endregion
 
-
-		private string _profile = "Default.json";
-
-		public string Profile {
-			get => _profile;
-			set { _profile = value; NotifyPropertyChanged(); }
-		}
-		
-
-		public static string ProfileIniLocation	= Application.StartupPath + "\\profile_default.ini";
-        public static string CoinListLocation	= Application.StartupPath + "\\CoinList.json";
-		public static string IconsFolder		= Application.StartupPath + "\\ico\\";
-		public static string ProfilesFolder		= Application.StartupPath + "\\profiles\\";
+		public static readonly string ProfileIniLocation = Application.StartupPath + "\\profile_default.ini";
+        public static readonly string CoinListLocation	 = Application.StartupPath + "\\CoinList.json";
+		public static readonly string IconsFolder		 = Application.StartupPath + "\\ico\\";
+		public static readonly string ProfilesFolder	 = Application.StartupPath + "\\profiles\\";
 
 		public static Settings Sett = new Settings();
-		public static JObject Json = null;
+		public static JObject Json	= null;
+
+		public static string Profile = "Default.json";
 
 
 		public static void DragMove(object sender, MouseEventArgs e) {
@@ -46,8 +39,13 @@ namespace CryptoGadget {
 		}
 
 		public static Bitmap GetIcon(string name, int size = 0) {
-            Bitmap bmp;
-            name = name.ToLower();
+
+			Bitmap bmp;
+
+			name = name.ToLower();
+			if(name.EndsWith("*"))
+				name = name.Substring(0, name.LastIndexOf("*")) + "_star";
+
             try {
                 try {
                     bmp = (size == 0? new Icon(IconsFolder + name + ".ico") : new Icon(IconsFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
@@ -75,7 +73,24 @@ namespace CryptoGadget {
 			return size > 0 ? IconResize(bmp, size) : bmp;			
 		}
 
-        public static bool JsonIsValid(JObject js) {
+		public static void SetIcon(string name, Bitmap bmp) {
+			name = name.ToLower();
+			if(name.EndsWith("*"))
+				name = name.Substring(0, name.LastIndexOf("*")) + "_star";
+			bmp.Save(IconsFolder + name + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+		}
+		public static void SetIcon(string name, Stream stream) {
+			name = name.ToLower();
+			if(name.EndsWith("*"))
+				name = name.Substring(0, name.LastIndexOf("*")) + "_star";
+			try {
+				using(StreamWriter writer = new StreamWriter(IconsFolder + name + ".ico")) {
+					stream.CopyTo(writer.BaseStream);
+				}
+			} catch { }
+		}
+
+		public static bool JsonIsValid(JObject js) {
             System.Threading.Tasks.ParallelLoopResult result = System.Threading.Tasks.Parallel.ForEach(js["Data"], (coin, state) => {
                 JToken val = (coin as JProperty).Value;
                 if(val["Name"] == null || val["CoinName"] == null || val["FullName"] == null) {
@@ -108,8 +123,6 @@ namespace CryptoGadget {
 			#endif
 		}
 
-
-		public static Global Binds { get; set; } = new Global();
 
 	};
 
