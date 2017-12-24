@@ -404,18 +404,20 @@ namespace CryptoGadget {
 
 			string name = Microsoft.VisualBasic.Interaction.InputBox("Enter the name of the new Profile", "Create Profile", "", 100, 100);
 
-			if(File.Exists(Global.ProfilesFolder + name + ".json")) {
-				MessageBox.Show("There's already a profile named " + name);
-				return;
+			if(name != "") {
+				if(File.Exists(Global.ProfilesFolder + name + ".json")) {
+					MessageBox.Show("There's already a profile named " + name);
+					return;
+				}
+
+				Settings.CreateSettFile(Global.ProfilesFolder + name + ".json");
+
+				_sett.BindFile(Global.ProfilesFolder + name + ".json");
+				_sett.Store();
+				_sett.Save();
+
+				Global.Binds.Profile = name + ".json";
 			}
-
-			Settings.CreateSettFile(Global.ProfilesFolder + name + ".json");
-
-			_sett.BindFile(Global.ProfilesFolder + name + ".json");
-			_sett.Store();
-			_sett.Save();
-
-			Global.Binds.Profile = name + ".json";
 		}
 		private void buttonProfileOpenFolder_Click(object sender, EventArgs e) {
 			Process.Start(Global.ProfilesFolder);
