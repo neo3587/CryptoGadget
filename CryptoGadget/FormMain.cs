@@ -95,8 +95,8 @@ namespace CryptoGadget {
 			using(ManualResetEvent wait = new ManualResetEvent(false)) {
 				_timer_disposed = true;
 				_timer_mtx.WaitOne();
-				if(_timer_req.Dispose(wait)) 
-					wait.WaitOne(500); // just in case
+				if(_timer_req.Dispose(wait))
+					wait.WaitOne();
 				_timer_mtx.ReleaseMutex();
 			}
 		}
@@ -139,8 +139,6 @@ namespace CryptoGadget {
 						} catch { }
 					}
 				}
-
-				Invoke((MethodInvoker)delegate { Refresh(); });
 
 				if(Global.Sett.Visibility.Refresh)
 					TimerHighlight(last_values);
