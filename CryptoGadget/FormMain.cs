@@ -1,9 +1,15 @@
 ﻿
 
 /*
-*	This application is possible thanks to the CryptoCompare API: https://www.cryptocompare.com/api/
-*   
+*	Author: neo3587
+*	
+*	Description: CryptoGadget is an application that provides a customizable interface to display the current
+*				 price and some additional information of any cryptocurrency available in CryptoCompare.
+*	
 * 
+*	Source code: https://github.com/neo3587/CryptoGadget
+*	
+*	This application is possible thanks to the CryptoCompare API: https://www.cryptocompare.com/api/
 */
 
 
@@ -59,21 +65,28 @@ namespace CryptoGadget {
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
 
-		#region DragMove Method Details
-
-		[DllImport("user32.dll")]
-		private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-		[DllImport("user32.dll")]
-		private static extern bool ReleaseCapture();
-
-		public static void DragMove(object sender, MouseEventArgs e) {
-			if(e.Button == MouseButtons.Left) {
-				ReleaseCapture();
-				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
-			}
+		internal void ApplySettings() {
+			TimerRoutineKill();
+			Point curr_loc = Location; // prevent the form realocation
+			GridInit();
+			ResizeForm();
+			Location = curr_loc;
+			TimerRoutineStart();
 		}
+		internal void SwapPage(int page) {
 
-		#endregion
+			TimerRoutineKill();
+
+			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
+			_page = page;
+			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
+
+			RowsInit();
+			mainGrid.DataSource = _coin_list;
+			ResizeForm();
+
+			TimerRoutineStart();
+		}
 
 		private void TimerRoutineStart() {
 			_timer_disposed = false;
@@ -172,21 +185,6 @@ namespace CryptoGadget {
 
         }
 
-		private void SwapPage(int page) {
-
-			TimerRoutineKill();
-
-			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
-			_page = page; 
-			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
-
-			RowsInit();
-			mainGrid.DataSource = _coin_list;
-			ResizeForm();
-
-			TimerRoutineStart();
-		}
-
 		private void ResizeForm() {
             
             int X = 0;
@@ -263,11 +261,11 @@ namespace CryptoGadget {
             StartPosition = FormStartPosition.Manual;
             Location = new Point(Global.Sett.Coords.PosX, Global.Sett.Coords.PosY);
 
-            MouseDown -= DragMove;
-            mainGrid.MouseDown -= DragMove;
+            MouseDown -= Global.DragMove;
+            mainGrid.MouseDown -= Global.DragMove;
             if(!Global.Sett.Coords.LockPos) {
-                MouseDown += DragMove;
-                mainGrid.MouseDown += DragMove;
+                MouseDown += Global.DragMove;
+                mainGrid.MouseDown += Global.DragMove;
             }
 
             // Open on Startup
@@ -288,19 +286,19 @@ namespace CryptoGadget {
 			for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
 
 				Settings.StCoin st = Global.Sett.Coins[_page][i];
-				CoinRow coin = new CoinRow();
+				CoinRow row = new CoinRow();
 
 				if(Global.Json != null) {
 					st.CoinName = Global.Json["Data"]?[st.Coin]?["CoinName"]?.ToString();
 					st.TargetName = Global.Json["Data"]?[st.Target]?["CoinName"]?.ToString();
 				}
 
-				coin.Icon = Global.GetIcon(st.Coin, Global.Sett.Metrics.IconSize);
-				coin.Coin = st.Coin;
-				coin.TargetIcon = Global.GetIcon(st.Target, Global.Sett.Metrics.IconSize);
-				coin.Target = st.Target;
+				row.Icon = Global.GetIcon(st.Coin, Global.Sett.Metrics.IconSize);
+				row.Coin = st.Coin;
+				row.TargetIcon = Global.GetIcon(st.Target, Global.Sett.Metrics.IconSize);
+				row.Target = st.Target;
 
-				_coin_list.Add(coin);
+				_coin_list.Add(row);
 			}
 
 			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
@@ -379,20 +377,8 @@ namespace CryptoGadget {
         }
 
         private void toolStripSettings_Click(object sender, EventArgs e) {
-
-			TimerRoutineKill();
-
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
-			
-            if(form2.Accept) {
-				Point curr_loc = Location; // prevent the form realocation
-                GridInit();
-				ResizeForm();
-                Location = curr_loc;
-			}
-
-			TimerRoutineStart();
         }
         private void toolStripHide_Click(object sender, EventArgs e) {
             Visible = !Visible;

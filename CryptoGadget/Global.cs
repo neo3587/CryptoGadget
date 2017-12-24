@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 using Newtonsoft.Json.Linq;
 
@@ -12,13 +13,21 @@ namespace CryptoGadget {
 
     public class Global : PropManager<Global> {
 
+		#region DragMove Method Details
+		[DllImport("user32.dll")]
+		private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+		[DllImport("user32.dll")]
+		private static extern bool ReleaseCapture();
+		#endregion
+
+
 		private string _profile = "Default.json";
 
 		public string Profile {
 			get => _profile;
 			set { _profile = value; NotifyPropertyChanged(); }
 		}
-
+		
 
 		public static string ProfileIniLocation	= Application.StartupPath + "\\profile_default.ini";
         public static string CoinListLocation	= Application.StartupPath + "\\CoinList.json";
@@ -28,8 +37,15 @@ namespace CryptoGadget {
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
 
-        
-        public static Bitmap GetIcon(string name, int size = 0) {
+
+		public static void DragMove(object sender, MouseEventArgs e) {
+			if(e.Button == MouseButtons.Left) {
+				ReleaseCapture();
+				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
+			}
+		}
+
+		public static Bitmap GetIcon(string name, int size = 0) {
             Bitmap bmp;
             name = name.ToLower();
             try {
