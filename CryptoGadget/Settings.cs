@@ -399,7 +399,8 @@ namespace CryptoGadget {
 		public bool Load() {
 
 			try {
-				JsonConvert.PopulateObject(_json.ToString(), this);
+				Default(); // Prevents errors from missing/null values
+				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 			} catch(Exception e) {
 				Global.DbgMsgShow("ERROR: " + e.ToString());
 				return false;
