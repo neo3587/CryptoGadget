@@ -251,7 +251,7 @@ namespace CryptoGadget {
 
         #region Currencies Tab
 
-        private void buttonAdd_Click(object sender, EventArgs e) {
+        private void buttonConvAdd_Click(object sender, EventArgs e) {
 
 			if(Global.Json == null) {
                 MessageBox.Show("You cannot add a coin to the grid until the coin list is obtained");
@@ -268,14 +268,14 @@ namespace CryptoGadget {
 				coinGrid.Rows[insertPos].Selected = true;
 			}
         }
-        private void buttonSub_Click(object sender, EventArgs e) {
+        private void buttonConvSub_Click(object sender, EventArgs e) {
 			if(coinGrid.SelectedRows.Count > 0) {
 				_sett.Coins[_page].RemoveAt(coinGrid.SelectedRows[0].Index);
 				if(coinGrid.SelectedRows.Count <= 0 && coinGrid.RowCount > 0)
 					coinGrid.Rows[coinGrid.RowCount - 1].Selected = true;
 			}
         }
-		private void buttonCoinSettings_Click(object sender, EventArgs e) {
+		private void buttonConvSettings_Click(object sender, EventArgs e) {
 			if(coinGrid.SelectedRows.Count <= 0) {
 				return;
 			}
@@ -289,7 +289,7 @@ namespace CryptoGadget {
 				_sett.Coins[_page][coinGrid.SelectedRows[0].Index] = form.CoinResult;
 			}
 		}
-		private void buttonUp_Click(object sender, EventArgs e) {
+		private void buttonConvUp_Click(object sender, EventArgs e) {
             if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index > 0) {
                 int index1 = coinGrid.SelectedRows[0].Index;
                 int index2 = coinGrid.SelectedRows[0].Index - 1;
@@ -299,7 +299,7 @@ namespace CryptoGadget {
                 coinGrid.Rows[index2].Selected = true;
             }
         }
-        private void buttonDown_Click(object sender, EventArgs e) {
+        private void buttonConvDown_Click(object sender, EventArgs e) {
             if(coinGrid.SelectedRows.Count > 0 && coinGrid.SelectedRows[0].Index < coinGrid.RowCount - 1) {
                 int index1 = coinGrid.SelectedRows[0].Index;
                 int index2 = coinGrid.SelectedRows[0].Index + 1;
@@ -434,6 +434,13 @@ namespace CryptoGadget {
 
 		#region Columns Tab
 
+		private void buttonColUp_Click(object sender, EventArgs e) {
+			// TODO
+		}
+		private void buttonColDown_Click(object sender, EventArgs e) {
+			// TODO
+		}
+
 		private void buttonDefaultColumns_Click(object sender, EventArgs e) {
 			_sett.Default(Settings.DefaultType.Grid);
 		}
@@ -541,9 +548,9 @@ namespace CryptoGadget {
 		}
 
 
+
 		#endregion
 
-		
 	}
 
 }

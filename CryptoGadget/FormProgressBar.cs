@@ -122,8 +122,7 @@ namespace CryptoGadget {
 					});
 
 					try {
-						await client.DownloadDataTaskAsync(new Uri("https://www.cryptocompare.com/api/data/coinlist/"));
-
+						await client.DownloadDataTaskAsync(new Uri("https://min-api.cryptocompare.com/data/all/coinlist"));
 					} catch {
 						Invoke((MethodInvoker)delegate { Close(); });
 						return;

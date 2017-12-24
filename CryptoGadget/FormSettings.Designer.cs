@@ -25,17 +25,17 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.buttonSub = new System.Windows.Forms.Button();
-			this.buttonAdd = new System.Windows.Forms.Button();
-			this.buttonUp = new System.Windows.Forms.Button();
-			this.buttonDown = new System.Windows.Forms.Button();
+			this.buttonConvSub = new System.Windows.Forms.Button();
+			this.buttonConvAdd = new System.Windows.Forms.Button();
+			this.buttonConvUp = new System.Windows.Forms.Button();
+			this.buttonConvDown = new System.Windows.Forms.Button();
 			this.buttonCheck = new System.Windows.Forms.Button();
 			this.buttonDownloadList = new System.Windows.Forms.Button();
 			this.buttonDownloadMissingIcons = new System.Windows.Forms.Button();
@@ -76,7 +76,7 @@
 			this.buttonColorNegativeChange = new System.Windows.Forms.Button();
 			this.label11 = new System.Windows.Forms.Label();
 			this.buttonColorPositiveChange = new System.Windows.Forms.Button();
-			this.buttonCoinSettings = new System.Windows.Forms.Button();
+			this.buttonConvSettings = new System.Windows.Forms.Button();
 			this.checkPagesExitSave = new System.Windows.Forms.CheckBox();
 			this.label18 = new System.Windows.Forms.Label();
 			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
@@ -92,6 +92,8 @@
 			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
 			this.label21 = new System.Windows.Forms.Label();
 			this.textBoxSelectMarket = new System.Windows.Forms.TextBox();
+			this.buttonColDown = new System.Windows.Forms.Button();
+			this.buttonColUp = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.label24 = new System.Windows.Forms.Label();
@@ -217,49 +219,49 @@
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
-			// buttonSub
+			// buttonConvSub
 			// 
-			this.buttonSub.Location = new System.Drawing.Point(420, 58);
-			this.buttonSub.Name = "buttonSub";
-			this.buttonSub.Size = new System.Drawing.Size(25, 25);
-			this.buttonSub.TabIndex = 12;
-			this.buttonSub.Text = "-";
-			this.toolTip1.SetToolTip(this.buttonSub, "Delete Selected Conversion");
-			this.buttonSub.UseVisualStyleBackColor = true;
-			this.buttonSub.Click += new System.EventHandler(this.buttonSub_Click);
+			this.buttonConvSub.Location = new System.Drawing.Point(423, 58);
+			this.buttonConvSub.Name = "buttonConvSub";
+			this.buttonConvSub.Size = new System.Drawing.Size(25, 25);
+			this.buttonConvSub.TabIndex = 12;
+			this.buttonConvSub.Text = "-";
+			this.toolTip1.SetToolTip(this.buttonConvSub, "Delete Selected Conversion");
+			this.buttonConvSub.UseVisualStyleBackColor = true;
+			this.buttonConvSub.Click += new System.EventHandler(this.buttonConvSub_Click);
 			// 
-			// buttonAdd
+			// buttonConvAdd
 			// 
-			this.buttonAdd.Location = new System.Drawing.Point(420, 27);
-			this.buttonAdd.Name = "buttonAdd";
-			this.buttonAdd.Size = new System.Drawing.Size(25, 25);
-			this.buttonAdd.TabIndex = 11;
-			this.buttonAdd.Text = "+";
-			this.toolTip1.SetToolTip(this.buttonAdd, "Add Conversion");
-			this.buttonAdd.UseVisualStyleBackColor = true;
-			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			this.buttonConvAdd.Location = new System.Drawing.Point(423, 27);
+			this.buttonConvAdd.Name = "buttonConvAdd";
+			this.buttonConvAdd.Size = new System.Drawing.Size(25, 25);
+			this.buttonConvAdd.TabIndex = 11;
+			this.buttonConvAdd.Text = "+";
+			this.toolTip1.SetToolTip(this.buttonConvAdd, "Add Conversion");
+			this.buttonConvAdd.UseVisualStyleBackColor = true;
+			this.buttonConvAdd.Click += new System.EventHandler(this.buttonConvAdd_Click);
 			// 
-			// buttonUp
+			// buttonConvUp
 			// 
-			this.buttonUp.Location = new System.Drawing.Point(420, 186);
-			this.buttonUp.Name = "buttonUp";
-			this.buttonUp.Size = new System.Drawing.Size(25, 25);
-			this.buttonUp.TabIndex = 17;
-			this.buttonUp.Text = "↑";
-			this.toolTip1.SetToolTip(this.buttonUp, "Move up");
-			this.buttonUp.UseVisualStyleBackColor = true;
-			this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+			this.buttonConvUp.Location = new System.Drawing.Point(423, 186);
+			this.buttonConvUp.Name = "buttonConvUp";
+			this.buttonConvUp.Size = new System.Drawing.Size(25, 25);
+			this.buttonConvUp.TabIndex = 17;
+			this.buttonConvUp.Text = "↑";
+			this.toolTip1.SetToolTip(this.buttonConvUp, "Move up");
+			this.buttonConvUp.UseVisualStyleBackColor = true;
+			this.buttonConvUp.Click += new System.EventHandler(this.buttonConvUp_Click);
 			// 
-			// buttonDown
+			// buttonConvDown
 			// 
-			this.buttonDown.Location = new System.Drawing.Point(420, 217);
-			this.buttonDown.Name = "buttonDown";
-			this.buttonDown.Size = new System.Drawing.Size(25, 25);
-			this.buttonDown.TabIndex = 18;
-			this.buttonDown.Text = "↓";
-			this.toolTip1.SetToolTip(this.buttonDown, "Move down");
-			this.buttonDown.UseVisualStyleBackColor = true;
-			this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+			this.buttonConvDown.Location = new System.Drawing.Point(423, 217);
+			this.buttonConvDown.Name = "buttonConvDown";
+			this.buttonConvDown.Size = new System.Drawing.Size(25, 25);
+			this.buttonConvDown.TabIndex = 18;
+			this.buttonConvDown.Text = "↓";
+			this.toolTip1.SetToolTip(this.buttonConvDown, "Move down");
+			this.buttonConvDown.UseVisualStyleBackColor = true;
+			this.buttonConvDown.Click += new System.EventHandler(this.buttonConvDown_Click);
 			// 
 			// buttonCheck
 			// 
@@ -276,9 +278,9 @@
 			// buttonDownloadList
 			// 
 			this.buttonDownloadList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDownloadList.Location = new System.Drawing.Point(6, 407);
+			this.buttonDownloadList.Location = new System.Drawing.Point(3, 407);
 			this.buttonDownloadList.Name = "buttonDownloadList";
-			this.buttonDownloadList.Size = new System.Drawing.Size(121, 23);
+			this.buttonDownloadList.Size = new System.Drawing.Size(124, 23);
 			this.buttonDownloadList.TabIndex = 27;
 			this.buttonDownloadList.Text = "Download Coin List";
 			this.toolTip1.SetToolTip(this.buttonDownloadList, "Re-downloads the coin list, this is useful to refresh the\r\ncurrent selectable coi" +
@@ -686,17 +688,17 @@
 			this.buttonColorPositiveChange.UseVisualStyleBackColor = true;
 			this.buttonColorPositiveChange.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
-			// buttonCoinSettings
+			// buttonConvSettings
 			// 
-			this.buttonCoinSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonCoinSettings.BackgroundImage")));
-			this.buttonCoinSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.buttonCoinSettings.Location = new System.Drawing.Point(420, 117);
-			this.buttonCoinSettings.Name = "buttonCoinSettings";
-			this.buttonCoinSettings.Size = new System.Drawing.Size(25, 25);
-			this.buttonCoinSettings.TabIndex = 58;
-			this.toolTip1.SetToolTip(this.buttonCoinSettings, "Selected Conversion Settings");
-			this.buttonCoinSettings.UseVisualStyleBackColor = true;
-			this.buttonCoinSettings.Click += new System.EventHandler(this.buttonCoinSettings_Click);
+			this.buttonConvSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonConvSettings.BackgroundImage")));
+			this.buttonConvSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonConvSettings.Location = new System.Drawing.Point(423, 117);
+			this.buttonConvSettings.Name = "buttonConvSettings";
+			this.buttonConvSettings.Size = new System.Drawing.Size(25, 25);
+			this.buttonConvSettings.TabIndex = 58;
+			this.toolTip1.SetToolTip(this.buttonConvSettings, "Selected Conversion Settings");
+			this.buttonConvSettings.UseVisualStyleBackColor = true;
+			this.buttonConvSettings.Click += new System.EventHandler(this.buttonConvSettings_Click);
 			// 
 			// checkPagesExitSave
 			// 
@@ -869,6 +871,28 @@
 			this.textBoxSelectMarket.TabIndex = 82;
 			this.toolTip1.SetToolTip(this.textBoxSelectMarket, "Write here the market that will be used as reference\r\nfor the conversions, leave " +
         "this field empty for \r\nuse all markets as reference.");
+			// 
+			// buttonColDown
+			// 
+			this.buttonColDown.Location = new System.Drawing.Point(423, 158);
+			this.buttonColDown.Name = "buttonColDown";
+			this.buttonColDown.Size = new System.Drawing.Size(25, 25);
+			this.buttonColDown.TabIndex = 78;
+			this.buttonColDown.Text = "↓";
+			this.toolTip1.SetToolTip(this.buttonColDown, "Move down");
+			this.buttonColDown.UseVisualStyleBackColor = true;
+			this.buttonColDown.Click += new System.EventHandler(this.buttonColDown_Click);
+			// 
+			// buttonColUp
+			// 
+			this.buttonColUp.Location = new System.Drawing.Point(423, 127);
+			this.buttonColUp.Name = "buttonColUp";
+			this.buttonColUp.Size = new System.Drawing.Size(25, 25);
+			this.buttonColUp.TabIndex = 77;
+			this.buttonColUp.Text = "↑";
+			this.toolTip1.SetToolTip(this.buttonColUp, "Move up");
+			this.buttonColUp.UseVisualStyleBackColor = true;
+			this.buttonColUp.Click += new System.EventHandler(this.buttonColUp_Click);
 			// 
 			// tabPage4
 			// 
@@ -1178,6 +1202,8 @@
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.buttonColDown);
+			this.tabPage3.Controls.Add(this.buttonColUp);
 			this.tabPage3.Controls.Add(this.buttonDefaultColumns);
 			this.tabPage3.Controls.Add(this.colsGrid);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -1205,14 +1231,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -1220,27 +1246,27 @@
             this.colsGridDigits,
             this.colsGridEnabled});
 			this.colsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-			this.colsGrid.Location = new System.Drawing.Point(5, 6);
+			this.colsGrid.Location = new System.Drawing.Point(3, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+			dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.ShowEditingIcon = false;
-			this.colsGrid.Size = new System.Drawing.Size(446, 395);
+			this.colsGrid.Size = new System.Drawing.Size(414, 395);
 			this.colsGrid.TabIndex = 61;
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle14.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle14;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1463,16 +1489,16 @@
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.buttonCoinSettings);
+			this.tabPage1.Controls.Add(this.buttonConvSettings);
 			this.tabPage1.Controls.Add(this.buttonDownloadMissingIcons);
 			this.tabPage1.Controls.Add(this.buttonDefaultCurrencies);
 			this.tabPage1.Controls.Add(this.buttonDownloadList);
 			this.tabPage1.Controls.Add(this.buttonCheck);
 			this.tabPage1.Controls.Add(this.coinGrid);
-			this.tabPage1.Controls.Add(this.buttonDown);
-			this.tabPage1.Controls.Add(this.buttonUp);
-			this.tabPage1.Controls.Add(this.buttonAdd);
-			this.tabPage1.Controls.Add(this.buttonSub);
+			this.tabPage1.Controls.Add(this.buttonConvDown);
+			this.tabPage1.Controls.Add(this.buttonConvUp);
+			this.tabPage1.Controls.Add(this.buttonConvAdd);
+			this.tabPage1.Controls.Add(this.buttonConvSub);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -1508,13 +1534,13 @@
             this.coinGridName,
             this.coinGridTarget,
             this.coinGridTargetName});
-			this.coinGrid.Location = new System.Drawing.Point(7, 6);
+			this.coinGrid.Location = new System.Drawing.Point(3, 6);
 			this.coinGrid.MultiSelect = false;
 			this.coinGrid.Name = "coinGrid";
 			this.coinGrid.ReadOnly = true;
 			this.coinGrid.RowHeadersVisible = false;
 			this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.coinGrid.Size = new System.Drawing.Size(407, 395);
+			this.coinGrid.Size = new System.Drawing.Size(414, 395);
 			this.coinGrid.TabIndex = 10;
 			// 
 			// coinGridImg
@@ -1819,8 +1845,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle8;
+			dataGridViewCellStyle16.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle16;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -2023,10 +2049,10 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTarget;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTargetName;
-		private System.Windows.Forms.Button buttonDown;
-		private System.Windows.Forms.Button buttonUp;
-		private System.Windows.Forms.Button buttonAdd;
-		private System.Windows.Forms.Button buttonSub;
+		private System.Windows.Forms.Button buttonConvDown;
+		private System.Windows.Forms.Button buttonConvUp;
+		private System.Windows.Forms.Button buttonConvAdd;
+		private System.Windows.Forms.Button buttonConvSub;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage5;
 		private System.Windows.Forms.NumericUpDown numCoordsPosY;
@@ -2083,7 +2109,7 @@
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridWidth;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn colsGridDigits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colsGridEnabled;
-		private System.Windows.Forms.Button buttonCoinSettings;
+		private System.Windows.Forms.Button buttonConvSettings;
 		private System.Windows.Forms.ComboBox comboPages;
 		private System.Windows.Forms.LinkLabel linkLabel2;
 		private System.Windows.Forms.Label label23;
@@ -2112,5 +2138,7 @@
 		private System.Windows.Forms.Label label33;
 		private System.Windows.Forms.Label label21;
 		private System.Windows.Forms.LinkLabel linkAcceptedMarkets;
+		private System.Windows.Forms.Button buttonColDown;
+		private System.Windows.Forms.Button buttonColUp;
 	}
 }
