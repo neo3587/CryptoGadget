@@ -32,7 +32,7 @@ namespace CryptoGadget {
 
 			switch(ft) {
 				case FormType.Check: // SettingsForm.buttonCheck
-					FormCheck((Settings.CoinList)param);
+					FormCheck((ValueTuple<Settings.CoinList, string>)param);
 					break;
 				case FormType.CoinList:   // SettingsForm.buttonDownloadList
 					FormDownloadCoinList();
@@ -44,11 +44,14 @@ namespace CryptoGadget {
 
         }
 
-		public void FormCheck(Settings.CoinList coin_list) {
+		public void FormCheck(ValueTuple<Settings.CoinList, string> conv_data) {
+
+			Settings.CoinList conv_list = conv_data.Item1;
+			string market = conv_data.Item2;
 
 			Text = "Cryptogadget Settings [Check]";
 
-			progressBar.Maximum = coin_list.Count;
+			progressBar.Maximum = conv_list.Count;
 
 			HandleCreated += (sender, ev) => {
 
@@ -56,13 +59,13 @@ namespace CryptoGadget {
 
 					try {
 
-						JObject json = CCRequest.HttpRequest(CCRequest.ConvertQuery(coin_list));
+						JObject json = CCRequest.HttpRequest(CCRequest.ConvertQuery(conv_list)); // call this even with custom market to force the internet connection check
 
 						BadConvs = new List<string>();
 
-						for(int i = 0; i < coin_list.Count; i++) {
+						for(int i = 0; i < conv_list.Count; i++) {
 
-							Settings.StCoin st = coin_list[i];
+							Settings.StCoin st = conv_list[i];
 
 							try {
 								Invoke((MethodInvoker)delegate {
@@ -70,6 +73,14 @@ namespace CryptoGadget {
 									progressBar.Value = i;
 								});
 							} catch { }
+
+							if(market != "") {
+								Settings.CoinList single_conv = new Settings.CoinList();
+								single_conv.Add(conv_list[i]);
+								try {
+									json = CCRequest.HttpRequest(CCRequest.ConvertQuery(single_conv, market));
+								} catch { }
+							}
 
 							if(json["RAW"]?[st.Coin]?[st.Target] == null)
 								BadConvs.Add(st.Coin + " (" + st.CoinName + ") -> " + st.Target + " (" + st.TargetName + ")");

@@ -23,7 +23,6 @@ using System.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
@@ -97,7 +96,7 @@ namespace CryptoGadget {
 				_timer_disposed = true;
 				_timer_mtx.WaitOne();
 				if(_timer_req.Dispose(wait)) 
-					wait.WaitOne();
+					wait.WaitOne(500); // just in case
 				_timer_mtx.ReleaseMutex();
 			}
 		}
@@ -301,7 +300,7 @@ namespace CryptoGadget {
 				_coin_list.Add(row);
 			}
 
-			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page]);
+			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page], Global.Sett.Market.Market);
 		}
 
 

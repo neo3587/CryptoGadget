@@ -90,13 +90,19 @@
 			this.buttonDonationQrETH = new System.Windows.Forms.Button();
 			this.buttonDonationQrDASH = new System.Windows.Forms.Button();
 			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
+			this.label21 = new System.Windows.Forms.Label();
+			this.textBoxSelectMarket = new System.Windows.Forms.TextBox();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
 			this.numCoordsPosY = new System.Windows.Forms.NumericUpDown();
 			this.numCoordsPosX = new System.Windows.Forms.NumericUpDown();
-			this.label25 = new System.Windows.Forms.Label();
-			this.label24 = new System.Windows.Forms.Label();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.linkAcceptedMarkets = new System.Windows.Forms.LinkLabel();
+			this.label33 = new System.Windows.Forms.Label();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.buttonDefaultAdvanced = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.numMetricsRowsValues = new System.Windows.Forms.NumericUpDown();
 			this.numMetricsHeaderText = new System.Windows.Forms.NumericUpDown();
@@ -163,9 +169,11 @@
 			this.buttonPageSwap = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
 			this.tabPage4.SuspendLayout();
-			this.groupBox4.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).BeginInit();
+			this.groupBox5.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRowsValues)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsHeaderText)).BeginInit();
@@ -293,9 +301,8 @@
 			// 
 			// checkCoordsLockPos
 			// 
-			this.checkCoordsLockPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.checkCoordsLockPos.AutoSize = true;
-			this.checkCoordsLockPos.Location = new System.Drawing.Point(325, 89);
+			this.checkCoordsLockPos.Location = new System.Drawing.Point(78, 96);
 			this.checkCoordsLockPos.Name = "checkCoordsLockPos";
 			this.checkCoordsLockPos.Size = new System.Drawing.Size(90, 17);
 			this.checkCoordsLockPos.TabIndex = 72;
@@ -305,9 +312,8 @@
 			// 
 			// checkCoordsExitSave
 			// 
-			this.checkCoordsExitSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.checkCoordsExitSave.AutoSize = true;
-			this.checkCoordsExitSave.Location = new System.Drawing.Point(325, 64);
+			this.checkCoordsExitSave.Location = new System.Drawing.Point(78, 71);
 			this.checkCoordsExitSave.Name = "checkCoordsExitSave";
 			this.checkCoordsExitSave.Size = new System.Drawing.Size(124, 17);
 			this.checkCoordsExitSave.TabIndex = 71;
@@ -844,16 +850,32 @@
 			this.buttonDonationQrLTC.UseVisualStyleBackColor = true;
 			this.buttonDonationQrLTC.Click += new System.EventHandler(this.buttonDonationQrLTC_Click);
 			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Location = new System.Drawing.Point(7, 20);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(76, 13);
+			this.label21.TabIndex = 77;
+			this.label21.Text = "Select Market:";
+			this.toolTip1.SetToolTip(this.label21, "Write here the market that will be used as reference\r\nfor the conversions, leave " +
+        "this field empty for \r\nuse all markets as reference.");
+			// 
+			// textBoxSelectMarket
+			// 
+			this.textBoxSelectMarket.Location = new System.Drawing.Point(89, 17);
+			this.textBoxSelectMarket.Name = "textBoxSelectMarket";
+			this.textBoxSelectMarket.Size = new System.Drawing.Size(105, 20);
+			this.textBoxSelectMarket.TabIndex = 82;
+			this.toolTip1.SetToolTip(this.textBoxSelectMarket, "Write here the market that will be used as reference\r\nfor the conversions, leave " +
+        "this field empty for \r\nuse all markets as reference.");
+			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.groupBox6);
+			this.tabPage4.Controls.Add(this.groupBox5);
 			this.tabPage4.Controls.Add(this.groupBox4);
 			this.tabPage4.Controls.Add(this.buttonDefaultAdvanced);
-			this.tabPage4.Controls.Add(this.numCoordsPosY);
-			this.tabPage4.Controls.Add(this.numCoordsPosX);
-			this.tabPage4.Controls.Add(this.checkCoordsLockPos);
-			this.tabPage4.Controls.Add(this.checkCoordsExitSave);
-			this.tabPage4.Controls.Add(this.label25);
-			this.tabPage4.Controls.Add(this.label24);
 			this.tabPage4.Controls.Add(this.groupBox1);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
@@ -862,6 +884,110 @@
 			this.tabPage4.TabIndex = 4;
 			this.tabPage4.Text = "Advanced";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.label24);
+			this.groupBox6.Controls.Add(this.label25);
+			this.groupBox6.Controls.Add(this.checkCoordsExitSave);
+			this.groupBox6.Controls.Add(this.checkCoordsLockPos);
+			this.groupBox6.Controls.Add(this.numCoordsPosY);
+			this.groupBox6.Controls.Add(this.numCoordsPosX);
+			this.groupBox6.Location = new System.Drawing.Point(243, 6);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(205, 122);
+			this.groupBox6.TabIndex = 81;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Position";
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(7, 18);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(82, 13);
+			this.label24.TabIndex = 69;
+			this.label24.Text = "Start Position X:";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(7, 44);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(82, 13);
+			this.label25.TabIndex = 70;
+			this.label25.Text = "Start Position Y:";
+			// 
+			// numCoordsPosY
+			// 
+			this.numCoordsPosY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numCoordsPosY.Location = new System.Drawing.Point(95, 42);
+			this.numCoordsPosY.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+			this.numCoordsPosY.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+			this.numCoordsPosY.Name = "numCoordsPosY";
+			this.numCoordsPosY.Size = new System.Drawing.Size(100, 20);
+			this.numCoordsPosY.TabIndex = 74;
+			// 
+			// numCoordsPosX
+			// 
+			this.numCoordsPosX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numCoordsPosX.Location = new System.Drawing.Point(95, 16);
+			this.numCoordsPosX.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+			this.numCoordsPosX.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+			this.numCoordsPosX.Name = "numCoordsPosX";
+			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
+			this.numCoordsPosX.TabIndex = 73;
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.linkAcceptedMarkets);
+			this.groupBox5.Controls.Add(this.textBoxSelectMarket);
+			this.groupBox5.Controls.Add(this.label33);
+			this.groupBox5.Controls.Add(this.label21);
+			this.groupBox5.Location = new System.Drawing.Point(243, 134);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(203, 87);
+			this.groupBox5.TabIndex = 80;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Market";
+			// 
+			// linkAcceptedMarkets
+			// 
+			this.linkAcceptedMarkets.AutoSize = true;
+			this.linkAcceptedMarkets.Location = new System.Drawing.Point(100, 66);
+			this.linkAcceptedMarkets.Name = "linkAcceptedMarkets";
+			this.linkAcceptedMarkets.Size = new System.Drawing.Size(94, 13);
+			this.linkAcceptedMarkets.TabIndex = 84;
+			this.linkAcceptedMarkets.TabStop = true;
+			this.linkAcceptedMarkets.Text = "Accepted Markets";
+			this.linkAcceptedMarkets.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAcceptedMarkets_LinkClicked);
+			// 
+			// label33
+			// 
+			this.label33.AutoSize = true;
+			this.label33.ForeColor = System.Drawing.Color.Red;
+			this.label33.Location = new System.Drawing.Point(7, 40);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(191, 39);
+			this.label33.TabIndex = 80;
+			this.label33.Text = "Only use conversions accepted by the \r\nselected market or won\'t work (tip: use \r\n" +
+    "the \'Check\' button)";
 			// 
 			// groupBox4
 			// 
@@ -885,62 +1011,6 @@
 			this.buttonDefaultAdvanced.Text = "Defaults";
 			this.buttonDefaultAdvanced.UseVisualStyleBackColor = true;
 			this.buttonDefaultAdvanced.Click += new System.EventHandler(this.buttonDefaultAdvanced_Click);
-			// 
-			// numCoordsPosY
-			// 
-			this.numCoordsPosY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numCoordsPosY.Location = new System.Drawing.Point(348, 35);
-			this.numCoordsPosY.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-			this.numCoordsPosY.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-			this.numCoordsPosY.Name = "numCoordsPosY";
-			this.numCoordsPosY.Size = new System.Drawing.Size(100, 20);
-			this.numCoordsPosY.TabIndex = 74;
-			// 
-			// numCoordsPosX
-			// 
-			this.numCoordsPosX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numCoordsPosX.Location = new System.Drawing.Point(348, 9);
-			this.numCoordsPosX.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-			this.numCoordsPosX.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-			this.numCoordsPosX.Name = "numCoordsPosX";
-			this.numCoordsPosX.Size = new System.Drawing.Size(100, 20);
-			this.numCoordsPosX.TabIndex = 73;
-			// 
-			// label25
-			// 
-			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(254, 37);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(82, 13);
-			this.label25.TabIndex = 70;
-			this.label25.Text = "Start Position Y:";
-			// 
-			// label24
-			// 
-			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(254, 11);
-			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(82, 13);
-			this.label24.TabIndex = 69;
-			this.label24.Text = "Start Position X:";
 			// 
 			// groupBox1
 			// 
@@ -1868,11 +1938,14 @@
 			this.Text = "CryptoGadget Settings";
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).EndInit();
 			this.tabPage4.ResumeLayout(false);
-			this.tabPage4.PerformLayout();
-			this.groupBox4.ResumeLayout(false);
-			this.groupBox4.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCoordsPosX)).EndInit();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMetricsRowsValues)).EndInit();
@@ -2033,5 +2106,11 @@
 		private System.Windows.Forms.PictureBox pictureBoxQrCode;
 		private System.Windows.Forms.Button buttonApply;
 		private System.Windows.Forms.Button buttonPageSwap;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.GroupBox groupBox5;
+		private System.Windows.Forms.TextBox textBoxSelectMarket;
+		private System.Windows.Forms.Label label33;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.LinkLabel linkAcceptedMarkets;
 	}
 }

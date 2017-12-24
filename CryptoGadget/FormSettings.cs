@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
 using System.Reflection;
@@ -203,6 +202,15 @@ namespace CryptoGadget {
 			numMetricsHeaderText.DataBindings.Add("Value", _sett.Metrics, "HeaderText");
 			numMetricsRowsValues.DataBindings.Add("Value", _sett.Metrics, "RowsValues");
 
+			// Pages
+
+			numPagesDefault.DataBindings.Add("Value", _sett.Pages, "Default");
+			checkPagesExitSave.DataBindings.Add("Checked", _sett.Pages, "ExitSave");
+
+			// Market
+
+			textBoxSelectMarket.DataBindings.Add("Text", _sett.Market, "Market");
+
 			// Grid
 
 			PropertyInfo[] cols_props = Settings.StColumn.GetProps();
@@ -214,11 +222,6 @@ namespace CryptoGadget {
 				bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
 
 			colsGrid.DataSource = bl;
-
-			// Pages
-
-			numPagesDefault.DataBindings.Add("Value", _sett.Pages, "Default");
-			checkPagesExitSave.DataBindings.Add("Checked", _sett.Pages, "ExitSave");
 
 			// Profile
 
@@ -333,15 +336,11 @@ namespace CryptoGadget {
                 return;
             }
 
-            List<Tuple<string, string>> coinList = new List<Tuple<string, string>>(); // < coin, target >
-            foreach(DataGridViewRow row in coinGrid.Rows)
-                coinList.Add(new Tuple<string, string>(row.Cells[1].Value.ToString(), row.Cells[3].Value.ToString()));
-
-            FormProgressBar form = new FormProgressBar(_sett.Coins[_page], FormProgressBar.FormType.Check);
+            FormProgressBar form = new FormProgressBar((_sett.Coins[_page], _sett.Market.Market), FormProgressBar.FormType.Check);
             form.ShowDialog();
 
 			if(form.BadConvs != null)
-				MessageBox.Show(form.BadConvs.Count == 0 ? "All currencies conversions are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.BadConvs));
+				MessageBox.Show(form.BadConvs.Count == 0 ? "All currencies conversions of the current page are correct" : "List of problematics currencies conversions:\n\n" + " - " + string.Join("\n - ", form.BadConvs));
 			else
 				MessageBox.Show("Couldn't check the currencies conversions");
         }
@@ -443,8 +442,12 @@ namespace CryptoGadget {
 
 		#region Advanced Tab
 
+		private void linkAcceptedMarkets_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+			Process.Start("https://www.cryptocompare.com/exchanges/#/overview");
+		}
+
 		private void buttonDefaultAdvanced_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics | Settings.DefaultType.Pages);
+			_sett.Default(Settings.DefaultType.Coords | Settings.DefaultType.Metrics | Settings.DefaultType.Pages | Settings.DefaultType.Market);
         }
 
 		#endregion
@@ -536,6 +539,7 @@ namespace CryptoGadget {
 			_page = comboPages.SelectedIndex;
 			BindCoins();
 		}
+
 
 		#endregion
 

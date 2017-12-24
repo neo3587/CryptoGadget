@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 namespace CryptoGadget {
 
 	public class Settings {
-		
+
 		public class StCoin : PropManager<StCoin> {
 			private Bitmap _icon = null;
 			private string _coin = "";
@@ -68,7 +68,7 @@ namespace CryptoGadget {
 				public bool ExitSave { // saves pos & size
 					get => _exit_save;
 					set { _exit_save = value; NotifyPropertyChanged(); }
-				} 
+				}
 				public int RefreshRate {
 					get => _refresh_rate;
 					set { _refresh_rate = value; NotifyPropertyChanged(); }
@@ -145,7 +145,7 @@ namespace CryptoGadget {
 			private Color _rows_values;
 			private Color _header_background;
 			private Color _edge;
-			
+
 			public Color PositiveChange {
 				get => _positive_change;
 				set { _positive_change = value; NotifyPropertyChanged(); }
@@ -260,6 +260,14 @@ namespace CryptoGadget {
 				set { _exit_save = value; NotifyPropertyChanged(); }
 			}
 		}
+		public class StMarket : PropManager<StMarket> {
+			private string _market;
+
+			public string Market {
+				get => _market;
+				set { _market = value; NotifyPropertyChanged(); }
+			}
+		}
 
 		public class StColumn : PropManager<StColumn> {
 			private string _column;
@@ -338,16 +346,17 @@ namespace CryptoGadget {
 		}
 
 		public enum DefaultType {
-			Coins      = 0x0001,
-			Basic      = 0x0002,
-			Visibility = 0x0004,
-			ColorLight = 0x0008,
-			ColorDark  = 0x0010,
-			Coords     = 0x0020,
-			Metrics    = 0x0080,
-			Pages      = 0x0100,
-			Grid       = 0x0200,
-			All        = 0xFFFF
+			Coins		= 0x0001,
+			Basic		= 0x0002,
+			Visibility	= 0x0004,
+			ColorLight	= 0x0008,
+			ColorDark	= 0x0010,
+			Coords		= 0x0020,
+			Metrics		= 0x0080,
+			Pages		= 0x0100,
+			Market		= 0x0200,
+			Grid		= 0x0400,
+			All			= 0xFFFF
 		}
 		public class CoinList : BindingList<StCoin> {
 			public int FindConv(string coin, string target) {
@@ -359,13 +368,14 @@ namespace CryptoGadget {
 		}
 
 		public CoinList[] Coins = CreateCoinList(); // Coins[page][coin_pos]
-		public StBasic Basic 		   = new StBasic();
-		public StVisibility Visibility = new StVisibility();
-		public StColor Color		   = new StColor();
-		public StCoords Coords		   = new StCoords();
-		public StMetrics Metrics	   = new StMetrics();
-		public StPages Pages		   = new StPages();
-		public StGrid Grid             = new StGrid();
+		public StBasic Basic			= new StBasic();
+		public StVisibility Visibility	= new StVisibility();
+		public StColor Color			= new StColor();
+		public StCoords Coords			= new StCoords();
+		public StMetrics Metrics		= new StMetrics();
+		public StPages Pages			= new StPages();
+		public StMarket Market			= new StMarket();
+		public StGrid Grid				= new StGrid();
 
 		[JsonIgnore]
 		private string _file_path = "";
@@ -550,6 +560,9 @@ namespace CryptoGadget {
 			if((type & DefaultType.Pages) != 0) {
 				Pages.Default = 0;
 				Pages.ExitSave = false;
+			}
+			if((type & DefaultType.Market) != 0) {
+				Market.Market = "";
 			}
 			if((type & DefaultType.Grid) != 0) {
 				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) { 
