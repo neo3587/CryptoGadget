@@ -217,11 +217,11 @@ namespace CryptoGadget {
 			for(int i = 0; i < cols_props.Length; i++)
 				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
 
-			BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
-			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
-				bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
+			//BindingList<Settings.StColumn> bl = new BindingList<Settings.StColumn>();
+			//foreach(PropertyInfo prop in Settings.StGrid.GetProps()) 
+				//bl.Add((Settings.StColumn)_sett.Grid[prop.Name]);
 
-			colsGrid.DataSource = bl;
+			colsGrid.DataSource = _sett.Grid.Columns;
 
 			// Profile
 
@@ -435,10 +435,24 @@ namespace CryptoGadget {
 		#region Columns Tab
 
 		private void buttonColUp_Click(object sender, EventArgs e) {
-			// TODO
+			if(colsGrid.SelectedRows.Count > 0 && colsGrid.SelectedRows[0].Index > 0) {
+				int index1 = colsGrid.SelectedRows[0].Index;
+				int index2 = colsGrid.SelectedRows[0].Index - 1;
+				Settings.StColumn ptr = _sett.Grid.Columns[index1];
+				_sett.Grid.Columns.RemoveAt(index1);
+				_sett.Grid.Columns.Insert(index2, ptr);
+				colsGrid.Rows[index2].Selected = true;
+			}
 		}
 		private void buttonColDown_Click(object sender, EventArgs e) {
-			// TODO
+			if(colsGrid.SelectedRows.Count > 0 && colsGrid.SelectedRows[0].Index < colsGrid.RowCount - 1) {
+				int index1 = colsGrid.SelectedRows[0].Index;
+				int index2 = colsGrid.SelectedRows[0].Index + 1;
+				Settings.StColumn ptr = _sett.Grid.Columns[index1];
+				_sett.Grid.Columns.RemoveAt(index1);
+				_sett.Grid.Columns.Insert(index2, ptr);
+				colsGrid.Rows[index2].Selected = true;
+			}
 		}
 
 		private void buttonDefaultColumns_Click(object sender, EventArgs e) {

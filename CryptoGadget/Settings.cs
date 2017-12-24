@@ -322,27 +322,34 @@ namespace CryptoGadget {
 																						 ("LastMarket",		"Last Mkt",			"",                 60, 0, false) };
 			public static ValueTuple<string, string>[] jsget = props.Where(tp => tp.Item3 != "").Select(tp => (tp.Item1, tp.Item3)).ToArray();
 
-			public StColumn Icon { get; set; } = new StColumn(); // skip this on json get
-			public StColumn Coin { get; set; } = new StColumn(); // skip this on json get
-			public StColumn TargetIcon { get; set; } = new StColumn(); // skip this on json get
-			public StColumn Target { get; set; } = new StColumn(); // skip this on json get
-			public StColumn Value { get; set; } = new StColumn();
-			public StColumn ChangeDay { get; set; } = new StColumn();
-			public StColumn ChangeDayPct { get; set; } = new StColumn();
-			public StColumn Change24 { get; set; } = new StColumn();
-			public StColumn Change24Pct { get; set; } = new StColumn();
-			public StColumn VolumeDay { get; set; } = new StColumn();
-			public StColumn Volume24 { get; set; } = new StColumn();
-			public StColumn TotalVolume24 { get; set; } = new StColumn();
-			public StColumn OpenDay { get; set; } = new StColumn();
-			public StColumn Open24 { get; set; } = new StColumn();
-			public StColumn HighDay { get; set; } = new StColumn();
-			public StColumn High24 { get; set; } = new StColumn();
-			public StColumn LowDay { get; set; } = new StColumn();
-			public StColumn Low24 { get; set; } = new StColumn();
-			public StColumn Supply { get; set; } = new StColumn();
-			public StColumn MktCap { get; set; } = new StColumn();
-			public StColumn LastMarket { get; set; } = new StColumn(); 
+			[JsonIgnore] public StColumn Icon { get; set; } // skip this on json get
+			[JsonIgnore] public StColumn Coin { get; set; } // skip this on json get
+			[JsonIgnore] public StColumn TargetIcon { get; set; } // skip this on json get
+			[JsonIgnore] public StColumn Target { get; set; } // skip this on json get
+			[JsonIgnore] public StColumn Value { get; set; }
+			[JsonIgnore] public StColumn ChangeDay { get; set; }
+			[JsonIgnore] public StColumn ChangeDayPct { get; set; }
+			[JsonIgnore] public StColumn Change24 { get; set; }
+			[JsonIgnore] public StColumn Change24Pct { get; set; }
+			[JsonIgnore] public StColumn VolumeDay { get; set; }
+			[JsonIgnore] public StColumn Volume24 { get; set; }
+			[JsonIgnore] public StColumn TotalVolume24 { get; set; }
+			[JsonIgnore] public StColumn OpenDay { get; set; }
+			[JsonIgnore] public StColumn Open24 { get; set; }
+			[JsonIgnore] public StColumn HighDay { get; set; }
+			[JsonIgnore] public StColumn High24 { get; set; }
+			[JsonIgnore] public StColumn LowDay { get; set; }
+			[JsonIgnore] public StColumn Low24 { get; set; }
+			[JsonIgnore] public StColumn Supply { get; set; }
+			[JsonIgnore] public StColumn MktCap { get; set; }
+			[JsonIgnore] public StColumn LastMarket { get; set; }
+
+			public BindingList<StColumn> Columns = new BindingList<StColumn>();
+
+			public void BindGridPtr() {
+				foreach(StColumn st in Columns) 
+					this[st.Column] = st;
+			}
 		}
 
 		public enum DefaultType {
@@ -400,7 +407,12 @@ namespace CryptoGadget {
 
 			try {
 				Default(); // Prevents errors from missing/null values
-				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings {
+					NullValueHandling = NullValueHandling.Ignore,
+					MissingMemberHandling = MissingMemberHandling.Ignore,
+					ObjectCreationHandling = ObjectCreationHandling.Replace
+				});
+				Grid.BindGridPtr();
 			} catch(Exception e) {
 				Global.DbgMsgShow("ERROR: " + e.ToString());
 				return false;
@@ -424,8 +436,10 @@ namespace CryptoGadget {
 
 			try {
 
+				// Basic
 				ThrowRule<int>()(Basic.RefreshRate, x => x >= 1);
 
+				// Metrics
 				foreach(PropertyInfo prop in StMetrics.GetProps()) {
 					if(Metrics[prop.Name] is int)
 						ThrowRule<int>()(Metrics[prop.Name], x => x >= 1);
@@ -433,13 +447,19 @@ namespace CryptoGadget {
 						ThrowRule<float>()(Metrics[prop.Name], x => x >= 1.0f);
 				}
 
+				// Pages
 				ThrowRule<int>()(Pages.Default, x => (x >= 0 && x <= 9));
 
+				// Grid
 				foreach(PropertyInfo prop in StGrid.GetProps()) {
 					ThrowRule<int>()((Grid[prop.Name] as StColumn).Width, x => x >= 1);
 					ThrowRule<int>()((Grid[prop.Name] as StColumn).Digits, x => x >= 0);
 				}
+				ThrowRule<int>()(Grid.Columns.Count, x => x == StGrid.GetProps().Count());
+				ThrowRule<int>()(Grid.Columns.Except(StGrid.GetProps().Select(p => Grid[p.Name])).Count(), x => x == 0);
+				ThrowRule<int>()(StGrid.GetProps().Select(p => Grid[p.Name]).Except(Grid.Columns).Count(), x => x == 0);
 
+				// Coins
 				for(int i = 0; i < 10; i++) {
 					foreach(StCoin st in Coins[i]) {
 						ThrowRule<float>()(st.Alarm.Up, x => x >= 0);
@@ -566,13 +586,17 @@ namespace CryptoGadget {
 				Market.Market = "";
 			}
 			if((type & DefaultType.Grid) != 0) {
-				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) { 
-					(Grid[prop.Item1] as StColumn).Column = prop.Item1;
-					(Grid[prop.Item1] as StColumn).Name = prop.Item2;
-					(Grid[prop.Item1] as StColumn).Width = prop.Item4;
-					(Grid[prop.Item1] as StColumn).Digits = prop.Item5;
-					(Grid[prop.Item1] as StColumn).Enabled = prop.Item6;
+				Grid.Columns.Clear();
+				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) {
+					StColumn st = new StColumn();
+					st.Column = prop.Item1;
+					st.Name = prop.Item2;
+					st.Width = prop.Item4;
+					st.Digits = prop.Item5;
+					st.Enabled = prop.Item6;
+					Grid.Columns.Add(st);
 				}
+				Grid.BindGridPtr();
 			}
 		}
 		public void CloneTo(Settings sett) {

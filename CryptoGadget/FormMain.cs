@@ -207,14 +207,14 @@ namespace CryptoGadget {
 
 			RowsInit();
 
-			foreach(PropertyInfo prop in Settings.StGrid.GetProps()) {
+			foreach(Settings.StColumn st in Global.Sett.Grid.Columns) {
 				DataGridViewColumn col = new DataGridViewColumn();
-				col.HeaderText = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Name; 
-				col.Name = prop.Name;
-				col.DataPropertyName = prop.Name;
+				col.HeaderText = st.Name; 
+				col.Name = st.Column;
+				col.DataPropertyName = st.Column;
 				col.CellTemplate = new DataGridViewTextBoxCell();
-				col.Visible = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Enabled;
-				col.Width = (Global.Sett.Grid[prop.Name] as Settings.StColumn).Width;
+				col.Visible = st.Enabled;
+				col.Width = st.Width;
 				col.DefaultCellStyle.ForeColor = Global.Sett.Color.RowsValues;
 				mainGrid.Columns.Add(col);
 			}
