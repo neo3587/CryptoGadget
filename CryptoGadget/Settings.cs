@@ -342,9 +342,7 @@ namespace CryptoGadget {
 			public StColumn Low24 { get; set; } = new StColumn();
 			public StColumn Supply { get; set; } = new StColumn();
 			public StColumn MktCap { get; set; } = new StColumn();
-			public StColumn LastMarket { get; set; } = new StColumn();
-
-			public BindingList<string> ColumnOrder = new BindingList<string>();
+			public StColumn LastMarket { get; set; } = new StColumn(); 
 		}
 
 		public enum DefaultType {
@@ -402,11 +400,7 @@ namespace CryptoGadget {
 
 			try {
 				Default(); // Prevents errors from missing/null values
-				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings {
-					NullValueHandling = NullValueHandling.Ignore,
-					MissingMemberHandling = MissingMemberHandling.Ignore,
-					ObjectCreationHandling = ObjectCreationHandling.Replace
-				});
+				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 			} catch(Exception e) {
 				Global.DbgMsgShow("ERROR: " + e.ToString());
 				return false;
@@ -430,10 +424,8 @@ namespace CryptoGadget {
 
 			try {
 
-				// Basic
 				ThrowRule<int>()(Basic.RefreshRate, x => x >= 1);
 
-				// Metrics
 				foreach(PropertyInfo prop in StMetrics.GetProps()) {
 					if(Metrics[prop.Name] is int)
 						ThrowRule<int>()(Metrics[prop.Name], x => x >= 1);
@@ -441,19 +433,13 @@ namespace CryptoGadget {
 						ThrowRule<float>()(Metrics[prop.Name], x => x >= 1.0f);
 				}
 
-				// Pages
 				ThrowRule<int>()(Pages.Default, x => (x >= 0 && x <= 9));
 
-				// Grid
 				foreach(PropertyInfo prop in StGrid.GetProps()) {
 					ThrowRule<int>()((Grid[prop.Name] as StColumn).Width, x => x >= 1);
 					ThrowRule<int>()((Grid[prop.Name] as StColumn).Digits, x => x >= 0);
 				}
-				ThrowRule<int>()(Grid.ColumnOrder.Count, x => x == StGrid.GetProps().Count());
-				ThrowRule<int>()(Grid.ColumnOrder.Except(StGrid.GetProps().Select(p => p.Name)).Count(), x => x == 0);
-				ThrowRule<int>()(StGrid.GetProps().Select(p => p.Name).Except(Grid.ColumnOrder).Count(), x => x == 0);
 
-				// Coins
 				for(int i = 0; i < 10; i++) {
 					foreach(StCoin st in Coins[i]) {
 						ThrowRule<float>()(st.Alarm.Up, x => x >= 0);
@@ -580,14 +566,12 @@ namespace CryptoGadget {
 				Market.Market = "";
 			}
 			if((type & DefaultType.Grid) != 0) {
-				Grid.ColumnOrder.Clear();
 				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) { 
 					(Grid[prop.Item1] as StColumn).Column = prop.Item1;
 					(Grid[prop.Item1] as StColumn).Name = prop.Item2;
 					(Grid[prop.Item1] as StColumn).Width = prop.Item4;
 					(Grid[prop.Item1] as StColumn).Digits = prop.Item5;
 					(Grid[prop.Item1] as StColumn).Enabled = prop.Item6;
-					Grid.ColumnOrder.Add(prop.Item1);
 				}
 			}
 		}
