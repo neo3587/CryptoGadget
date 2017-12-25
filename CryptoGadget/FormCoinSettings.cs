@@ -144,7 +144,7 @@ namespace CryptoGadget {
 				coin = new CoinPair(coin.Value, coin.Key);
 
 			ofd.Title = "Select Icon for " + coin.Key + " (" + coin.Value + ")";
-			ofd.Filter = "Icon Files (.ico)|*.ico";
+			ofd.Filter = "Icon Files (*.ico, *.png, *.jpg)|*.ico;*png;*jpg";
 			ofd.Multiselect = false;
 
 			ofd.FileOk += (f_sender, f_ev) => {
