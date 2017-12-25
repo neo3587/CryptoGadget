@@ -602,7 +602,9 @@ namespace CryptoGadget {
 		public void CloneTo(Settings sett) {
 			sett._json = JObject.Parse(JsonConvert.SerializeObject(this));
 			sett.Load();
-			sett._json = _json;
+		}
+		public void CloneFileTo(Settings sett) {
+			sett._json = (JObject)_json.DeepClone();
 			sett._file_path = _file_path;
 		}
 

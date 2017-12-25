@@ -129,7 +129,7 @@
 			this.buttonDefaultBasic = new System.Windows.Forms.Button();
 			this.checkStartup = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.boxTheme = new System.Windows.Forms.ComboBox();
+			this.comboTheme = new System.Windows.Forms.ComboBox();
 			this.label10 = new System.Windows.Forms.Label();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
@@ -1450,7 +1450,7 @@
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.buttonColorHeaderBackground);
 			this.groupBox2.Controls.Add(this.label14);
-			this.groupBox2.Controls.Add(this.boxTheme);
+			this.groupBox2.Controls.Add(this.comboTheme);
 			this.groupBox2.Controls.Add(this.label10);
 			this.groupBox2.Controls.Add(this.label9);
 			this.groupBox2.Controls.Add(this.buttonColorRowsText);
@@ -1470,15 +1470,15 @@
 			// 
 			// boxTheme
 			// 
-			this.boxTheme.FormattingEnabled = true;
-			this.boxTheme.Items.AddRange(new object[] {
+			this.comboTheme.FormattingEnabled = true;
+			this.comboTheme.Items.AddRange(new object[] {
             "Light",
             "Dark"});
-			this.boxTheme.Location = new System.Drawing.Point(56, 19);
-			this.boxTheme.Name = "boxTheme";
-			this.boxTheme.Size = new System.Drawing.Size(121, 21);
-			this.boxTheme.TabIndex = 41;
-			this.boxTheme.SelectedIndexChanged += new System.EventHandler(this.boxTheme_SelectedIndexChanged);
+			this.comboTheme.Location = new System.Drawing.Point(56, 19);
+			this.comboTheme.Name = "boxTheme";
+			this.comboTheme.Size = new System.Drawing.Size(121, 21);
+			this.comboTheme.TabIndex = 41;
+			this.comboTheme.SelectedIndexChanged += new System.EventHandler(this.comboTheme_SelectedIndexChanged);
 			// 
 			// label10
 			// 
@@ -2028,7 +2028,7 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Button buttonColorHeaderBackground;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.ComboBox boxTheme;
+		private System.Windows.Forms.ComboBox comboTheme;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Button buttonColorRowsText;

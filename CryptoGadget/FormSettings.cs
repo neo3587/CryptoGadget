@@ -21,6 +21,7 @@ namespace CryptoGadget {
 
 		private void ApplySettings() {
 			_sett.CloneTo(Global.Sett);
+			_sett.CloneFileTo(Global.Sett);
 			Global.Sett.Store();
 			Global.Sett.Save();
 			_ptr_form.ApplySettings();
@@ -226,11 +227,24 @@ namespace CryptoGadget {
 
 			colsGrid.DataSource = _sett.Grid.Columns;
 
-			// Profile
+			// Other (not actually binds)
 
 			textBoxProfileName.Text = Global.Profile;
+			comboTheme.Text = "";
 
 		}
+		private void ClearBindings() {
+			Action<Control.ControlCollection> InnerClear = null;
+			InnerClear = (ctrls) => {
+				foreach(Control ctrl in ctrls) {
+					if(ctrl.HasChildren)
+						InnerClear(ctrl.Controls);
+					ctrl.DataBindings.Clear();
+				}
+			};
+			InnerClear(Controls);
+		}
+
 
 		public FormSettings(FormMain form) {
 
@@ -389,18 +403,20 @@ namespace CryptoGadget {
 				}
 
 				sett.CloneTo(_sett);
+				sett.CloneFileTo(_sett);
 
 				if(Global.ProfilesFolder != (Path.GetDirectoryName(ofd.FileName) + "\\")) {
-					Stream stream = (f_sender as OpenFileDialog).OpenFile();
-					stream.Position = 0;
-					using(StreamWriter writer = new StreamWriter(Global.ProfilesFolder + ofd.SafeFileName)) {
-						stream.CopyTo(writer.BaseStream);
+					using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {
+						stream.Position = 0;
+						using(StreamWriter writer = new StreamWriter(Global.ProfilesFolder + ofd.SafeFileName)) {
+							stream.CopyTo(writer.BaseStream);
+						}
 					}
 				}
 
+				ClearBindings();
+				BindSettings();
 				textBoxProfileName.Text = ofd.SafeFileName;
-				ApplySettings();
-				BindCoins();
 			};
 
 			ofd.ShowDialog();
@@ -411,6 +427,7 @@ namespace CryptoGadget {
 			string name = Microsoft.VisualBasic.Interaction.InputBox("Enter the name of the new Profile", "Create Profile", "", 100, 100);
 
 			if(name != "") {
+
 				if(File.Exists(Global.ProfilesFolder + name + ".json")) {
 					MessageBox.Show("There's already a profile named " + name);
 					return;
@@ -422,21 +439,22 @@ namespace CryptoGadget {
 				_sett.Store();
 				_sett.Save();
 
+				ClearBindings();
+				BindSettings();
 				textBoxProfileName.Text = name + ".json";
-				ApplySettings();
 			}
 		}
 		private void buttonProfileOpenFolder_Click(object sender, EventArgs e) {
 			Process.Start(Global.ProfilesFolder);
 		}
 
-		private void boxTheme_SelectedIndexChanged(object sender, EventArgs e) {
-			_sett.Default(boxTheme.SelectedIndex == 0 ? Settings.DefaultType.ColorLight : Settings.DefaultType.ColorDark);
+		private void comboTheme_SelectedIndexChanged(object sender, EventArgs e) {
+			_sett.Default(comboTheme.SelectedIndex == 0 ? Settings.DefaultType.ColorLight : Settings.DefaultType.ColorDark);
 		}
 
         private void buttonDefaultBasic_Click(object sender, EventArgs e) {
 			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorLight | Settings.DefaultType.Visibility);
-			boxTheme.Text = "";
+			comboTheme.Text = "";
 		}
 
 		#endregion
