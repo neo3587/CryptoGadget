@@ -30,13 +30,15 @@ Instructions:
 
 # <a name="examples"></a> Customization examples
 
-<img src="http://i.imgur.com/VhZ2AQE.png" /> <img src="http://i.imgur.com/3aOcagn.png" /> <img src="http://i.imgur.com/wfKx5BU.png" /> <img src="http://i.imgur.com/tPJX8ic.png" />
+<img src="https://i.imgur.com/JbpMrRU.png" /> <img src="https://i.imgur.com/akTk6a8.png" /> <img src="https://i.imgur.com/WrBOFiE.png" /> <img src="https://i.imgur.com/P5R1tO6.png" /> <img src="https://i.imgur.com/AIWLtZ7.png" />
 
 # <a name="notes"></a> Additional notes
 
 
 
 **BTC Donations:** 3HE1kwgHEWvxBa38NHuQbQQrhNZ9wxjhe7
+
+**BCH Donations:** 13rtJZ7RkDuGEEEAQVKTLSB7QRaktkqpaA
 
 **ETH Donations:** 0xb5996de811913f24eb3d4b1b1052cd95968a7dc1
 
