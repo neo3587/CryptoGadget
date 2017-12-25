@@ -19,6 +19,7 @@ namespace CryptoGadget {
         private Settings.CoinList _ptr_list = null;
         private BindingSource _coin_bind   = new BindingSource();
 		private BindingSource _target_bind = new BindingSource();
+		private bool _editing = false;
 
 		public Settings.StCoin CoinResult = null;
 
@@ -58,10 +59,11 @@ namespace CryptoGadget {
 		}
 
 
-        public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin default_conv) {
+        public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
 
             InitializeComponent();
             _ptr_list = coin_list;
+			_editing = editing;
 
             HandleCreated += (sender, e) => {
 
@@ -93,9 +95,9 @@ namespace CryptoGadget {
 			if(checkTargetIndexName.Checked)
                 right = new CoinPair(right.Value, right.Key);
             
-            if(_ptr_list.FindConv(left.Key, right.Key) != -1) {
-                MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
-                return;
+            if(!_editing && _ptr_list.FindConv(left.Key, right.Key) != -1) {
+				MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
+				return;
             }
 
 			CoinResult = new Settings.StCoin();

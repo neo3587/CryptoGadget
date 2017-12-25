@@ -286,7 +286,7 @@ namespace CryptoGadget {
 				MessageBox.Show("You cannot modify a coin to the grid until the coin list is obtained, there's a good reason for that, trust me :)");
 				return;
 			}
-			FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], _sett.Coins[_page][coinGrid.SelectedRows[0].Index]);
+			FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], _sett.Coins[_page][coinGrid.SelectedRows[0].Index], true);
 			form.ShowDialog();
 			if(form.CoinResult != null) {
 				_sett.Coins[_page][coinGrid.SelectedRows[0].Index] = form.CoinResult;
