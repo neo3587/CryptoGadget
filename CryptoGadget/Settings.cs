@@ -22,60 +22,17 @@ namespace CryptoGadget {
 			private string _target = "";
 			private string _target_name = "";
 
-			public class StAlarm : PropManager<StAlarm> {
-				private float _up = 0.0f;
-				private float _down = 0.0f;
+			public class StAlert : PropManager<StAlert> {
+				private float _above = 0.0f;
+				private float _below = 0.0f;
 
-				public float Up {
-					get => _up;
-					set { _up = value; NotifyPropertyChanged(); }
+				public float Above {
+					get => _above;
+					set { _above = value; NotifyPropertyChanged(); }
 				}
-				public float Down {
-					get => _down;
-					set { _down = value; NotifyPropertyChanged(); }
-				}
-			}
-			public class StGraph : PropManager<StAlarm> {
-				private int _pos_x = 50;
-				private int _pos_y = 50;
-				private int _size_x = 100;
-				private int _size_y = 100;
-				private bool _lock_pos = false;
-				private bool _exit_save = true;
-				private int _refresh_rate = 60;
-				private bool _startup = false;
-
-				public int PosX {
-					get => _pos_x;
-					set { _pos_x = value; NotifyPropertyChanged(); }
-				}
-				public int PosY {
-					get => _pos_y;
-					set { _pos_y = value; NotifyPropertyChanged(); }
-				}
-				public int SizeX {
-					get => _size_x;
-					set { _size_x = value; NotifyPropertyChanged(); }
-				}
-				public int SizeY {
-					get => _size_y;
-					set { _size_y = value; NotifyPropertyChanged(); }
-				}
-				public bool LockPos {
-					get => _lock_pos;
-					set { _lock_pos = value; NotifyPropertyChanged(); }
-				}
-				public bool ExitSave { // saves pos & size
-					get => _exit_save;
-					set { _exit_save = value; NotifyPropertyChanged(); }
-				}
-				public int RefreshRate {
-					get => _refresh_rate;
-					set { _refresh_rate = value; NotifyPropertyChanged(); }
-				}
-				public bool Startup {
-					get => _startup;
-					set { _startup = value; NotifyPropertyChanged(); }
+				public float Below {
+					get => _below;
+					set { _below = value; NotifyPropertyChanged(); }
 				}
 			}
 			[JsonIgnore]
@@ -99,8 +56,7 @@ namespace CryptoGadget {
 				get => _target_name;
 				set { _target_name = value; NotifyPropertyChanged(); }
 			}
-			public StAlarm Alarm = new StAlarm();
-			public StGraph Graph = new StGraph();
+			public StAlert Alert = new StAlert();
 		}
 		public class StBasic : PropManager<StBasic> {
 			private int _refresh_rate;
@@ -462,11 +418,8 @@ namespace CryptoGadget {
 				// Coins
 				for(int i = 0; i < 10; i++) {
 					foreach(StCoin st in Coins[i]) {
-						ThrowRule<float>()(st.Alarm.Up, x => x >= 0);
-						ThrowRule<float>()(st.Alarm.Down, x => x >= 0);
-						ThrowRule<int>()(st.Graph.SizeX, x => x >= 20);
-						ThrowRule<int>()(st.Graph.SizeY, x => x >= 20);
-						ThrowRule<int>()(st.Graph.RefreshRate, x => x >= 1);
+						ThrowRule<float>()(st.Alert.Above, x => x >= 0);
+						ThrowRule<float>()(st.Alert.Below, x => x >= 0);
 					}
 				}
 

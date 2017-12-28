@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
-using System.Reflection;
 
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
@@ -33,6 +32,37 @@ namespace CryptoGadget {
 
     public partial class FormMain : Form {
 
+		public class TimerRequest {
+			public System.Threading.Timer Timer = null;
+			public volatile bool Disposed = false;
+			public Mutex Mutex = new Mutex();
+			public int Period = 1000;
+			public Action Callback;
+
+			public TimerRequest(Action callback) {
+				Callback = callback;
+			}
+
+			public void Start() {
+				Disposed = false;
+				Timer = new System.Threading.Timer((state) => {
+					if(!Mutex.WaitOne(10)) { // prevent deadlock if Dispose() is called just before executing this lock
+						return;
+					}
+					Callback();
+					Mutex.ReleaseMutex();
+				}, null, 0, Period * 1000);
+			}
+			public void Kill() {
+				using(ManualResetEvent wait = new ManualResetEvent(false)) {
+					Disposed = true;
+					Mutex.WaitOne();
+					if(Timer.Dispose(wait))
+						wait.WaitOne();
+					Mutex.ReleaseMutex();
+				}
+			}
+		}
 		public class CoinRow : PropManager<CoinRow> {
 			public Bitmap Icon { get; set; } = null; // skip this on json get
 			public string Coin { get; set; } = "";// skip this on json get
@@ -56,13 +86,17 @@ namespace CryptoGadget {
 			public string MktCap { get; set; } = "0";
 			public string LastMarket { get; set; } = "?";
 		}
-		
+
+		//private TimerRequest _timer_grid = new TimerRequest(TimerRoutine);
+		//private TimerRequest _timer_alert = new TimerRequest();
+
         private System.Threading.Timer _timer_req = null;
         private volatile bool _timer_disposed = false;
 		private Mutex _timer_mtx = new Mutex();
 		private string _query = "";
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
+
 
 		internal void ApplySettings() {
 			TimerRoutineKill();
@@ -86,6 +120,7 @@ namespace CryptoGadget {
 
 			TimerRoutineStart();
 		}
+
 
 		private void TimerRoutineStart() {
 			_timer_disposed = false;

@@ -256,6 +256,7 @@ namespace CryptoGadget {
 			_ptr_form = form;
 
 			Global.Sett.CloneTo(_sett);
+			Global.Sett.CloneFileTo(_sett);
 
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
@@ -581,8 +582,6 @@ namespace CryptoGadget {
 			_page = comboPages.SelectedIndex;
 			BindCoins();
 		}
-
-
 
 		#endregion
 
