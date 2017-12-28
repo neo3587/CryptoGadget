@@ -35,18 +35,16 @@ namespace CryptoGadget {
 		public class TimerRequest {
 			private System.Threading.Timer _timer = null;
 			private volatile bool _disposed = true;
-			private int _period = 1000;
 			private Mutex _mutex = new Mutex();
 			private Action<TimerRequest> _callback;
 			
 			public bool Disposed { get => _disposed; }
 
-			public TimerRequest(Action<TimerRequest> callback, int period) {
+			public TimerRequest(Action<TimerRequest> callback) {
 				_callback = callback;
-				_period = period;
 			}
 
-			public bool Start() {
+			public bool Start(int period) {
 				if(!_disposed)
 					return false;
 				_disposed = false;
@@ -56,7 +54,7 @@ namespace CryptoGadget {
 					}
 					_callback(this);
 					_mutex.ReleaseMutex();
-				}, null, 0, _period);
+				}, null, 0, period);
 				return true;
 			}
 			public bool Kill(int wait = Timeout.Infinite) {
@@ -99,25 +97,21 @@ namespace CryptoGadget {
 
 		private TimerRequest _timer_grid = null;
 		private TimerRequest _timer_alert = null;
-		private string _query_grid = "";
-		private string _query_alert = "";
-		private volatile bool _alarm_raised = false;
+		private string _query_grid = ""; // full query -> current page
+		private string _query_alert = ""; // basic query -> all pages
+		private volatile bool _save_on_close = false;
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
 		private Settings.CoinList _alert_list = new Settings.CoinList();
 
 
 		internal void ApplySettings() {
-			_timer_alert.Kill();
 			_timer_grid.Kill();
 			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
 			Location = curr_loc;
-			_timer_grid.Start();
-			if(_alert_list.Count > 0) {
-				_timer_alert.Start();
-			}
+			_timer_grid.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 		internal void SwapPage(int page) {
 
@@ -131,7 +125,7 @@ namespace CryptoGadget {
 			mainGrid.DataSource = _coin_list;
 			ResizeForm();
 
-			_timer_grid.Start();
+			_timer_grid.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 
 
@@ -220,12 +214,12 @@ namespace CryptoGadget {
 							if(val > st.Alert.Above) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
 								st.Alert.Above = 0.0f;
-								_alarm_raised = true;
+								_save_on_close = true;
 							}
 							else if(val < st.Alert.Below) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
 								st.Alert.Below = 0.0f;
-								_alarm_raised = true;
+								_save_on_close = true;
 							}
 						});
 					}
@@ -427,11 +421,11 @@ namespace CryptoGadget {
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-				_timer_grid = new TimerRequest(TimerGridRoutine, Global.Sett.Basic.RefreshRate * 1000);
-				_timer_alert = new TimerRequest(TimerAlertRoutine, Global.Sett.Basic.AlertCheckRate * 1000);
-				_timer_grid.Start();
+				_timer_grid = new TimerRequest(TimerGridRoutine);
+				_timer_alert = new TimerRequest(TimerAlertRoutine);
+				_timer_grid.Start(Global.Sett.Basic.RefreshRate * 1000);
 				if(_alert_list.Count > 0) {
-					_timer_alert.Start();
+					_timer_alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 				}
 
             };
@@ -439,9 +433,13 @@ namespace CryptoGadget {
         }
 
         private void toolStripSettings_Click(object sender, EventArgs e) {
+			_timer_alert.Kill();
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
-        }
+			if(_alert_list.Count > 0) {
+				_timer_alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
+			}
+		}
         private void toolStripHide_Click(object sender, EventArgs e) {
             Visible = !Visible;
 			toolStripHide.Checked = !Visible;
@@ -459,19 +457,17 @@ namespace CryptoGadget {
 			_timer_alert.Kill(500);
 			_timer_grid.Kill(500);
 
-			bool change = false;
-
 			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
 				Global.Sett.Coords.PosX = Location.X;
 				Global.Sett.Coords.PosY = Location.Y;
-				change = true;
+				_save_on_close = true;
 			}
 			if(Global.Sett.Pages.ExitSave && Global.Sett.Pages.Default != _page) {
 				Global.Sett.Pages.Default = _page;
-				change = true;
+				_save_on_close = true;
 			}
 
-			if(change || _alarm_raised) {
+			if(_save_on_close) {
 				Global.Sett.Store();
 				Global.Sett.Save();
 			}
