@@ -8,7 +8,7 @@
 
 # <a name ="introduction"></a> Introduction
 
-CryptoGadget is a C# based 'gadget' to view the current cryptocurrencies prices for Windows with a customizable graphical user interface. CryptoGadget uses the CryptoCompare API to display the prices, which supports more than 1000 different cryptocurrencies.
+CryptoGadget is a C# based gadget-like application to view the current cryptocurrencies prices (and other data) for Windows with a customizable graphical user interface. CryptoGadget uses the CryptoCompare API (https://www.cryptocompare.com/api/#) to get the data, which supports more than 1000 different cryptocurrencies.
 
 # <a name="features"></a> Features
 
