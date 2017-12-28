@@ -62,7 +62,7 @@ namespace CryptoGadget {
         public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
 
             InitializeComponent();
-            _ptr_list = coin_list;
+            _ptr_list = coin_list; // just for FindConv
 			_editing = editing;
 
             HandleCreated += (sender, e) => {
@@ -106,6 +106,8 @@ namespace CryptoGadget {
 			CoinResult.CoinName   = left.Value;
 			CoinResult.Target	  = right.Key;
 			CoinResult.TargetName = right.Value;
+			CoinResult.Alert.Above = (float)numAlertAbove.Value;
+			CoinResult.Alert.Below = (float)numAlertBelow.Value;
 
 			Close();
         }

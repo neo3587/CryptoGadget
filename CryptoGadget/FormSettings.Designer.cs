@@ -121,6 +121,8 @@
 			this.colsGridDigits = new DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn();
 			this.colsGridEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.numAlertCheckRate = new System.Windows.Forms.NumericUpDown();
+			this.label22 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.textBoxProfileName = new System.Windows.Forms.TextBox();
 			this.buttonProfileOpenFolder = new System.Windows.Forms.Button();
@@ -134,6 +136,11 @@
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.buttonDefaultCurrencies = new System.Windows.Forms.Button();
 			this.coinGrid = new System.Windows.Forms.DataGridView();
+			this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
+			this.coinGridCoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.labelQrCodeName = new System.Windows.Forms.Label();
@@ -164,11 +171,6 @@
 			this.comboPages = new System.Windows.Forms.ComboBox();
 			this.buttonApply = new System.Windows.Forms.Button();
 			this.buttonPageSwap = new System.Windows.Forms.Button();
-			this.coinGridImg = new System.Windows.Forms.DataGridViewImageColumn();
-			this.coinGridCoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -186,6 +188,7 @@
 			this.tabPage3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).BeginInit();
 			this.tabPage2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numAlertCheckRate)).BeginInit();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -1330,6 +1333,8 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.numAlertCheckRate);
+			this.tabPage2.Controls.Add(this.label22);
 			this.tabPage2.Controls.Add(this.groupBox3);
 			this.tabPage2.Controls.Add(this.numRefreshRate);
 			this.tabPage2.Controls.Add(this.label1);
@@ -1346,6 +1351,39 @@
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Basic";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// numAlertCheckRate
+			// 
+			this.numAlertCheckRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numAlertCheckRate.Location = new System.Drawing.Point(351, 8);
+			this.numAlertCheckRate.Maximum = new decimal(new int[] {
+            10800,
+            0,
+            0,
+            0});
+			this.numAlertCheckRate.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			this.numAlertCheckRate.Name = "numAlertCheckRate";
+			this.numAlertCheckRate.Size = new System.Drawing.Size(97, 20);
+			this.numAlertCheckRate.TabIndex = 78;
+			this.numAlertCheckRate.ThousandsSeparator = true;
+			this.numAlertCheckRate.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(228, 10);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(117, 13);
+			this.label22.TabIndex = 77;
+			this.label22.Text = "Alert Check Rate (sec):";
 			// 
 			// groupBox3
 			// 
@@ -1468,14 +1506,14 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Colors";
 			// 
-			// boxTheme
+			// comboTheme
 			// 
 			this.comboTheme.FormattingEnabled = true;
 			this.comboTheme.Items.AddRange(new object[] {
             "Light",
             "Dark"});
 			this.comboTheme.Location = new System.Drawing.Point(56, 19);
-			this.comboTheme.Name = "boxTheme";
+			this.comboTheme.Name = "comboTheme";
 			this.comboTheme.Size = new System.Drawing.Size(121, 21);
 			this.comboTheme.TabIndex = 41;
 			this.comboTheme.SelectedIndexChanged += new System.EventHandler(this.comboTheme_SelectedIndexChanged);
@@ -1544,6 +1582,53 @@
 			this.coinGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.coinGrid.Size = new System.Drawing.Size(414, 395);
 			this.coinGrid.TabIndex = 10;
+			// 
+			// coinGridImg
+			// 
+			this.coinGridImg.HeaderText = "";
+			this.coinGridImg.MinimumWidth = 15;
+			this.coinGridImg.Name = "coinGridImg";
+			this.coinGridImg.ReadOnly = true;
+			this.coinGridImg.Width = 25;
+			// 
+			// coinGridCoin
+			// 
+			this.coinGridCoin.FillWeight = 69.76744F;
+			this.coinGridCoin.HeaderText = "Coin";
+			this.coinGridCoin.MaxInputLength = 20;
+			this.coinGridCoin.MinimumWidth = 20;
+			this.coinGridCoin.Name = "coinGridCoin";
+			this.coinGridCoin.ReadOnly = true;
+			this.coinGridCoin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridCoin.Width = 50;
+			// 
+			// coinGridName
+			// 
+			this.coinGridName.HeaderText = "Name";
+			this.coinGridName.MaxInputLength = 20;
+			this.coinGridName.MinimumWidth = 25;
+			this.coinGridName.Name = "coinGridName";
+			this.coinGridName.ReadOnly = true;
+			this.coinGridName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridName.Width = 143;
+			// 
+			// coinGridTarget
+			// 
+			this.coinGridTarget.HeaderText = "Target";
+			this.coinGridTarget.MaxInputLength = 50;
+			this.coinGridTarget.Name = "coinGridTarget";
+			this.coinGridTarget.ReadOnly = true;
+			this.coinGridTarget.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.coinGridTarget.Width = 50;
+			// 
+			// coinGridTargetName
+			// 
+			this.coinGridTargetName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.coinGridTargetName.HeaderText = "Target Name";
+			this.coinGridTargetName.MaxInputLength = 250;
+			this.coinGridTargetName.Name = "coinGridTargetName";
+			this.coinGridTargetName.ReadOnly = true;
+			this.coinGridTargetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
 			// tabControl1
 			// 
@@ -1898,53 +1983,6 @@
 			this.buttonPageSwap.UseVisualStyleBackColor = true;
 			this.buttonPageSwap.Click += new System.EventHandler(this.buttonPageSwap_Click);
 			// 
-			// coinGridImg
-			// 
-			this.coinGridImg.HeaderText = "";
-			this.coinGridImg.MinimumWidth = 15;
-			this.coinGridImg.Name = "coinGridImg";
-			this.coinGridImg.ReadOnly = true;
-			this.coinGridImg.Width = 25;
-			// 
-			// coinGridCoin
-			// 
-			this.coinGridCoin.FillWeight = 69.76744F;
-			this.coinGridCoin.HeaderText = "Coin";
-			this.coinGridCoin.MaxInputLength = 20;
-			this.coinGridCoin.MinimumWidth = 20;
-			this.coinGridCoin.Name = "coinGridCoin";
-			this.coinGridCoin.ReadOnly = true;
-			this.coinGridCoin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coinGridCoin.Width = 50;
-			// 
-			// coinGridName
-			// 
-			this.coinGridName.HeaderText = "Name";
-			this.coinGridName.MaxInputLength = 20;
-			this.coinGridName.MinimumWidth = 25;
-			this.coinGridName.Name = "coinGridName";
-			this.coinGridName.ReadOnly = true;
-			this.coinGridName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coinGridName.Width = 143;
-			// 
-			// coinGridTarget
-			// 
-			this.coinGridTarget.HeaderText = "Target";
-			this.coinGridTarget.MaxInputLength = 50;
-			this.coinGridTarget.Name = "coinGridTarget";
-			this.coinGridTarget.ReadOnly = true;
-			this.coinGridTarget.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.coinGridTarget.Width = 50;
-			// 
-			// coinGridTargetName
-			// 
-			this.coinGridTargetName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.coinGridTargetName.HeaderText = "Target Name";
-			this.coinGridTargetName.MaxInputLength = 250;
-			this.coinGridTargetName.Name = "coinGridTargetName";
-			this.coinGridTargetName.ReadOnly = true;
-			this.coinGridTargetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -1985,6 +2023,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.colsGrid)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numAlertCheckRate)).EndInit();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefreshRate)).EndInit();
@@ -2141,5 +2180,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTarget;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTargetName;
+		private System.Windows.Forms.NumericUpDown numAlertCheckRate;
+		private System.Windows.Forms.Label label22;
 	}
 }

@@ -12,24 +12,40 @@ namespace CryptoGadget {
 
 	class CCRequest { // CryptoCompareRequest
 
+		private static string _GetInOutArgs(Settings.CoinList[] cl_list, string market) {
+			SortedSet<string> input = new SortedSet<string>();
+			SortedSet<string> output = new SortedSet<string>();
+			foreach(Settings.CoinList cl in cl_list) {
+				foreach(Settings.StCoin st in cl) {
+					input.Add(st.Coin);
+					output.Add(st.Target);
+				}
+			}
+			return "?fsyms=" + string.Join(",", input).ToUpper() +
+					"&tsyms=" + string.Join(",", output).ToUpper() +
+					(market != "" ? "&e=" + market : "") +
+					"&extraParams=CryptoGadget";
+		}
+
 		public enum HistoType {
 			Minute = 0x00,
 			Hour = 0x01,
 			Day = 0x02
 		}
 
-		public static string ConvertQuery(Settings.CoinList list_st, string market = "") {
-			SortedSet<string> input = new SortedSet<string>();
-			SortedSet<string> output = new SortedSet<string>();
-			foreach(Settings.StCoin st in list_st) {
-				input.Add(st.Coin);
-				output.Add(st.Target);
-			}
-			return "https://min-api.cryptocompare.com/data/pricemultifull" + 
-					"?fsyms=" + string.Join(",", input).ToUpper() + 
-					"&tsyms=" + string.Join(",", output).ToUpper() + 
-					(market != "" ? "&e=" + market : "") + 
-					"&extraParams=CryptoGadget";
+		public static string ConvertQueryBasic(Settings.CoinList cl, string market = "") {
+			Settings.CoinList[] cl_list = new Settings.CoinList[1] { cl };
+			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
+		}
+		public static string ConvertQueryBasic(Settings.CoinList[] cl_list, string market = "") {
+			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
+		}
+		public static string ConvertQueryFull(Settings.CoinList cl, string market = "") {
+			Settings.CoinList[] cl_list = new Settings.CoinList[1] { cl };
+			return "https://min-api.cryptocompare.com/data/pricemultifull" + _GetInOutArgs(cl_list, market);
+		}
+		public static string ConvertQueryFull(Settings.CoinList[] cl_list, string market = "") {
+			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
 		}
 		public static string HistoQuery(Settings.StCoin st, HistoType type, int size = 60, int step = 1, int time = -1) {
 			string str_type = type == HistoType.Minute ? "Minute" : (type == HistoType.Hour ? "Hour" : "Day");

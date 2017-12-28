@@ -59,7 +59,7 @@ namespace CryptoGadget {
 
 					try {
 
-						JObject json = CCRequest.HttpRequest(CCRequest.ConvertQuery(conv_list)); // call this even with custom market to force the internet connection check
+						JObject json = CCRequest.HttpRequest(CCRequest.ConvertQueryFull(conv_list)); // call this even with custom market to force the internet connection check
 
 						BadConvs = new List<string>();
 
@@ -75,10 +75,9 @@ namespace CryptoGadget {
 							} catch { }
 
 							if(market != "") {
-								Settings.CoinList single_conv = new Settings.CoinList();
-								single_conv.Add(conv_list[i]);
+								Settings.CoinList single_conv = new Settings.CoinList() { conv_list[i] };
 								try {
-									json = CCRequest.HttpRequest(CCRequest.ConvertQuery(single_conv, market));
+									json = CCRequest.HttpRequest(CCRequest.ConvertQueryFull(single_conv, market));
 								} catch { }
 							}
 

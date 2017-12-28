@@ -33,34 +33,44 @@ namespace CryptoGadget {
     public partial class FormMain : Form {
 
 		public class TimerRequest {
-			public System.Threading.Timer Timer = null;
-			public volatile bool Disposed = false;
-			public Mutex Mutex = new Mutex();
-			public int Period = 1000;
-			public Action Callback;
+			private System.Threading.Timer _timer = null;
+			private volatile bool _disposed = true;
+			private int _period = 1000;
+			private Mutex _mutex = new Mutex();
+			private Action<TimerRequest> _callback;
+			
+			public bool Disposed { get => _disposed; }
 
-			public TimerRequest(Action callback) {
-				Callback = callback;
+			public TimerRequest(Action<TimerRequest> callback, int period) {
+				_callback = callback;
+				_period = period;
 			}
 
-			public void Start() {
-				Disposed = false;
-				Timer = new System.Threading.Timer((state) => {
-					if(!Mutex.WaitOne(10)) { // prevent deadlock if Dispose() is called just before executing this lock
+			public bool Start() {
+				if(!_disposed)
+					return false;
+				_disposed = false;
+				_timer = new System.Threading.Timer((state) => {
+					if(!_mutex.WaitOne(10)) { // prevent deadlock if Dispose() is called just before executing this lock
 						return;
 					}
-					Callback();
-					Mutex.ReleaseMutex();
-				}, null, 0, Period * 1000);
+					_callback(this);
+					_mutex.ReleaseMutex();
+				}, null, 0, _period);
+				return true;
 			}
-			public void Kill() {
-				using(ManualResetEvent wait = new ManualResetEvent(false)) {
-					Disposed = true;
-					Mutex.WaitOne();
-					if(Timer.Dispose(wait))
-						wait.WaitOne();
-					Mutex.ReleaseMutex();
+			public bool Kill(int wait = Timeout.Infinite) {
+				if(_disposed)
+					return false;
+				using(ManualResetEvent reset_ev = new ManualResetEvent(false)) {
+					_disposed = true;
+					if(!_mutex.WaitOne(wait))
+						return false;
+					if(_timer.Dispose(reset_ev))
+						reset_ev.WaitOne();
+					_mutex.ReleaseMutex();
 				}
+				return true;
 			}
 		}
 		public class CoinRow : PropManager<CoinRow> {
@@ -87,28 +97,31 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 
-		//private TimerRequest _timer_grid = new TimerRequest(TimerRoutine);
-		//private TimerRequest _timer_alert = new TimerRequest();
-
-        private System.Threading.Timer _timer_req = null;
-        private volatile bool _timer_disposed = false;
-		private Mutex _timer_mtx = new Mutex();
-		private string _query = "";
+		private TimerRequest _timer_grid = null;
+		private TimerRequest _timer_alert = null;
+		private string _query_grid = "";
+		private string _query_alert = "";
+		private volatile bool _alarm_raised = false;
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
+		private Settings.CoinList _alert_list = new Settings.CoinList();
 
 
 		internal void ApplySettings() {
-			TimerRoutineKill();
+			_timer_alert.Kill();
+			_timer_grid.Kill();
 			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
 			Location = curr_loc;
-			TimerRoutineStart();
+			_timer_grid.Start();
+			if(_alert_list.Count > 0) {
+				_timer_alert.Start();
+			}
 		}
 		internal void SwapPage(int page) {
 
-			TimerRoutineKill();
+			_timer_grid.Kill();
 
 			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page;
@@ -118,28 +131,11 @@ namespace CryptoGadget {
 			mainGrid.DataSource = _coin_list;
 			ResizeForm();
 
-			TimerRoutineStart();
+			_timer_grid.Start();
 		}
 
 
-		private void TimerRoutineStart() {
-			_timer_disposed = false;
-			_timer_req = new System.Threading.Timer(TimerRoutine, null, 0, Global.Sett.Basic.RefreshRate * 1000);
-		}
-		private void TimerRoutineKill() {
-			using(ManualResetEvent wait = new ManualResetEvent(false)) {
-				_timer_disposed = true;
-				_timer_mtx.WaitOne();
-				if(_timer_req.Dispose(wait))
-					wait.WaitOne();
-				_timer_mtx.ReleaseMutex();
-			}
-		}
-
-		private void TimerRoutine(object state) {
-
-			if(!_timer_mtx.WaitOne(10)) // prevent deadlock if Dispose() is called just before executing this lock
-				return;
+		private void TimerGridRoutine(TimerRequest state) {
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
@@ -152,7 +148,7 @@ namespace CryptoGadget {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(_query);
+				JObject json = CCRequest.HttpRequest(_query_grid);
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					for(int i = 0; i < _coin_list.Count; i++) {
@@ -175,47 +171,69 @@ namespace CryptoGadget {
 					}
 				}
 
-				if(Global.Sett.Visibility.Refresh)
-					TimerHighlight(last_values);
-			} catch { }
+				if(Global.Sett.Visibility.Refresh) {
+					Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
+						byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
+						byte[] bytebgcolor = BitConverter.GetBytes(bgcolor.ToArgb());
+						for(int i = 0; i < 4; i++)
+							bytecolor[i] = (byte)(bytebgcolor[i] * opacity + bytecolor[i] * (1 - opacity));
+						return Color.FromArgb(BitConverter.ToInt32(bytecolor, 0));
+					};
+					Action DefaultColors = () => {
+						for(int i = 0; i < last_values.Count; i++)
+							mainGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
+					};
 
-			_timer_mtx.ReleaseMutex();
+					for(float opacity = 0.0f; opacity < 1.0f && !state.Disposed; opacity += 0.05f) {
 
-		}
-		private void TimerHighlight(List<double> last_values) {
+						for(int i = 0; i < last_values.Count; i++) {
 
-			Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
-                byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
-                byte[] bytebgcolor = BitConverter.GetBytes(bgcolor.ToArgb());
-                for(int i = 0; i < 4; i++)
-                    bytecolor[i] = (byte)(bytebgcolor[i] * opacity + bytecolor[i] * (1 - opacity));
-                return Color.FromArgb(BitConverter.ToInt32(bytecolor, 0));
-            };
-            Action DefaultColors = () => {
-                for(int i = 0; i < last_values.Count; i++)
-                    mainGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
-            };
+							Color bg_color = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
+							double current_value = double.Parse(_coin_list[i].Value);
 
-            for(float opacity = 0.0f; opacity < 1.0f && !_timer_disposed; opacity += 0.05f) {
+							if(current_value > last_values[i])
+								mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.PositiveRefresh, bg_color, opacity);
+							else if(current_value < last_values[i])
+								mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.NegativeRefresh, bg_color, opacity);
 
-                for(int i = 0; i < last_values.Count; i++) {
+						}
 
-                    Color bgcolor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
-                    double currentValue = double.Parse(_coin_list[i].Value);
+						Thread.Sleep(60);
+					}
 
-                    if(currentValue > last_values[i]) 
-						mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.PositiveRefresh, bgcolor, opacity);
-                    else if(currentValue < last_values[i]) 
-                        mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.NegativeRefresh, bgcolor, opacity);
-
+					DefaultColors();
 				}
 
-				Thread.Sleep(60);
-            }
+			} catch { }
 
-            DefaultColors();
+		}
+		private void TimerAlertRoutine(TimerRequest state) {
 
-        }
+			try {
+				
+				JObject json = CCRequest.HttpRequest(_query_alert);
+
+				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
+					foreach(Settings.StCoin st in _alert_list) {
+						float val = float.Parse(json[st.Coin][st.Target].ToString());
+						Invoke((MethodInvoker)delegate {
+							if(val > st.Alert.Above) {
+								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
+								st.Alert.Above = 0.0f;
+								_alarm_raised = true;
+							}
+							else if(val < st.Alert.Below) {
+								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
+								st.Alert.Below = 0.0f;
+								_alarm_raised = true;
+							}
+						});
+					}
+				}
+
+			} catch { }
+			 
+		}
 
 		private void ResizeForm() {
             
@@ -310,6 +328,12 @@ namespace CryptoGadget {
                     regKey.DeleteValue("CryptoGadget", false);
             }
 
+			// Other
+
+			_alert_list = Global.Sett.GetAlarmCoins();
+			if(_alert_list.Count > 0)
+				_query_alert = CCRequest.ConvertQueryBasic(_alert_list, Global.Sett.Market.Market);
+
 		}
 		private void RowsInit() {
 
@@ -333,7 +357,7 @@ namespace CryptoGadget {
 				_coin_list.Add(row);
 			}
 
-			_query = CCRequest.ConvertQuery(Global.Sett.Coins[_page], Global.Sett.Market.Market);
+			_query_grid = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
 		}
 
 
@@ -403,7 +427,13 @@ namespace CryptoGadget {
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-				TimerRoutineStart();
+				_timer_grid = new TimerRequest(TimerGridRoutine, Global.Sett.Basic.RefreshRate * 1000);
+				_timer_alert = new TimerRequest(TimerAlertRoutine, Global.Sett.Basic.AlertCheckRate * 1000);
+				_timer_grid.Start();
+				if(_alert_list.Count > 0) {
+					_timer_alert.Start();
+				}
+
             };
 
         }
@@ -426,8 +456,8 @@ namespace CryptoGadget {
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
 
-			_timer_disposed = true;
-			_timer_mtx.WaitOne(500);
+			_timer_alert.Kill(500);
+			_timer_grid.Kill(500);
 
 			bool change = false;
 
@@ -441,7 +471,7 @@ namespace CryptoGadget {
 				change = true;
 			}
 
-			if(change) {
+			if(change || _alarm_raised) {
 				Global.Sett.Store();
 				Global.Sett.Save();
 			}

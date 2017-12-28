@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
 using System.Drawing;
+using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 
 
 
@@ -60,11 +60,16 @@ namespace CryptoGadget {
 		}
 		public class StBasic : PropManager<StBasic> {
 			private int _refresh_rate;
+			private int _alert_check_rate;
 			private bool _startup;
 
 			public int RefreshRate {
 				get => _refresh_rate;
 				set { _refresh_rate = value; NotifyPropertyChanged(); }
+			}
+			public int AlertCheckRate {
+				get => _alert_check_rate;
+				set { _alert_check_rate = value; NotifyPropertyChanged(); }
 			}
 			public bool Startup {
 				get => _startup;
@@ -322,6 +327,8 @@ namespace CryptoGadget {
 			All			= 0xFFFF
 		}
 		public class CoinList : BindingList<StCoin> {
+			public CoinList() : base() { }
+			public CoinList(IList<StCoin> list) : base(list) { }
 			public int FindConv(string coin, string target) {
 				for(int i = 0; i < Count; i++)
 					if(this[i].Coin == coin && this[i].Target == target)
@@ -338,6 +345,7 @@ namespace CryptoGadget {
 		public StMetrics Metrics		= new StMetrics();
 		public StPages Pages			= new StPages();
 		public StMarket Market			= new StMarket();
+		[JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
 		public StGrid Grid				= new StGrid();
 
 		[JsonIgnore]
@@ -354,23 +362,21 @@ namespace CryptoGadget {
 					_json = (JObject)JToken.ReadFrom(reader);
 				}
 			} catch(Exception e) {
-				Global.DbgPrint("ERROR: " + e.Message);
+				Global.DbgPrint("Settings.BindFile ERROR: " + e.Message);
 				return false;
 			}
 			return true;
 		}
 		public bool Load() {
-
 			try {
 				Default(); // Prevents errors from missing/null values
 				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings {
 					NullValueHandling = NullValueHandling.Ignore,
-					MissingMemberHandling = MissingMemberHandling.Ignore,
-					ObjectCreationHandling = ObjectCreationHandling.Replace
+					MissingMemberHandling = MissingMemberHandling.Ignore
 				});
 				Grid.BindGridPtr();
 			} catch(Exception e) {
-				Global.DbgMsgShow("ERROR: " + e.ToString());
+				Global.DbgMsgShow("Settings.Load ERROR: " + e.ToString());
 				return false;
 			}
 			
@@ -393,7 +399,8 @@ namespace CryptoGadget {
 			try {
 
 				// Basic
-				ThrowRule<int>()(Basic.RefreshRate, x => x >= 1);
+				ThrowRule<int>()(Basic.RefreshRate, x => x >= 3);
+				ThrowRule<int>()(Basic.AlertCheckRate, x => x >= 3);
 
 				// Metrics
 				foreach(PropertyInfo prop in StMetrics.GetProps()) {
@@ -405,7 +412,7 @@ namespace CryptoGadget {
 
 				// Pages
 				ThrowRule<int>()(Pages.Default, x => (x >= 0 && x <= 9));
-
+				
 				// Grid
 				foreach(PropertyInfo prop in StGrid.GetProps()) {
 					ThrowRule<int>()((Grid[prop.Name] as StColumn).Width, x => x >= 1);
@@ -414,7 +421,7 @@ namespace CryptoGadget {
 				ThrowRule<int>()(Grid.Columns.Count, x => x == StGrid.GetProps().Count());
 				ThrowRule<int>()(Grid.Columns.Except(StGrid.GetProps().Select(p => Grid[p.Name])).Count(), x => x == 0);
 				ThrowRule<int>()(StGrid.GetProps().Select(p => Grid[p.Name]).Except(Grid.Columns).Count(), x => x == 0);
-
+				
 				// Coins
 				for(int i = 0; i < 10; i++) {
 					foreach(StCoin st in Coins[i]) {
@@ -425,7 +432,7 @@ namespace CryptoGadget {
 
 			}
 			catch(Exception e) {
-				Global.DbgMsgShow("ERROR: " + e.Message);
+				Global.DbgMsgShow("Settings.Check ERROR: " + e.Message);
 				return false;
 			}
 
@@ -443,7 +450,7 @@ namespace CryptoGadget {
 					_json.WriteTo(writer);
 				}
 			} catch(Exception e) {
-				Global.DbgMsgShow("ERROR: " + e.ToString());
+				Global.DbgMsgShow("Settings.Save ERROR: " + e.ToString());
 				return false;
 			}
 			return true;
@@ -483,6 +490,7 @@ namespace CryptoGadget {
 			}
 			if((type & DefaultType.Basic) != 0) {
 				Basic.RefreshRate	  = 20;
+				Basic.AlertCheckRate  = 60;
 				Basic.Startup		  = false;
 			}
 			if((type & DefaultType.Visibility) != 0) {
@@ -555,8 +563,6 @@ namespace CryptoGadget {
 		public void CloneTo(Settings sett) {
 			sett._json = JObject.Parse(JsonConvert.SerializeObject(this));
 			sett.Load();
-		}
-		public void CloneFileTo(Settings sett) {
 			sett._json = (JObject)_json.DeepClone();
 			sett._file_path = _file_path;
 		}
@@ -577,10 +583,17 @@ namespace CryptoGadget {
 					new JObject().WriteTo(writer);
 				}
 			} catch(Exception e) {
-				Global.DbgPrint("ERROR: " + e.ToString());
+				Global.DbgPrint("Settings.CreateSettFile ERROR: " + e.ToString());
 				return false;
 			}
 			return true;
+		}
+
+		public CoinList GetAlarmCoins() {
+			CoinList list = new CoinList();
+			foreach(CoinList cl in Coins) 
+				list = new CoinList(list.Concat(cl.Where((x) => (x.Alert.Above > 0.0f || x.Alert.Below > 0.0f))).ToList());
+			return list;
 		}
 
 	}

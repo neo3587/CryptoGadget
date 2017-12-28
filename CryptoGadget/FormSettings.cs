@@ -21,7 +21,6 @@ namespace CryptoGadget {
 
 		private void ApplySettings() {
 			_sett.CloneTo(Global.Sett);
-			_sett.CloneFileTo(Global.Sett);
 			Global.Sett.Store();
 			Global.Sett.Save();
 			_ptr_form.ApplySettings();
@@ -172,6 +171,7 @@ namespace CryptoGadget {
 			// Basic
 
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
+			numAlertCheckRate.DataBindings.Add("Value", _sett.Basic, "AlertCheckRate");
 			checkStartup.DataBindings.Add("Checked", _sett.Basic, "Startup");
 
 			// Visibility
@@ -256,7 +256,6 @@ namespace CryptoGadget {
 			_ptr_form = form;
 
 			Global.Sett.CloneTo(_sett);
-			Global.Sett.CloneFileTo(_sett);
 
 			coinGrid.DoubleBuffered(true);
 			colsGrid.DoubleBuffered(true);
@@ -404,7 +403,6 @@ namespace CryptoGadget {
 				}
 
 				sett.CloneTo(_sett);
-				sett.CloneFileTo(_sett);
 
 				if(Global.ProfilesFolder != (Path.GetDirectoryName(ofd.FileName) + "\\")) {
 					using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {

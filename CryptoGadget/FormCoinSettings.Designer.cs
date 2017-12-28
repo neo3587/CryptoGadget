@@ -37,16 +37,15 @@
 			this.buttonIconSwap = new System.Windows.Forms.Button();
 			this.buttonIconReDownload = new System.Windows.Forms.Button();
 			this.numAlertAbove = new System.Windows.Forms.NumericUpDown();
-			this.numAlertBelow = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.checkTriggerOnce = new System.Windows.Forms.CheckBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.numAlertBelow = new System.Windows.Forms.NumericUpDown();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertAbove)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numAlertBelow)).BeginInit();
 			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numAlertBelow)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
@@ -188,17 +187,21 @@
 			// 
 			// numAlertAbove
 			// 
+			this.numAlertAbove.DecimalPlaces = 8;
+			this.numAlertAbove.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            524288});
 			this.numAlertAbove.Location = new System.Drawing.Point(84, 19);
+			this.numAlertAbove.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
 			this.numAlertAbove.Name = "numAlertAbove";
 			this.numAlertAbove.Size = new System.Drawing.Size(120, 20);
 			this.numAlertAbove.TabIndex = 0;
-			// 
-			// numAlertBelow
-			// 
-			this.numAlertBelow.Location = new System.Drawing.Point(84, 45);
-			this.numAlertBelow.Name = "numAlertBelow";
-			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
-			this.numAlertBelow.TabIndex = 1;
 			// 
 			// label1
 			// 
@@ -218,22 +221,11 @@
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Alert Below:";
 			// 
-			// checkTriggerOnce
-			// 
-			this.checkTriggerOnce.AutoSize = true;
-			this.checkTriggerOnce.Location = new System.Drawing.Point(12, 71);
-			this.checkTriggerOnce.Name = "checkTriggerOnce";
-			this.checkTriggerOnce.Size = new System.Drawing.Size(139, 17);
-			this.checkTriggerOnce.TabIndex = 4;
-			this.checkTriggerOnce.Text = "Trigger once and delete";
-			this.checkTriggerOnce.UseVisualStyleBackColor = true;
-			// 
 			// groupBox3
 			// 
-			this.groupBox3.Controls.Add(this.checkTriggerOnce);
+			this.groupBox3.Controls.Add(this.numAlertBelow);
 			this.groupBox3.Controls.Add(this.label2);
 			this.groupBox3.Controls.Add(this.label1);
-			this.groupBox3.Controls.Add(this.numAlertBelow);
 			this.groupBox3.Controls.Add(this.numAlertAbove);
 			this.groupBox3.Location = new System.Drawing.Point(432, 9);
 			this.groupBox3.Name = "groupBox3";
@@ -241,6 +233,24 @@
 			this.groupBox3.TabIndex = 14;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Alerts";
+			// 
+			// numAlertBelow
+			// 
+			this.numAlertBelow.DecimalPlaces = 8;
+			this.numAlertBelow.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            524288});
+			this.numAlertBelow.Location = new System.Drawing.Point(84, 45);
+			this.numAlertBelow.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+			this.numAlertBelow.Name = "numAlertBelow";
+			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
+			this.numAlertBelow.TabIndex = 4;
 			// 
 			// FormCoinSettings
 			// 
@@ -268,9 +278,9 @@
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertAbove)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numAlertBelow)).EndInit();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numAlertBelow)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -290,10 +300,9 @@
 		private System.Windows.Forms.Button buttonIconSwap;
 		private System.Windows.Forms.Button buttonIconReDownload;
 		private System.Windows.Forms.NumericUpDown numAlertAbove;
-		private System.Windows.Forms.NumericUpDown numAlertBelow;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.CheckBox checkTriggerOnce;
 		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.NumericUpDown numAlertBelow;
 	}
 }
