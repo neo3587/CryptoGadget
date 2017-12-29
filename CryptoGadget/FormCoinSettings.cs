@@ -79,8 +79,8 @@ namespace CryptoGadget {
 
 				comboCoin.SelectedIndex   = default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + default_conv.Coin + ", " + default_conv.CoinName + "]"), 0);
 				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + default_conv.Target + ", " + default_conv.TargetName + "]"), 0);
-				numAlertAbove.Value = (decimal)default_conv.Alert.Above;
-				numAlertBelow.Value = (decimal)default_conv.Alert.Below;
+				numAlertAbove.Value = default_conv.Alert.Above;
+				numAlertBelow.Value = default_conv.Alert.Below;
 			};
 
         }
@@ -107,8 +107,8 @@ namespace CryptoGadget {
 			CoinResult.CoinName   = left.Value;
 			CoinResult.Target	  = right.Key;
 			CoinResult.TargetName = right.Value;
-			CoinResult.Alert.Above = (float)numAlertAbove.Value;
-			CoinResult.Alert.Below = (float)numAlertBelow.Value;
+			CoinResult.Alert.Above = numAlertAbove.Value;
+			CoinResult.Alert.Below = numAlertBelow.Value;
 
 			Close();
         }

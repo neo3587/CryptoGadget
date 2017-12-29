@@ -225,7 +225,7 @@ namespace CryptoGadget {
 			for(int i = 0; i < cols_props.Length; i++)
 				colsGrid.Columns[i].DataPropertyName = cols_props[i].Name;
 
-			colsGrid.DataSource = _sett.Grid.Columns;
+			colsGrid.DataSource = _sett.Columns.ColumnOrder;
 
 			// Other (not actually binds)
 
@@ -234,15 +234,15 @@ namespace CryptoGadget {
 
 		}
 		private void ClearBindings() {
-			Action<Control.ControlCollection> InnerClear = null;
-			InnerClear = (ctrls) => {
-				foreach(Control ctrl in ctrls) {
-					if(ctrl.HasChildren)
-						InnerClear(ctrl.Controls);
-					ctrl.DataBindings.Clear();
+			Action<Control.ControlCollection> BindChildsClear = null;
+			BindChildsClear = (parent) => {
+				foreach(Control child in parent) {
+					if(child.HasChildren)
+						BindChildsClear(child.Controls);
+					child.DataBindings.Clear();
 				}
 			};
-			InnerClear(Controls);
+			BindChildsClear(Controls);
 		}
 
 
@@ -464,9 +464,9 @@ namespace CryptoGadget {
 			if(colsGrid.SelectedRows.Count > 0 && colsGrid.SelectedRows[0].Index > 0) {
 				int index1 = colsGrid.SelectedRows[0].Index;
 				int index2 = colsGrid.SelectedRows[0].Index - 1;
-				Settings.StColumn ptr = _sett.Grid.Columns[index1];
-				_sett.Grid.Columns.RemoveAt(index1);
-				_sett.Grid.Columns.Insert(index2, ptr);
+				Settings.StColumn ptr = _sett.Columns.ColumnOrder[index1];
+				_sett.Columns.ColumnOrder.RemoveAt(index1);
+				_sett.Columns.ColumnOrder.Insert(index2, ptr);
 				colsGrid.Rows[index2].Selected = true;
 			}
 		}
@@ -474,9 +474,9 @@ namespace CryptoGadget {
 			if(colsGrid.SelectedRows.Count > 0 && colsGrid.SelectedRows[0].Index < colsGrid.RowCount - 1) {
 				int index1 = colsGrid.SelectedRows[0].Index;
 				int index2 = colsGrid.SelectedRows[0].Index + 1;
-				Settings.StColumn ptr = _sett.Grid.Columns[index1];
-				_sett.Grid.Columns.RemoveAt(index1);
-				_sett.Grid.Columns.Insert(index2, ptr);
+				Settings.StColumn ptr = _sett.Columns.ColumnOrder[index1];
+				_sett.Columns.ColumnOrder.RemoveAt(index1);
+				_sett.Columns.ColumnOrder.Insert(index2, ptr);
 				colsGrid.Rows[index2].Selected = true;
 			}
 		}

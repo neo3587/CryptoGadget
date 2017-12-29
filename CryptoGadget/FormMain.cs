@@ -95,9 +95,9 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 
-		private TimerRequest _timer_grid = null;
+		private TimerRequest _timer_rows = null;
 		private TimerRequest _timer_alert = null;
-		private string _query_grid = ""; // full query -> current page
+		private string _query_rows = ""; // full query -> current page
 		private string _query_alert = ""; // basic query -> all pages
 		private volatile bool _save_on_close = false;
 		private int _page = 0;
@@ -106,16 +106,16 @@ namespace CryptoGadget {
 
 
 		internal void ApplySettings() {
-			_timer_grid.Kill();
+			_timer_rows.Kill();
 			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
 			Location = curr_loc;
-			_timer_grid.Start(Global.Sett.Basic.RefreshRate * 1000);
+			_timer_rows.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 		internal void SwapPage(int page) {
 
-			_timer_grid.Kill();
+			_timer_rows.Kill();
 
 			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page;
@@ -125,11 +125,11 @@ namespace CryptoGadget {
 			mainGrid.DataSource = _coin_list;
 			ResizeForm();
 
-			_timer_grid.Start(Global.Sett.Basic.RefreshRate * 1000);
+			_timer_rows.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 
 
-		private void TimerGridRoutine(TimerRequest state) {
+		private void TimerRowsRoutine(TimerRequest state) {
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
@@ -142,18 +142,18 @@ namespace CryptoGadget {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(_query_grid);
+				JObject json = CCRequest.HttpRequest(_query_rows);
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					for(int i = 0; i < _coin_list.Count; i++) {
 						try {
 							JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
 
-							foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
-								_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
-							_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString();
+							foreach(ValueTuple<string, string> tp in Settings.StColumns.jsget)
+								_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Columns[tp.Item1] as Settings.StColumn).Digits);
+							_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString(); // non-numeric column
 
-							string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" };
+							string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" }; // special coloring and formatting columns
 							foreach(string chg in changes) {
 								if((_coin_list[i][chg] as string)[0] != '-')
 									_coin_list[i][chg] = "+" + (_coin_list[i][chg] as string);
@@ -166,12 +166,12 @@ namespace CryptoGadget {
 				}
 
 				if(Global.Sett.Visibility.Refresh) {
-					Func<Color, Color, float, Color> ColorApply = (color, bgcolor, opacity) => {
-						byte[] bytecolor = BitConverter.GetBytes(color.ToArgb());
-						byte[] bytebgcolor = BitConverter.GetBytes(bgcolor.ToArgb());
+					Func<Color, Color, float, Color> ColorApply = (color, bg_color, opacity) => {
+						byte[] byte_color = BitConverter.GetBytes(color.ToArgb());
+						byte[] byte_bg_color = BitConverter.GetBytes(bg_color.ToArgb());
 						for(int i = 0; i < 4; i++)
-							bytecolor[i] = (byte)(bytebgcolor[i] * opacity + bytecolor[i] * (1 - opacity));
-						return Color.FromArgb(BitConverter.ToInt32(bytecolor, 0));
+							byte_color[i] = (byte)(byte_bg_color[i] * opacity + byte_color[i] * (1 - opacity));
+						return Color.FromArgb(BitConverter.ToInt32(byte_color, 0));
 					};
 					Action DefaultColors = () => {
 						for(int i = 0; i < last_values.Count; i++)
@@ -209,16 +209,16 @@ namespace CryptoGadget {
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					foreach(Settings.StCoin st in _alert_list) {
-						float val = float.Parse(json[st.Coin][st.Target].ToString());
+						decimal val = decimal.Parse(json[st.Coin][st.Target].ToString());
 						Invoke((MethodInvoker)delegate {
 							if(val > st.Alert.Above) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
-								st.Alert.Above = 0.0f;
+								st.Alert.Above = 0.0m;
 								_save_on_close = true;
 							}
 							else if(val < st.Alert.Below) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
-								st.Alert.Below = 0.0f;
+								st.Alert.Below = 0.0m;
 								_save_on_close = true;
 							}
 						});
@@ -254,7 +254,7 @@ namespace CryptoGadget {
 
 			RowsInit();
 
-			foreach(Settings.StColumn st in Global.Sett.Grid.Columns) {
+			foreach(Settings.StColumn st in Global.Sett.Columns.ColumnOrder) {
 				DataGridViewColumn col = new DataGridViewColumn();
 				col.HeaderText = st.Name; 
 				col.Name = st.Column;
@@ -351,7 +351,7 @@ namespace CryptoGadget {
 				_coin_list.Add(row);
 			}
 
-			_query_grid = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
+			_query_rows = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
 		}
 
 
@@ -374,8 +374,8 @@ namespace CryptoGadget {
 					using(StreamReader reader = new StreamReader(Global.ProfileIniLocation)) {
 						Global.Profile = reader.ReadLine();
 					}
-				} catch(Exception exc) {
-					Global.DbgMsgShow("ERROR: " + exc.Message);
+				} catch(Exception ex) {
+					Global.DbgMsgShow("FormMain Constructor (default_profile.ini) ERROR:\n" + ex.Message);
 					MessageBox.Show("The default profile can't be determinated because the \"default_profile.ini\" file is missing, the \"Default.json\" profile will be used");
 					using(StreamWriter writer = new StreamWriter(Global.ProfileIniLocation)) {
 						writer.WriteLine("Default.json");
@@ -421,9 +421,9 @@ namespace CryptoGadget {
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-				_timer_grid = new TimerRequest(TimerGridRoutine);
+				_timer_rows = new TimerRequest(TimerRowsRoutine);
 				_timer_alert = new TimerRequest(TimerAlertRoutine);
-				_timer_grid.Start(Global.Sett.Basic.RefreshRate * 1000);
+				_timer_rows.Start(Global.Sett.Basic.RefreshRate * 1000);
 				if(_alert_list.Count > 0) {
 					_timer_alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 				}
@@ -455,7 +455,7 @@ namespace CryptoGadget {
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
 
 			_timer_alert.Kill(500);
-			_timer_grid.Kill(500);
+			_timer_rows.Kill(500);
 
 			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
 				Global.Sett.Coords.PosX = Location.X;
@@ -476,7 +476,6 @@ namespace CryptoGadget {
         private void mainGrid_SelectionChanged(object sender, EventArgs e) {
             mainGrid.ClearSelection();
         }
-
 		private void mainGrid_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e) {
 
 			ContextMenuStrip cm = new ContextMenuStrip();
