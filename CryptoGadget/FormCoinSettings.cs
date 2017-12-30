@@ -16,7 +16,8 @@ namespace CryptoGadget {
 
     public partial class FormCoinSettings : Form {
 
-        private Settings.CoinList _ptr_list = null;
+        private readonly Settings.CoinList _ptr_list = null;
+		private readonly Settings.StCoin _default_conv = null;
         private BindingSource _coin_bind   = new BindingSource();
 		private BindingSource _target_bind = new BindingSource();
 		private bool _editing = false;
@@ -63,9 +64,12 @@ namespace CryptoGadget {
 
             InitializeComponent();
             _ptr_list = coin_list; // just for FindConv
+			_default_conv = default_conv;
 			_editing = editing;
 
             HandleCreated += (sender, e) => {
+
+				Text = "CryptoGadget Settings " + (_editing ? "[Edit Coin]" : "[Add Coin]");
 
 				foreach(JProperty jprop in Global.Json["Data"]) {
 					string name		 = jprop.Value["Name"].ToString();
@@ -77,10 +81,11 @@ namespace CryptoGadget {
 				comboCoin.DataSource   = _coin_bind;
                 comboTarget.DataSource = _target_bind;
 
-				comboCoin.SelectedIndex   = default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + default_conv.Coin + ", " + default_conv.CoinName + "]"), 0);
-				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + default_conv.Target + ", " + default_conv.TargetName + "]"), 0);
-				numAlertAbove.Value = default_conv.Alert.Above;
-				numAlertBelow.Value = default_conv.Alert.Below;
+				comboCoin.SelectedIndex   = _default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + _default_conv.Coin + ", " + _default_conv.CoinName + "]"), 0);
+				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(_default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + _default_conv.Target + ", " + _default_conv.TargetName + "]"), 0);
+				numAlertAbove.Value = _default_conv.Alert.Above;
+				numAlertBelow.Value = _default_conv.Alert.Below;
+
 			};
 
         }
@@ -95,12 +100,11 @@ namespace CryptoGadget {
                 left = new CoinPair(left.Value, left.Key);
 			if(checkTargetIndexName.Checked)
                 right = new CoinPair(right.Value, right.Key);
-            
-            if(!_editing && _ptr_list.FindConv(left.Key, right.Key) != -1) {
+			if((!_editing && _ptr_list.FindConv(left.Key, right.Key) != -1) || (_editing && (left.Key != _default_conv.Coin || right.Key != _default_conv.Target))) {
 				MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
 				return;
             }
-
+			
 			CoinResult = new Settings.StCoin();
 			CoinResult.Icon       = Global.GetIcon(left.Key, 16);
 			CoinResult.Coin       = left.Key;

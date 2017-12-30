@@ -305,10 +305,10 @@ namespace CryptoGadget {
 			[JsonIgnore] public StColumn MktCap { get; set; }
 			[JsonIgnore] public StColumn LastMarket { get; set; }
 
-			public BindingList<StColumn> Order = new BindingList<StColumn>();
+			public BindingList<StColumn> Columns = new BindingList<StColumn>();
 
 			public void BindColsPtr() {
-				foreach(StColumn st in Order) 
+				foreach(StColumn st in Columns) 
 					this[st.Column] = st;
 			}
 		}
@@ -415,9 +415,9 @@ namespace CryptoGadget {
 					ThrowRule<int>((Grid[prop.Name] as StColumn).Width, x => x >= 1);
 					ThrowRule<int>((Grid[prop.Name] as StColumn).Digits, x => x >= 0);
 				}
-				ThrowRule<int>(Grid.Order.Count, x => x == StGrid.GetProps().Count());
-				ThrowRule<int>(Grid.Order.Except(StGrid.GetProps().Select(p => Grid[p.Name])).Count(), x => x == 0);
-				ThrowRule<int>(StGrid.GetProps().Select(p => Grid[p.Name]).Except(Grid.Order).Count(), x => x == 0);
+				ThrowRule<int>(Grid.Columns.Count, x => x == StGrid.GetProps().Count());
+				ThrowRule<int>(Grid.Columns.Except(StGrid.GetProps().Select(p => Grid[p.Name])).Count(), x => x == 0);
+				ThrowRule<int>(StGrid.GetProps().Select(p => Grid[p.Name]).Except(Grid.Columns).Count(), x => x == 0);
 				
 				// Coins
 				for(int i = 0; i < 10; i++) {
@@ -548,7 +548,7 @@ namespace CryptoGadget {
 				Market.Market = "";
 			}
 			if((type & DefaultType.Grid) != 0) {
-				Grid.Order.Clear();
+				Grid.Columns.Clear();
 				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) {
 					StColumn st = new StColumn();
 					st.Column = prop.Item1;
@@ -556,7 +556,7 @@ namespace CryptoGadget {
 					st.Width = prop.Item4;
 					st.Digits = prop.Item5;
 					st.Enabled = prop.Item6;
-					Grid.Order.Add(st);
+					Grid.Columns.Add(st);
 				}
 				Grid.BindColsPtr();
 			}

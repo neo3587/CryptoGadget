@@ -254,7 +254,7 @@ namespace CryptoGadget {
 
 			RowsInit();
 
-			foreach(Settings.StColumn st in Global.Sett.Grid.Order) {
+			foreach(Settings.StColumn st in Global.Sett.Grid.Columns) {
 				DataGridViewColumn col = new DataGridViewColumn();
 				col.HeaderText = st.Name; 
 				col.Name = st.Column;
