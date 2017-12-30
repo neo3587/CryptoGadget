@@ -149,8 +149,8 @@ namespace CryptoGadget {
 						try {
 							JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
 
-							foreach(ValueTuple<string, string> tp in Settings.StColumns.jsget)
-								_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Columns[tp.Item1] as Settings.StColumn).Digits);
+							foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
+								_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
 							_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString(); // non-numeric column
 
 							string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" }; // special coloring and formatting columns
@@ -211,12 +211,12 @@ namespace CryptoGadget {
 					foreach(Settings.StCoin st in _alert_list) {
 						decimal val = decimal.Parse(json[st.Coin][st.Target].ToString());
 						Invoke((MethodInvoker)delegate {
-							if(val > st.Alert.Above) {
+							if(st.Alert.Above > 0.0m && val > st.Alert.Above) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
 								st.Alert.Above = 0.0m;
 								_save_on_close = true;
 							}
-							else if(val < st.Alert.Below) {
+							else if(st.Alert.Below > 0.0m && val < st.Alert.Below) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
 								st.Alert.Below = 0.0m;
 								_save_on_close = true;
@@ -254,7 +254,7 @@ namespace CryptoGadget {
 
 			RowsInit();
 
-			foreach(Settings.StColumn st in Global.Sett.Columns.ColumnOrder) {
+			foreach(Settings.StColumn st in Global.Sett.Grid.Order) {
 				DataGridViewColumn col = new DataGridViewColumn();
 				col.HeaderText = st.Name; 
 				col.Name = st.Column;

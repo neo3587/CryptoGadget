@@ -5,7 +5,6 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Drawing;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -259,7 +258,7 @@ namespace CryptoGadget {
 				set { _enabled = value; NotifyPropertyChanged(); }
 			}
 		}
-		public class StColumns : PropManager<StColumns> {
+		public class StGrid : PropManager<StGrid> {
 			// <PropertyName, default_ShownName, JsonName, default_width, default_digits, default_enabled>
 			public static ValueTuple<string, string, string, int, int, bool>[] props = { ("Icon",			"",					"",					25, 0, true),
 																						 ("Coin",			"Coin",				"",					40, 0, true),
@@ -306,10 +305,10 @@ namespace CryptoGadget {
 			[JsonIgnore] public StColumn MktCap { get; set; }
 			[JsonIgnore] public StColumn LastMarket { get; set; }
 
-			public BindingList<StColumn> ColumnOrder = new BindingList<StColumn>();
+			public BindingList<StColumn> Order = new BindingList<StColumn>();
 
 			public void BindColsPtr() {
-				foreach(StColumn st in ColumnOrder) 
+				foreach(StColumn st in Order) 
 					this[st.Column] = st;
 			}
 		}
@@ -347,7 +346,7 @@ namespace CryptoGadget {
 		public StPages Pages			= new StPages();
 		public StMarket Market			= new StMarket();
 		[JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
-		public StColumns Columns		= new StColumns();
+		public StGrid Grid				= new StGrid();
 
 		[JsonIgnore]
 		private string _file_path = "";
@@ -375,7 +374,7 @@ namespace CryptoGadget {
 					NullValueHandling = NullValueHandling.Ignore,
 					MissingMemberHandling = MissingMemberHandling.Ignore
 				});
-				Columns.BindColsPtr();
+				Grid.BindColsPtr();
 			} catch(Exception e) {
 				Global.DbgMsgShow("Settings.Load ERROR:\n" + e.StackTrace);
 				return false;
@@ -412,13 +411,13 @@ namespace CryptoGadget {
 				ThrowRule<int>(Pages.Default, x => (x >= 0 && x <= 9));
 				
 				// Grid
-				foreach(PropertyInfo prop in StColumns.GetProps()) {
-					ThrowRule<int>((Columns[prop.Name] as StColumn).Width, x => x >= 1);
-					ThrowRule<int>((Columns[prop.Name] as StColumn).Digits, x => x >= 0);
+				foreach(PropertyInfo prop in StGrid.GetProps()) {
+					ThrowRule<int>((Grid[prop.Name] as StColumn).Width, x => x >= 1);
+					ThrowRule<int>((Grid[prop.Name] as StColumn).Digits, x => x >= 0);
 				}
-				ThrowRule<int>(Columns.ColumnOrder.Count, x => x == StColumns.GetProps().Count());
-				ThrowRule<int>(Columns.ColumnOrder.Except(StColumns.GetProps().Select(p => Columns[p.Name])).Count(), x => x == 0);
-				ThrowRule<int>(StColumns.GetProps().Select(p => Columns[p.Name]).Except(Columns.ColumnOrder).Count(), x => x == 0);
+				ThrowRule<int>(Grid.Order.Count, x => x == StGrid.GetProps().Count());
+				ThrowRule<int>(Grid.Order.Except(StGrid.GetProps().Select(p => Grid[p.Name])).Count(), x => x == 0);
+				ThrowRule<int>(StGrid.GetProps().Select(p => Grid[p.Name]).Except(Grid.Order).Count(), x => x == 0);
 				
 				// Coins
 				for(int i = 0; i < 10; i++) {
@@ -549,17 +548,17 @@ namespace CryptoGadget {
 				Market.Market = "";
 			}
 			if((type & DefaultType.Grid) != 0) {
-				Columns.ColumnOrder.Clear();
-				foreach(ValueTuple<string, string, string, int, int, bool> prop in StColumns.props) {
+				Grid.Order.Clear();
+				foreach(ValueTuple<string, string, string, int, int, bool> prop in StGrid.props) {
 					StColumn st = new StColumn();
 					st.Column = prop.Item1;
 					st.Name = prop.Item2;
 					st.Width = prop.Item4;
 					st.Digits = prop.Item5;
 					st.Enabled = prop.Item6;
-					Columns.ColumnOrder.Add(st);
+					Grid.Order.Add(st);
 				}
-				Columns.BindColsPtr();
+				Grid.BindColsPtr();
 			}
 		}
 		public void CloneTo(Settings sett) {
