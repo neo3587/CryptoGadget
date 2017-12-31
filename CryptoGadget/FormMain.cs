@@ -20,7 +20,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
-using System.Diagnostics;
+using System.Diagnostics; 
 using System.ComponentModel;
 
 using Newtonsoft.Json.Linq;
@@ -430,9 +430,19 @@ namespace CryptoGadget {
 
             };
 
-        }
+			// DEBUG
+			_chart_thread = new Thread(() => {
+				FormChart chart = new FormChart();
+				chart.ShowDialog();
+				Invoke((MethodInvoker)delegate { Close(); });
+			});
+			_chart_thread.Start();
 
-        private void toolStripSettings_Click(object sender, EventArgs e) {
+        }
+		// DEBUG
+		Thread _chart_thread;
+
+		private void toolStripSettings_Click(object sender, EventArgs e) {
 			_timer_alert.Kill();
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
