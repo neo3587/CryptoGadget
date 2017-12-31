@@ -71,7 +71,7 @@
 			this.mainChart.Size = new System.Drawing.Size(716, 339);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
-			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
+			this.mainChart.GetToolTipText += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ToolTipEventArgs>(this.mainChart_GetToolTipText);
 			// 
 			// FormChart
 			// 

@@ -61,27 +61,11 @@ namespace CryptoGadget {
 			Close();
 		}
 
-		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
-
-			var pos = e.Location;
-			if(_prev_pos.HasValue && pos == _prev_pos.Value)
-				return;
-			_tooltip.RemoveAll();
-			_prev_pos = pos;
-
-			foreach(var result in mainChart.HitTest(pos.X, pos.Y, false, ChartElementType.DataPoint)) {
-				if(result.ChartElementType == ChartElementType.DataPoint) {
-					var prop = result.Object as DataPoint;
-					if(prop != null) {
-						var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
-						var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
-
-						// check if the cursor is really close to the point (2 pixels around the point)
-						if(Math.Abs(pos.X - pointXPixel) < 2 && Math.Abs(pos.Y - pointYPixel) < 2) 
-							_tooltip.Show("X=" + prop.XValue + ", Y=" + prop.YValues[0], mainChart, pos.X, pos.Y - 15);
-						
-					}
-				}
+		private void mainChart_GetToolTipText(object sender, ToolTipEventArgs e) {
+			if(e.HitTestResult.ChartElementType == ChartElementType.DataPoint) {
+				int i = e.HitTestResult.PointIndex;
+				DataPoint dp = e.HitTestResult.Series.Points[i];
+				e.Text = string.Format("{0:F1}, {1:F1}", dp.XValue, dp.YValues[0]);
 			}
 		}
 	}
