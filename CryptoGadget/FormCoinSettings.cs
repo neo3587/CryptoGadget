@@ -100,7 +100,7 @@ namespace CryptoGadget {
                 left = new CoinPair(left.Value, left.Key);
 			if(checkTargetIndexName.Checked)
                 right = new CoinPair(right.Value, right.Key);
-			if((!_editing && _ptr_list.FindConv(left.Key, right.Key) != -1) || (_editing && (left.Key != _default_conv.Coin || right.Key != _default_conv.Target))) {
+			if(_ptr_list.FindConv(left.Key, right.Key) != -1 && (!_editing || (_editing && (left.Key != _default_conv.Coin || right.Key != _default_conv.Target)))) {
 				MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
 				return;
             }

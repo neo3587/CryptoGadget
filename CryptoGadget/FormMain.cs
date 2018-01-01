@@ -431,16 +431,17 @@ namespace CryptoGadget {
             };
 
 			// DEBUG
+			/*
 			_chart_thread = new Thread(() => {
 				FormChart chart = new FormChart();
 				chart.ShowDialog();
 				Invoke((MethodInvoker)delegate { Close(); });
 			});
 			_chart_thread.Start();
-
+			*/
         }
 		// DEBUG
-		Thread _chart_thread;
+		Thread _chart_thread = null;
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {
 			_timer_alert.Kill();
