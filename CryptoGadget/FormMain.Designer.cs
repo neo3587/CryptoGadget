@@ -68,7 +68,9 @@
 			this.mainGrid.ShowEditingIcon = false;
 			this.mainGrid.ShowRowErrors = false;
 			this.mainGrid.Size = new System.Drawing.Size(182, 22);
+			this.mainGrid.StandardTab = true;
 			this.mainGrid.TabIndex = 0;
+			this.mainGrid.TabStop = false;
 			this.mainGrid.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.mainGrid_RowContextMenuStripNeeded);
 			this.mainGrid.SelectionChanged += new System.EventHandler(this.mainGrid_SelectionChanged);
 			// 

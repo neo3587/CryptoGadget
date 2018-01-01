@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -12,9 +13,15 @@ namespace CryptoGadget {
 	public partial class FormChart : Form {
 
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-		private Point? _prev_pos = null;
-		private ToolTip _tooltip = new ToolTip();
+		[DllImport("user32.dll")]
+		public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
+		public static void SuspendDrawing(Control parent) {
+			SendMessage(parent.Handle, 11, false, 0);
+		}
+		public static void ResumeDrawing(Control parent) {
+			SendMessage(parent.Handle, 11, true, 0);
+			parent.Refresh();
+		}
 
 
 
@@ -24,12 +31,26 @@ namespace CryptoGadget {
 
 			Load += (sender, e) => {
 
+				Action<Control, Color, Color> LabelColor = null;
+				LabelColor = (ctrl, fore, back) => {
+					if(ctrl is Label) {
+						ctrl.ForeColor = fore;
+						ctrl.BackColor = back;
+					}
+					else {
+						foreach(Control child in ctrl.Controls)
+							LabelColor(child, fore, back);
+					}
+				};
+
 				Color light_gray = Color.FromArgb(200, 200, 200);
 
 				mainChart.ChartAreas[0].BackColor = mainChart.BackColor = Color.FromArgb(40, 40, 40);
 				mainChart.Series[0].Color = mainChart.Series[0].BorderColor = light_gray;
 				mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = light_gray;
 				mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = light_gray;
+				mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = Color.FromArgb(120, 120, 120);
+				LabelColor(this, light_gray, Color.FromArgb(40, 40, 40));
 
 				mainChart.Series[0]["PriceUpColor"] = "Green";
 				mainChart.Series[0]["PriceDownColor"] = "IndianRed";
@@ -53,21 +74,41 @@ namespace CryptoGadget {
 
 				} catch { }
 
+				mainChart.MouseDown += Global.DragMove;
+
 			};
-			
+
 		}
 
 		private void toolStripClose_Click(object sender, EventArgs e) {
 			Close();
 		}
 
-		private void mainChart_GetToolTipText(object sender, ToolTipEventArgs e) {
-			if(e.HitTestResult.ChartElementType == ChartElementType.DataPoint) {
-				int i = e.HitTestResult.PointIndex;
-				DataPoint dp = e.HitTestResult.Series.Points[i];
-				e.Text = string.Format("{0:F1}, {1:F1}", dp.XValue, dp.YValues[0]);
-			}
+		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
+
+			SuspendDrawing(this);
+
+			try {
+
+				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
+				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
+
+				int pt_index = (int)Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X));
+				if(pt_index < mainChart.Series[0].Points.Count) {
+					DataPoint dp = mainChart.Series[0].Points[pt_index];
+					labelDateVal.Text = dp.AxisLabel;
+					labelHighVal.Text = dp.YValues[0].ToString();
+					labelLowVal.Text = dp.YValues[1].ToString();
+					labelOpenVal.Text = dp.YValues[2].ToString();
+					labelCloseval.Text = dp.YValues[3].ToString();
+				}
+				labelValueVal.Text = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString().Substring(0, 12);
+
+			} catch { }
+
+			ResumeDrawing(this);
 		}
+
 	}
 
 }
