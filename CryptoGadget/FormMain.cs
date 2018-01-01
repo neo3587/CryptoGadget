@@ -431,14 +431,13 @@ namespace CryptoGadget {
             };
 
 			// DEBUG
-			/*
 			_chart_thread = new Thread(() => {
-				FormChart chart = new FormChart();
+				FormChart chart = new FormChart(new Settings.StCoin() { Coin = "BTC", Target = "USD"});
 				chart.ShowDialog();
 				Invoke((MethodInvoker)delegate { Close(); });
 			});
 			_chart_thread.Start();
-			*/
+			
         }
 		// DEBUG
 		Thread _chart_thread = null;
