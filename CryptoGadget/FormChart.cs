@@ -21,9 +21,11 @@ namespace CryptoGadget {
 			public Color CandleDownColor { get; set; } = Color.FromArgb(138, 58, 59);
 		}
 		private ChartSettings _sett = new ChartSettings();
-		private readonly Settings.StCoin _coin = null;
+		private string _coin = "";
+		private string _target = "";
 
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
 
 		private void ButtonColorClick(object sender, EventArgs e) {
 			ControlColorApply<Button>(this);
@@ -107,12 +109,15 @@ namespace CryptoGadget {
 		}
 
 
-		public FormChart(Settings.StCoin coin) {
+		public FormChart(string coin, string target) {
 
 			InitializeComponent();
 			_coin = coin;
+			_target = target;
 
 			Load += (sender, e) => {
+
+				labelConv.Text = _coin + " -> " + _target;
 
 				SetColors();
 
@@ -121,6 +126,7 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
 				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
 
+				MouseDown += Global.DragMove;
 				mainChart.MouseDown += Global.DragMove;
 
 				button3y.Click += ButtonColorClick;
@@ -139,6 +145,7 @@ namespace CryptoGadget {
 
 		}
 
+
 		private void toolStripClose_Click(object sender, EventArgs e) {
 			Close();
 		}
@@ -153,7 +160,7 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
 				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
 
-				int pt_index = (int)(Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))) -1;
+				int pt_index = (int)(Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))) - 1;
 				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
 
 					DataPoint dp = mainChart.Series[0].Points[pt_index];
@@ -171,49 +178,48 @@ namespace CryptoGadget {
 					labelOpenVal.ForeColor = dp.Color;
 					labelCloseVal.ForeColor = dp.Color;
 				}
-				
+
 			} catch { }
 
 			Refresh();
-			
+
 		}
 
 		private void button3y_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Day, 73, 15));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Day, 73, 15));
 		}
 		private void button1y_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Day, 73, 5));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Day, 73, 5));
 		}
 		private void button3m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 72, 30));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 72, 30));
 		}
 		private void button1m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 72, 10));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 72, 10));
 		}
 		private void button7d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 84, 2));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 84, 2));
 		}
 		private void button3d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 72, 1));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 72, 1));
 		}
 		private void button1d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 24));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Minute, 60, 24));
 		}
 		private void button6h_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 6));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Minute, 60, 6));
 		}
 		private void button1h_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 1));
+			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Minute, 60, 1));
 		}
 
-		// Overrides to get a sizable Borderless windows 
+
+		// Overrides to get a sizable Borderless Form
 		protected override void OnPaint(PaintEventArgs e) {
 			base.OnPaint(e);
-			if(VisualStyleRenderer.IsElementDefined(
-				VisualStyleElement.Status.Gripper.Normal)) {
+			if(VisualStyleRenderer.IsElementDefined(VisualStyleElement.Status.Gripper.Normal)) {
 				VisualStyleRenderer renderer = new VisualStyleRenderer(VisualStyleElement.Status.Gripper.Normal);
-				Rectangle rect = new Rectangle((Width) - 18, (Height) - 20, 20, 20);
-				renderer.DrawBackground(e.Graphics, rect);
+				renderer.DrawBackground(e.Graphics, new Rectangle((Width) - 18, (Height) - 20, 20, 20));
 			}
 		}
 		protected override void WndProc(ref Message m) {
@@ -229,6 +235,9 @@ namespace CryptoGadget {
 			base.WndProc(ref m);
 		}
 
+		private void FormChart_Resize(object sender, EventArgs e) {
+			Refresh(); // avoid resize gripper graphic glitches 
+		}
 	}
 
 }

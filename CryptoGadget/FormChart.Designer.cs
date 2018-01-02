@@ -54,6 +54,7 @@
 			this.button3y = new System.Windows.Forms.Button();
 			this.labelError = new System.Windows.Forms.Label();
 			this.buttonClose = new System.Windows.Forms.Button();
+			this.labelConv = new System.Windows.Forms.Label();
 			this.contextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
 			this.SuspendLayout();
@@ -95,7 +96,7 @@
 			series1.Name = "SeriesCandle";
 			series1.YValuesPerPoint = 4;
 			this.mainChart.Series.Add(series1);
-			this.mainChart.Size = new System.Drawing.Size(781, 323);
+			this.mainChart.Size = new System.Drawing.Size(710, 320);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
@@ -218,7 +219,7 @@
 			// 
 			this.button1h.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1h.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1h.Location = new System.Drawing.Point(257, 315);
+			this.button1h.Location = new System.Drawing.Point(257, 312);
 			this.button1h.Name = "button1h";
 			this.button1h.Size = new System.Drawing.Size(31, 23);
 			this.button1h.TabIndex = 14;
@@ -230,7 +231,7 @@
 			// 
 			this.button6h.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button6h.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button6h.Location = new System.Drawing.Point(225, 315);
+			this.button6h.Location = new System.Drawing.Point(225, 312);
 			this.button6h.Name = "button6h";
 			this.button6h.Size = new System.Drawing.Size(31, 23);
 			this.button6h.TabIndex = 15;
@@ -242,7 +243,7 @@
 			// 
 			this.button1d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1d.Location = new System.Drawing.Point(193, 315);
+			this.button1d.Location = new System.Drawing.Point(193, 312);
 			this.button1d.Name = "button1d";
 			this.button1d.Size = new System.Drawing.Size(31, 23);
 			this.button1d.TabIndex = 16;
@@ -254,7 +255,7 @@
 			// 
 			this.button3d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button3d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3d.Location = new System.Drawing.Point(161, 315);
+			this.button3d.Location = new System.Drawing.Point(161, 312);
 			this.button3d.Name = "button3d";
 			this.button3d.Size = new System.Drawing.Size(31, 23);
 			this.button3d.TabIndex = 17;
@@ -266,7 +267,7 @@
 			// 
 			this.button7d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button7d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button7d.Location = new System.Drawing.Point(129, 315);
+			this.button7d.Location = new System.Drawing.Point(129, 312);
 			this.button7d.Name = "button7d";
 			this.button7d.Size = new System.Drawing.Size(31, 23);
 			this.button7d.TabIndex = 18;
@@ -278,7 +279,7 @@
 			// 
 			this.button1m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1m.Location = new System.Drawing.Point(97, 315);
+			this.button1m.Location = new System.Drawing.Point(97, 312);
 			this.button1m.Name = "button1m";
 			this.button1m.Size = new System.Drawing.Size(31, 23);
 			this.button1m.TabIndex = 19;
@@ -290,7 +291,7 @@
 			// 
 			this.button3m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button3m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3m.Location = new System.Drawing.Point(65, 315);
+			this.button3m.Location = new System.Drawing.Point(65, 312);
 			this.button3m.Name = "button3m";
 			this.button3m.Size = new System.Drawing.Size(31, 23);
 			this.button3m.TabIndex = 20;
@@ -302,7 +303,7 @@
 			// 
 			this.button1y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1y.Location = new System.Drawing.Point(33, 315);
+			this.button1y.Location = new System.Drawing.Point(33, 312);
 			this.button1y.Name = "button1y";
 			this.button1y.Size = new System.Drawing.Size(31, 23);
 			this.button1y.TabIndex = 21;
@@ -314,7 +315,7 @@
 			// 
 			this.button3y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button3y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3y.Location = new System.Drawing.Point(1, 315);
+			this.button3y.Location = new System.Drawing.Point(1, 312);
 			this.button3y.Name = "button3y";
 			this.button3y.Size = new System.Drawing.Size(31, 23);
 			this.button3y.TabIndex = 22;
@@ -324,18 +325,19 @@
 			// 
 			// labelError
 			// 
+			this.labelError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelError.AutoSize = true;
 			this.labelError.BackColor = System.Drawing.Color.Transparent;
-			this.labelError.Location = new System.Drawing.Point(306, 318);
+			this.labelError.Location = new System.Drawing.Point(306, 315);
 			this.labelError.Name = "labelError";
 			this.labelError.Size = new System.Drawing.Size(0, 13);
 			this.labelError.TabIndex = 23;
 			// 
 			// buttonClose
 			// 
-			this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonClose.Location = new System.Drawing.Point(697, 0);
+			this.buttonClose.Location = new System.Drawing.Point(626, 0);
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.Size = new System.Drawing.Size(19, 19);
 			this.buttonClose.TabIndex = 24;
@@ -345,13 +347,24 @@
 			this.buttonClose.UseVisualStyleBackColor = true;
 			this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
 			// 
+			// labelConv
+			// 
+			this.labelConv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.labelConv.AutoSize = true;
+			this.labelConv.Location = new System.Drawing.Point(517, 317);
+			this.labelConv.Name = "labelConv";
+			this.labelConv.Size = new System.Drawing.Size(66, 13);
+			this.labelConv.TabIndex = 25;
+			this.labelConv.Text = "BTC -> USD";
+			// 
 			// FormChart
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.ClientSize = new System.Drawing.Size(716, 339);
+			this.ClientSize = new System.Drawing.Size(645, 336);
 			this.ContextMenuStrip = this.contextMenu;
+			this.Controls.Add(this.labelConv);
 			this.Controls.Add(this.buttonClose);
 			this.Controls.Add(this.labelError);
 			this.Controls.Add(this.button3y);
@@ -378,8 +391,11 @@
 			this.Controls.Add(this.mainChart);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximumSize = new System.Drawing.Size(1500, 782);
+			this.MinimumSize = new System.Drawing.Size(645, 336);
 			this.Name = "FormChart";
 			this.Text = "FormChart";
+			this.Resize += new System.EventHandler(this.FormChart_Resize);
 			this.contextMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).EndInit();
 			this.ResumeLayout(false);
@@ -415,5 +431,6 @@
 		private System.Windows.Forms.Button button3y;
 		private System.Windows.Forms.Label labelError;
 		private System.Windows.Forms.Button buttonClose;
+		private System.Windows.Forms.Label labelConv;
 	}
 }

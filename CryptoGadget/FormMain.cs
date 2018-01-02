@@ -23,8 +23,8 @@ using System.Threading;
 using System.Diagnostics; 
 using System.ComponentModel;
 
-using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 
 
 
@@ -103,6 +103,8 @@ namespace CryptoGadget {
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
 		private Settings.CoinList _alert_list = new Settings.CoinList();
+		private Dictionary<(string, string), (FormChart, Thread)> _charts = new Dictionary<(string, string), (FormChart, Thread)>();
+		private Mutex _charts_mtx = new Mutex();
 
 
 		internal void ApplySettings() {
@@ -414,9 +416,9 @@ namespace CryptoGadget {
 					ts_item.Click += (cm_sender, cm_ev) => {
 						SwapPage((int)(cm_sender as ToolStripMenuItem).Tag);
 					};
-					(contextMenu.Items[0] as ToolStripMenuItem).DropDownItems.Add(ts_item);
+					toolStripPages.DropDownItems.Add(ts_item);
 				}
-				((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
+				(toolStripPages.DropDownItems[_page] as ToolStripMenuItem).Checked = true;
 				
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
@@ -430,17 +432,20 @@ namespace CryptoGadget {
 
             };
 
-			// DEBUG
-			_chart_thread = new Thread(() => {
-				FormChart chart = new FormChart(new Settings.StCoin() { Coin = "BTC", Target = "USD"});
+			#if DEBUG
+			_charts.Add(("BTC", "USD"), (new FormChart("BTC", "USD"), new Thread(() => {
+				_charts_mtx.WaitOne();
+				FormChart chart = _charts[("BTC", "USD")].Item1;
+				_charts_mtx.ReleaseMutex();
 				chart.ShowDialog();
-				Invoke((MethodInvoker)delegate { Close(); });
-			});
-			_chart_thread.Start();
-			
-        }
-		// DEBUG
-		Thread _chart_thread = null;
+				_charts_mtx.WaitOne();
+				_charts.Remove(("BTC", "USD"));
+				_charts_mtx.ReleaseMutex();
+			})));
+			_charts[("BTC", "USD")].Item2.Start();
+			#endif
+
+		}
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {
 			_timer_alert.Kill();
@@ -467,6 +472,10 @@ namespace CryptoGadget {
 			_timer_alert.Kill(500);
 			_timer_rows.Kill(500);
 
+			_charts_mtx.WaitOne();
+			foreach((FormChart, Thread) chart in _charts.Values) 
+				chart.Item2.Abort();
+
 			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
 				Global.Sett.Coords.PosX = Location.X;
 				Global.Sett.Coords.PosY = Location.Y;
@@ -489,22 +498,46 @@ namespace CryptoGadget {
 		private void mainGrid_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e) {
 
 			ContextMenuStrip cm = new ContextMenuStrip();
-			DataGridViewRow row = mainGrid.Rows[e.RowIndex];
+			string coin   = mainGrid.Rows[e.RowIndex].Cells["Coin"].Value.ToString();
+			string target = mainGrid.Rows[e.RowIndex].Cells["Target"].Value.ToString();
 
 			if(Global.Json != null) {
-				JToken jtok = Global.Json["Data"][row.Cells["Coin"].Value];
-				if(jtok != null && jtok["Url"] != null) {
-					cm.Items.Add(new ToolStripMenuItem(row.Cells["Coin"].Value + " website", null, (ts_sender, ts_e) => Process.Start("https://www.cryptocompare.com" + jtok["Url"])));
-					cm.Items.Add(new ToolStripSeparator());
-				}
+				JToken jtok = Global.Json["Data"][coin];
+				if(jtok != null && jtok["Url"] != null) 
+					cm.Items.Add(new ToolStripMenuItem(coin + " website", null, (ts_sender, ts_e) => Process.Start("https://www.cryptocompare.com" + jtok["Url"])));
 			}
+
+			cm.Items.Add(new ToolStripMenuItem(coin + " → " + target + " chart", null, (ts_sender, ts_e) => {
+
+				_charts_mtx.WaitOne();
+
+				if(_charts.ContainsKey((coin, target))) {
+					_charts[(coin, target)].Item1.Invoke((MethodInvoker)delegate { _charts[(coin, target)].Item1.Activate(); });
+					_charts_mtx.ReleaseMutex();
+					return;
+				}
+
+				_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
+					_charts_mtx.WaitOne();
+					FormChart chart = _charts[(coin, target)].Item1;
+					_charts_mtx.ReleaseMutex();
+					chart.ShowDialog();
+					_charts_mtx.WaitOne();
+					_charts.Remove((coin, target));
+					_charts_mtx.ReleaseMutex();
+				})));
+				_charts[(coin, target)].Item2.Start();
+
+				_charts_mtx.ReleaseMutex();
+			}));
+			cm.Items.Add(new ToolStripSeparator());
 
 			ToolStripManager.Merge(contextMenu, cm);
 			cm.Closing += (cm_sender, cm_e) => { // Avoid weird random flickers when closing the dropdown toolstrip
-				if((cm.Items[2] as ToolStripMenuItem).DropDown.Visible) {
+				if(toolStripPages.DropDown.Visible) {
 					cm_e.Cancel = true;
-					(cm.Items[2] as ToolStripMenuItem).DropDown.Closed += (ts_sender, ts_e) => cm.Close();
-					(cm.Items[2] as ToolStripMenuItem).DropDown.Close();
+					toolStripPages.DropDown.Closed += (ts_sender, ts_e) => cm.Close();
+					toolStripPages.DropDown.Close();
 				}
 			};
 			cm.Closed += (cm_sender, cm_e) => ToolStripManager.RevertMerge(cm, contextMenu); 
