@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Forms.VisualStyles;
 
 using Newtonsoft.Json.Linq;
 
@@ -45,6 +45,7 @@ namespace CryptoGadget {
 			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.ForeColor;
 			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.ForeColor;
 
+			BackColor = _sett.BackColor;
 			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.BackColor;
 
 			ControlColorApply<Label>(this);
@@ -55,11 +56,10 @@ namespace CryptoGadget {
 
 			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.LineColor;
 
-			mainChart.Series[0]["PriceUpColor"] = _sett.CandleUpColor.ToArgb().ToString();
-			mainChart.Series[0]["PriceDownColor"] = _sett.CandleDownColor.ToArgb().ToString();
-
 		}
 		private void ChartFill(string query) {
+
+			Enabled = false;
 
 			try {
 
@@ -81,7 +81,7 @@ namespace CryptoGadget {
 
 						dp.YValues = new double[] { high, low, open, close };
 						dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<UInt64>()).ToString();
-						dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
+						dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
 						mainChart.Series[0].Points.Add(dp);
 
 						min_bounds = Math.Min(min_bounds, low);
@@ -89,7 +89,7 @@ namespace CryptoGadget {
 					}
 
 					double limit_bounds = (max_bounds - min_bounds) * 0.1;
-					mainChart.ChartAreas[0].AxisY.Minimum = min_bounds - limit_bounds;
+					mainChart.ChartAreas[0].AxisY.Minimum = Math.Max(min_bounds - limit_bounds, 0);
 					mainChart.ChartAreas[0].AxisY.Maximum = max_bounds + limit_bounds;
 
 					labelError.Text = "";
@@ -101,6 +101,8 @@ namespace CryptoGadget {
 			} catch {
 				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
 			}
+
+			Enabled = true;
 
 		}
 
@@ -132,12 +134,15 @@ namespace CryptoGadget {
 				button1h.Click += ButtonColorClick;
 
 				button1d.PerformClick();
+
 			};
 
 		}
 
-
 		private void toolStripClose_Click(object sender, EventArgs e) {
+			Close();
+		}
+		private void buttonClose_Click(object sender, EventArgs e) {
 			Close();
 		}
 
@@ -148,8 +153,8 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
 				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
 
-				int pt_index = (int)Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X));
-				if(pt_index < mainChart.Series[0].Points.Count) {
+				int pt_index = (int)(Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))) -1;
+				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
 
 					DataPoint dp = mainChart.Series[0].Points[pt_index];
 
@@ -199,6 +204,29 @@ namespace CryptoGadget {
 		}
 		private void button1h_Click(object sender, EventArgs e) {
 			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 1));
+		}
+
+		// Overrides to get a sizable Borderless windows 
+		protected override void OnPaint(PaintEventArgs e) {
+			base.OnPaint(e);
+			if(VisualStyleRenderer.IsElementDefined(
+				VisualStyleElement.Status.Gripper.Normal)) {
+				VisualStyleRenderer renderer = new VisualStyleRenderer(VisualStyleElement.Status.Gripper.Normal);
+				Rectangle rect = new Rectangle((Width) - 18, (Height) - 20, 20, 20);
+				renderer.DrawBackground(e.Graphics, rect);
+			}
+		}
+		protected override void WndProc(ref Message m) {
+			if(m.Msg == 0x84) {
+				int x = (int)(m.LParam.ToInt64() & 0xFFFF);
+				int y = (int)((m.LParam.ToInt64() & 0xFFFF0000) >> 16);
+				Point pt = PointToClient(new Point(x, y));
+				if(pt.X >= ClientSize.Width - 16 && pt.Y >= ClientSize.Height - 16 && ClientSize.Height >= 16) {
+					m.Result = (IntPtr)(IsMirrored ? 16 : 17);
+					return;
+				}
+			}
+			base.WndProc(ref m);
 		}
 
 	}
