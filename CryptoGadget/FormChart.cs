@@ -25,37 +25,30 @@ namespace CryptoGadget {
 
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-		[DllImport("user32.dll")]
-		public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
-		public static void SuspendDrawing(Control parent) {
-			SendMessage(parent.Handle, 11, false, 0);
+		private void ButtonColorClick(object sender, EventArgs e) {
+			ControlColorApply<Button>(this);
+			(sender as Button).ForeColor = _sett.BackColor;
+			(sender as Button).BackColor = _sett.ForeColor;
 		}
-		public static void ResumeDrawing(Control parent) {
-			SendMessage(parent.Handle, 11, true, 0);
-			parent.Refresh();
+		private void ControlColorApply<T>(Control ctrl) {
+			if(ctrl is T) {
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
+			}
+			else {
+				foreach(Control child in ctrl.Controls)
+					ControlColorApply<T>(child);
+			}
 		}
-
-
 		private void SetColors() {
-
-			Action<Control, Color, Color> LabelColorApply = null;
-			LabelColorApply = (ctrl, fore, back) => {
-				if(ctrl is Label) {
-					ctrl.ForeColor = fore;
-					ctrl.BackColor = back;
-				}
-				else {
-					foreach(Control child in ctrl.Controls)
-						LabelColorApply(child, fore, back);
-				}
-			};
 
 			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.ForeColor;
 			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.ForeColor;
 
 			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.BackColor;
 
-			LabelColorApply(this, _sett.ForeColor, _sett.BackColor);
+			ControlColorApply<Label>(this);
+			ControlColorApply<Button>(this);
 
 			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
 			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.GridColor;
@@ -66,34 +59,47 @@ namespace CryptoGadget {
 			mainChart.Series[0]["PriceDownColor"] = _sett.CandleDownColor.ToArgb().ToString();
 
 		}
-		private void ChartInit(JObject json) {
+		private void ChartFill(string query) {
 
-			mainChart.Series[0].Points.Clear();
+			try {
 
-			if(json != null && json["Response"]?.ToString().ToLower() != "error") {
-				
-				double min_bounds = double.MaxValue, max_bounds = double.MinValue;
-				foreach(JToken jtok in json["Data"]) {
+				JObject json = CCRequest.HttpRequest(query);
 
-					DataPoint dp = new DataPoint();
+				mainChart.Series[0].Points.Clear();
 
-					double high  = jtok["high"].ToObject<double>();
-					double low   = jtok["low"].ToObject<double>();
-					double open  = jtok["open"].ToObject<double>();
-					double close = jtok["close"].ToObject<double>();
+				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 
-					dp.YValues = new double[] { high, low, open, close };
-					dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<UInt64>()).ToString();
-					dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
-					mainChart.Series[0].Points.Add(dp);
+					double min_bounds = double.MaxValue, max_bounds = double.MinValue;
+					foreach(JToken jtok in json["Data"]) {
 
-					min_bounds = Math.Min(min_bounds, low);
-					max_bounds = Math.Max(max_bounds, high);
+						DataPoint dp = new DataPoint();
+
+						double high = jtok["high"].ToObject<double>();
+						double low = jtok["low"].ToObject<double>();
+						double open = jtok["open"].ToObject<double>();
+						double close = jtok["close"].ToObject<double>();
+
+						dp.YValues = new double[] { high, low, open, close };
+						dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<UInt64>()).ToString();
+						dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
+						mainChart.Series[0].Points.Add(dp);
+
+						min_bounds = Math.Min(min_bounds, low);
+						max_bounds = Math.Max(max_bounds, high);
+					}
+
+					double limit_bounds = (max_bounds - min_bounds) * 0.1;
+					mainChart.ChartAreas[0].AxisY.Minimum = min_bounds - limit_bounds;
+					mainChart.ChartAreas[0].AxisY.Maximum = max_bounds + limit_bounds;
+
+					labelError.Text = "";
 				}
-
-				double limit_bounds = (max_bounds - min_bounds) * 0.1;
-				mainChart.ChartAreas[0].AxisY.Minimum = min_bounds - limit_bounds;
-				mainChart.ChartAreas[0].AxisY.Maximum = max_bounds + limit_bounds;
+				else {
+					labelError.Text = "ERROR: There's an error with the obtained data";
+				}
+				
+			} catch {
+				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
 			}
 
 		}
@@ -111,21 +117,21 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
 				mainChart.ChartAreas[0].AxisX.Interval = 4;
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
-				//mainChart.ChartAreas[0].AxisY.Interval = 4;
-				//mainChart.Series[0].BorderWidth = 1;
-				//mainChart.ChartAreas[0].AxisY.LabelStyle.Interval = 1000;
 				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
-				 
-
-				try {
-
-					JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 120, 3));
-					ChartInit(json);
-
-				} catch { }
 
 				mainChart.MouseDown += Global.DragMove;
 
+				button3y.Click += ButtonColorClick;
+				button1y.Click += ButtonColorClick;
+				button3m.Click += ButtonColorClick;
+				button1m.Click += ButtonColorClick;
+				button7d.Click += ButtonColorClick;
+				button3d.Click += ButtonColorClick;
+				button1d.Click += ButtonColorClick;
+				button6h.Click += ButtonColorClick;
+				button1h.Click += ButtonColorClick;
+
+				button1d.PerformClick();
 			};
 
 		}
@@ -160,11 +166,39 @@ namespace CryptoGadget {
 					labelOpenVal.ForeColor = dp.Color;
 					labelCloseVal.ForeColor = dp.Color;
 				}
-
+				
 			} catch { }
 
 			Refresh();
 			
+		}
+
+		private void button3y_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Day, 73, 15));
+		}
+		private void button1y_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Day, 73, 5));
+		}
+		private void button3m_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 72, 30));
+		}
+		private void button1m_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 72, 10));
+		}
+		private void button7d_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 84, 2));
+		}
+		private void button3d_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Hour, 72, 1));
+		}
+		private void button1d_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 24));
+		}
+		private void button6h_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 6));
+		}
+		private void button1h_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoQuery(_coin, CCRequest.HistoType.Minute, 60, 1));
 		}
 
 	}
