@@ -35,13 +35,13 @@
 			this.labelHighText = new System.Windows.Forms.Label();
 			this.labelLowText = new System.Windows.Forms.Label();
 			this.labelCloseText = new System.Windows.Forms.Label();
-			this.labelCloseval = new System.Windows.Forms.Label();
+			this.labelCloseVal = new System.Windows.Forms.Label();
 			this.labelLowVal = new System.Windows.Forms.Label();
 			this.labelHighVal = new System.Windows.Forms.Label();
 			this.labelOpenVal = new System.Windows.Forms.Label();
 			this.labelValueVal = new System.Windows.Forms.Label();
-			this.labelDateVal = new System.Windows.Forms.Label();
-			this.labelDateText = new System.Windows.Forms.Label();
+			this.labelTimeVal = new System.Windows.Forms.Label();
+			this.labelTimeText = new System.Windows.Forms.Label();
 			this.labelValueText = new System.Windows.Forms.Label();
 			this.contextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
@@ -69,18 +69,19 @@
 			this.mainChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.mainChart.BorderSkin.BackSecondaryColor = System.Drawing.Color.White;
 			this.mainChart.BorderSkin.PageColor = System.Drawing.Color.Black;
-			chartArea1.Name = "ChartArea1";
+			chartArea1.Name = "ChartAreaCandle";
 			this.mainChart.ChartAreas.Add(chartArea1);
 			this.mainChart.ContextMenuStrip = this.contextMenu;
-			legend1.Name = "Legend1";
+			legend1.Name = "LegendCandle";
 			this.mainChart.Legends.Add(legend1);
 			this.mainChart.Location = new System.Drawing.Point(0, 0);
 			this.mainChart.Name = "mainChart";
-			series1.ChartArea = "ChartArea1";
+			series1.ChartArea = "ChartAreaCandle";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+			series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			series1.IsVisibleInLegend = false;
-			series1.Legend = "Legend1";
-			series1.Name = "Series1";
+			series1.Legend = "LegendCandle";
+			series1.Name = "SeriesCandle";
 			series1.YValuesPerPoint = 4;
 			this.mainChart.Series.Add(series1);
 			this.mainChart.Size = new System.Drawing.Size(716, 339);
@@ -128,14 +129,14 @@
 			this.labelCloseText.TabIndex = 5;
 			this.labelCloseText.Text = "Close:";
 			// 
-			// labelCloseval
+			// labelCloseVal
 			// 
-			this.labelCloseval.AutoSize = true;
-			this.labelCloseval.Location = new System.Drawing.Point(386, 0);
-			this.labelCloseval.Name = "labelCloseval";
-			this.labelCloseval.Size = new System.Drawing.Size(28, 13);
-			this.labelCloseval.TabIndex = 6;
-			this.labelCloseval.Text = "0.00";
+			this.labelCloseVal.AutoSize = true;
+			this.labelCloseVal.Location = new System.Drawing.Point(386, 0);
+			this.labelCloseVal.Name = "labelCloseVal";
+			this.labelCloseVal.Size = new System.Drawing.Size(28, 13);
+			this.labelCloseVal.TabIndex = 6;
+			this.labelCloseVal.Text = "0.00";
 			// 
 			// labelLowVal
 			// 
@@ -173,24 +174,24 @@
 			this.labelValueVal.TabIndex = 13;
 			this.labelValueVal.Text = "0.00";
 			// 
-			// labelDateVal
+			// labelTimeVal
 			// 
-			this.labelDateVal.AutoSize = true;
-			this.labelDateVal.Location = new System.Drawing.Point(591, 0);
-			this.labelDateVal.Name = "labelDateVal";
-			this.labelDateVal.Size = new System.Drawing.Size(34, 13);
-			this.labelDateVal.TabIndex = 12;
-			this.labelDateVal.Text = "00:00";
+			this.labelTimeVal.AutoSize = true;
+			this.labelTimeVal.Location = new System.Drawing.Point(591, 0);
+			this.labelTimeVal.Name = "labelTimeVal";
+			this.labelTimeVal.Size = new System.Drawing.Size(34, 13);
+			this.labelTimeVal.TabIndex = 12;
+			this.labelTimeVal.Text = "00:00";
 			// 
-			// labelDateText
+			// labelTimeText
 			// 
-			this.labelDateText.AutoSize = true;
-			this.labelDateText.BackColor = System.Drawing.Color.Transparent;
-			this.labelDateText.Location = new System.Drawing.Point(562, 0);
-			this.labelDateText.Name = "labelDateText";
-			this.labelDateText.Size = new System.Drawing.Size(33, 13);
-			this.labelDateText.TabIndex = 11;
-			this.labelDateText.Text = "Date:";
+			this.labelTimeText.AutoSize = true;
+			this.labelTimeText.BackColor = System.Drawing.Color.Transparent;
+			this.labelTimeText.Location = new System.Drawing.Point(562, 0);
+			this.labelTimeText.Name = "labelTimeText";
+			this.labelTimeText.Size = new System.Drawing.Size(33, 13);
+			this.labelTimeText.TabIndex = 11;
+			this.labelTimeText.Text = "Time:";
 			// 
 			// labelValueText
 			// 
@@ -210,13 +211,13 @@
 			this.ClientSize = new System.Drawing.Size(716, 339);
 			this.ContextMenuStrip = this.contextMenu;
 			this.Controls.Add(this.labelValueVal);
-			this.Controls.Add(this.labelDateVal);
-			this.Controls.Add(this.labelDateText);
+			this.Controls.Add(this.labelTimeVal);
+			this.Controls.Add(this.labelTimeText);
 			this.Controls.Add(this.labelValueText);
 			this.Controls.Add(this.labelOpenVal);
 			this.Controls.Add(this.labelHighVal);
 			this.Controls.Add(this.labelLowVal);
-			this.Controls.Add(this.labelCloseval);
+			this.Controls.Add(this.labelCloseVal);
 			this.Controls.Add(this.labelCloseText);
 			this.Controls.Add(this.labelLowText);
 			this.Controls.Add(this.labelHighText);
@@ -241,13 +242,13 @@
 		private System.Windows.Forms.Label labelHighText;
 		private System.Windows.Forms.Label labelLowText;
 		private System.Windows.Forms.Label labelCloseText;
-		private System.Windows.Forms.Label labelCloseval;
+		private System.Windows.Forms.Label labelCloseVal;
 		private System.Windows.Forms.Label labelLowVal;
 		private System.Windows.Forms.Label labelHighVal;
 		private System.Windows.Forms.Label labelOpenVal;
 		private System.Windows.Forms.Label labelValueVal;
-		private System.Windows.Forms.Label labelDateVal;
-		private System.Windows.Forms.Label labelDateText;
+		private System.Windows.Forms.Label labelTimeVal;
+		private System.Windows.Forms.Label labelTimeText;
 		private System.Windows.Forms.Label labelValueText;
 	}
 }
