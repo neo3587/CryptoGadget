@@ -47,7 +47,7 @@ namespace CryptoGadget {
 		public static string ConvertQueryFull(Settings.CoinList[] cl_list, string market = "") {
 			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
 		}
-		public static string HistoQuery(string coin, string target, HistoType type, int size = 60, int step = 1, int time = -1) {
+		public static string HistoQuery(string coin, string target, HistoType type, int size = 60, int step = 1, Int64 time = -1) {
 			string str_type = type == HistoType.Minute ? "minute" : (type == HistoType.Hour ? "hour" : "day");
 			return "https://min-api.cryptocompare.com/data/histo" + str_type + 
 					"?fsym=" + coin + 

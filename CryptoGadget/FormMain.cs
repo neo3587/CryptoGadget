@@ -433,7 +433,7 @@ namespace CryptoGadget {
             };
 
 			#if DEBUG
-			string coin = "LBC", target = "USD";
+			string coin = "BTC", target = "USD";
 			_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
 				_charts_mtx.WaitOne();
 				FormChart chart = _charts[(coin, target)].Item1;

@@ -23,23 +23,27 @@ namespace CryptoGadget {
 		private ChartSettings _sett = new ChartSettings();
 		private string _coin = "";
 		private string _target = "";
+		private int _x_axis = 0;
+		private JArray _serie_data = null;
 
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 
 		private void ButtonColorClick(object sender, EventArgs e) {
-			ControlColorApply<Button>(this);
+			ControlApply<Button>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
+			});
 			(sender as Button).ForeColor = _sett.BackColor;
 			(sender as Button).BackColor = _sett.ForeColor;
 		}
-		private void ControlColorApply<T>(Control ctrl) {
+		private void ControlApply<T>(Control ctrl, Action<Control> fn) {
 			if(ctrl is T) {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+				fn(ctrl);
 			}
 			else {
 				foreach(Control child in ctrl.Controls)
-					ControlColorApply<T>(child);
+					ControlApply<T>(child, fn);
 			}
 		}
 		private void SetColors() {
@@ -50,8 +54,14 @@ namespace CryptoGadget {
 			BackColor = _sett.BackColor;
 			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.BackColor;
 
-			ControlColorApply<Label>(this);
-			ControlColorApply<Button>(this);
+			ControlApply<Label>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
+			});
+			ControlApply<Button>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
+			});
 
 			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
 			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.GridColor;
@@ -59,52 +69,47 @@ namespace CryptoGadget {
 			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.LineColor;
 
 		}
-		private void ChartFill(string query) {
-
-			Enabled = false;
+		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(query);
-
+				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, type, 120, step, time));
 				mainChart.Series[0].Points.Clear();
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 
-					double min_bounds = double.MaxValue, max_bounds = double.MinValue;
-					foreach(JToken jtok in json["Data"]) {
+					_serie_data = json["Data"].ToObject<JArray>();
 
+					int begin = Math.Max(_serie_data.Count - 60, 0);
+					int end = Math.Min(begin + 60, _serie_data.Count);
+
+					for(int i = begin; i < end; i++) {
+
+						JToken jtok = _serie_data[i];
 						DataPoint dp = new DataPoint();
 
-						double high = jtok["high"].ToObject<double>();
-						double low = jtok["low"].ToObject<double>();
-						double open = jtok["open"].ToObject<double>();
+						double high  = jtok["high"].ToObject<double>();
+						double low   = jtok["low"].ToObject<double>();
+						double open  = jtok["open"].ToObject<double>();
 						double close = jtok["close"].ToObject<double>();
 
 						dp.YValues = new double[] { high, low, open, close };
-						dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<UInt64>()).ToString();
+						dp.Tag = jtok["time"].ToObject<Int64>();
+						dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<Int64>()).ToString();
 						dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
 						mainChart.Series[0].Points.Add(dp);
 
-						min_bounds = Math.Min(min_bounds, low);
-						max_bounds = Math.Max(max_bounds, high);
 					}
-
-					double limit_bounds = (max_bounds - min_bounds) * 0.1;
-					mainChart.ChartAreas[0].AxisY.Minimum = Math.Max(min_bounds - limit_bounds, 0);
-					mainChart.ChartAreas[0].AxisY.Maximum = max_bounds + limit_bounds;
 
 					labelError.Text = "";
 				}
 				else {
 					labelError.Text = "ERROR: There's an error with the obtained data";
 				}
-				
+
 			} catch {
 				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
 			}
-
-			Enabled = true;
 
 		}
 
@@ -126,9 +131,10 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
 				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
 				mainChart.ChartAreas[0].CursorY.Interval = 0;
+				mainChart.ChartAreas[0].AxisY.IsStartedFromZero = false;
 
 				MouseDown += Global.DragMove;
-				mainChart.MouseDown += Global.DragMove;
+				ControlApply<Label>(this, (ctrl) => ctrl.MouseDown += Global.DragMove);
 
 				button3y.Click += ButtonColorClick;
 				button1y.Click += ButtonColorClick;
@@ -150,19 +156,40 @@ namespace CryptoGadget {
 		private void toolStripClose_Click(object sender, EventArgs e) {
 			Close();
 		}
+		private void buttonMinimize_Click(object sender, EventArgs e) {
+			buttonMinimize.Enabled = false; // avoid button clicked appearance
+			buttonMinimize.Enabled = true;
+			WindowState = FormWindowState.Minimized;
+		}
 		private void buttonClose_Click(object sender, EventArgs e) {
 			Close();
 		}
 
 		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
 
+			if(e.Button == MouseButtons.Left) {
+				try {
+					double index_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+					double index_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+					if(index_x >= mainChart.ChartAreas[0].AxisX.Minimum && index_x <= mainChart.ChartAreas[0].AxisX.Maximum && index_y >= mainChart.ChartAreas[0].AxisY.Minimum && index_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
+
+						// TODO
+
+					}
+					else {
+						Console.WriteLine(e.Clicks);
+						Global.DragMove(sender, e);
+						return;
+					}
+				} catch { }
+			}
+			
 			try {
 
 				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
 				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
-				//mainChart.ChartAreas[0].CursorY.SetCursorPosition(0.5);
 
-				int pt_index = (int)(Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))) - 1;
+				int pt_index = (int)Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
 				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
 
 					DataPoint dp = mainChart.Series[0].Points[pt_index];
@@ -186,33 +213,36 @@ namespace CryptoGadget {
 			Update();
 
 		}
+		private void FormChart_Resize(object sender, EventArgs e) {
+			Refresh(); // avoid resize gripper graphic glitches 
+		}
 
 		private void button3y_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Day, 73, 15));
+			ChartFill(CCRequest.HistoType.Day, 15);
 		}
 		private void button1y_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Day, 73, 5));
+			ChartFill(CCRequest.HistoType.Day, 5);
 		}
 		private void button3m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 72, 30));
+			ChartFill(CCRequest.HistoType.Hour, 30);
 		}
 		private void button1m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 72, 10));
+			ChartFill(CCRequest.HistoType.Hour, 10);
 		}
 		private void button7d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 84, 2));
+			ChartFill(CCRequest.HistoType.Hour, 3);
 		}
 		private void button3d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Hour, 72, 1));
+			ChartFill(CCRequest.HistoType.Hour, 1);
 		}
 		private void button1d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Minute, 60, 24));
+			ChartFill(CCRequest.HistoType.Minute, 24);
 		}
 		private void button6h_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Minute, 60, 6));
+			ChartFill(CCRequest.HistoType.Minute, 6);
 		}
 		private void button1h_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoQuery(_coin, _target, CCRequest.HistoType.Minute, 60, 1));
+			ChartFill(CCRequest.HistoType.Minute, 1);
 		}
 
 
@@ -237,15 +267,5 @@ namespace CryptoGadget {
 			base.WndProc(ref m);
 		}
 
-		private void FormChart_Resize(object sender, EventArgs e) {
-			Refresh(); // avoid resize gripper graphic glitches 
-		}
-
-		private void buttonMinimize_Click(object sender, EventArgs e) {
-			buttonMinimize.Enabled = false; // avoid button clicked appearance
-			buttonMinimize.Enabled = true;
-			WindowState = FormWindowState.Minimized;
-		}
 	}
-
 }
