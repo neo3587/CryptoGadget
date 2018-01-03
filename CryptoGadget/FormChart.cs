@@ -27,9 +27,13 @@ namespace CryptoGadget {
 		private int _axis_x_last = 0;
 		private int _axis_x = 0;
 		private int _axis_x_max = 0;
+		private bool _data_rem = true;
+		private (CCRequest.HistoType, int) _req_format;
 		private JArray _serie_data = null;
 		
+
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
 
 		private DataPoint GenerateDataPoint(JToken jtok) {
 
@@ -91,7 +95,9 @@ namespace CryptoGadget {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, type, 120, step, time));
+				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, type, 190, step, time));
+				_req_format = (type, step);
+				_data_rem = true;
 				mainChart.Series[0].Points.Clear();
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
@@ -174,26 +180,35 @@ namespace CryptoGadget {
 			
 			if(e.Button == MouseButtons.Left) {
 				try {
-					double index_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
-					double index_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-					if(index_x >= mainChart.ChartAreas[0].AxisX.Minimum && index_x <= mainChart.ChartAreas[0].AxisX.Maximum && index_y >= mainChart.ChartAreas[0].AxisY.Minimum && index_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
+					double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+					double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+					if(axis_x >= mainChart.ChartAreas[0].AxisX.Minimum && axis_x <= mainChart.ChartAreas[0].AxisX.Maximum && axis_y >= mainChart.ChartAreas[0].AxisY.Minimum && axis_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
 
 						_chart_clicked = true;
-						
-						if(_axis_x_last < (int)index_x && _axis_x > 0) { // shift left
-							_axis_x--; _axis_x_max--;
-							mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count -1);
-							mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x]));
-							mainChart.ChartAreas[0].RecalculateAxesScale();
+
+						if(_axis_x_last < (int)axis_x) { // shift left
+							if(_axis_x == 0 && _data_rem) {
+								try {
+									JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, _req_format.Item1, 60, _req_format.Item2, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+									for(int i = 0; i < jarr.Count; i++)
+										_serie_data.Insert(i, jarr[i]);
+									_axis_x += jarr.Count; _axis_x_max += jarr.Count;
+									_data_rem = jarr.Count != 0;
+								} catch { }
+							}
+							if(_axis_x > 0) {
+								_axis_x--; _axis_x_max--;
+								mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
+								mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x]));
+								mainChart.ChartAreas[0].RecalculateAxesScale();
+							}
 						}
-						else if(_axis_x_last > (int)index_x && _axis_x_max < _serie_data.Count) { // shift right
+						else if(_axis_x_last > (int)axis_x && _axis_x_max < _serie_data.Count) { // shift right
 							_axis_x++; _axis_x_max++;
 							mainChart.Series[0].Points.RemoveAt(0);
-							mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x_max-1]));
+							mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x_max - 1]));
 							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
-						
-						// TODO: dynamic http request to fill _series_data if needed
 
 					}
 					else if(!_chart_clicked) {
