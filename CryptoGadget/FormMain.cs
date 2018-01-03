@@ -433,16 +433,17 @@ namespace CryptoGadget {
             };
 
 			#if DEBUG
-			_charts.Add(("BTC", "USD"), (new FormChart("BTC", "USD"), new Thread(() => {
+			string coin = "LBC", target = "USD";
+			_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
 				_charts_mtx.WaitOne();
-				FormChart chart = _charts[("BTC", "USD")].Item1;
+				FormChart chart = _charts[(coin, target)].Item1;
 				_charts_mtx.ReleaseMutex();
 				chart.ShowDialog();
 				_charts_mtx.WaitOne();
-				_charts.Remove(("BTC", "USD"));
+				_charts.Remove((coin, target));
 				_charts_mtx.ReleaseMutex();
 			})));
-			_charts[("BTC", "USD")].Item2.Start();
+			_charts[(coin, target)].Item2.Start();
 			#endif
 
 		}

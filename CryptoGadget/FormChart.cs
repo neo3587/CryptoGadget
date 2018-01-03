@@ -125,6 +125,7 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisX.Interval = 4;
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
 				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
+				mainChart.ChartAreas[0].CursorY.Interval = 0;
 
 				MouseDown += Global.DragMove;
 				mainChart.MouseDown += Global.DragMove;
@@ -159,6 +160,7 @@ namespace CryptoGadget {
 
 				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
 				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
+				//mainChart.ChartAreas[0].CursorY.SetCursorPosition(0.5);
 
 				int pt_index = (int)(Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))) - 1;
 				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
@@ -181,7 +183,7 @@ namespace CryptoGadget {
 
 			} catch { }
 
-			Refresh();
+			Update();
 
 		}
 
