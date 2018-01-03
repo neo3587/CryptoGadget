@@ -23,12 +23,30 @@ namespace CryptoGadget {
 		private ChartSettings _sett = new ChartSettings();
 		private string _coin = "";
 		private string _target = "";
-		private int _x_axis = 0;
+		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
+		private int _axis_x_last = 0;
+		private int _axis_x = 0;
+		private int _axis_x_max = 0;
 		private JArray _serie_data = null;
-
+		
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
+		private DataPoint GenerateDataPoint(JToken jtok) {
 
+			DataPoint dp = new DataPoint();
+
+			double high = jtok["high"].ToObject<double>();
+			double low = jtok["low"].ToObject<double>();
+			double open = jtok["open"].ToObject<double>();
+			double close = jtok["close"].ToObject<double>();
+
+			dp.YValues = new double[] { high, low, open, close };
+			dp.Tag = jtok["time"].ToObject<Int64>();
+			dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<Int64>()).ToString();
+			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
+
+			return dp;
+		}
 		private void ButtonColorClick(object sender, EventArgs e) {
 			ControlApply<Button>(this, (ctrl) => {
 				ctrl.ForeColor = _sett.ForeColor;
@@ -82,24 +100,11 @@ namespace CryptoGadget {
 
 					int begin = Math.Max(_serie_data.Count - 60, 0);
 					int end = Math.Min(begin + 60, _serie_data.Count);
+					_axis_x = begin;
+					_axis_x_max = end;
 
-					for(int i = begin; i < end; i++) {
-
-						JToken jtok = _serie_data[i];
-						DataPoint dp = new DataPoint();
-
-						double high  = jtok["high"].ToObject<double>();
-						double low   = jtok["low"].ToObject<double>();
-						double open  = jtok["open"].ToObject<double>();
-						double close = jtok["close"].ToObject<double>();
-
-						dp.YValues = new double[] { high, low, open, close };
-						dp.Tag = jtok["time"].ToObject<Int64>();
-						dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<Int64>()).ToString();
-						dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
-						mainChart.Series[0].Points.Add(dp);
-
-					}
+					for(int i = begin; i < end; i++) 
+						mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
 
 					labelError.Text = "";
 				}
@@ -166,22 +171,39 @@ namespace CryptoGadget {
 		}
 
 		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
-
+			
 			if(e.Button == MouseButtons.Left) {
 				try {
 					double index_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
 					double index_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
 					if(index_x >= mainChart.ChartAreas[0].AxisX.Minimum && index_x <= mainChart.ChartAreas[0].AxisX.Maximum && index_y >= mainChart.ChartAreas[0].AxisY.Minimum && index_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
 
-						// TODO
+						_chart_clicked = true;
+						
+						if(_axis_x_last < (int)index_x && _axis_x > 0) { // shift left
+							_axis_x--; _axis_x_max--;
+							mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count -1);
+							mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x]));
+							mainChart.ChartAreas[0].RecalculateAxesScale();
+						}
+						else if(_axis_x_last > (int)index_x && _axis_x_max < _serie_data.Count) { // shift right
+							_axis_x++; _axis_x_max++;
+							mainChart.Series[0].Points.RemoveAt(0);
+							mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x_max-1]));
+							mainChart.ChartAreas[0].RecalculateAxesScale();
+						}
+						
+						// TODO: dynamic http request to fill _series_data if needed
 
 					}
-					else {
-						Console.WriteLine(e.Clicks);
+					else if(!_chart_clicked) {
 						Global.DragMove(sender, e);
 						return;
 					}
 				} catch { }
+			}
+			else {
+				_chart_clicked = false;
 			}
 			
 			try {
@@ -189,7 +211,9 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
 				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
 
-				int pt_index = (int)Math.Round(mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
+				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+				_axis_x_last = (int)axis_x;
+				int pt_index = (int)Math.Round(axis_x) - 1;
 				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
 
 					DataPoint dp = mainChart.Series[0].Points[pt_index];
