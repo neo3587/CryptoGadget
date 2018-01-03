@@ -165,7 +165,7 @@ namespace CryptoGadget {
 
 					DataPoint dp = mainChart.Series[0].Points[pt_index];
 
-					labelValueVal.Text = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString().Substring(0, 12);
+					labelValueVal.Text = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString().Substring(0, 13);
 					labelTimeVal.Text = dp.AxisLabel;
 
 					labelHighVal.Text = dp.YValues[0].ToString();
@@ -237,6 +237,12 @@ namespace CryptoGadget {
 
 		private void FormChart_Resize(object sender, EventArgs e) {
 			Refresh(); // avoid resize gripper graphic glitches 
+		}
+
+		private void buttonMinimize_Click(object sender, EventArgs e) {
+			buttonMinimize.Enabled = false; // avoid button clicked appearance
+			buttonMinimize.Enabled = true;
+			WindowState = FormWindowState.Minimized;
 		}
 	}
 

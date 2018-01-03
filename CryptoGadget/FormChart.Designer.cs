@@ -55,6 +55,7 @@
 			this.labelError = new System.Windows.Forms.Label();
 			this.buttonClose = new System.Windows.Forms.Button();
 			this.labelConv = new System.Windows.Forms.Label();
+			this.buttonMinimize = new System.Windows.Forms.Button();
 			this.contextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
 			this.SuspendLayout();
@@ -96,7 +97,7 @@
 			series1.Name = "SeriesCandle";
 			series1.YValuesPerPoint = 4;
 			this.mainChart.Series.Add(series1);
-			this.mainChart.Size = new System.Drawing.Size(710, 320);
+			this.mainChart.Size = new System.Drawing.Size(729, 320);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
@@ -337,7 +338,7 @@
 			// 
 			this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonClose.Location = new System.Drawing.Point(626, 0);
+			this.buttonClose.Location = new System.Drawing.Point(645, 0);
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.Size = new System.Drawing.Size(19, 19);
 			this.buttonClose.TabIndex = 24;
@@ -351,19 +352,34 @@
 			// 
 			this.labelConv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.labelConv.AutoSize = true;
-			this.labelConv.Location = new System.Drawing.Point(517, 317);
+			this.labelConv.Location = new System.Drawing.Point(558, 317);
 			this.labelConv.Name = "labelConv";
 			this.labelConv.Size = new System.Drawing.Size(66, 13);
 			this.labelConv.TabIndex = 25;
 			this.labelConv.Text = "BTC -> USD";
+			// 
+			// buttonMinimize
+			// 
+			this.buttonMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonMinimize.Location = new System.Drawing.Point(627, 0);
+			this.buttonMinimize.Name = "buttonMinimize";
+			this.buttonMinimize.Size = new System.Drawing.Size(19, 19);
+			this.buttonMinimize.TabIndex = 26;
+			this.buttonMinimize.Text = "-";
+			this.buttonMinimize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.buttonMinimize.UseCompatibleTextRendering = true;
+			this.buttonMinimize.UseVisualStyleBackColor = true;
+			this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
 			// 
 			// FormChart
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.ClientSize = new System.Drawing.Size(645, 336);
+			this.ClientSize = new System.Drawing.Size(664, 336);
 			this.ContextMenuStrip = this.contextMenu;
+			this.Controls.Add(this.buttonMinimize);
 			this.Controls.Add(this.labelConv);
 			this.Controls.Add(this.buttonClose);
 			this.Controls.Add(this.labelError);
@@ -392,7 +408,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximumSize = new System.Drawing.Size(1500, 782);
-			this.MinimumSize = new System.Drawing.Size(645, 336);
+			this.MinimumSize = new System.Drawing.Size(664, 336);
 			this.Name = "FormChart";
 			this.Text = "FormChart";
 			this.Resize += new System.EventHandler(this.FormChart_Resize);
@@ -432,5 +448,6 @@
 		private System.Windows.Forms.Label labelError;
 		private System.Windows.Forms.Button buttonClose;
 		private System.Windows.Forms.Label labelConv;
+		private System.Windows.Forms.Button buttonMinimize;
 	}
 }

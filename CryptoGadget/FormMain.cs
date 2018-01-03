@@ -472,9 +472,9 @@ namespace CryptoGadget {
 			_timer_alert.Kill(500);
 			_timer_rows.Kill(500);
 
-			_charts_mtx.WaitOne();
-			foreach((FormChart, Thread) chart in _charts.Values) 
-				chart.Item2.Abort();
+			foreach((FormChart, Thread) chart in _charts.Values) {
+				chart.Item1.Invoke((MethodInvoker)delegate { chart.Item1.Close(); });
+			}
 
 			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
 				Global.Sett.Coords.PosX = Location.X;
