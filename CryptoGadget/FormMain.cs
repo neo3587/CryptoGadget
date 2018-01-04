@@ -228,7 +228,7 @@ namespace CryptoGadget {
 			} catch { }
 			 
 		}
-
+		
 		private void ResizeForm() {
             
             int X = 0;
@@ -245,7 +245,7 @@ namespace CryptoGadget {
             Size = new Size(X + edge * 2, Y + edge * 2);
         }
         private void GridInit() {
-
+			
 			mainGrid.Rows.Clear();
 			mainGrid.DataSource = null;
 			mainGrid.Columns.Clear();
@@ -430,6 +430,7 @@ namespace CryptoGadget {
 
             };
 
+			/*
 			#if DEBUG
 			string coin = "BTC", target = "USD";
 			_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
@@ -443,7 +444,7 @@ namespace CryptoGadget {
 			})));
 			_charts[(coin, target)].thread.Start();
 			#endif
-
+			*/
 		}
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {
@@ -550,8 +551,7 @@ namespace CryptoGadget {
 	/// </summary>
 	public static class DataGridViewExtensioncs {
         public static void DoubleBuffered(this DataGridView dgv, bool setting) {
-            Type dgvType = dgv.GetType();
-            dgvType.GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(dgv, setting, null);
+            dgv.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(dgv, setting, null);
         }
     }
 

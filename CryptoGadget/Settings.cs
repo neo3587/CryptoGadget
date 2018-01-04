@@ -473,7 +473,6 @@ namespace CryptoGadget {
 					Coins[n_page].Clear();
 					foreach(ValueTuple<string, string> tp in coins) {
 						StCoin st = new StCoin();
-						st.Icon = Global.GetIcon(tp.Item1, 16);
 						st.Coin = tp.Item1;
 						st.CoinName = tp.Item2;
 						st.Target = "USD";

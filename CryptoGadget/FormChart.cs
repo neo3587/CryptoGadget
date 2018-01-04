@@ -17,10 +17,13 @@ namespace CryptoGadget {
 			public Color ForeColor { get; set; } = Color.FromArgb(200, 200, 200);
 			public Color GridColor { get; set; } = Color.FromArgb(40, 52, 60);
 			public Color BackColor { get; set; } = Color.FromArgb(27, 38, 45);
-			public Color LineColor { get; set; } = Color.FromArgb(120, 120, 120);
+			public Color CursorLineColor { get; set; } = Color.FromArgb(120, 120, 120);
 			public Color CandleUpColor { get; set; } = Color.FromArgb(106, 131, 58);
 			public Color CandleDownColor { get; set; } = Color.FromArgb(138, 58, 59);
+			//public int AxisXLength { get; set; } = 60;
+			//public string DefaultZoom { get; set; } = "1d";
 		}
+
 		private ChartSettings _sett = new ChartSettings();
 		private (string coin, string target) _conv = ("", "");
 		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
@@ -86,33 +89,28 @@ namespace CryptoGadget {
 			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
 			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.GridColor;
 
-			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.LineColor;
+			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.CursorLineColor;
 
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
-
+			
 			try {
 
-				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, type, 120, step, time));
+				labelError.Text = "Fetching Data";
+				labelError.Update();
+
+				_serie_data = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, type, 120, step, time))["Data"].ToObject<JArray>();
 				_req_format = (type, step);
 				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
 
-				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
+				_axis_x.begin = Math.Max(_serie_data.Count - 60, 0);
+				_axis_x.end   = Math.Min(_axis_x.begin + 60, _serie_data.Count);
 
-					_serie_data = json["Data"].ToObject<JArray>();
+				for(int i = _axis_x.begin; i < _axis_x.end; i++) 
+					mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
 
-					_axis_x.begin = Math.Max(_serie_data.Count - 60, 0);
-					_axis_x.end = Math.Min(_axis_x.begin + 60, _serie_data.Count);
-
-					for(int i = _axis_x.begin; i < _axis_x.end; i++) 
-						mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
-
-					labelError.Text = "";
-				}
-				else {
-					labelError.Text = "ERROR: There's an error with the obtained data";
-				}
+				labelError.Text = "";
 
 			} catch {
 				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
@@ -129,6 +127,7 @@ namespace CryptoGadget {
 
 			Load += (sender, e) => {
 
+				DoubleBuffered = true;
 				labelConv.Text = _conv.coin + " -> " + _conv.target;
 
 				SetColors();
@@ -185,14 +184,17 @@ namespace CryptoGadget {
 						if(_axis_x.last < (int)axis_x) { // shift left
 							if(_axis_x.begin == 0 && _data_remaining) { // fill the chart with extra data if possible
 								try {
-									JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, _req_format.type, 60, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()));
-									Console.WriteLine(json["Response"]);
-									JArray jarr = json["Data"].ToObject<JArray>();
+									labelError.Text = "Fetching Data";
+									labelError.Update();
+									JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, _req_format.type, 120, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
 									for(int i = 0; i < jarr.Count; i++)
 										_serie_data.Insert(i, jarr[i]);
 									_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
-									_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() <= 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't exists)
-								} catch { }
+									_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't exists)
+									labelError.Text = "";
+								} catch {
+									labelError.Text = "ERROR: Can't connect with CryptoCompare API";
+								}
 							}
 							for(int i = _axis_x.last; i < (int)axis_x &&_axis_x.begin > 0; i++) { 
 								_axis_x.begin--; _axis_x.end--;
@@ -307,4 +309,5 @@ namespace CryptoGadget {
 		}
 
 	}
+
 }

@@ -194,7 +194,6 @@ namespace CryptoGadget {
 									no_url.ToString() + " coins doesn't have an associated download address\n" +
 									failed.ToString() + " icons couldn't be downloaded");
 
-
 					Invoke((MethodInvoker)delegate { Close(); });
 
 				}).Start();
