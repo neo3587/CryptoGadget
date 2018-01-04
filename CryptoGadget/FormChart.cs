@@ -27,7 +27,7 @@ namespace CryptoGadget {
 		private int _axis_x_last = 0;
 		private int _axis_x = 0;
 		private int _axis_x_max = 0;
-		private bool _data_rem = true;
+		private bool _data_remaining = true;
 		private (CCRequest.HistoType, int) _req_format;
 		private JArray _serie_data = null;
 		
@@ -97,7 +97,7 @@ namespace CryptoGadget {
 
 				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, type, 190, step, time));
 				_req_format = (type, step);
-				_data_rem = true;
+				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
@@ -187,26 +187,28 @@ namespace CryptoGadget {
 						_chart_clicked = true;
 
 						if(_axis_x_last < (int)axis_x) { // shift left
-							if(_axis_x == 0 && _data_rem) {
+							if(_axis_x == 0 && _data_remaining) {
 								try {
 									JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, _req_format.Item1, 60, _req_format.Item2, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
 									for(int i = 0; i < jarr.Count; i++)
 										_serie_data.Insert(i, jarr[i]);
 									_axis_x += jarr.Count; _axis_x_max += jarr.Count;
-									_data_rem = jarr.Count != 0;
+									_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() <= 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't exists)
 								} catch { }
 							}
-							if(_axis_x > 0) {
+							for(int i = _axis_x_last; i < (int)axis_x && _axis_x > 0; i++) { 
 								_axis_x--; _axis_x_max--;
 								mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
 								mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x]));
-								mainChart.ChartAreas[0].RecalculateAxesScale();
 							}
+							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
-						else if(_axis_x_last > (int)axis_x && _axis_x_max < _serie_data.Count) { // shift right
-							_axis_x++; _axis_x_max++;
-							mainChart.Series[0].Points.RemoveAt(0);
-							mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x_max - 1]));
+						else if(_axis_x_last > (int)axis_x) { // shift right
+							for(int i = (int)axis_x; i < _axis_x_last && _axis_x_max < _serie_data.Count; i++) {
+								_axis_x++; _axis_x_max++;
+								mainChart.Series[0].Points.RemoveAt(0);
+								mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x_max - 1]));
+							}
 							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
 
