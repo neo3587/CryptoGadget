@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
-using System.Drawing;
 
 using Newtonsoft.Json.Linq;
 
@@ -158,7 +157,9 @@ namespace CryptoGadget {
 
 				new Thread(() => {
 
-					List<Tuple<string, string>> misses = new List<Tuple<string, string>>();
+					List<(string name, string url)> misses = new List<(string, string)>();
+
+					Directory.CreateDirectory(Global.IconsFolder);
 
 					int coin_count = 0, no_url = 0, failed = 0;
 					foreach(JToken coin in Global.Json["Data"].Values()) {
@@ -169,15 +170,13 @@ namespace CryptoGadget {
 
 						if(Global.GetIcon(coin["Name"].ToString()).Height == 1) {
 							if(coin["ImageUrl"] != null)
-								misses.Add(new Tuple<string, string>(coin["Name"].ToString(), coin["ImageUrl"].ToString()));
+								misses.Add((coin["Name"].ToString(), coin["ImageUrl"].ToString()));
 							else if(coin["FiatCurrency"] == null)
 								no_url++;
 						}
 					}
 
-					Invoke((MethodInvoker)delegate {
-						progressBar.Maximum = misses.Count;
-					});
+					Invoke((MethodInvoker)delegate { progressBar.Maximum = misses.Count; });
 
 					for(int i = 0; i < misses.Count; i++) {
 						try {
@@ -185,7 +184,7 @@ namespace CryptoGadget {
 								labelProgress.Text = "Trying to download the missing icons (" + i + "/" + misses.Count + ")";
 								progressBar.Value = i;
 							});
-							Global.SetIcon(misses[i].Item1, CCRequest.DownloadIcon("https://www.cryptocompare.com" + misses[i].Item2));
+							Global.SetIcon(misses[i].name, CCRequest.DownloadIcon("https://www.cryptocompare.com" + misses[i].url));
 						} catch {
 							failed++;
 						}

@@ -95,29 +95,27 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 
-		private TimerRequest _timer_rows = null;
-		private TimerRequest _timer_alert = null;
-		private string _query_rows = ""; // full query -> current page
-		private string _query_alert = ""; // basic query -> all pages
+		private (TimerRequest rows, TimerRequest alert) _timer = (null, null);
+		private (string rows, string alert) _query = ("", ""); // rows = full query -> current page / alert = basic query -> all pages
 		private volatile bool _save_on_close = false;
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
 		private Settings.CoinList _alert_list = new Settings.CoinList();
-		private Dictionary<(string, string), (FormChart, Thread)> _charts = new Dictionary<(string, string), (FormChart, Thread)>();
+		private Dictionary<(string coin, string target), (FormChart form, Thread thread)> _charts = new Dictionary<(string, string), (FormChart, Thread)>();
 		private Mutex _charts_mtx = new Mutex();
 
 
 		internal void ApplySettings() {
-			_timer_rows.Kill();
+			_timer.rows.Kill();
 			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
 			Location = curr_loc;
-			_timer_rows.Start(Global.Sett.Basic.RefreshRate * 1000);
+			_timer.rows.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 		internal void SwapPage(int page) {
 
-			_timer_rows.Kill();
+			_timer.rows.Kill();
 
 			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page;
@@ -127,7 +125,7 @@ namespace CryptoGadget {
 			mainGrid.DataSource = _coin_list;
 			ResizeForm();
 
-			_timer_rows.Start(Global.Sett.Basic.RefreshRate * 1000);
+			_timer.rows.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 
 
@@ -144,7 +142,7 @@ namespace CryptoGadget {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(_query_rows);
+				JObject json = CCRequest.HttpRequest(_query.rows);
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					for(int i = 0; i < _coin_list.Count; i++) {
@@ -207,7 +205,7 @@ namespace CryptoGadget {
 
 			try {
 				
-				JObject json = CCRequest.HttpRequest(_query_alert);
+				JObject json = CCRequest.HttpRequest(_query.alert);
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					foreach(Settings.StCoin st in _alert_list) {
@@ -328,7 +326,7 @@ namespace CryptoGadget {
 
 			_alert_list = Global.Sett.GetAlarmCoins();
 			if(_alert_list.Count > 0)
-				_query_alert = CCRequest.ConvertQueryBasic(_alert_list, Global.Sett.Market.Market);
+				_query.alert = CCRequest.ConvertQueryBasic(_alert_list, Global.Sett.Market.Market);
 
 		}
 		private void RowsInit() {
@@ -353,7 +351,7 @@ namespace CryptoGadget {
 				_coin_list.Add(row);
 			}
 
-			_query_rows = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
+			_query.rows = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
 		}
 
 
@@ -423,11 +421,11 @@ namespace CryptoGadget {
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-				_timer_rows = new TimerRequest(TimerRowsRoutine);
-				_timer_alert = new TimerRequest(TimerAlertRoutine);
-				_timer_rows.Start(Global.Sett.Basic.RefreshRate * 1000);
+				_timer.rows = new TimerRequest(TimerRowsRoutine);
+				_timer.alert = new TimerRequest(TimerAlertRoutine);
+				_timer.rows.Start(Global.Sett.Basic.RefreshRate * 1000);
 				if(_alert_list.Count > 0) {
-					_timer_alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
+					_timer.alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 				}
 
             };
@@ -436,24 +434,24 @@ namespace CryptoGadget {
 			string coin = "BTC", target = "USD";
 			_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
 				_charts_mtx.WaitOne();
-				FormChart chart = _charts[(coin, target)].Item1;
+				FormChart chart = _charts[(coin, target)].form;
 				_charts_mtx.ReleaseMutex();
 				chart.ShowDialog();
 				_charts_mtx.WaitOne();
 				_charts.Remove((coin, target));
 				_charts_mtx.ReleaseMutex();
 			})));
-			_charts[(coin, target)].Item2.Start();
+			_charts[(coin, target)].thread.Start();
 			#endif
 
 		}
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {
-			_timer_alert.Kill();
+			_timer.alert.Kill();
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
 			if(_alert_list.Count > 0) {
-				_timer_alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
+				_timer.alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 			}
 		}
         private void toolStripHide_Click(object sender, EventArgs e) {
@@ -470,8 +468,8 @@ namespace CryptoGadget {
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
 
-			_timer_alert.Kill(500);
-			_timer_rows.Kill(500);
+			_timer.alert.Kill(500);
+			_timer.rows.Kill(500);
 
 			foreach((FormChart, Thread) chart in _charts.Values) {
 				chart.Item1.Invoke((MethodInvoker)delegate { chart.Item1.Close(); });
@@ -513,21 +511,21 @@ namespace CryptoGadget {
 				_charts_mtx.WaitOne();
 
 				if(_charts.ContainsKey((coin, target))) {
-					_charts[(coin, target)].Item1.Invoke((MethodInvoker)delegate { _charts[(coin, target)].Item1.Activate(); });
+					_charts[(coin, target)].Item1.Invoke((MethodInvoker)delegate { _charts[(coin, target)].form.Activate(); });
 					_charts_mtx.ReleaseMutex();
 					return;
 				}
 
 				_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
 					_charts_mtx.WaitOne();
-					FormChart chart = _charts[(coin, target)].Item1;
+					FormChart chart = _charts[(coin, target)].form;
 					_charts_mtx.ReleaseMutex();
 					chart.ShowDialog();
 					_charts_mtx.WaitOne();
 					_charts.Remove((coin, target));
 					_charts_mtx.ReleaseMutex();
 				})));
-				_charts[(coin, target)].Item2.Start();
+				_charts[(coin, target)].thread.Start();
 
 				_charts_mtx.ReleaseMutex();
 			}));

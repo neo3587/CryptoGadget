@@ -6,20 +6,38 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 
 
-using CoinPair = System.Collections.Generic.KeyValuePair<string, string>;
-
-
-
-// this will get some additions in future versions (Alarms, Graphs, ??)
 
 namespace CryptoGadget {
 
     public partial class FormCoinSettings : Form {
 
+		private class CoinPair {
+			public string Left { get; set; }
+			public string Right { get; set; }
+
+			public CoinPair(string left, string right) {
+				Left = left;
+				Right = right;
+			}
+			public void Reverse() {
+				string buff = Left;
+				Left = Right;
+				Right = buff;
+			}
+			public string OriginalLeft(bool reversed) {
+				return reversed ? Right : Left;
+			}
+			public string OriginalRight(bool reversed) {
+				return reversed ? Left : Right;
+			}
+			public override string ToString() {
+				return "[" + Left + ", " + Right + "]";
+			}
+		}
+
         private readonly Settings.CoinList _ptr_list = null;
 		private readonly Settings.StCoin _default_conv = null;
-        private BindingSource _coin_bind   = new BindingSource();
-		private BindingSource _target_bind = new BindingSource();
+		private (BindingSource coin, BindingSource target) _bind = (new BindingSource(), new BindingSource());
 		private bool _editing = false;
 
 		public Settings.StCoin CoinResult = null;
@@ -27,12 +45,10 @@ namespace CryptoGadget {
 
 		private void IndexName(ComboBox combo_box) {
 
-			string selected = "[" + ((CoinPair)combo_box.SelectedItem).Value + ", " + ((CoinPair)combo_box.SelectedItem).Key + "]";
+			string selected = "[" + (combo_box.SelectedItem as CoinPair).Right + ", " + (combo_box.SelectedItem as CoinPair).Left + "]";
 
-			for(int i = 0; i < (combo_box.DataSource as BindingSource).Count; i++) {
-				CoinPair cp = (CoinPair)(combo_box.DataSource as BindingSource)[i];
-				(combo_box.DataSource as BindingSource)[i] = new CoinPair(cp.Value, cp.Key);
-			}
+			for(int i = 0; i < (combo_box.DataSource as BindingSource).Count; i++) 
+				((combo_box.DataSource as BindingSource)[i] as CoinPair).Reverse();
 
 			(combo_box.DataSource as BindingSource).ResetBindings(false);
 			combo_box.SelectedIndex = combo_box.FindStringExact(selected);
@@ -74,12 +90,12 @@ namespace CryptoGadget {
 				foreach(JProperty jprop in Global.Json["Data"]) {
 					string name		 = jprop.Value["Name"].ToString();
 					string full_name = jprop.Value["CoinName"].ToString();
-					_coin_bind.Add(new CoinPair(name, full_name));
-					_target_bind.Add(new CoinPair(name, full_name));
+					_bind.coin.Add(new CoinPair(name, full_name));
+					_bind.target.Add(new CoinPair(name, full_name));
 				}
 
-				comboCoin.DataSource   = _coin_bind;
-                comboTarget.DataSource = _target_bind;
+				comboCoin.DataSource   = _bind.coin;
+                comboTarget.DataSource = _bind.target;
 
 				comboCoin.SelectedIndex   = _default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + _default_conv.Coin + ", " + _default_conv.CoinName + "]"), 0);
 				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(_default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + _default_conv.Target + ", " + _default_conv.TargetName + "]"), 0);
@@ -93,24 +109,24 @@ namespace CryptoGadget {
 
         private void buttonAccept_Click(object sender, EventArgs e) {
 
-            CoinPair left = (CoinPair)comboCoin.SelectedItem;
-            CoinPair right = (CoinPair)comboTarget.SelectedItem;
+            CoinPair coin = (comboCoin.SelectedItem as CoinPair);
+            CoinPair target = (comboTarget.SelectedItem as CoinPair);
 
-            if(checkCoinIndexName.Checked) 
-                left = new CoinPair(left.Value, left.Key);
+			if(checkCoinIndexName.Checked)
+				coin.Reverse();
 			if(checkTargetIndexName.Checked)
-                right = new CoinPair(right.Value, right.Key);
-			if(_ptr_list.FindConv(left.Key, right.Key) != -1 && (!_editing || (_editing && (left.Key != _default_conv.Coin || right.Key != _default_conv.Target)))) {
-				MessageBox.Show(left.Key + " => " + right.Key + " conversion is already being used");
+				target.Reverse();
+			if(_ptr_list.FindConv(coin.Left, target.Left) != -1 && (!_editing || (_editing && (coin.Left != _default_conv.Coin || target.Left != _default_conv.Target)))) {
+				MessageBox.Show(coin.Left + " => " + target.Left + " conversion is already being used");
 				return;
             }
 			
 			CoinResult = new Settings.StCoin();
-			CoinResult.Icon       = Global.GetIcon(left.Key, 16);
-			CoinResult.Coin       = left.Key;
-			CoinResult.CoinName   = left.Value;
-			CoinResult.Target	  = right.Key;
-			CoinResult.TargetName = right.Value;
+			CoinResult.Icon       = Global.GetIcon(coin.Left, 16);
+			CoinResult.Coin       = coin.Left;
+			CoinResult.CoinName   = coin.Right;
+			CoinResult.Target	  = target.Left;
+			CoinResult.TargetName = target.Right;
 			CoinResult.Alert.Above = numAlertAbove.Value;
 			CoinResult.Alert.Below = numAlertBelow.Value;
 
@@ -125,14 +141,14 @@ namespace CryptoGadget {
 			IndexName(comboCoin);			
 		}
 		private void checkCoinOnlyFiat_CheckedChanged(object sender, EventArgs e) {
-			OnlyFiat(comboCoin, _coin_bind, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
+			OnlyFiat(comboCoin, _bind.coin, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
 		}
 
 		private void checkTargetIndexName_CheckedChanged(object sender, EventArgs e) {
 			IndexName(comboTarget);
 		}
 		private void checkTargetOnlyFiat_CheckedChanged(object sender, EventArgs e) {
-			OnlyFiat(comboTarget, _target_bind, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
+			OnlyFiat(comboTarget, _bind.target, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
 		}
 
 		private void DropDownOnClick(object sender, EventArgs e) {
@@ -146,18 +162,18 @@ namespace CryptoGadget {
 
 			OpenFileDialog ofd = new OpenFileDialog();
 
-			CoinPair coin = (CoinPair)comboCoin.SelectedItem;
-			if(checkCoinIndexName.Checked)
-				coin = new CoinPair(coin.Value, coin.Key);
+			string coin = (comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked);
+			string target = (comboCoin.SelectedItem as CoinPair).OriginalRight(checkCoinIndexName.Checked);
 
-			ofd.Title = "Select Icon for " + coin.Key + " (" + coin.Value + ")";
+			ofd.Title = "Select Icon for " + coin + " (" + target + ")";
 			ofd.Filter = "Icon Files (*.ico, *.png, *.jpg)|*.ico;*png;*jpg";
 			ofd.Multiselect = false;
 
 			ofd.FileOk += (f_sender, f_ev) => {
+				Directory.CreateDirectory(Global.IconsFolder);
 				using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {
 					stream.Position = 0;
-					Global.SetIcon(coin.Key, stream);
+					Global.SetIcon(coin, stream);
 				}
 			};
 
@@ -165,16 +181,16 @@ namespace CryptoGadget {
 		}
 		private void buttonIconReDownload_Click(object sender, EventArgs e) {
 
-			CoinPair coin = (CoinPair)comboCoin.SelectedItem;
-			if(checkCoinIndexName.Checked)
-				coin = new CoinPair(coin.Value, coin.Key);
+			string coin = (comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked);
+
 			try {
-				Global.SetIcon(coin.Key, CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin.Key]["ImageUrl"]));
-				MessageBox.Show(coin.Key + " succesfully updated");
+				Directory.CreateDirectory(Global.IconsFolder);
+				Global.SetIcon(coin, CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin]["ImageUrl"]));
+				MessageBox.Show(coin + " succesfully updated");
 			} catch(System.Net.WebException) {
-				MessageBox.Show("Couldn't download the " + coin.Key + "icon from the server");
+				MessageBox.Show("Couldn't download the " + coin + " icon from the server");
 			} catch(InvalidOperationException) {
-				MessageBox.Show(coin.Key + " doesn't have an associated url for this coin, it may get fixed by re-downloading the coin list");
+				MessageBox.Show(coin + " doesn't have an associated url for this coin, it may get fixed by re-downloading the coin list");
 			} catch {
 				MessageBox.Show("Unexpected error");
 			}

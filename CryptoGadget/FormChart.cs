@@ -12,6 +12,7 @@ namespace CryptoGadget {
 
 	public partial class FormChart : Form {
 
+		// need to generate a ChartSettings Form... maybe at 2.4.0 version
 		public class ChartSettings {
 			public Color ForeColor { get; set; } = Color.FromArgb(200, 200, 200);
 			public Color GridColor { get; set; } = Color.FromArgb(40, 52, 60);
@@ -21,14 +22,11 @@ namespace CryptoGadget {
 			public Color CandleDownColor { get; set; } = Color.FromArgb(138, 58, 59);
 		}
 		private ChartSettings _sett = new ChartSettings();
-		private string _coin = "";
-		private string _target = "";
+		private (string coin, string target) _conv = ("", "");
 		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
-		private int _axis_x_last = 0;
-		private int _axis_x = 0;
-		private int _axis_x_max = 0;
+		private (int begin, int end, int last) _axis_x = (0, 0, 0);
 		private bool _data_remaining = true;
-		private (CCRequest.HistoType, int) _req_format;
+		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 24);
 		private JArray _serie_data = null;
 		
 
@@ -95,7 +93,7 @@ namespace CryptoGadget {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, type, 190, step, time));
+				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, type, 120, step, time));
 				_req_format = (type, step);
 				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
@@ -104,12 +102,10 @@ namespace CryptoGadget {
 
 					_serie_data = json["Data"].ToObject<JArray>();
 
-					int begin = Math.Max(_serie_data.Count - 60, 0);
-					int end = Math.Min(begin + 60, _serie_data.Count);
-					_axis_x = begin;
-					_axis_x_max = end;
+					_axis_x.begin = Math.Max(_serie_data.Count - 60, 0);
+					_axis_x.end = Math.Min(_axis_x.begin + 60, _serie_data.Count);
 
-					for(int i = begin; i < end; i++) 
+					for(int i = _axis_x.begin; i < _axis_x.end; i++) 
 						mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
 
 					labelError.Text = "";
@@ -128,12 +124,12 @@ namespace CryptoGadget {
 		public FormChart(string coin, string target) {
 
 			InitializeComponent();
-			_coin = coin;
-			_target = target;
+			_conv.coin = coin;
+			_conv.target = target;
 
 			Load += (sender, e) => {
 
-				labelConv.Text = _coin + " -> " + _target;
+				labelConv.Text = _conv.coin + " -> " + _conv.target;
 
 				SetColors();
 
@@ -186,28 +182,30 @@ namespace CryptoGadget {
 
 						_chart_clicked = true;
 
-						if(_axis_x_last < (int)axis_x) { // shift left
-							if(_axis_x == 0 && _data_remaining) {
+						if(_axis_x.last < (int)axis_x) { // shift left
+							if(_axis_x.begin == 0 && _data_remaining) { // fill the chart with extra data if possible
 								try {
-									JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_coin, _target, _req_format.Item1, 60, _req_format.Item2, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+									JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, _req_format.type, 60, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()));
+									Console.WriteLine(json["Response"]);
+									JArray jarr = json["Data"].ToObject<JArray>();
 									for(int i = 0; i < jarr.Count; i++)
 										_serie_data.Insert(i, jarr[i]);
-									_axis_x += jarr.Count; _axis_x_max += jarr.Count;
+									_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
 									_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() <= 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't exists)
 								} catch { }
 							}
-							for(int i = _axis_x_last; i < (int)axis_x && _axis_x > 0; i++) { 
-								_axis_x--; _axis_x_max--;
+							for(int i = _axis_x.last; i < (int)axis_x &&_axis_x.begin > 0; i++) { 
+								_axis_x.begin--; _axis_x.end--;
 								mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
-								mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x]));
+								mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
 							}
 							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
-						else if(_axis_x_last > (int)axis_x) { // shift right
-							for(int i = (int)axis_x; i < _axis_x_last && _axis_x_max < _serie_data.Count; i++) {
-								_axis_x++; _axis_x_max++;
+						else if(_axis_x.last > (int)axis_x) { // shift right
+							for(int i = (int)axis_x; i < _axis_x.last && _axis_x.end < _serie_data.Count; i++) {
+								_axis_x.begin++; _axis_x.end++;
 								mainChart.Series[0].Points.RemoveAt(0);
-								mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x_max - 1]));
+								mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
 							}
 							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
@@ -229,7 +227,7 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
 
 				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
-				_axis_x_last = (int)axis_x;
+				_axis_x.last = (int)axis_x;
 				int pt_index = (int)Math.Round(axis_x) - 1;
 				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
 
@@ -265,7 +263,7 @@ namespace CryptoGadget {
 			ChartFill(CCRequest.HistoType.Day, 5);
 		}
 		private void button3m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Hour, 30);
+			ChartFill(CCRequest.HistoType.Day, 2);
 		}
 		private void button1m_Click(object sender, EventArgs e) {
 			ChartFill(CCRequest.HistoType.Hour, 10);

@@ -329,7 +329,7 @@
 			this.labelError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelError.AutoSize = true;
 			this.labelError.BackColor = System.Drawing.Color.Transparent;
-			this.labelError.Location = new System.Drawing.Point(306, 315);
+			this.labelError.Location = new System.Drawing.Point(302, 315);
 			this.labelError.Name = "labelError";
 			this.labelError.Size = new System.Drawing.Size(0, 13);
 			this.labelError.TabIndex = 23;

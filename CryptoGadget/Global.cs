@@ -39,16 +39,11 @@ namespace CryptoGadget {
 		}
 
 		public static Bitmap GetIcon(string name, int size = 0) {
-
 			Bitmap bmp;
-
-			name = name.ToLower();
-			if(name.EndsWith("*"))
-				name = name.Substring(0, name.LastIndexOf("*")) + "_star";
-
-            try {
+			name = name.ToLower().Replace("*", "_star");
+			try {
                 try {
-                    bmp = (size == 0? new Icon(IconsFolder + name + ".ico") : new Icon(IconsFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
+                    bmp = (size == 0 ? new Icon(IconsFolder + name + ".ico") : new Icon(IconsFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
                 }
                 catch {
                     bmp = size == 0 ? new Bitmap(IconsFolder + name + ".ico") : new Bitmap(Image.FromFile(IconsFolder + name + ".ico"), new Size(size, size));
@@ -74,15 +69,11 @@ namespace CryptoGadget {
 		}
 
 		public static void SetIcon(string name, Bitmap bmp) {
-			name = name.ToLower();
-			if(name.EndsWith("*"))
-				name = name.Substring(0, name.LastIndexOf("*")) + "_star";
+			name = name.ToLower().Replace("*", "_star");
 			bmp.Save(IconsFolder + name + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
 		}
 		public static void SetIcon(string name, Stream stream) {
-			name = name.ToLower();
-			if(name.EndsWith("*"))
-				name = name.Substring(0, name.LastIndexOf("*")) + "_star";
+			name = name.ToLower().Replace("*", "_star");
 			try {
 				using(StreamWriter writer = new StreamWriter(IconsFolder + name + ".ico")) {
 					stream.CopyTo(writer.BaseStream);
