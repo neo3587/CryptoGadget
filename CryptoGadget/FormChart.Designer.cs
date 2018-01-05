@@ -56,6 +56,7 @@
 			this.buttonClose = new System.Windows.Forms.Button();
 			this.labelConv = new System.Windows.Forms.Label();
 			this.buttonMinimize = new System.Windows.Forms.Button();
+			this.buttonMaximize = new System.Windows.Forms.Button();
 			this.contextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
 			this.SuspendLayout();
@@ -97,7 +98,7 @@
 			series1.Name = "SeriesCandle";
 			series1.YValuesPerPoint = 4;
 			this.mainChart.Series.Add(series1);
-			this.mainChart.Size = new System.Drawing.Size(729, 320);
+			this.mainChart.Size = new System.Drawing.Size(747, 320);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
@@ -338,7 +339,7 @@
 			// 
 			this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonClose.Location = new System.Drawing.Point(645, 0);
+			this.buttonClose.Location = new System.Drawing.Point(663, 0);
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.Size = new System.Drawing.Size(19, 19);
 			this.buttonClose.TabIndex = 24;
@@ -352,7 +353,7 @@
 			// 
 			this.labelConv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.labelConv.AutoSize = true;
-			this.labelConv.Location = new System.Drawing.Point(558, 317);
+			this.labelConv.Location = new System.Drawing.Point(576, 317);
 			this.labelConv.Name = "labelConv";
 			this.labelConv.Size = new System.Drawing.Size(66, 13);
 			this.labelConv.TabIndex = 25;
@@ -372,13 +373,28 @@
 			this.buttonMinimize.UseVisualStyleBackColor = true;
 			this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
 			// 
+			// buttonMaximize
+			// 
+			this.buttonMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonMaximize.Location = new System.Drawing.Point(645, 0);
+			this.buttonMaximize.Name = "buttonMaximize";
+			this.buttonMaximize.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.buttonMaximize.Size = new System.Drawing.Size(19, 19);
+			this.buttonMaximize.TabIndex = 27;
+			this.buttonMaximize.Text = "◻";
+			this.buttonMaximize.UseCompatibleTextRendering = true;
+			this.buttonMaximize.UseVisualStyleBackColor = true;
+			this.buttonMaximize.Click += new System.EventHandler(this.buttonMaximize_Click);
+			// 
 			// FormChart
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.ClientSize = new System.Drawing.Size(664, 336);
+			this.ClientSize = new System.Drawing.Size(682, 336);
 			this.ContextMenuStrip = this.contextMenu;
+			this.Controls.Add(this.buttonMaximize);
 			this.Controls.Add(this.buttonMinimize);
 			this.Controls.Add(this.labelConv);
 			this.Controls.Add(this.buttonClose);
@@ -407,7 +423,7 @@
 			this.Controls.Add(this.mainChart);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(664, 336);
+			this.MinimumSize = new System.Drawing.Size(682, 336);
 			this.Name = "FormChart";
 			this.Text = "FormChart";
 			this.Resize += new System.EventHandler(this.FormChart_Resize);
@@ -448,5 +464,6 @@
 		private System.Windows.Forms.Button buttonClose;
 		private System.Windows.Forms.Label labelConv;
 		private System.Windows.Forms.Button buttonMinimize;
+		private System.Windows.Forms.Button buttonMaximize;
 	}
 }

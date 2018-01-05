@@ -52,6 +52,23 @@ namespace CryptoGadget {
 
 			return dp;
 		}
+		private void TryFetchData() { // fill the chart with extra data if possible
+			if(_axis_x.begin == 0 && _data_remaining) { 
+				try {
+					labelError.Text = "Fetching Data";
+					labelError.Update();
+					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, _req_format.type, 120, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+					for(int i = 0; i < jarr.Count; i++)
+						_serie_data.Insert(i, jarr[i]);
+					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
+					_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
+					labelError.Text = "";
+					labelError.Update();
+				} catch {
+					labelError.Text = "ERROR: Can't connect with CryptoCompare API";
+				}
+			}
+		}
 		private void ButtonColorClick(object sender, EventArgs e) {
 			ControlApply<Button>(this, (ctrl) => {
 				ctrl.ForeColor = _sett.ForeColor;
@@ -141,6 +158,9 @@ namespace CryptoGadget {
 
 				MouseDown += Global.DragMove;
 				ControlApply<Label>(this, (ctrl) => ctrl.MouseDown += Global.DragMove);
+				ControlApply<Button>(this, (ctrl) => ctrl.GotFocus += (f_sender, f_e) => ActiveControl = mainChart);
+
+				mainChart.MouseWheel += mainChart_MouseWheel;
 
 				button3y.Click += ButtonColorClick;
 				button1y.Click += ButtonColorClick;
@@ -162,9 +182,10 @@ namespace CryptoGadget {
 		private void toolStripClose_Click(object sender, EventArgs e) {
 			Close();
 		}
+		private void buttonMaximize_Click(object sender, EventArgs e) {
+			WindowState = WindowState == FormWindowState.Normal ? FormWindowState.Maximized : FormWindowState.Normal;
+		}
 		private void buttonMinimize_Click(object sender, EventArgs e) {
-			buttonMinimize.Enabled = false; // avoid button clicked appearance
-			buttonMinimize.Enabled = true;
 			WindowState = FormWindowState.Minimized;
 		}
 		private void buttonClose_Click(object sender, EventArgs e) {
@@ -182,20 +203,7 @@ namespace CryptoGadget {
 						_chart_clicked = true;
 
 						if(_axis_x.last < (int)axis_x) { // shift left
-							if(_axis_x.begin == 0 && _data_remaining) { // fill the chart with extra data if possible
-								try {
-									labelError.Text = "Fetching Data";
-									labelError.Update();
-									JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, _req_format.type, 120, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
-									for(int i = 0; i < jarr.Count; i++)
-										_serie_data.Insert(i, jarr[i]);
-									_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
-									_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't exists)
-									labelError.Text = "";
-								} catch {
-									labelError.Text = "ERROR: Can't connect with CryptoCompare API";
-								}
-							}
+							TryFetchData();
 							for(int i = _axis_x.last; i < (int)axis_x &&_axis_x.begin > 0; i++) { 
 								_axis_x.begin--; _axis_x.end--;
 								mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
@@ -254,6 +262,25 @@ namespace CryptoGadget {
 			Update();
 
 		}
+		private void mainChart_MouseWheel(object sender, MouseEventArgs e) {
+			if(e.Delta > 0 && _axis_x.end - _axis_x.begin > 40) { // Zoom in
+				_axis_x.begin++; _axis_x.end--;
+				mainChart.Series[0].Points.RemoveAt(0);
+				mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count -1);
+			}
+			else if(e.Delta < 0 && _axis_x.end - _axis_x.begin < 120) { // Zoom out
+				TryFetchData();
+				if(_axis_x.begin > 0) {
+					_axis_x.begin--;
+					mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
+				}
+				if(_axis_x.end < _serie_data.Count) {
+					_axis_x.end++;
+					mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
+				}
+			}
+		}
+
 		private void FormChart_Resize(object sender, EventArgs e) {
 			Refresh(); // avoid resize gripper graphic glitches 
 		}

@@ -430,7 +430,7 @@ namespace CryptoGadget {
 
             };
 
-			/*
+			
 			#if DEBUG
 			string coin = "BTC", target = "USD";
 			_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
@@ -444,7 +444,7 @@ namespace CryptoGadget {
 			})));
 			_charts[(coin, target)].thread.Start();
 			#endif
-			*/
+			
 		}
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {
@@ -512,7 +512,11 @@ namespace CryptoGadget {
 				_charts_mtx.WaitOne();
 
 				if(_charts.ContainsKey((coin, target))) {
-					_charts[(coin, target)].Item1.Invoke((MethodInvoker)delegate { _charts[(coin, target)].form.Activate(); });
+					_charts[(coin, target)].Item1.Invoke((MethodInvoker)delegate {
+						if(_charts[(coin, target)].form.WindowState == FormWindowState.Minimized)
+							_charts[(coin, target)].form.WindowState = FormWindowState.Normal;
+						_charts[(coin, target)].form.Activate();
+					});
 					_charts_mtx.ReleaseMutex();
 					return;
 				}

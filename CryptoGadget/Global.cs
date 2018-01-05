@@ -32,7 +32,7 @@ namespace CryptoGadget {
 
 
 		public static void DragMove(object sender, MouseEventArgs e) {
-			if(e.Button == MouseButtons.Left) {
+			if(e.Button == MouseButtons.Left && (sender as Control).FindForm().WindowState != FormWindowState.Maximized) {
 				ReleaseCapture();
 				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
 			}
