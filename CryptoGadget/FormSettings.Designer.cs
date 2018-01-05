@@ -143,11 +143,9 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.label34 = new System.Windows.Forms.Label();
 			this.label35 = new System.Windows.Forms.Label();
+			this.label34 = new System.Windows.Forms.Label();
 			this.numChartZoom = new System.Windows.Forms.NumericUpDown();
-			this.comboChartDateRange = new System.Windows.Forms.ComboBox();
-			this.label36 = new System.Windows.Forms.Label();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.buttonChartCandleUpColor = new System.Windows.Forms.Button();
 			this.label37 = new System.Windows.Forms.Label();
@@ -161,7 +159,9 @@
 			this.buttonChartCandleDownColor = new System.Windows.Forms.Button();
 			this.label43 = new System.Windows.Forms.Label();
 			this.buttonChartCursorLinesColor = new System.Windows.Forms.Button();
+			this.comboChartDateRange = new System.Windows.Forms.ComboBox();
 			this.buttonDefaultCharts = new System.Windows.Forms.Button();
+			this.label36 = new System.Windows.Forms.Label();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.labelQrCodeName = new System.Windows.Forms.Label();
 			this.pictureBoxQrCode = new System.Windows.Forms.PictureBox();
@@ -813,8 +813,8 @@
 			this.buttonDonationQrLTC.Name = "buttonDonationQrLTC";
 			this.buttonDonationQrLTC.Size = new System.Drawing.Size(23, 23);
 			this.buttonDonationQrLTC.TabIndex = 51;
-			this.toolTip1.SetToolTip(this.buttonDonationQrLTC, "Copy BTC adress to clipboard");
 			this.buttonDonationQrLTC.UseVisualStyleBackColor = true;
+			this.buttonDonationQrLTC.Click += new System.EventHandler(this.buttonDonationQrLTC_Click);
 			// 
 			// buttonDonationQrDASH
 			// 
@@ -824,8 +824,8 @@
 			this.buttonDonationQrDASH.Name = "buttonDonationQrDASH";
 			this.buttonDonationQrDASH.Size = new System.Drawing.Size(23, 23);
 			this.buttonDonationQrDASH.TabIndex = 50;
-			this.toolTip1.SetToolTip(this.buttonDonationQrDASH, "Copy BTC adress to clipboard");
 			this.buttonDonationQrDASH.UseVisualStyleBackColor = true;
+			this.buttonDonationQrDASH.Click += new System.EventHandler(this.buttonDonationQrDASH_Click);
 			// 
 			// buttonDonationQrETH
 			// 
@@ -835,8 +835,8 @@
 			this.buttonDonationQrETH.Name = "buttonDonationQrETH";
 			this.buttonDonationQrETH.Size = new System.Drawing.Size(23, 23);
 			this.buttonDonationQrETH.TabIndex = 49;
-			this.toolTip1.SetToolTip(this.buttonDonationQrETH, "Copy BTC adress to clipboard");
 			this.buttonDonationQrETH.UseVisualStyleBackColor = true;
+			this.buttonDonationQrETH.Click += new System.EventHandler(this.buttonDonationQrETH_Click);
 			// 
 			// buttonDonationQrBCH
 			// 
@@ -846,8 +846,8 @@
 			this.buttonDonationQrBCH.Name = "buttonDonationQrBCH";
 			this.buttonDonationQrBCH.Size = new System.Drawing.Size(23, 23);
 			this.buttonDonationQrBCH.TabIndex = 48;
-			this.toolTip1.SetToolTip(this.buttonDonationQrBCH, "Copy BTC adress to clipboard");
 			this.buttonDonationQrBCH.UseVisualStyleBackColor = true;
+			this.buttonDonationQrBCH.Click += new System.EventHandler(this.buttonDonationQrBCH_Click);
 			// 
 			// buttonDonationQrBTC
 			// 
@@ -857,8 +857,8 @@
 			this.buttonDonationQrBTC.Name = "buttonDonationQrBTC";
 			this.buttonDonationQrBTC.Size = new System.Drawing.Size(23, 23);
 			this.buttonDonationQrBTC.TabIndex = 47;
-			this.toolTip1.SetToolTip(this.buttonDonationQrBTC, "Copy BTC adress to clipboard");
 			this.buttonDonationQrBTC.UseVisualStyleBackColor = true;
+			this.buttonDonationQrBTC.Click += new System.EventHandler(this.buttonDonationQrBTC_Click);
 			// 
 			// buttonDonationCopyBCH
 			// 
@@ -867,8 +867,9 @@
 			this.buttonDonationCopyBCH.Size = new System.Drawing.Size(57, 23);
 			this.buttonDonationCopyBCH.TabIndex = 46;
 			this.buttonDonationCopyBCH.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyBCH, "Copy BTC adress to clipboard");
+			this.toolTip1.SetToolTip(this.buttonDonationCopyBCH, "Copy BCH adress to clipboard");
 			this.buttonDonationCopyBCH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyBCH.Click += new System.EventHandler(this.buttonDonationCopyBCH_Click);
 			// 
 			// buttonDonationCopyLTC
 			// 
@@ -879,6 +880,7 @@
 			this.buttonDonationCopyLTC.Text = "Copy";
 			this.toolTip1.SetToolTip(this.buttonDonationCopyLTC, "Copy LTC adress to clipboard");
 			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyLTC.Click += new System.EventHandler(this.buttonDonationCopyLTC_Click);
 			// 
 			// buttonDonationCopyDASH
 			// 
@@ -889,6 +891,7 @@
 			this.buttonDonationCopyDASH.Text = "Copy";
 			this.toolTip1.SetToolTip(this.buttonDonationCopyDASH, "Copy DASH adress to clipboard");
 			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyDASH.Click += new System.EventHandler(this.buttonDonationCopyDASH_Click);
 			// 
 			// buttonDonationCopyETH
 			// 
@@ -899,6 +902,7 @@
 			this.buttonDonationCopyETH.Text = "Copy";
 			this.toolTip1.SetToolTip(this.buttonDonationCopyETH, "Copy ETH adress to clipboard");
 			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyETH.Click += new System.EventHandler(this.buttonDonationCopyETH_Click);
 			// 
 			// buttonDonationCopyBTC
 			// 
@@ -909,6 +913,7 @@
 			this.buttonDonationCopyBTC.Text = "Copy";
 			this.toolTip1.SetToolTip(this.buttonDonationCopyBTC, "Copy BTC adress to clipboard");
 			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
+			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
 			// 
 			// tabPage4
 			// 
@@ -1678,6 +1683,16 @@
 			this.tabPage5.Text = "Charts";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// label35
+			// 
+			this.label35.AutoSize = true;
+			this.label35.Location = new System.Drawing.Point(235, 23);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(74, 13);
+			this.label35.TabIndex = 69;
+			this.label35.Text = "Default Zoom:";
+			this.toolTip1.SetToolTip(this.label35, "Number of candlesticks that will be displayed by default");
+			// 
 			// label34
 			// 
 			this.label34.AutoSize = true;
@@ -1687,15 +1702,6 @@
 			this.label34.TabIndex = 80;
 			this.label34.Text = "Note: Chart changes only will be applied to the \r\n           next opened charts, " +
     "not the current ones";
-			// 
-			// label35
-			// 
-			this.label35.AutoSize = true;
-			this.label35.Location = new System.Drawing.Point(235, 23);
-			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(74, 13);
-			this.label35.TabIndex = 69;
-			this.label35.Text = "Default Zoom:";
 			// 
 			// numChartZoom
 			// 
@@ -1714,35 +1720,6 @@
             0,
             0,
             0});
-			// 
-			// comboChartDateRange
-			// 
-			this.comboChartDateRange.FormattingEnabled = true;
-			this.comboChartDateRange.Items.AddRange(new object[] {
-            "1 hour",
-            "6 hours",
-            "1 day",
-            "3 days",
-            "7 days",
-            "1 month",
-            "3 months",
-            "1 year",
-            "3 years"});
-			this.comboChartDateRange.Location = new System.Drawing.Point(344, 47);
-			this.comboChartDateRange.Name = "comboChartDateRange";
-			this.comboChartDateRange.Size = new System.Drawing.Size(100, 21);
-			this.comboChartDateRange.TabIndex = 71;
-			this.comboChartDateRange.Text = "1 day";
-			this.comboChartDateRange.Click += new System.EventHandler(this.DropDownOnClick);
-			// 
-			// label36
-			// 
-			this.label36.AutoSize = true;
-			this.label36.Location = new System.Drawing.Point(235, 50);
-			this.label36.Name = "label36";
-			this.label36.Size = new System.Drawing.Size(105, 13);
-			this.label36.TabIndex = 72;
-			this.label36.Text = "Default Date Range:";
 			// 
 			// groupBox8
 			// 
@@ -1873,6 +1850,26 @@
 			this.buttonChartCursorLinesColor.UseVisualStyleBackColor = true;
 			this.buttonChartCursorLinesColor.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
+			// comboChartDateRange
+			// 
+			this.comboChartDateRange.FormattingEnabled = true;
+			this.comboChartDateRange.Items.AddRange(new object[] {
+            "1 hour",
+            "6 hours",
+            "1 day",
+            "3 days",
+            "7 days",
+            "1 month",
+            "3 months",
+            "1 year",
+            "3 years"});
+			this.comboChartDateRange.Location = new System.Drawing.Point(344, 47);
+			this.comboChartDateRange.Name = "comboChartDateRange";
+			this.comboChartDateRange.Size = new System.Drawing.Size(100, 21);
+			this.comboChartDateRange.TabIndex = 71;
+			this.comboChartDateRange.Text = "1 day";
+			this.comboChartDateRange.Click += new System.EventHandler(this.DropDownOnClick);
+			// 
 			// buttonDefaultCharts
 			// 
 			this.buttonDefaultCharts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1883,6 +1880,15 @@
 			this.buttonDefaultCharts.Text = "Defaults";
 			this.buttonDefaultCharts.UseVisualStyleBackColor = true;
 			this.buttonDefaultCharts.Click += new System.EventHandler(this.buttonDefaultCharts_Click);
+			// 
+			// label36
+			// 
+			this.label36.AutoSize = true;
+			this.label36.Location = new System.Drawing.Point(235, 50);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(105, 13);
+			this.label36.TabIndex = 72;
+			this.label36.Text = "Default Date Range:";
 			// 
 			// tabPage6
 			// 
@@ -1967,6 +1973,7 @@
 			this.linkLabel2.TabIndex = 43;
 			this.linkLabel2.TabStop = true;
 			this.linkLabel2.Text = "https://github.com/neo3587/CryptoGadget/releases";
+			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenUrlLink);
 			// 
 			// label23
 			// 
@@ -1995,6 +2002,7 @@
 			this.linkLabel1.TabIndex = 40;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "https://github.com/neo3587/CryptoGadget";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenUrlLink);
 			// 
 			// labelCryptoGadgetVersion
 			// 
