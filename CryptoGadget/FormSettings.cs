@@ -374,6 +374,9 @@ namespace CryptoGadget {
 
         private void buttonDefaultCurrencies_Click(object sender, EventArgs e) {
 			_sett.Default(Settings.DefaultType.Coins, _page);
+			foreach(Settings.CoinList cl in _sett.Coins) // default doesn't load the icons
+				foreach(Settings.StCoin st in cl)
+					st.Icon = Global.GetIcon(st.Coin, 16);
 		}
 
 		#endregion
