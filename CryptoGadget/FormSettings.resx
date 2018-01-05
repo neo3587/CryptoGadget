@@ -132,23 +132,7 @@
         pVLacZ3KHnyDHZQWfUAaU6DxTOPPJ8u+AWWB3WTxXGHNAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="buttonDonationQrBTC.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAH5JREFUOE+t
-        jwEOgCAMA/H/j1Zq7FJKCcZ4SbO1bIjtL84gkHpVMZgOvearmRtdOJ4KULVn1ZmbwXTU66IyXeACqVdt
-        eTUEMMj/8qXVGfPCBynFZ7bogn7Nfd2oIuh3L5sCelR/QcriAkBNZ8wKD3yJqB/OYFwk5ah68VdauwDO
-        RmOyGQK9EgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="buttonDonationQrBCH.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAH5JREFUOE+t
-        jwEOgCAMA/H/j1Zq7FJKCcZ4SbO1bIjtL84gkHpVMZgOvearmRtdOJ4KULVn1ZmbwXTU66IyXeACqVdt
-        eTUEMMj/8qXVGfPCBynFZ7bogn7Nfd2oIuh3L5sCelR/QcriAkBNZ8wKD3yJqB/OYFwk5ah68VdauwDO
-        RmOyGQK9EgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="buttonDonationQrETH.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="buttonDonationQrLTC.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAH5JREFUOE+t
         jwEOgCAMA/H/j1Zq7FJKCcZ4SbO1bIjtL84gkHpVMZgOvearmRtdOJ4KULVn1ZmbwXTU66IyXeACqVdt
@@ -164,7 +148,23 @@
         RmOyGQK9EgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="buttonDonationQrLTC.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="buttonDonationQrETH.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAH5JREFUOE+t
+        jwEOgCAMA/H/j1Zq7FJKCcZ4SbO1bIjtL84gkHpVMZgOvearmRtdOJ4KULVn1ZmbwXTU66IyXeACqVdt
+        eTUEMMj/8qXVGfPCBynFZ7bogn7Nfd2oIuh3L5sCelR/QcriAkBNZ8wKD3yJqB/OYFwk5ah68VdauwDO
+        RmOyGQK9EgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="buttonDonationQrBCH.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAH5JREFUOE+t
+        jwEOgCAMA/H/j1Zq7FJKCcZ4SbO1bIjtL84gkHpVMZgOvearmRtdOJ4KULVn1ZmbwXTU66IyXeACqVdt
+        eTUEMMj/8qXVGfPCBynFZ7bogn7Nfd2oIuh3L5sCelR/QcriAkBNZ8wKD3yJqB/OYFwk5ah68VdauwDO
+        RmOyGQK9EgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="buttonDonationQrBTC.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAH5JREFUOE+t
         jwEOgCAMA/H/j1Zq7FJKCcZ4SbO1bIjtL84gkHpVMZgOvearmRtdOJ4KULVn1ZmbwXTU66IyXeACqVdt
@@ -185,6 +185,18 @@
     <value>True</value>
   </metadata>
   <metadata name="colsGridEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coinGridImg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coinGridCoin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coinGridTarget.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coinGridTargetName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="coinGridImg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

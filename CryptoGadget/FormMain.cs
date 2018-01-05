@@ -396,7 +396,7 @@ namespace CryptoGadget {
 					Global.Profile = "Default.json";
 				}
 				if(!Global.Sett.Load() || !Global.Sett.Check()) {
-					MessageBox.Show("The settings file is corrupted or outdated (not valid for this version), a new settings file with the default values will be used");
+					MessageBox.Show("The profile file is corrupted or outdated (not valid for this version), a new profile file with the default values will be used");
 					Global.Sett.Default();
 					Global.Sett.Store();
 					Global.Sett.Save();

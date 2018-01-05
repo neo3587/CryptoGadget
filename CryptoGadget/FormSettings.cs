@@ -227,6 +227,17 @@ namespace CryptoGadget {
 
 			colsGrid.DataSource = _sett.Grid.Columns;
 
+			// Charts
+
+			buttonChartForeColor.DataBindings.Add("BackColor", _sett.Chart, "ForeColor");
+			buttonChartBackColor.DataBindings.Add("BackColor", _sett.Chart, "BackColor");
+			buttonChartGridColor.DataBindings.Add("BackColor", _sett.Chart, "GridColor");
+			buttonChartCursorLinesColor.DataBindings.Add("BackColor", _sett.Chart, "CursorLinesColor");
+			buttonChartCandleUpColor.DataBindings.Add("BackColor", _sett.Chart, "CandleUpColor");
+			buttonChartCandleDownColor.DataBindings.Add("BackColor", _sett.Chart, "CandleDownColor");
+			numChartZoom.DataBindings.Add("Value", _sett.Chart, "Zoom");
+			comboChartDateRange.DataBindings.Add("SelectedIndex", _sett.Chart, "DateRange");
+
 			// Other (not actually binds)
 
 			textBoxProfileName.Text = Global.Profile;
@@ -502,6 +513,14 @@ namespace CryptoGadget {
 
 		#endregion
 
+		#region Charts Tab
+
+		private void buttonDefaultCharts_Click(object sender, EventArgs e) {
+			_sett.Default(Settings.DefaultType.Chart);
+		}
+
+		#endregion
+
 		#region Additional tab
 
 		private void OpenUrlLink(object sender, LinkLabelLinkClickedEventArgs e) {
@@ -568,20 +587,19 @@ namespace CryptoGadget {
             Close();
         }
 
-        private void ButtonColorPick(object sender, EventArgs e) {
+		private void comboPages_SelectedIndexChanged(object sender, EventArgs e) {
+			_page = comboPages.SelectedIndex;
+			BindCoins();
+		}
+		public void ButtonColorPick(object sender, EventArgs e) {
 			ColorDialog cd = new ColorDialog();
 			cd.Color = (sender as Button).BackColor;
 			cd.FullOpen = true;
 			cd.ShowDialog();
 			(sender as Button).BackColor = cd.Color;
 		}
-		private void DropDownOnClick(object sender, EventArgs e) {
+		public void DropDownOnClick(object sender, EventArgs e) {
 			(sender as ComboBox).DroppedDown = true;
-		}
-
-		private void comboPages_SelectedIndexChanged(object sender, EventArgs e) {
-			_page = comboPages.SelectedIndex;
-			BindCoins();
 		}
 
 		#endregion

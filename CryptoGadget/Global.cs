@@ -37,6 +37,16 @@ namespace CryptoGadget {
 				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
 			}
 		}
+		
+		public static void ControlApply<T>(Control ctrl, Action<Control> fn) {
+			if(ctrl is T) {
+				fn(ctrl);
+			}
+			else {
+				foreach(Control child in ctrl.Controls)
+					ControlApply<T>(child, fn);
+			}
+		}
 
 		public static Bitmap GetIcon(string name, int size = 0) {
 			Bitmap bmp;

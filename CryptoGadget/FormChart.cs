@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms.VisualStyles;
@@ -12,19 +13,7 @@ namespace CryptoGadget {
 
 	public partial class FormChart : Form {
 
-		// need to generate a ChartSettings Form... maybe at 2.4.0 version
-		public class ChartSettings {
-			public Color ForeColor { get; set; } = Color.FromArgb(200, 200, 200);
-			public Color GridColor { get; set; } = Color.FromArgb(40, 52, 60);
-			public Color BackColor { get; set; } = Color.FromArgb(27, 38, 45);
-			public Color CursorLineColor { get; set; } = Color.FromArgb(120, 120, 120);
-			public Color CandleUpColor { get; set; } = Color.FromArgb(106, 131, 58);
-			public Color CandleDownColor { get; set; } = Color.FromArgb(138, 58, 59);
-			//public int AxisXLength { get; set; } = 60;
-			//public string DefaultZoom { get; set; } = "1d";
-		}
-
-		private ChartSettings _sett = new ChartSettings();
+		private Settings _sett = new Settings();
 		private (string coin, string target) _conv = ("", "");
 		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
 		private (int begin, int end, int last) _axis_x = (0, 0, 0);
@@ -48,7 +37,7 @@ namespace CryptoGadget {
 			dp.YValues = new double[] { high, low, open, close };
 			dp.Tag = jtok["time"].ToObject<Int64>();
 			dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<Int64>()).ToString();
-			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
+			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.Chart.CandleUpColor : _sett.Chart.CandleDownColor;
 
 			return dp;
 		}
@@ -70,68 +59,63 @@ namespace CryptoGadget {
 			}
 		}
 		private void ButtonColorClick(object sender, EventArgs e) {
-			ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+			Global.ControlApply<Button>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.Chart.ForeColor;
+				ctrl.BackColor = _sett.Chart.BackColor;
 			});
-			(sender as Button).ForeColor = _sett.BackColor;
-			(sender as Button).BackColor = _sett.ForeColor;
-		}
-		private void ControlApply<T>(Control ctrl, Action<Control> fn) {
-			if(ctrl is T) {
-				fn(ctrl);
-			}
-			else {
-				foreach(Control child in ctrl.Controls)
-					ControlApply<T>(child, fn);
-			}
+			(sender as Button).ForeColor = _sett.Chart.BackColor;
+			(sender as Button).BackColor = _sett.Chart.ForeColor;
 		}
 		private void SetColors() {
 
-			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.ForeColor;
-			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.ForeColor;
+			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.Chart.ForeColor;
+			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.Chart.ForeColor;
 
-			BackColor = _sett.BackColor;
-			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.BackColor;
+			BackColor = _sett.Chart.BackColor;
+			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.Chart.BackColor;
 
-			ControlApply<Label>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+			Global.ControlApply<Label>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.Chart.ForeColor;
+				ctrl.BackColor = _sett.Chart.BackColor;
 			});
-			ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+			Global.ControlApply<Button>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.Chart.ForeColor;
+				ctrl.BackColor = _sett.Chart.BackColor;
 			});
 
-			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
-			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.GridColor;
+			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.Chart.GridColor;
+			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.Chart.GridColor;
 
-			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.CursorLineColor;
+			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.Chart.CursorLinesColor;
 
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
 			
 			try {
-
 				labelError.Text = "Fetching Data";
 				labelError.Update();
 
-				_serie_data = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, type, 120, step, time))["Data"].ToObject<JArray>();
+				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, type, 120, step, time));
+				if(json == null || json["Response"].ToString().ToLower() == "error")
+					throw new Exception();
+
+				_serie_data = json["Data"].ToObject<JArray>();
 				_req_format = (type, step);
 				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
 
-				_axis_x.begin = Math.Max(_serie_data.Count - 60, 0);
-				_axis_x.end   = Math.Min(_axis_x.begin + 60, _serie_data.Count);
+				_axis_x.begin = Math.Max(_serie_data.Count - _sett.Chart.Zoom, 0);
+				_axis_x.end = _serie_data.Count;
 
-				for(int i = _axis_x.begin; i < _axis_x.end; i++) 
+				for(int i = _axis_x.begin; i < _axis_x.end; i++)
 					mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
 
 				labelError.Text = "";
-
 			} catch {
 				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
 			}
+
+			Update();
 
 		}
 
@@ -143,6 +127,8 @@ namespace CryptoGadget {
 			_conv.target = target;
 
 			Load += (sender, e) => {
+
+				Global.Sett.CloneTo(_sett);
 
 				DoubleBuffered = true;
 				labelConv.Text = _conv.coin + " -> " + _conv.target;
@@ -157,9 +143,9 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisY.IsStartedFromZero = false;
 
 				MouseDown += Global.DragMove;
-				ControlApply<Label>(this, (ctrl) => ctrl.MouseDown += Global.DragMove);
-				ControlApply<Button>(this, (ctrl) => ctrl.GotFocus += (f_sender, f_e) => ActiveControl = mainChart);
-
+				Global.ControlApply<Label>(this, (ctrl) => ctrl.MouseDown += Global.DragMove);
+				Global.ControlApply<Button>(this, (ctrl) => ctrl.GotFocus += (f_sender, f_e) => ActiveControl = mainChart);
+				
 				mainChart.MouseWheel += mainChart_MouseWheel;
 
 				button3y.Click += ButtonColorClick;
@@ -172,7 +158,17 @@ namespace CryptoGadget {
 				button6h.Click += ButtonColorClick;
 				button1h.Click += ButtonColorClick;
 
-				button1d.PerformClick();
+				switch(_sett.Chart.DateRange) {
+					case 0: button1h.PerformClick(); break;
+					case 1: button6h.PerformClick(); break;
+					case 2: button1d.PerformClick(); break;
+					case 3: button3d.PerformClick(); break;
+					case 4: button7d.PerformClick(); break;
+					case 5: button1m.PerformClick(); break;
+					case 6: button3m.PerformClick(); break;
+					case 7: button1y.PerformClick(); break;
+					default: button3y.PerformClick(); break;
+				}
 
 			};
 
@@ -263,22 +259,28 @@ namespace CryptoGadget {
 
 		}
 		private void mainChart_MouseWheel(object sender, MouseEventArgs e) {
-			if(e.Delta > 0 && _axis_x.end - _axis_x.begin > 40) { // Zoom in
-				_axis_x.begin++; _axis_x.end--;
-				mainChart.Series[0].Points.RemoveAt(0);
-				mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count -1);
+			
+			if(e.Delta > 0) { // Zoom in
+				for(int i = 0; i < e.Delta && _axis_x.end - _axis_x.begin > 40; i += SystemInformation.MouseWheelScrollDelta) {
+					_axis_x.begin++; _axis_x.end--;
+					mainChart.Series[0].Points.RemoveAt(0);
+					mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
+				}
 			}
-			else if(e.Delta < 0 && _axis_x.end - _axis_x.begin < 120) { // Zoom out
+			else if(e.Delta < 0) { // Zoom out
 				TryFetchData();
-				if(_axis_x.begin > 0) {
-					_axis_x.begin--;
-					mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
-				}
-				if(_axis_x.end < _serie_data.Count) {
-					_axis_x.end++;
-					mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
+				for(int i = 0; i > e.Delta && _axis_x.end - _axis_x.begin < 100; i -= SystemInformation.MouseWheelScrollDelta) {
+					if(_axis_x.begin > 0) {
+						_axis_x.begin--;
+						mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
+					}
+					if(_axis_x.end < _serie_data.Count) {
+						_axis_x.end++;
+						mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
+					}
 				}
 			}
+			
 		}
 
 		private void FormChart_Resize(object sender, EventArgs e) {

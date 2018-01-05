@@ -25,10 +25,10 @@
         private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -80,20 +80,20 @@
 			this.checkPagesExitSave = new System.Windows.Forms.CheckBox();
 			this.label18 = new System.Windows.Forms.Label();
 			this.numPagesDefault = new System.Windows.Forms.NumericUpDown();
-			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
-			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
-			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
-			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
-			this.buttonDonationCopyBCH = new System.Windows.Forms.Button();
-			this.buttonDonationQrBTC = new System.Windows.Forms.Button();
-			this.buttonDonationQrBCH = new System.Windows.Forms.Button();
-			this.buttonDonationQrETH = new System.Windows.Forms.Button();
-			this.buttonDonationQrDASH = new System.Windows.Forms.Button();
-			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
 			this.label21 = new System.Windows.Forms.Label();
 			this.textBoxSelectMarket = new System.Windows.Forms.TextBox();
 			this.buttonColDown = new System.Windows.Forms.Button();
 			this.buttonColUp = new System.Windows.Forms.Button();
+			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
+			this.buttonDonationQrDASH = new System.Windows.Forms.Button();
+			this.buttonDonationQrETH = new System.Windows.Forms.Button();
+			this.buttonDonationQrBCH = new System.Windows.Forms.Button();
+			this.buttonDonationQrBTC = new System.Windows.Forms.Button();
+			this.buttonDonationCopyBCH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyLTC = new System.Windows.Forms.Button();
+			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
+			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.label24 = new System.Windows.Forms.Label();
@@ -143,6 +143,26 @@
 			this.coinGridTargetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.label34 = new System.Windows.Forms.Label();
+			this.label35 = new System.Windows.Forms.Label();
+			this.numChartZoom = new System.Windows.Forms.NumericUpDown();
+			this.comboChartDateRange = new System.Windows.Forms.ComboBox();
+			this.label36 = new System.Windows.Forms.Label();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.buttonChartCandleUpColor = new System.Windows.Forms.Button();
+			this.label37 = new System.Windows.Forms.Label();
+			this.label38 = new System.Windows.Forms.Label();
+			this.label39 = new System.Windows.Forms.Label();
+			this.buttonChartGridColor = new System.Windows.Forms.Button();
+			this.label40 = new System.Windows.Forms.Label();
+			this.label42 = new System.Windows.Forms.Label();
+			this.buttonChartForeColor = new System.Windows.Forms.Button();
+			this.buttonChartBackColor = new System.Windows.Forms.Button();
+			this.buttonChartCandleDownColor = new System.Windows.Forms.Button();
+			this.label43 = new System.Windows.Forms.Label();
+			this.buttonChartCursorLinesColor = new System.Windows.Forms.Button();
+			this.buttonDefaultCharts = new System.Windows.Forms.Button();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.labelQrCodeName = new System.Windows.Forms.Label();
 			this.pictureBoxQrCode = new System.Windows.Forms.PictureBox();
 			this.label20 = new System.Windows.Forms.Label();
@@ -196,6 +216,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numChartZoom)).BeginInit();
+			this.groupBox8.SuspendLayout();
+			this.tabPage6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxQrCode)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -740,121 +763,6 @@
 			this.numPagesDefault.TabIndex = 77;
 			this.toolTip1.SetToolTip(this.numPagesDefault, "Number of the page that will be loaded by default.");
 			// 
-			// buttonDonationCopyLTC
-			// 
-			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(362, 403);
-			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
-			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyLTC.TabIndex = 11;
-			this.buttonDonationCopyLTC.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyLTC, "Copy LTC adress to clipboard");
-			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyLTC.Click += new System.EventHandler(this.buttonDonationCopyLTC_Click);
-			// 
-			// buttonDonationCopyDASH
-			// 
-			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(362, 377);
-			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
-			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyDASH.TabIndex = 10;
-			this.buttonDonationCopyDASH.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyDASH, "Copy DASH adress to clipboard");
-			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyDASH.Click += new System.EventHandler(this.buttonDonationCopyDASH_Click);
-			// 
-			// buttonDonationCopyETH
-			// 
-			this.buttonDonationCopyETH.Location = new System.Drawing.Point(362, 351);
-			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
-			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyETH.TabIndex = 9;
-			this.buttonDonationCopyETH.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyETH, "Copy ETH adress to clipboard");
-			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyETH.Click += new System.EventHandler(this.buttonDonationCopyETH_Click);
-			// 
-			// buttonDonationCopyBTC
-			// 
-			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(362, 299);
-			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
-			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyBTC.TabIndex = 8;
-			this.buttonDonationCopyBTC.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyBTC, "Copy BTC adress to clipboard");
-			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
-			// 
-			// buttonDonationCopyBCH
-			// 
-			this.buttonDonationCopyBCH.Location = new System.Drawing.Point(362, 325);
-			this.buttonDonationCopyBCH.Name = "buttonDonationCopyBCH";
-			this.buttonDonationCopyBCH.Size = new System.Drawing.Size(57, 23);
-			this.buttonDonationCopyBCH.TabIndex = 19;
-			this.buttonDonationCopyBCH.Text = "Copy";
-			this.toolTip1.SetToolTip(this.buttonDonationCopyBCH, "Copy BTC adress to clipboard");
-			this.buttonDonationCopyBCH.UseVisualStyleBackColor = true;
-			this.buttonDonationCopyBCH.Click += new System.EventHandler(this.buttonDonationCopyBCH_Click);
-			// 
-			// buttonDonationQrBTC
-			// 
-			this.buttonDonationQrBTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrBTC.BackgroundImage")));
-			this.buttonDonationQrBTC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.buttonDonationQrBTC.Location = new System.Drawing.Point(423, 299);
-			this.buttonDonationQrBTC.Name = "buttonDonationQrBTC";
-			this.buttonDonationQrBTC.Size = new System.Drawing.Size(23, 23);
-			this.buttonDonationQrBTC.TabIndex = 20;
-			this.toolTip1.SetToolTip(this.buttonDonationQrBTC, "Copy BTC adress to clipboard");
-			this.buttonDonationQrBTC.UseVisualStyleBackColor = true;
-			this.buttonDonationQrBTC.Click += new System.EventHandler(this.buttonDonationQrBTC_Click);
-			// 
-			// buttonDonationQrBCH
-			// 
-			this.buttonDonationQrBCH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrBCH.BackgroundImage")));
-			this.buttonDonationQrBCH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.buttonDonationQrBCH.Location = new System.Drawing.Point(423, 325);
-			this.buttonDonationQrBCH.Name = "buttonDonationQrBCH";
-			this.buttonDonationQrBCH.Size = new System.Drawing.Size(23, 23);
-			this.buttonDonationQrBCH.TabIndex = 21;
-			this.toolTip1.SetToolTip(this.buttonDonationQrBCH, "Copy BTC adress to clipboard");
-			this.buttonDonationQrBCH.UseVisualStyleBackColor = true;
-			this.buttonDonationQrBCH.Click += new System.EventHandler(this.buttonDonationQrBCH_Click);
-			// 
-			// buttonDonationQrETH
-			// 
-			this.buttonDonationQrETH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrETH.BackgroundImage")));
-			this.buttonDonationQrETH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.buttonDonationQrETH.Location = new System.Drawing.Point(423, 350);
-			this.buttonDonationQrETH.Name = "buttonDonationQrETH";
-			this.buttonDonationQrETH.Size = new System.Drawing.Size(23, 23);
-			this.buttonDonationQrETH.TabIndex = 22;
-			this.toolTip1.SetToolTip(this.buttonDonationQrETH, "Copy BTC adress to clipboard");
-			this.buttonDonationQrETH.UseVisualStyleBackColor = true;
-			this.buttonDonationQrETH.Click += new System.EventHandler(this.buttonDonationQrETH_Click);
-			// 
-			// buttonDonationQrDASH
-			// 
-			this.buttonDonationQrDASH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrDASH.BackgroundImage")));
-			this.buttonDonationQrDASH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.buttonDonationQrDASH.Location = new System.Drawing.Point(423, 377);
-			this.buttonDonationQrDASH.Name = "buttonDonationQrDASH";
-			this.buttonDonationQrDASH.Size = new System.Drawing.Size(23, 23);
-			this.buttonDonationQrDASH.TabIndex = 23;
-			this.toolTip1.SetToolTip(this.buttonDonationQrDASH, "Copy BTC adress to clipboard");
-			this.buttonDonationQrDASH.UseVisualStyleBackColor = true;
-			this.buttonDonationQrDASH.Click += new System.EventHandler(this.buttonDonationQrDASH_Click);
-			// 
-			// buttonDonationQrLTC
-			// 
-			this.buttonDonationQrLTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrLTC.BackgroundImage")));
-			this.buttonDonationQrLTC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.buttonDonationQrLTC.Location = new System.Drawing.Point(423, 403);
-			this.buttonDonationQrLTC.Name = "buttonDonationQrLTC";
-			this.buttonDonationQrLTC.Size = new System.Drawing.Size(23, 23);
-			this.buttonDonationQrLTC.TabIndex = 24;
-			this.toolTip1.SetToolTip(this.buttonDonationQrLTC, "Copy BTC adress to clipboard");
-			this.buttonDonationQrLTC.UseVisualStyleBackColor = true;
-			this.buttonDonationQrLTC.Click += new System.EventHandler(this.buttonDonationQrLTC_Click);
-			// 
 			// label21
 			// 
 			this.label21.AutoSize = true;
@@ -896,6 +804,111 @@
 			this.toolTip1.SetToolTip(this.buttonColUp, "Move up");
 			this.buttonColUp.UseVisualStyleBackColor = true;
 			this.buttonColUp.Click += new System.EventHandler(this.buttonColUp_Click);
+			// 
+			// buttonDonationQrLTC
+			// 
+			this.buttonDonationQrLTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrLTC.BackgroundImage")));
+			this.buttonDonationQrLTC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrLTC.Location = new System.Drawing.Point(424, 398);
+			this.buttonDonationQrLTC.Name = "buttonDonationQrLTC";
+			this.buttonDonationQrLTC.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrLTC.TabIndex = 51;
+			this.toolTip1.SetToolTip(this.buttonDonationQrLTC, "Copy BTC adress to clipboard");
+			this.buttonDonationQrLTC.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationQrDASH
+			// 
+			this.buttonDonationQrDASH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrDASH.BackgroundImage")));
+			this.buttonDonationQrDASH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrDASH.Location = new System.Drawing.Point(424, 372);
+			this.buttonDonationQrDASH.Name = "buttonDonationQrDASH";
+			this.buttonDonationQrDASH.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrDASH.TabIndex = 50;
+			this.toolTip1.SetToolTip(this.buttonDonationQrDASH, "Copy BTC adress to clipboard");
+			this.buttonDonationQrDASH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationQrETH
+			// 
+			this.buttonDonationQrETH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrETH.BackgroundImage")));
+			this.buttonDonationQrETH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrETH.Location = new System.Drawing.Point(424, 345);
+			this.buttonDonationQrETH.Name = "buttonDonationQrETH";
+			this.buttonDonationQrETH.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrETH.TabIndex = 49;
+			this.toolTip1.SetToolTip(this.buttonDonationQrETH, "Copy BTC adress to clipboard");
+			this.buttonDonationQrETH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationQrBCH
+			// 
+			this.buttonDonationQrBCH.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrBCH.BackgroundImage")));
+			this.buttonDonationQrBCH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrBCH.Location = new System.Drawing.Point(424, 320);
+			this.buttonDonationQrBCH.Name = "buttonDonationQrBCH";
+			this.buttonDonationQrBCH.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrBCH.TabIndex = 48;
+			this.toolTip1.SetToolTip(this.buttonDonationQrBCH, "Copy BTC adress to clipboard");
+			this.buttonDonationQrBCH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationQrBTC
+			// 
+			this.buttonDonationQrBTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrBTC.BackgroundImage")));
+			this.buttonDonationQrBTC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.buttonDonationQrBTC.Location = new System.Drawing.Point(424, 294);
+			this.buttonDonationQrBTC.Name = "buttonDonationQrBTC";
+			this.buttonDonationQrBTC.Size = new System.Drawing.Size(23, 23);
+			this.buttonDonationQrBTC.TabIndex = 47;
+			this.toolTip1.SetToolTip(this.buttonDonationQrBTC, "Copy BTC adress to clipboard");
+			this.buttonDonationQrBTC.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyBCH
+			// 
+			this.buttonDonationCopyBCH.Location = new System.Drawing.Point(363, 320);
+			this.buttonDonationCopyBCH.Name = "buttonDonationCopyBCH";
+			this.buttonDonationCopyBCH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyBCH.TabIndex = 46;
+			this.buttonDonationCopyBCH.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyBCH, "Copy BTC adress to clipboard");
+			this.buttonDonationCopyBCH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyLTC
+			// 
+			this.buttonDonationCopyLTC.Location = new System.Drawing.Point(363, 398);
+			this.buttonDonationCopyLTC.Name = "buttonDonationCopyLTC";
+			this.buttonDonationCopyLTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyLTC.TabIndex = 38;
+			this.buttonDonationCopyLTC.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyLTC, "Copy LTC adress to clipboard");
+			this.buttonDonationCopyLTC.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyDASH
+			// 
+			this.buttonDonationCopyDASH.Location = new System.Drawing.Point(363, 372);
+			this.buttonDonationCopyDASH.Name = "buttonDonationCopyDASH";
+			this.buttonDonationCopyDASH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyDASH.TabIndex = 37;
+			this.buttonDonationCopyDASH.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyDASH, "Copy DASH adress to clipboard");
+			this.buttonDonationCopyDASH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyETH
+			// 
+			this.buttonDonationCopyETH.Location = new System.Drawing.Point(363, 346);
+			this.buttonDonationCopyETH.Name = "buttonDonationCopyETH";
+			this.buttonDonationCopyETH.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyETH.TabIndex = 36;
+			this.buttonDonationCopyETH.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyETH, "Copy ETH adress to clipboard");
+			this.buttonDonationCopyETH.UseVisualStyleBackColor = true;
+			// 
+			// buttonDonationCopyBTC
+			// 
+			this.buttonDonationCopyBTC.Location = new System.Drawing.Point(363, 294);
+			this.buttonDonationCopyBTC.Name = "buttonDonationCopyBTC";
+			this.buttonDonationCopyBTC.Size = new System.Drawing.Size(57, 23);
+			this.buttonDonationCopyBTC.TabIndex = 35;
+			this.buttonDonationCopyBTC.Text = "Copy";
+			this.toolTip1.SetToolTip(this.buttonDonationCopyBTC, "Copy BTC adress to clipboard");
+			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
 			// 
 			// tabPage4
 			// 
@@ -1234,14 +1247,14 @@
 			this.colsGrid.AllowUserToDeleteRows = false;
 			this.colsGrid.AllowUserToResizeColumns = false;
 			this.colsGrid.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
 			this.colsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coinGridColumn,
             this.colsGridShownName,
@@ -1252,14 +1265,14 @@
 			this.colsGrid.Location = new System.Drawing.Point(3, 6);
 			this.colsGrid.MultiSelect = false;
 			this.colsGrid.Name = "colsGrid";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.colsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this.colsGrid.RowHeadersVisible = false;
 			this.colsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.colsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1269,8 +1282,8 @@
 			// 
 			// coinGridColumn
 			// 
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
+			this.coinGridColumn.DefaultCellStyle = dataGridViewCellStyle6;
 			this.coinGridColumn.HeaderText = "Column";
 			this.coinGridColumn.MaxInputLength = 50;
 			this.coinGridColumn.Name = "coinGridColumn";
@@ -1517,6 +1530,7 @@
 			this.comboTheme.Size = new System.Drawing.Size(121, 21);
 			this.comboTheme.TabIndex = 41;
 			this.comboTheme.SelectedIndexChanged += new System.EventHandler(this.comboTheme_SelectedIndexChanged);
+			this.comboTheme.Click += new System.EventHandler(this.DropDownOnClick);
 			// 
 			// label10
 			// 
@@ -1640,6 +1654,7 @@
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Controls.Add(this.tabPage5);
+			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Location = new System.Drawing.Point(3, 3);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -1648,202 +1663,423 @@
 			// 
 			// tabPage5
 			// 
-			this.tabPage5.Controls.Add(this.labelQrCodeName);
-			this.tabPage5.Controls.Add(this.pictureBoxQrCode);
-			this.tabPage5.Controls.Add(this.buttonDonationQrLTC);
-			this.tabPage5.Controls.Add(this.buttonDonationQrDASH);
-			this.tabPage5.Controls.Add(this.buttonDonationQrETH);
-			this.tabPage5.Controls.Add(this.buttonDonationQrBCH);
-			this.tabPage5.Controls.Add(this.buttonDonationQrBTC);
-			this.tabPage5.Controls.Add(this.buttonDonationCopyBCH);
-			this.tabPage5.Controls.Add(this.label20);
-			this.tabPage5.Controls.Add(this.textBoxDonationBCH);
-			this.tabPage5.Controls.Add(this.linkLabel2);
-			this.tabPage5.Controls.Add(this.label23);
-			this.tabPage5.Controls.Add(this.label32);
-			this.tabPage5.Controls.Add(this.linkLabel1);
-			this.tabPage5.Controls.Add(this.labelCryptoGadgetVersion);
-			this.tabPage5.Controls.Add(this.buttonDonationCopyLTC);
-			this.tabPage5.Controls.Add(this.buttonDonationCopyDASH);
-			this.tabPage5.Controls.Add(this.buttonDonationCopyETH);
-			this.tabPage5.Controls.Add(this.buttonDonationCopyBTC);
-			this.tabPage5.Controls.Add(this.label17);
-			this.tabPage5.Controls.Add(this.textBoxDonationDASH);
-			this.tabPage5.Controls.Add(this.label16);
-			this.tabPage5.Controls.Add(this.textBoxDonationLTC);
-			this.tabPage5.Controls.Add(this.label15);
-			this.tabPage5.Controls.Add(this.textBoxDonationETH);
-			this.tabPage5.Controls.Add(this.label2);
-			this.tabPage5.Controls.Add(this.textBoxDonationBTC);
+			this.tabPage5.Controls.Add(this.label35);
+			this.tabPage5.Controls.Add(this.label34);
+			this.tabPage5.Controls.Add(this.numChartZoom);
+			this.tabPage5.Controls.Add(this.groupBox8);
+			this.tabPage5.Controls.Add(this.comboChartDateRange);
+			this.tabPage5.Controls.Add(this.buttonDefaultCharts);
+			this.tabPage5.Controls.Add(this.label36);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage5.Size = new System.Drawing.Size(454, 436);
 			this.tabPage5.TabIndex = 5;
-			this.tabPage5.Text = "Additional";
+			this.tabPage5.Text = "Charts";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// label34
+			// 
+			this.label34.AutoSize = true;
+			this.label34.Location = new System.Drawing.Point(3, 404);
+			this.label34.Name = "label34";
+			this.label34.Size = new System.Drawing.Size(232, 26);
+			this.label34.TabIndex = 80;
+			this.label34.Text = "Note: Chart changes only will be applied to the \r\n           next opened charts, " +
+    "not the current ones";
+			// 
+			// label35
+			// 
+			this.label35.AutoSize = true;
+			this.label35.Location = new System.Drawing.Point(235, 23);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(74, 13);
+			this.label35.TabIndex = 69;
+			this.label35.Text = "Default Zoom:";
+			// 
+			// numChartZoom
+			// 
+			this.numChartZoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numChartZoom.Location = new System.Drawing.Point(344, 21);
+			this.numChartZoom.Minimum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+			this.numChartZoom.Name = "numChartZoom";
+			this.numChartZoom.Size = new System.Drawing.Size(100, 20);
+			this.numChartZoom.TabIndex = 70;
+			this.numChartZoom.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+			// 
+			// comboChartDateRange
+			// 
+			this.comboChartDateRange.FormattingEnabled = true;
+			this.comboChartDateRange.Items.AddRange(new object[] {
+            "1 hour",
+            "6 hours",
+            "1 day",
+            "3 days",
+            "7 days",
+            "1 month",
+            "3 months",
+            "1 year",
+            "3 years"});
+			this.comboChartDateRange.Location = new System.Drawing.Point(344, 47);
+			this.comboChartDateRange.Name = "comboChartDateRange";
+			this.comboChartDateRange.Size = new System.Drawing.Size(100, 21);
+			this.comboChartDateRange.TabIndex = 71;
+			this.comboChartDateRange.Text = "1 day";
+			this.comboChartDateRange.Click += new System.EventHandler(this.DropDownOnClick);
+			// 
+			// label36
+			// 
+			this.label36.AutoSize = true;
+			this.label36.Location = new System.Drawing.Point(235, 50);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(105, 13);
+			this.label36.TabIndex = 72;
+			this.label36.Text = "Default Date Range:";
+			// 
+			// groupBox8
+			// 
+			this.groupBox8.Controls.Add(this.buttonChartCandleUpColor);
+			this.groupBox8.Controls.Add(this.label37);
+			this.groupBox8.Controls.Add(this.label38);
+			this.groupBox8.Controls.Add(this.label39);
+			this.groupBox8.Controls.Add(this.buttonChartGridColor);
+			this.groupBox8.Controls.Add(this.label40);
+			this.groupBox8.Controls.Add(this.label42);
+			this.groupBox8.Controls.Add(this.buttonChartForeColor);
+			this.groupBox8.Controls.Add(this.buttonChartBackColor);
+			this.groupBox8.Controls.Add(this.buttonChartCandleDownColor);
+			this.groupBox8.Controls.Add(this.label43);
+			this.groupBox8.Controls.Add(this.buttonChartCursorLinesColor);
+			this.groupBox8.Location = new System.Drawing.Point(6, 6);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(162, 206);
+			this.groupBox8.TabIndex = 78;
+			this.groupBox8.TabStop = false;
+			this.groupBox8.Text = "Colors";
+			// 
+			// buttonChartCandleUpColor
+			// 
+			this.buttonChartCandleUpColor.Location = new System.Drawing.Point(120, 137);
+			this.buttonChartCandleUpColor.Name = "buttonChartCandleUpColor";
+			this.buttonChartCandleUpColor.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartCandleUpColor.TabIndex = 57;
+			this.buttonChartCandleUpColor.UseVisualStyleBackColor = true;
+			this.buttonChartCandleUpColor.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// label37
+			// 
+			this.label37.AutoSize = true;
+			this.label37.Location = new System.Drawing.Point(9, 142);
+			this.label37.Name = "label37";
+			this.label37.Size = new System.Drawing.Size(83, 13);
+			this.label37.TabIndex = 56;
+			this.label37.Text = "Positive Candle:";
+			// 
+			// label38
+			// 
+			this.label38.AutoSize = true;
+			this.label38.Location = new System.Drawing.Point(9, 84);
+			this.label38.Name = "label38";
+			this.label38.Size = new System.Drawing.Size(56, 13);
+			this.label38.TabIndex = 52;
+			this.label38.Text = "Grid Color:";
+			// 
+			// label39
+			// 
+			this.label39.AutoSize = true;
+			this.label39.Location = new System.Drawing.Point(9, 55);
+			this.label39.Name = "label39";
+			this.label39.Size = new System.Drawing.Size(62, 13);
+			this.label39.TabIndex = 1;
+			this.label39.Text = "Back Color:";
+			// 
+			// buttonChartGridColor
+			// 
+			this.buttonChartGridColor.Location = new System.Drawing.Point(120, 79);
+			this.buttonChartGridColor.Name = "buttonChartGridColor";
+			this.buttonChartGridColor.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartGridColor.TabIndex = 53;
+			this.buttonChartGridColor.UseVisualStyleBackColor = true;
+			this.buttonChartGridColor.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// label40
+			// 
+			this.label40.AutoSize = true;
+			this.label40.Location = new System.Drawing.Point(9, 26);
+			this.label40.Name = "label40";
+			this.label40.Size = new System.Drawing.Size(58, 13);
+			this.label40.TabIndex = 0;
+			this.label40.Text = "Fore Color:";
+			// 
+			// label42
+			// 
+			this.label42.AutoSize = true;
+			this.label42.Location = new System.Drawing.Point(9, 113);
+			this.label42.Name = "label42";
+			this.label42.Size = new System.Drawing.Size(95, 13);
+			this.label42.TabIndex = 5;
+			this.label42.Text = "Cursor Lines Color:";
+			// 
+			// buttonChartForeColor
+			// 
+			this.buttonChartForeColor.Location = new System.Drawing.Point(120, 21);
+			this.buttonChartForeColor.Name = "buttonChartForeColor";
+			this.buttonChartForeColor.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartForeColor.TabIndex = 6;
+			this.buttonChartForeColor.UseVisualStyleBackColor = true;
+			this.buttonChartForeColor.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// buttonChartBackColor
+			// 
+			this.buttonChartBackColor.Location = new System.Drawing.Point(120, 50);
+			this.buttonChartBackColor.Name = "buttonChartBackColor";
+			this.buttonChartBackColor.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartBackColor.TabIndex = 7;
+			this.buttonChartBackColor.UseVisualStyleBackColor = true;
+			this.buttonChartBackColor.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// buttonChartCandleDownColor
+			// 
+			this.buttonChartCandleDownColor.Location = new System.Drawing.Point(120, 166);
+			this.buttonChartCandleDownColor.Name = "buttonChartCandleDownColor";
+			this.buttonChartCandleDownColor.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartCandleDownColor.TabIndex = 17;
+			this.buttonChartCandleDownColor.UseVisualStyleBackColor = true;
+			this.buttonChartCandleDownColor.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// label43
+			// 
+			this.label43.AutoSize = true;
+			this.label43.Location = new System.Drawing.Point(9, 171);
+			this.label43.Name = "label43";
+			this.label43.Size = new System.Drawing.Size(89, 13);
+			this.label43.TabIndex = 16;
+			this.label43.Text = "Negative Candle:";
+			// 
+			// buttonChartCursorLinesColor
+			// 
+			this.buttonChartCursorLinesColor.Location = new System.Drawing.Point(120, 108);
+			this.buttonChartCursorLinesColor.Name = "buttonChartCursorLinesColor";
+			this.buttonChartCursorLinesColor.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartCursorLinesColor.TabIndex = 11;
+			this.buttonChartCursorLinesColor.UseVisualStyleBackColor = true;
+			this.buttonChartCursorLinesColor.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// buttonDefaultCharts
+			// 
+			this.buttonDefaultCharts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDefaultCharts.Location = new System.Drawing.Point(373, 407);
+			this.buttonDefaultCharts.Name = "buttonDefaultCharts";
+			this.buttonDefaultCharts.Size = new System.Drawing.Size(75, 23);
+			this.buttonDefaultCharts.TabIndex = 76;
+			this.buttonDefaultCharts.Text = "Defaults";
+			this.buttonDefaultCharts.UseVisualStyleBackColor = true;
+			this.buttonDefaultCharts.Click += new System.EventHandler(this.buttonDefaultCharts_Click);
+			// 
+			// tabPage6
+			// 
+			this.tabPage6.Controls.Add(this.labelQrCodeName);
+			this.tabPage6.Controls.Add(this.pictureBoxQrCode);
+			this.tabPage6.Controls.Add(this.buttonDonationQrLTC);
+			this.tabPage6.Controls.Add(this.buttonDonationQrDASH);
+			this.tabPage6.Controls.Add(this.buttonDonationQrETH);
+			this.tabPage6.Controls.Add(this.buttonDonationQrBCH);
+			this.tabPage6.Controls.Add(this.buttonDonationQrBTC);
+			this.tabPage6.Controls.Add(this.buttonDonationCopyBCH);
+			this.tabPage6.Controls.Add(this.label20);
+			this.tabPage6.Controls.Add(this.textBoxDonationBCH);
+			this.tabPage6.Controls.Add(this.linkLabel2);
+			this.tabPage6.Controls.Add(this.label23);
+			this.tabPage6.Controls.Add(this.label32);
+			this.tabPage6.Controls.Add(this.linkLabel1);
+			this.tabPage6.Controls.Add(this.labelCryptoGadgetVersion);
+			this.tabPage6.Controls.Add(this.buttonDonationCopyLTC);
+			this.tabPage6.Controls.Add(this.buttonDonationCopyDASH);
+			this.tabPage6.Controls.Add(this.buttonDonationCopyETH);
+			this.tabPage6.Controls.Add(this.buttonDonationCopyBTC);
+			this.tabPage6.Controls.Add(this.label17);
+			this.tabPage6.Controls.Add(this.textBoxDonationDASH);
+			this.tabPage6.Controls.Add(this.label16);
+			this.tabPage6.Controls.Add(this.textBoxDonationLTC);
+			this.tabPage6.Controls.Add(this.label15);
+			this.tabPage6.Controls.Add(this.textBoxDonationETH);
+			this.tabPage6.Controls.Add(this.label2);
+			this.tabPage6.Controls.Add(this.textBoxDonationBTC);
+			this.tabPage6.Location = new System.Drawing.Point(4, 22);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage6.Size = new System.Drawing.Size(454, 436);
+			this.tabPage6.TabIndex = 6;
+			this.tabPage6.Text = "Additional";
+			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
 			// labelQrCodeName
 			// 
 			this.labelQrCodeName.AutoSize = true;
-			this.labelQrCodeName.Location = new System.Drawing.Point(183, 21);
+			this.labelQrCodeName.Location = new System.Drawing.Point(184, 16);
 			this.labelQrCodeName.Name = "labelQrCodeName";
 			this.labelQrCodeName.Size = new System.Drawing.Size(0, 13);
-			this.labelQrCodeName.TabIndex = 26;
+			this.labelQrCodeName.TabIndex = 53;
 			// 
 			// pictureBoxQrCode
 			// 
 			this.pictureBoxQrCode.ErrorImage = null;
 			this.pictureBoxQrCode.InitialImage = null;
-			this.pictureBoxQrCode.Location = new System.Drawing.Point(161, 39);
+			this.pictureBoxQrCode.Location = new System.Drawing.Point(162, 34);
 			this.pictureBoxQrCode.Name = "pictureBoxQrCode";
 			this.pictureBoxQrCode.Size = new System.Drawing.Size(132, 132);
-			this.pictureBoxQrCode.TabIndex = 25;
+			this.pictureBoxQrCode.TabIndex = 52;
 			this.pictureBoxQrCode.TabStop = false;
 			// 
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(8, 330);
+			this.label20.Location = new System.Drawing.Point(8, 325);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(86, 13);
-			this.label20.TabIndex = 18;
+			this.label20.TabIndex = 45;
 			this.label20.Text = "BCH Donations: ";
 			// 
 			// textBoxDonationBCH
 			// 
 			this.textBoxDonationBCH.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationBCH.Location = new System.Drawing.Point(101, 327);
+			this.textBoxDonationBCH.Location = new System.Drawing.Point(102, 322);
 			this.textBoxDonationBCH.Name = "textBoxDonationBCH";
 			this.textBoxDonationBCH.ReadOnly = true;
 			this.textBoxDonationBCH.Size = new System.Drawing.Size(255, 20);
-			this.textBoxDonationBCH.TabIndex = 17;
+			this.textBoxDonationBCH.TabIndex = 44;
 			this.textBoxDonationBCH.Text = "13rtJZ7RkDuGEEEAQVKTLSB7QRaktkqpaA";
 			// 
 			// linkLabel2
 			// 
 			this.linkLabel2.AutoSize = true;
-			this.linkLabel2.Location = new System.Drawing.Point(131, 253);
+			this.linkLabel2.Location = new System.Drawing.Point(132, 248);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(256, 13);
-			this.linkLabel2.TabIndex = 16;
+			this.linkLabel2.TabIndex = 43;
 			this.linkLabel2.TabStop = true;
 			this.linkLabel2.Text = "https://github.com/neo3587/CryptoGadget/releases";
-			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenUrlLink);
 			// 
 			// label23
 			// 
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(43, 253);
+			this.label23.Location = new System.Drawing.Point(44, 248);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(82, 13);
-			this.label23.TabIndex = 15;
+			this.label23.TabIndex = 42;
 			this.label23.Text = "Binary Updates:";
 			// 
 			// label32
 			// 
 			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(53, 228);
+			this.label32.Location = new System.Drawing.Point(54, 223);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(72, 13);
-			this.label32.TabIndex = 14;
+			this.label32.TabIndex = 41;
 			this.label32.Text = "Source Code:";
 			// 
 			// linkLabel1
 			// 
 			this.linkLabel1.AutoSize = true;
-			this.linkLabel1.Location = new System.Drawing.Point(131, 228);
+			this.linkLabel1.Location = new System.Drawing.Point(132, 223);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(212, 13);
-			this.linkLabel1.TabIndex = 13;
+			this.linkLabel1.TabIndex = 40;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "https://github.com/neo3587/CryptoGadget";
-			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenUrlLink);
 			// 
 			// labelCryptoGadgetVersion
 			// 
 			this.labelCryptoGadgetVersion.AutoSize = true;
 			this.labelCryptoGadgetVersion.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(173, 187);
+			this.labelCryptoGadgetVersion.Location = new System.Drawing.Point(174, 182);
 			this.labelCryptoGadgetVersion.Name = "labelCryptoGadgetVersion";
 			this.labelCryptoGadgetVersion.Size = new System.Drawing.Size(108, 13);
-			this.labelCryptoGadgetVersion.TabIndex = 12;
+			this.labelCryptoGadgetVersion.TabIndex = 39;
 			this.labelCryptoGadgetVersion.Text = "CryptoGadget vX.X.X";
 			// 
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(7, 382);
+			this.label17.Location = new System.Drawing.Point(8, 377);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(94, 13);
-			this.label17.TabIndex = 7;
+			this.label17.TabIndex = 34;
 			this.label17.Text = "DASH Donations: ";
 			// 
 			// textBoxDonationDASH
 			// 
 			this.textBoxDonationDASH.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationDASH.Location = new System.Drawing.Point(101, 379);
+			this.textBoxDonationDASH.Location = new System.Drawing.Point(102, 374);
 			this.textBoxDonationDASH.Name = "textBoxDonationDASH";
 			this.textBoxDonationDASH.ReadOnly = true;
 			this.textBoxDonationDASH.Size = new System.Drawing.Size(255, 20);
-			this.textBoxDonationDASH.TabIndex = 6;
+			this.textBoxDonationDASH.TabIndex = 33;
 			this.textBoxDonationDASH.Text = "Xfe7eN233vQnqMostLo5Hf968RMUP4eR5T";
 			// 
 			// label16
 			// 
 			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(7, 408);
+			this.label16.Location = new System.Drawing.Point(8, 403);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(84, 13);
-			this.label16.TabIndex = 5;
+			this.label16.TabIndex = 32;
 			this.label16.Text = "LTC Donations: ";
 			// 
 			// textBoxDonationLTC
 			// 
 			this.textBoxDonationLTC.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationLTC.Location = new System.Drawing.Point(101, 405);
+			this.textBoxDonationLTC.Location = new System.Drawing.Point(102, 400);
 			this.textBoxDonationLTC.Name = "textBoxDonationLTC";
 			this.textBoxDonationLTC.ReadOnly = true;
 			this.textBoxDonationLTC.Size = new System.Drawing.Size(255, 20);
-			this.textBoxDonationLTC.TabIndex = 4;
+			this.textBoxDonationLTC.TabIndex = 31;
 			this.textBoxDonationLTC.Text = "37eRbNQqHtE4twYpVHmmtTkUhh462RHPKR";
 			// 
 			// label15
 			// 
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(7, 356);
+			this.label15.Location = new System.Drawing.Point(8, 351);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(86, 13);
-			this.label15.TabIndex = 3;
+			this.label15.TabIndex = 30;
 			this.label15.Text = "ETH Donations: ";
 			// 
 			// textBoxDonationETH
 			// 
 			this.textBoxDonationETH.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationETH.Location = new System.Drawing.Point(101, 353);
+			this.textBoxDonationETH.Location = new System.Drawing.Point(102, 348);
 			this.textBoxDonationETH.Name = "textBoxDonationETH";
 			this.textBoxDonationETH.ReadOnly = true;
 			this.textBoxDonationETH.Size = new System.Drawing.Size(255, 20);
-			this.textBoxDonationETH.TabIndex = 2;
+			this.textBoxDonationETH.TabIndex = 29;
 			this.textBoxDonationETH.Text = "0xb5996de811913f24eb3d4b1b1052cd95968a7dc1";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(8, 304);
+			this.label2.Location = new System.Drawing.Point(8, 299);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(85, 13);
-			this.label2.TabIndex = 1;
+			this.label2.TabIndex = 28;
 			this.label2.Text = "BTC Donations: ";
 			// 
 			// textBoxDonationBTC
 			// 
 			this.textBoxDonationBTC.BackColor = System.Drawing.Color.White;
-			this.textBoxDonationBTC.Location = new System.Drawing.Point(101, 301);
+			this.textBoxDonationBTC.Location = new System.Drawing.Point(102, 296);
 			this.textBoxDonationBTC.Name = "textBoxDonationBTC";
 			this.textBoxDonationBTC.ReadOnly = true;
 			this.textBoxDonationBTC.Size = new System.Drawing.Size(255, 20);
-			this.textBoxDonationBTC.TabIndex = 0;
+			this.textBoxDonationBTC.TabIndex = 27;
 			this.textBoxDonationBTC.Text = "3HE1kwgHEWvxBa38NHuQbQQrhNZ9wxjhe7";
 			// 
 			// dataGridViewTextBoxColumn1
@@ -1884,8 +2120,8 @@
 			// 
 			// dataGridViewTextBoxColumn5
 			// 
-			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
+			this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle8;
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column";
 			this.dataGridViewTextBoxColumn5.MaxInputLength = 50;
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1965,6 +2201,7 @@
 			// 
 			// buttonApply
 			// 
+			this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonApply.Location = new System.Drawing.Point(226, 468);
 			this.buttonApply.Name = "buttonApply";
 			this.buttonApply.Size = new System.Drawing.Size(75, 23);
@@ -2034,6 +2271,11 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numChartZoom)).EndInit();
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.tabPage6.ResumeLayout(false);
+			this.tabPage6.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxQrCode)).EndInit();
 			this.ResumeLayout(false);
 
@@ -2121,18 +2363,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn dataGridViewNumericUpDownColumn1;
 		private DataGridViewNumericUpDown.DataGridViewNumericUpDownColumn dataGridViewNumericUpDownColumn2;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.TextBox textBoxDonationDASH;
-		private System.Windows.Forms.Label label16;
-		private System.Windows.Forms.TextBox textBoxDonationLTC;
-		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.TextBox textBoxDonationETH;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox textBoxDonationBTC;
-		private System.Windows.Forms.Button buttonDonationCopyLTC;
-		private System.Windows.Forms.Button buttonDonationCopyDASH;
-		private System.Windows.Forms.Button buttonDonationCopyETH;
-		private System.Windows.Forms.Button buttonDonationCopyBTC;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.TextBox textBoxProfileName;
 		private System.Windows.Forms.Button buttonProfileMakeDefault;
@@ -2141,25 +2371,10 @@
 		private System.Windows.Forms.Button buttonProfileOpen;
 		private System.Windows.Forms.Button buttonConvSettings;
 		private System.Windows.Forms.ComboBox comboPages;
-		private System.Windows.Forms.LinkLabel linkLabel2;
-		private System.Windows.Forms.Label label23;
-		private System.Windows.Forms.Label label32;
-		private System.Windows.Forms.LinkLabel linkLabel1;
-		private System.Windows.Forms.Label labelCryptoGadgetVersion;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.CheckBox checkPagesExitSave;
 		private System.Windows.Forms.NumericUpDown numPagesDefault;
-		private System.Windows.Forms.Button buttonDonationCopyBCH;
-		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.TextBox textBoxDonationBCH;
-		private System.Windows.Forms.Button buttonDonationQrBTC;
-		private System.Windows.Forms.Button buttonDonationQrLTC;
-		private System.Windows.Forms.Button buttonDonationQrDASH;
-		private System.Windows.Forms.Button buttonDonationQrETH;
-		private System.Windows.Forms.Button buttonDonationQrBCH;
-		private System.Windows.Forms.Label labelQrCodeName;
-		private System.Windows.Forms.PictureBox pictureBoxQrCode;
 		private System.Windows.Forms.Button buttonApply;
 		private System.Windows.Forms.Button buttonPageSwap;
 		private System.Windows.Forms.GroupBox groupBox6;
@@ -2182,5 +2397,52 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTargetName;
 		private System.Windows.Forms.NumericUpDown numAlertCheckRate;
 		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.Label labelQrCodeName;
+		private System.Windows.Forms.PictureBox pictureBoxQrCode;
+		private System.Windows.Forms.Button buttonDonationQrLTC;
+		private System.Windows.Forms.Button buttonDonationQrDASH;
+		private System.Windows.Forms.Button buttonDonationQrETH;
+		private System.Windows.Forms.Button buttonDonationQrBCH;
+		private System.Windows.Forms.Button buttonDonationQrBTC;
+		private System.Windows.Forms.Button buttonDonationCopyBCH;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.TextBox textBoxDonationBCH;
+		private System.Windows.Forms.LinkLabel linkLabel2;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.Label labelCryptoGadgetVersion;
+		private System.Windows.Forms.Button buttonDonationCopyLTC;
+		private System.Windows.Forms.Button buttonDonationCopyDASH;
+		private System.Windows.Forms.Button buttonDonationCopyETH;
+		private System.Windows.Forms.Button buttonDonationCopyBTC;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.TextBox textBoxDonationDASH;
+		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.TextBox textBoxDonationLTC;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.TextBox textBoxDonationETH;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox textBoxDonationBTC;
+		private System.Windows.Forms.Button buttonDefaultCharts;
+		private System.Windows.Forms.Label label34;
+		private System.Windows.Forms.Label label35;
+		private System.Windows.Forms.NumericUpDown numChartZoom;
+		private System.Windows.Forms.ComboBox comboChartDateRange;
+		private System.Windows.Forms.Label label36;
+		private System.Windows.Forms.GroupBox groupBox8;
+		private System.Windows.Forms.Button buttonChartCandleUpColor;
+		private System.Windows.Forms.Label label37;
+		private System.Windows.Forms.Label label38;
+		private System.Windows.Forms.Label label39;
+		private System.Windows.Forms.Button buttonChartGridColor;
+		private System.Windows.Forms.Label label40;
+		private System.Windows.Forms.Label label42;
+		private System.Windows.Forms.Button buttonChartForeColor;
+		private System.Windows.Forms.Button buttonChartBackColor;
+		private System.Windows.Forms.Button buttonChartCandleDownColor;
+		private System.Windows.Forms.Label label43;
+		private System.Windows.Forms.Button buttonChartCursorLinesColor;
 	}
 }

@@ -49,12 +49,12 @@ namespace CryptoGadget {
 		}
 		public static string HistoQuery(string coin, string target, HistoType type, int size = 60, int step = 1, Int64 time = -1) {
 			string str_type = type == HistoType.Minute ? "minute" : (type == HistoType.Hour ? "hour" : "day");
-			return "https://min-api.cryptocompare.com/data/histo" + str_type + 
-					"?fsym=" + coin + 
-					"&tsym=" + target + 
-					"&limit=" + size.ToString() + 
-					"&aggregate=" + step.ToString() + 
-					(time >= 0 ? "&toTs=" + time.ToString() : "") +
+			return "https://min-api.cryptocompare.com/data/histo" + str_type +
+					"?fsym=" + coin +
+					"&tsym=" + target +
+					"&limit=" + size.ToString() +
+					"&aggregate=" + step.ToString() +
+					(time >= 0 ? "&toTs=" + time.ToString() : "") + 
 					"&extraParams=CryptoGadget";
 		}
 

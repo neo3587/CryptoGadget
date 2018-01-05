@@ -313,6 +313,50 @@ namespace CryptoGadget {
 			}
 		}
 
+		public class StChart : PropManager<StChart> {
+			private Color _fore_color;
+			private Color _back_color;
+			private Color _grid_color;
+			private Color _cursor_lines_color;
+			private Color _candle_up_color;
+			private Color _candle_down_color;
+			private int _zoom;
+			private int _date_range;
+
+			public Color ForeColor {
+				get => _fore_color;
+				set { _fore_color = value; NotifyPropertyChanged(); }
+			}
+			public Color BackColor {
+				get => _back_color;
+				set { _back_color = value; NotifyPropertyChanged(); }
+			}
+			public Color GridColor {
+				get => _grid_color;
+				set { _grid_color = value; NotifyPropertyChanged(); }
+			}
+			public Color CursorLinesColor {
+				get => _cursor_lines_color;
+				set { _cursor_lines_color = value; NotifyPropertyChanged(); }
+			}
+			public Color CandleUpColor {
+				get => _candle_up_color;
+				set { _candle_up_color = value; NotifyPropertyChanged(); }
+			}
+			public Color CandleDownColor {
+				get => _candle_down_color;
+				set { _candle_down_color = value; NotifyPropertyChanged(); }
+			}
+			public int Zoom {
+				get => _zoom;
+				set { _zoom = value; NotifyPropertyChanged(); }
+			}
+			public int DateRange {
+				get => _date_range;
+				set { _date_range = value; NotifyPropertyChanged(); }
+			}
+		}
+
 		public enum DefaultType {
 			Coins		= 0x0001,
 			Basic		= 0x0002,
@@ -324,6 +368,7 @@ namespace CryptoGadget {
 			Pages		= 0x0100,
 			Market		= 0x0200,
 			Grid		= 0x0400,
+			Chart		= 0x0800,
 			All			= 0xFFFF
 		}
 		public class CoinList : BindingList<StCoin> {
@@ -347,6 +392,7 @@ namespace CryptoGadget {
 		public StMarket Market			= new StMarket();
 		[JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
 		public StGrid Grid				= new StGrid();
+		public StChart Chart			= new StChart();
 
 		[JsonIgnore]
 		private string _file_path = "";
@@ -499,30 +545,30 @@ namespace CryptoGadget {
 				Visibility.Refresh  = true;
 			}
 			if((type & DefaultType.ColorLight) != 0) {
-				foreach(PropertyInfo prop in StColor.GetProps())
-					Color[prop.Name] = StrHexToColor("FF000000");
-				Color.Background1	   = StrHexToColor("FFF3F7F7");
-				Color.Background2	   = StrHexToColor("FFFFFFFF");
-				Color.PositiveRefresh  = StrHexToColor("FFCEEBD3");
-				Color.NegativeRefresh  = StrHexToColor("FFF6D4D1");
-				Color.Edge			   = StrHexToColor("FFAFAFAF");
-				Color.PositiveChange   = StrHexToColor("FF27892F");
-				Color.NegativeChange   = StrHexToColor("FFCF6563");
-				Color.HeaderText	   = StrHexToColor("FF000000");
-				Color.HeaderBackground = StrHexToColor("FFF0F0F0");
+				Color.RowsText			= StrHexToColor("FF000000");
+				Color.RowsValues		= StrHexToColor("FF000000");
+				Color.Background1		= StrHexToColor("FFF3F7F7");
+				Color.Background2		= StrHexToColor("FFFFFFFF");
+				Color.PositiveRefresh	= StrHexToColor("FFCEEBD3");
+				Color.NegativeRefresh	= StrHexToColor("FFF6D4D1");
+				Color.PositiveChange	= StrHexToColor("FF27892F");
+				Color.NegativeChange	= StrHexToColor("FFCF6563");
+				Color.HeaderText		= StrHexToColor("FF000000");
+				Color.HeaderBackground	= StrHexToColor("FFF0F0F0");
+				Color.Edge				= StrHexToColor("FFAFAFAF");
 			}
 			else if((type & DefaultType.ColorDark) != 0) {
-				foreach(PropertyInfo prop in StColor.GetProps())
-					Color[prop.Name] = StrHexToColor("FFDADADA");
-				Color.Background1	   = StrHexToColor("FF1E1E1E");
-				Color.Background2	   = StrHexToColor("FF2F2F2F");
-				Color.PositiveRefresh  = StrHexToColor("FF3A8F49");
-				Color.NegativeRefresh  = StrHexToColor("FF96261D");
-				Color.Edge			   = StrHexToColor("FF535353");
-				Color.PositiveChange   = StrHexToColor("FF27892F");
-				Color.NegativeChange   = StrHexToColor("FFCF6563");
-				Color.HeaderText	   = StrHexToColor("FFC7C7C7");
-				Color.HeaderBackground = StrHexToColor("FF2C2C2C");
+				Color.RowsText			= StrHexToColor("FFDADADA");
+				Color.RowsValues		= StrHexToColor("FFDADADA");
+				Color.Background1		= StrHexToColor("FF1E1E1E");
+				Color.Background2		= StrHexToColor("FF2F2F2F");
+				Color.PositiveRefresh	= StrHexToColor("FF3A8F49");
+				Color.NegativeRefresh	= StrHexToColor("FF96261D");
+				Color.PositiveChange	= StrHexToColor("FF27892F");
+				Color.NegativeChange	= StrHexToColor("FFCF6563");
+				Color.HeaderText		= StrHexToColor("FFC7C7C7");
+				Color.HeaderBackground	= StrHexToColor("FF2C2C2C");
+				Color.Edge				= StrHexToColor("FF535353");
 
 			}
 			if((type & DefaultType.Coords) != 0) {
@@ -558,6 +604,16 @@ namespace CryptoGadget {
 					Grid.Columns.Add(st);
 				}
 				Grid.BindColsPtr();
+			}
+			if((type & DefaultType.Chart) != 0) {
+				Chart.ForeColor			= StrHexToColor("FFC8C8C8");
+				Chart.BackColor			= StrHexToColor("FF1B262D");
+				Chart.GridColor			= StrHexToColor("FF28343C");
+				Chart.CursorLinesColor	= StrHexToColor("FF787878");
+				Chart.CandleUpColor		= StrHexToColor("FF6A833A");
+				Chart.CandleDownColor	= StrHexToColor("FF8A3A3B");
+				Chart.Zoom = 60;
+				Chart.DateRange	= 2; // 1d
 			}
 		}
 		public void CloneTo(Settings sett) {
