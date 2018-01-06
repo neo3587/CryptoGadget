@@ -110,6 +110,8 @@ namespace CryptoGadget {
 				for(int i = _axis_x.begin; i < _axis_x.end; i++)
 					mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
 
+				mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
+
 				labelError.Text = "";
 			} catch {
 				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
@@ -188,13 +190,18 @@ namespace CryptoGadget {
 			Close();
 		}
 
+		// TODO: Mouse Leave = Destroy
 		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
-			
+
+			Func<double, double, bool> InChartBounds = (x, y) => {
+				return x >= mainChart.ChartAreas[0].AxisX.Minimum && x <= mainChart.ChartAreas[0].AxisX.Maximum && y >= mainChart.ChartAreas[0].AxisY.Minimum && y <= mainChart.ChartAreas[0].AxisY.Maximum;
+			};
+
 			if(e.Button == MouseButtons.Left) {
 				try {
 					double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
 					double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-					if(axis_x >= mainChart.ChartAreas[0].AxisX.Minimum && axis_x <= mainChart.ChartAreas[0].AxisX.Maximum && axis_y >= mainChart.ChartAreas[0].AxisY.Minimum && axis_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
+					if(InChartBounds(axis_x, axis_y)) {
 
 						_chart_clicked = true;
 
@@ -229,15 +236,16 @@ namespace CryptoGadget {
 			
 			try {
 
-				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
-				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
-
 				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
 				_axis_x.last = (int)axis_x;
-				int pt_index = (int)Math.Round(axis_x) - 1;
-				if(pt_index < mainChart.Series[0].Points.Count && pt_index >= 0) {
 
-					DataPoint dp = mainChart.Series[0].Points[pt_index];
+				if(InChartBounds(axis_x, axis_y)) {
+
+					mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
+					mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
+
+					DataPoint dp = mainChart.Series[0].Points[(int)Math.Round(axis_x) - 1];
 
 					labelValueVal.Text = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString().Substring(0, 13);
 					labelTimeVal.Text = dp.AxisLabel;
@@ -251,6 +259,7 @@ namespace CryptoGadget {
 					labelLowVal.ForeColor = dp.Color;
 					labelOpenVal.ForeColor = dp.Color;
 					labelCloseVal.ForeColor = dp.Color;
+
 				}
 
 			} catch { }
@@ -280,7 +289,8 @@ namespace CryptoGadget {
 					}
 				}
 			}
-			
+
+			mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
 		}
 
 		private void FormChart_Resize(object sender, EventArgs e) {
