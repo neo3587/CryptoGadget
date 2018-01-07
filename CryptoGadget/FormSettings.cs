@@ -286,7 +286,7 @@ namespace CryptoGadget {
                 return;
             }
 
-			FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], _last_conv);
+			FormPairSettings form = new FormPairSettings(_sett.Coins[_page], _last_conv);
 			form.ShowDialog();
 
 			if(form.CoinResult != null) {
@@ -311,7 +311,7 @@ namespace CryptoGadget {
 				MessageBox.Show("You cannot modify a coin to the grid until the coin list is obtained, there's a good reason for that, trust me :)");
 				return;
 			}
-			FormCoinSettings form = new FormCoinSettings(_sett.Coins[_page], _sett.Coins[_page][coinGrid.SelectedRows[0].Index], true);
+			FormPairSettings form = new FormPairSettings(_sett.Coins[_page], _sett.Coins[_page][coinGrid.SelectedRows[0].Index], true);
 			form.ShowDialog();
 			if(form.CoinResult != null) {
 				_sett.Coins[_page][coinGrid.SelectedRows[0].Index] = form.CoinResult;
@@ -338,7 +338,7 @@ namespace CryptoGadget {
             }
         }
 
-        private void buttonDownloadList_Click(object sender, EventArgs e) {
+        private void buttonUpdateCoinList_Click(object sender, EventArgs e) {
 
             try {
                 JObject check = DownloadCoinDB();
@@ -567,6 +567,10 @@ namespace CryptoGadget {
 		private void buttonDonationQrLTC_Click(object sender, EventArgs e) {
 			labelQrCodeName.Text = "LTC QR Code";
 			pictureBoxQrCode.Image = Properties.Resources.qr_ltc_icon;
+		}
+
+		private void linkCryptoCompareAPI_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+			Process.Start("https://www.cryptocompare.com/api/#");
 		}
 
 		#endregion

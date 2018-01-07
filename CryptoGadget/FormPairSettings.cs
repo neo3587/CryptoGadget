@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CryptoGadget {
 
-    public partial class FormCoinSettings : Form {
+    public partial class FormPairSettings : Form {
 
 		private class CoinPair {
 			public string Left { get; set; }
@@ -74,9 +74,44 @@ namespace CryptoGadget {
 			(combo_box.DataSource as BindingSource).ResetBindings(false);
 			combo_box.SelectedIndex = 0;
 		}
+		private void IconReDownload(string coin) {
+			try {
+				Directory.CreateDirectory(Global.IconsFolder);
+				if(Global.Json["Data"]?[coin]?["FiatCurrency"] != null) {
+					MessageBox.Show("Fiat currencies icons are not available for download, find a icon for yourself and use \"Icon Swap\" to add/swap it");
+					return;
+				}
+				Global.SetIcon(coin, CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin]["ImageUrl"]));
+				MessageBox.Show(coin + " succesfully updated");
+			} catch(System.Net.WebException) {
+				MessageBox.Show("Couldn't download the " + coin + " icon from the server");
+			} catch(InvalidOperationException) {
+				MessageBox.Show(coin + " doesn't have an associated url for this coin, it may get fixed by re-downloading the coin list");
+			} catch {
+				MessageBox.Show("Unexpected error");
+			}
+		}
+		private void IconSwap(string coin, string fullname) {
+
+			OpenFileDialog ofd = new OpenFileDialog();
+
+			ofd.Title = "Select Icon for " + coin + " (" + fullname + ")";
+			ofd.Filter = "Icon Files (*.ico, *.png, *.jpg)|*.ico;*png;*jpg";
+			ofd.Multiselect = false;
+
+			ofd.FileOk += (f_sender, f_ev) => {
+				Directory.CreateDirectory(Global.IconsFolder);
+				using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {
+					stream.Position = 0;
+					Global.SetIcon(coin, stream);
+				}
+			};
+
+			ofd.ShowDialog();
+		}
 
 
-        public FormCoinSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
+        public FormPairSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
 
             InitializeComponent();
             _ptr_list = coin_list; // just for FindConv
@@ -143,6 +178,12 @@ namespace CryptoGadget {
 		private void checkCoinOnlyFiat_CheckedChanged(object sender, EventArgs e) {
 			OnlyFiat(comboCoin, _bind.coin, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
 		}
+		private void buttonIconReDownload_Click(object sender, EventArgs e) {
+			IconReDownload((comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked));
+		}
+		private void buttonIconSwap_Click(object sender, EventArgs e) {
+			IconSwap((comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked), (comboCoin.SelectedItem as CoinPair).OriginalRight(checkCoinIndexName.Checked));
+		}
 
 		private void checkTargetIndexName_CheckedChanged(object sender, EventArgs e) {
 			IndexName(comboTarget);
@@ -150,51 +191,18 @@ namespace CryptoGadget {
 		private void checkTargetOnlyFiat_CheckedChanged(object sender, EventArgs e) {
 			OnlyFiat(comboTarget, _bind.target, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
 		}
+		private void buttonIconTargetReDownload_Click(object sender, EventArgs e) {
+			IconReDownload((comboTarget.SelectedItem as CoinPair).OriginalLeft(checkTargetIndexName.Checked));
+		}
+		private void buttonIconTargetSwap_Click(object sender, EventArgs e) {
+			IconSwap((comboTarget.SelectedItem as CoinPair).OriginalLeft(checkTargetIndexName.Checked), (comboTarget.SelectedItem as CoinPair).OriginalRight(checkTargetIndexName.Checked));
+		}
 
 		private void DropDownOnClick(object sender, EventArgs e) {
 			(sender as ComboBox).DroppedDown = true;
 		}
 		private void DropDownOnKeyPress(object sender, KeyPressEventArgs e) {
 			(sender as ComboBox).DroppedDown = true;
-		}
-
-		private void buttonIconSwap_Click(object sender, EventArgs e) {
-
-			OpenFileDialog ofd = new OpenFileDialog();
-
-			string coin = (comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked);
-			string target = (comboCoin.SelectedItem as CoinPair).OriginalRight(checkCoinIndexName.Checked);
-
-			ofd.Title = "Select Icon for " + coin + " (" + target + ")";
-			ofd.Filter = "Icon Files (*.ico, *.png, *.jpg)|*.ico;*png;*jpg";
-			ofd.Multiselect = false;
-
-			ofd.FileOk += (f_sender, f_ev) => {
-				Directory.CreateDirectory(Global.IconsFolder);
-				using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {
-					stream.Position = 0;
-					Global.SetIcon(coin, stream);
-				}
-			};
-
-			ofd.ShowDialog();
-		}
-		private void buttonIconReDownload_Click(object sender, EventArgs e) {
-
-			string coin = (comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked);
-
-			try {
-				Directory.CreateDirectory(Global.IconsFolder);
-				Global.SetIcon(coin, CCRequest.DownloadIcon("https://www.cryptocompare.com" + Global.Json["Data"][coin]["ImageUrl"]));
-				MessageBox.Show(coin + " succesfully updated");
-			} catch(System.Net.WebException) {
-				MessageBox.Show("Couldn't download the " + coin + " icon from the server");
-			} catch(InvalidOperationException) {
-				MessageBox.Show(coin + " doesn't have an associated url for this coin, it may get fixed by re-downloading the coin list");
-			} catch {
-				MessageBox.Show("Unexpected error");
-			}
-			
 		}
 
 	}

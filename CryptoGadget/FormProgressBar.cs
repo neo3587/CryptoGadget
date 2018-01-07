@@ -33,7 +33,7 @@ namespace CryptoGadget {
 				case FormType.Check: // SettingsForm.buttonCheck
 					FormCheck((ValueTuple<Settings.CoinList, string>)param);
 					break;
-				case FormType.CoinList:   // SettingsForm.buttonDownloadList
+				case FormType.CoinList:   // SettingsForm.buttonUpdateCoinList
 					FormDownloadCoinList();
 					break;
 				case FormType.Icons: // SettingsForm.buttonDownloadMissingIcons

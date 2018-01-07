@@ -84,11 +84,11 @@
     <Compile Include="FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormCoinSettings.cs">
+    <Compile Include="FormPairSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCoinSettings.Designer.cs">
-      <DependentUpon>FormCoinSettings.cs</DependentUpon>
+    <Compile Include="FormPairSettings.Designer.cs">
+      <DependentUpon>FormPairSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="FormProgressBar.cs">
       <SubType>Form</SubType>
@@ -109,8 +109,8 @@
     <EmbeddedResource Include="FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCoinSettings.resx">
-      <DependentUpon>FormCoinSettings.cs</DependentUpon>
+    <EmbeddedResource Include="FormPairSettings.resx">
+      <DependentUpon>FormPairSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProgressBar.resx">
       <DependentUpon>FormProgressBar.cs</DependentUpon>

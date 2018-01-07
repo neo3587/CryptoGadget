@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms.VisualStyles;
@@ -190,7 +189,6 @@ namespace CryptoGadget {
 			Close();
 		}
 
-		// TODO: Mouse Leave = Destroy
 		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
 
 			Func<double, double, bool> InChartBounds = (x, y) => {
@@ -236,14 +234,14 @@ namespace CryptoGadget {
 			
 			try {
 
+				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
+				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
+
 				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
 				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
 				_axis_x.last = (int)axis_x;
 
 				if(InChartBounds(axis_x, axis_y)) {
-
-					mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
-					mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
 
 					DataPoint dp = mainChart.Series[0].Points[(int)Math.Round(axis_x) - 1];
 

@@ -1,5 +1,5 @@
 ﻿namespace CryptoGadget {
-    partial class FormCoinSettings {
+    partial class FormPairSettings {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCoinSettings));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPairSettings));
 			this.buttonAccept = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.comboCoin = new System.Windows.Forms.ComboBox();
@@ -41,6 +41,8 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.numAlertBelow = new System.Windows.Forms.NumericUpDown();
+			this.buttonIconTargetSwap = new System.Windows.Forms.Button();
+			this.buttonIconTargetReDownload = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertAbove)).BeginInit();
@@ -142,23 +144,27 @@
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.comboCoin);
+			this.groupBox1.Controls.Add(this.buttonIconSwap);
+			this.groupBox1.Controls.Add(this.buttonIconReDownload);
 			this.groupBox1.Controls.Add(this.checkCoinIndexName);
 			this.groupBox1.Controls.Add(this.checkCoinOnlyFiat);
 			this.groupBox1.Location = new System.Drawing.Point(12, 9);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(204, 96);
+			this.groupBox1.Size = new System.Drawing.Size(204, 125);
 			this.groupBox1.TabIndex = 10;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Coin";
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.buttonIconTargetSwap);
 			this.groupBox2.Controls.Add(this.checkTargetIndexName);
+			this.groupBox2.Controls.Add(this.buttonIconTargetReDownload);
 			this.groupBox2.Controls.Add(this.checkTargetOnlyFiat);
 			this.groupBox2.Controls.Add(this.comboTarget);
 			this.groupBox2.Location = new System.Drawing.Point(222, 9);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(204, 96);
+			this.groupBox2.Size = new System.Drawing.Size(204, 125);
 			this.groupBox2.TabIndex = 11;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Target Coin";
@@ -166,7 +172,7 @@
 			// buttonIconSwap
 			// 
 			this.buttonIconSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconSwap.Location = new System.Drawing.Point(141, 111);
+			this.buttonIconSwap.Location = new System.Drawing.Point(123, 95);
 			this.buttonIconSwap.Name = "buttonIconSwap";
 			this.buttonIconSwap.Size = new System.Drawing.Size(75, 23);
 			this.buttonIconSwap.TabIndex = 12;
@@ -177,9 +183,9 @@
 			// buttonIconReDownload
 			// 
 			this.buttonIconReDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconReDownload.Location = new System.Drawing.Point(12, 111);
+			this.buttonIconReDownload.Location = new System.Drawing.Point(6, 95);
 			this.buttonIconReDownload.Name = "buttonIconReDownload";
-			this.buttonIconReDownload.Size = new System.Drawing.Size(126, 23);
+			this.buttonIconReDownload.Size = new System.Drawing.Size(111, 23);
 			this.buttonIconReDownload.TabIndex = 13;
 			this.buttonIconReDownload.Text = "Re-Download Icon";
 			this.buttonIconReDownload.UseVisualStyleBackColor = true;
@@ -252,6 +258,28 @@
 			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
 			this.numAlertBelow.TabIndex = 4;
 			// 
+			// buttonIconTargetSwap
+			// 
+			this.buttonIconTargetSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonIconTargetSwap.Location = new System.Drawing.Point(123, 95);
+			this.buttonIconTargetSwap.Name = "buttonIconTargetSwap";
+			this.buttonIconTargetSwap.Size = new System.Drawing.Size(75, 23);
+			this.buttonIconTargetSwap.TabIndex = 14;
+			this.buttonIconTargetSwap.Text = "Swap Icon";
+			this.buttonIconTargetSwap.UseVisualStyleBackColor = true;
+			this.buttonIconTargetSwap.Click += new System.EventHandler(this.buttonIconTargetSwap_Click);
+			// 
+			// buttonIconTargetReDownload
+			// 
+			this.buttonIconTargetReDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonIconTargetReDownload.Location = new System.Drawing.Point(6, 95);
+			this.buttonIconTargetReDownload.Name = "buttonIconTargetReDownload";
+			this.buttonIconTargetReDownload.Size = new System.Drawing.Size(111, 23);
+			this.buttonIconTargetReDownload.TabIndex = 15;
+			this.buttonIconTargetReDownload.Text = "Re-Download Icon";
+			this.buttonIconTargetReDownload.UseVisualStyleBackColor = true;
+			this.buttonIconTargetReDownload.Click += new System.EventHandler(this.buttonIconTargetReDownload_Click);
+			// 
 			// FormCoinSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -260,8 +288,6 @@
 			this.CancelButton = this.buttonCancel;
 			this.ClientSize = new System.Drawing.Size(656, 142);
 			this.Controls.Add(this.groupBox3);
-			this.Controls.Add(this.buttonIconReDownload);
-			this.Controls.Add(this.buttonIconSwap);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.buttonAccept);
@@ -272,7 +298,7 @@
 			this.MinimizeBox = false;
 			this.Name = "FormCoinSettings";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "CryptoGadget Settings [Coin Settings]";
+			this.Text = "CryptoGadget Settings [Pair Settings]";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -304,5 +330,7 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.NumericUpDown numAlertBelow;
+		private System.Windows.Forms.Button buttonIconTargetSwap;
+		private System.Windows.Forms.Button buttonIconTargetReDownload;
 	}
 }
