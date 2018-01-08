@@ -432,17 +432,7 @@ namespace CryptoGadget {
 
 			
 			#if DEBUG
-			string coin = "BTC", target = "USD";
-			_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
-				_charts_mtx.WaitOne();
-				FormChart chart = _charts[(coin, target)].form;
-				_charts_mtx.ReleaseMutex();
-				chart.ShowDialog();
-				_charts_mtx.WaitOne();
-				_charts.Remove((coin, target));
-				_charts_mtx.ReleaseMutex();
-			})));
-			_charts[(coin, target)].thread.Start();
+			new Thread(() => new FormChartExperimental("BTC", "USD").ShowDialog()).Start();
 			#endif
 			
 		}

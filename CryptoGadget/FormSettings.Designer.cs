@@ -163,6 +163,8 @@
 			this.buttonDefaultCharts = new System.Windows.Forms.Button();
 			this.label36 = new System.Windows.Forms.Label();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.linkCryptoCompareAPI = new System.Windows.Forms.LinkLabel();
+			this.label41 = new System.Windows.Forms.Label();
 			this.labelQrCodeName = new System.Windows.Forms.Label();
 			this.pictureBoxQrCode = new System.Windows.Forms.PictureBox();
 			this.label20 = new System.Windows.Forms.Label();
@@ -191,8 +193,6 @@
 			this.comboPages = new System.Windows.Forms.ComboBox();
 			this.buttonApply = new System.Windows.Forms.Button();
 			this.buttonPageSwap = new System.Windows.Forms.Button();
-			this.label41 = new System.Windows.Forms.Label();
-			this.linkCryptoCompareAPI = new System.Windows.Forms.LinkLabel();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -1931,6 +1931,26 @@
 			this.tabPage6.Text = "Additional";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// linkCryptoCompareAPI
+			// 
+			this.linkCryptoCompareAPI.AutoSize = true;
+			this.linkCryptoCompareAPI.Location = new System.Drawing.Point(272, 413);
+			this.linkCryptoCompareAPI.Name = "linkCryptoCompareAPI";
+			this.linkCryptoCompareAPI.Size = new System.Drawing.Size(99, 13);
+			this.linkCryptoCompareAPI.TabIndex = 55;
+			this.linkCryptoCompareAPI.TabStop = true;
+			this.linkCryptoCompareAPI.Text = "CryptoCompare API";
+			this.linkCryptoCompareAPI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCryptoCompareAPI_LinkClicked);
+			// 
+			// label41
+			// 
+			this.label41.AutoSize = true;
+			this.label41.Location = new System.Drawing.Point(78, 413);
+			this.label41.Name = "label41";
+			this.label41.Size = new System.Drawing.Size(197, 13);
+			this.label41.TabIndex = 54;
+			this.label41.Text = "This application is possible thanks to the";
+			// 
 			// labelQrCodeName
 			// 
 			this.labelQrCodeName.AutoSize = true;
@@ -2231,26 +2251,6 @@
 			this.buttonPageSwap.Text = "Swap";
 			this.buttonPageSwap.UseVisualStyleBackColor = true;
 			this.buttonPageSwap.Click += new System.EventHandler(this.buttonPageSwap_Click);
-			// 
-			// label41
-			// 
-			this.label41.AutoSize = true;
-			this.label41.Location = new System.Drawing.Point(78, 413);
-			this.label41.Name = "label41";
-			this.label41.Size = new System.Drawing.Size(200, 13);
-			this.label41.TabIndex = 54;
-			this.label41.Text = "This application is possible  thanks to the";
-			// 
-			// linkCryptoCompareAPI
-			// 
-			this.linkCryptoCompareAPI.AutoSize = true;
-			this.linkCryptoCompareAPI.Location = new System.Drawing.Point(276, 413);
-			this.linkCryptoCompareAPI.Name = "linkCryptoCompareAPI";
-			this.linkCryptoCompareAPI.Size = new System.Drawing.Size(99, 13);
-			this.linkCryptoCompareAPI.TabIndex = 55;
-			this.linkCryptoCompareAPI.TabStop = true;
-			this.linkCryptoCompareAPI.Text = "CryptoCompare API";
-			this.linkCryptoCompareAPI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCryptoCompareAPI_LinkClicked);
 			// 
 			// FormSettings
 			// 
