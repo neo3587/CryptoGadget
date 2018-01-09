@@ -20,7 +20,7 @@ namespace CryptoGadget {
 		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 24);
 		private JArray _serie_data = null;
 
-		private const float X_LEFT = 50, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
+		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
 
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -134,7 +134,7 @@ namespace CryptoGadget {
 				Global.Sett.CloneTo(_sett);
 
 				DoubleBuffered = true;
-				labelConv.Text = _pair.coin + " -> " + _pair.target;
+				labelPair.Text = _pair.coin + " -> " + _pair.target;
 
 				SetColors();
 
@@ -204,15 +204,11 @@ namespace CryptoGadget {
 
 		private void mainChart_MouseMove(object sender, MouseEventArgs e) {
 
-			Func<double, double, bool> InChartBounds = (x, y) => {
-				return x >= mainChart.ChartAreas[0].AxisX.Minimum && x <= mainChart.ChartAreas[0].AxisX.Maximum && y >= mainChart.ChartAreas[0].AxisY.Minimum && y <= mainChart.ChartAreas[0].AxisY.Maximum;
-			};
-
 			if(e.Button == MouseButtons.Left) {
 				try {
 					double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
 					double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-					if(InChartBounds(axis_x, axis_y)) {
+					if(axis_x >= mainChart.ChartAreas[0].AxisX.Minimum && axis_x <= mainChart.ChartAreas[0].AxisX.Maximum && axis_y >= mainChart.ChartAreas[0].AxisY.Minimum && axis_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
 
 						_chart_clicked = true;
 
@@ -254,24 +250,25 @@ namespace CryptoGadget {
 				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
 				_axis_x.last = (int)axis_x;
 
-				if(InChartBounds(axis_x, axis_y)) {
+				axis_x = Math.Max(mainChart.ChartAreas[0].AxisX.Minimum, Math.Min(mainChart.ChartAreas[0].AxisX.Maximum, axis_x));
+				axis_y = Math.Max(mainChart.ChartAreas[0].AxisY.Minimum, Math.Min(mainChart.ChartAreas[0].AxisY.Maximum, axis_y));
 
-					DataPoint dp = mainChart.Series[0].Points[(int)Math.Round(axis_x) - 1];
+				int index_x = Math.Max(0, Math.Min(mainChart.Series[0].Points.Count - 1, (int)Math.Round(axis_x) - 1));
+				DataPoint dp = mainChart.Series[0].Points[index_x];
 
-					labelValueVal.Text = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString().Substring(0, 13);
-					labelTimeVal.Text = Epoch.AddSeconds((Int64)dp.Tag).ToString();
+				labelValue.Text = axis_y.ToString("0.000000000").Substring(0, 10); 
+				labelTime.Text = Epoch.AddSeconds((Int64)dp.Tag).ToString(); 
 
-					labelHighVal.Text = dp.YValues[0].ToString();
-					labelLowVal.Text = dp.YValues[1].ToString();
-					labelOpenVal.Text = dp.YValues[2].ToString();
-					labelCloseVal.Text = dp.YValues[3].ToString();
+				labelHigh.Text	= dp.YValues[0].ToString();
+				labelLow.Text	= dp.YValues[1].ToString();
+				labelOpen.Text	= dp.YValues[2].ToString();
+				labelClose.Text	= dp.YValues[3].ToString();
 
-					labelHighVal.ForeColor = dp.Color;
-					labelLowVal.ForeColor = dp.Color;
-					labelOpenVal.ForeColor = dp.Color;
-					labelCloseVal.ForeColor = dp.Color;
+				labelHigh.ForeColor	= labelLow.ForeColor = labelOpen.ForeColor = labelClose.ForeColor = dp.Color;
 
-				}
+				labelValue.Visible = labelTime.Visible = true;
+				labelValue.Location = new Point(X_LEFT - labelValue.Width + mainChart.Location.X, (int)mainChart.ChartAreas[0].AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
+				labelTime.Location  = new Point((int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22, mainChart.Height - Y_DOWN + 7 + labelTime.Height);
 
 			} catch { }
 
@@ -302,15 +299,19 @@ namespace CryptoGadget {
 			}
 
 			mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
+			mainChart_MouseMove(sender, e);
 		}
 
 		private void FormChart_Resize(object sender, EventArgs e) {
-			mainChart.ChartAreas[0].InnerPlotPosition.Height = (1 - Y_DOWN / mainChart.Size.Height) * 100;
-			mainChart.ChartAreas[0].InnerPlotPosition.Width = (1 - X_RIGHT / mainChart.Size.Width) * 100;
-			mainChart.ChartAreas[0].InnerPlotPosition.X = (X_LEFT / mainChart.Size.Width) * 100;
-			mainChart.ChartAreas[0].InnerPlotPosition.Y = (Y_UP / mainChart.Size.Height) * 100;
-			mainChart.ChartAreas[0].AxisY.MajorTickMark.Size = (XY_TICK / mainChart.Size.Width) * 100;
-			mainChart.ChartAreas[0].AxisX.MajorTickMark.Size = (XY_TICK / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.Height = (1 - (float)Y_DOWN / mainChart.Size.Height) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.Width = (1 - (float)X_RIGHT / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.X = ((float)X_LEFT / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.Y = ((float)Y_UP / mainChart.Size.Height) * 100;
+			mainChart.ChartAreas[0].AxisY.MajorTickMark.Size = ((float)XY_TICK / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].AxisX.MajorTickMark.Size = ((float)XY_TICK / mainChart.Size.Width) * 100;
+
+			mainChart.ChartAreas[0].CursorX.Position = mainChart.ChartAreas[0].CursorY.Position = double.PositiveInfinity;
+			labelValue.Visible = labelTime.Visible = false;
 
 			Refresh(); // avoid resize gripper graphic glitches 
 		}

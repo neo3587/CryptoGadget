@@ -31,18 +31,16 @@
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.toolStripClose = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-			this.labelOpenText = new System.Windows.Forms.Label();
-			this.labelHighText = new System.Windows.Forms.Label();
-			this.labelLowText = new System.Windows.Forms.Label();
-			this.labelCloseText = new System.Windows.Forms.Label();
-			this.labelCloseVal = new System.Windows.Forms.Label();
-			this.labelLowVal = new System.Windows.Forms.Label();
-			this.labelHighVal = new System.Windows.Forms.Label();
-			this.labelOpenVal = new System.Windows.Forms.Label();
-			this.labelValueVal = new System.Windows.Forms.Label();
-			this.labelTimeVal = new System.Windows.Forms.Label();
-			this.labelTimeText = new System.Windows.Forms.Label();
-			this.labelValueText = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.labelClose = new System.Windows.Forms.Label();
+			this.labelLow = new System.Windows.Forms.Label();
+			this.labelHigh = new System.Windows.Forms.Label();
+			this.labelOpen = new System.Windows.Forms.Label();
+			this.labelValue = new System.Windows.Forms.Label();
+			this.labelTime = new System.Windows.Forms.Label();
 			this.button1h = new System.Windows.Forms.Button();
 			this.button6h = new System.Windows.Forms.Button();
 			this.button1d = new System.Windows.Forms.Button();
@@ -54,7 +52,7 @@
 			this.button3y = new System.Windows.Forms.Button();
 			this.labelError = new System.Windows.Forms.Label();
 			this.buttonClose = new System.Windows.Forms.Button();
-			this.labelConv = new System.Windows.Forms.Label();
+			this.labelPair = new System.Windows.Forms.Label();
 			this.buttonMinimize = new System.Windows.Forms.Button();
 			this.buttonMaximize = new System.Windows.Forms.Button();
 			this.contextMenu.SuspendLayout();
@@ -75,7 +73,7 @@
 			this.toolStripClose.Text = "Close";
 			this.toolStripClose.Click += new System.EventHandler(this.toolStripClose_Click);
 			// 
-			// chart
+			// mainChart
 			// 
 			this.mainChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -89,7 +87,7 @@
 			legend1.Name = "LegendCandle";
 			this.mainChart.Legends.Add(legend1);
 			this.mainChart.Location = new System.Drawing.Point(12, 12);
-			this.mainChart.Name = "chart";
+			this.mainChart.Name = "mainChart";
 			series1.ChartArea = "ChartAreaCandle";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
 			series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
@@ -103,119 +101,103 @@
 			this.mainChart.Text = "(no text)";
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
-			// labelOpenText
+			// label1
 			// 
-			this.labelOpenText.AutoSize = true;
-			this.labelOpenText.BackColor = System.Drawing.Color.Transparent;
-			this.labelOpenText.Location = new System.Drawing.Point(7, 0);
-			this.labelOpenText.Name = "labelOpenText";
-			this.labelOpenText.Size = new System.Drawing.Size(36, 13);
-			this.labelOpenText.TabIndex = 2;
-			this.labelOpenText.Text = "Open:";
+			this.label1.AutoSize = true;
+			this.label1.BackColor = System.Drawing.Color.Transparent;
+			this.label1.Location = new System.Drawing.Point(7, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(36, 13);
+			this.label1.TabIndex = 2;
+			this.label1.Text = "Open:";
 			// 
-			// labelHighText
+			// label2
 			// 
-			this.labelHighText.AutoSize = true;
-			this.labelHighText.BackColor = System.Drawing.Color.Transparent;
-			this.labelHighText.Location = new System.Drawing.Point(101, 0);
-			this.labelHighText.Name = "labelHighText";
-			this.labelHighText.Size = new System.Drawing.Size(32, 13);
-			this.labelHighText.TabIndex = 3;
-			this.labelHighText.Text = "High:";
+			this.label2.AutoSize = true;
+			this.label2.BackColor = System.Drawing.Color.Transparent;
+			this.label2.Location = new System.Drawing.Point(101, 0);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(32, 13);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "High:";
 			// 
-			// labelLowText
+			// label3
 			// 
-			this.labelLowText.AutoSize = true;
-			this.labelLowText.BackColor = System.Drawing.Color.Transparent;
-			this.labelLowText.Location = new System.Drawing.Point(191, 0);
-			this.labelLowText.Name = "labelLowText";
-			this.labelLowText.Size = new System.Drawing.Size(30, 13);
-			this.labelLowText.TabIndex = 4;
-			this.labelLowText.Text = "Low:";
+			this.label3.AutoSize = true;
+			this.label3.BackColor = System.Drawing.Color.Transparent;
+			this.label3.Location = new System.Drawing.Point(191, 0);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(30, 13);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "Low:";
 			// 
-			// labelCloseText
+			// label4
 			// 
-			this.labelCloseText.AutoSize = true;
-			this.labelCloseText.BackColor = System.Drawing.Color.Transparent;
-			this.labelCloseText.Location = new System.Drawing.Point(279, 0);
-			this.labelCloseText.Name = "labelCloseText";
-			this.labelCloseText.Size = new System.Drawing.Size(36, 13);
-			this.labelCloseText.TabIndex = 5;
-			this.labelCloseText.Text = "Close:";
+			this.label4.AutoSize = true;
+			this.label4.BackColor = System.Drawing.Color.Transparent;
+			this.label4.Location = new System.Drawing.Point(279, 0);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(36, 13);
+			this.label4.TabIndex = 5;
+			this.label4.Text = "Close:";
 			// 
-			// labelCloseVal
+			// labelClose
 			// 
-			this.labelCloseVal.AutoSize = true;
-			this.labelCloseVal.Location = new System.Drawing.Point(311, 0);
-			this.labelCloseVal.Name = "labelCloseVal";
-			this.labelCloseVal.Size = new System.Drawing.Size(28, 13);
-			this.labelCloseVal.TabIndex = 6;
-			this.labelCloseVal.Text = "0.00";
+			this.labelClose.AutoSize = true;
+			this.labelClose.Location = new System.Drawing.Point(311, 0);
+			this.labelClose.Name = "labelClose";
+			this.labelClose.Size = new System.Drawing.Size(28, 13);
+			this.labelClose.TabIndex = 6;
+			this.labelClose.Text = "0.00";
 			// 
-			// labelLowVal
+			// labelLow
 			// 
-			this.labelLowVal.AutoSize = true;
-			this.labelLowVal.Location = new System.Drawing.Point(217, 0);
-			this.labelLowVal.Name = "labelLowVal";
-			this.labelLowVal.Size = new System.Drawing.Size(28, 13);
-			this.labelLowVal.TabIndex = 7;
-			this.labelLowVal.Text = "0.00";
+			this.labelLow.AutoSize = true;
+			this.labelLow.Location = new System.Drawing.Point(217, 0);
+			this.labelLow.Name = "labelLow";
+			this.labelLow.Size = new System.Drawing.Size(28, 13);
+			this.labelLow.TabIndex = 7;
+			this.labelLow.Text = "0.00";
 			// 
-			// labelHighVal
+			// labelHigh
 			// 
-			this.labelHighVal.AutoSize = true;
-			this.labelHighVal.Location = new System.Drawing.Point(129, 0);
-			this.labelHighVal.Name = "labelHighVal";
-			this.labelHighVal.Size = new System.Drawing.Size(28, 13);
-			this.labelHighVal.TabIndex = 8;
-			this.labelHighVal.Text = "0.00";
+			this.labelHigh.AutoSize = true;
+			this.labelHigh.Location = new System.Drawing.Point(129, 0);
+			this.labelHigh.Name = "labelHigh";
+			this.labelHigh.Size = new System.Drawing.Size(28, 13);
+			this.labelHigh.TabIndex = 8;
+			this.labelHigh.Text = "0.00";
 			// 
-			// labelOpenVal
+			// labelOpen
 			// 
-			this.labelOpenVal.AutoSize = true;
-			this.labelOpenVal.Location = new System.Drawing.Point(39, 0);
-			this.labelOpenVal.Name = "labelOpenVal";
-			this.labelOpenVal.Size = new System.Drawing.Size(28, 13);
-			this.labelOpenVal.TabIndex = 9;
-			this.labelOpenVal.Text = "0.00";
+			this.labelOpen.AutoSize = true;
+			this.labelOpen.Location = new System.Drawing.Point(39, 0);
+			this.labelOpen.Name = "labelOpen";
+			this.labelOpen.Size = new System.Drawing.Size(28, 13);
+			this.labelOpen.TabIndex = 9;
+			this.labelOpen.Text = "0.00";
 			// 
-			// labelValueVal
+			// labelValue
 			// 
-			this.labelValueVal.AutoSize = true;
-			this.labelValueVal.Location = new System.Drawing.Point(406, 0);
-			this.labelValueVal.Name = "labelValueVal";
-			this.labelValueVal.Size = new System.Drawing.Size(28, 13);
-			this.labelValueVal.TabIndex = 13;
-			this.labelValueVal.Text = "0.00";
+			this.labelValue.AutoSize = true;
+			this.labelValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.labelValue.Location = new System.Drawing.Point(406, 0);
+			this.labelValue.Name = "labelValue";
+			this.labelValue.Size = new System.Drawing.Size(30, 15);
+			this.labelValue.TabIndex = 13;
+			this.labelValue.Text = "0.00";
+			this.labelValue.Visible = false;
 			// 
-			// labelTimeVal
+			// labelTime
 			// 
-			this.labelTimeVal.AutoSize = true;
-			this.labelTimeVal.Location = new System.Drawing.Point(516, 0);
-			this.labelTimeVal.Name = "labelTimeVal";
-			this.labelTimeVal.Size = new System.Drawing.Size(34, 13);
-			this.labelTimeVal.TabIndex = 12;
-			this.labelTimeVal.Text = "00:00";
-			// 
-			// labelTimeText
-			// 
-			this.labelTimeText.AutoSize = true;
-			this.labelTimeText.BackColor = System.Drawing.Color.Transparent;
-			this.labelTimeText.Location = new System.Drawing.Point(487, 0);
-			this.labelTimeText.Name = "labelTimeText";
-			this.labelTimeText.Size = new System.Drawing.Size(33, 13);
-			this.labelTimeText.TabIndex = 11;
-			this.labelTimeText.Text = "Time:";
-			// 
-			// labelValueText
-			// 
-			this.labelValueText.AutoSize = true;
-			this.labelValueText.BackColor = System.Drawing.Color.Transparent;
-			this.labelValueText.Location = new System.Drawing.Point(373, 0);
-			this.labelValueText.Name = "labelValueText";
-			this.labelValueText.Size = new System.Drawing.Size(37, 13);
-			this.labelValueText.TabIndex = 10;
-			this.labelValueText.Text = "Value:";
+			this.labelTime.AutoSize = true;
+			this.labelTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.labelTime.Location = new System.Drawing.Point(516, 0);
+			this.labelTime.Name = "labelTime";
+			this.labelTime.Size = new System.Drawing.Size(36, 15);
+			this.labelTime.TabIndex = 12;
+			this.labelTime.Text = "00:00";
+			this.labelTime.Visible = false;
 			// 
 			// button1h
 			// 
@@ -349,15 +331,15 @@
 			this.buttonClose.UseVisualStyleBackColor = true;
 			this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
 			// 
-			// labelConv
+			// labelPair
 			// 
-			this.labelConv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.labelConv.AutoSize = true;
-			this.labelConv.Location = new System.Drawing.Point(576, 317);
-			this.labelConv.Name = "labelConv";
-			this.labelConv.Size = new System.Drawing.Size(66, 13);
-			this.labelConv.TabIndex = 25;
-			this.labelConv.Text = "BTC -> USD";
+			this.labelPair.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.labelPair.AutoSize = true;
+			this.labelPair.Location = new System.Drawing.Point(576, 317);
+			this.labelPair.Name = "labelPair";
+			this.labelPair.Size = new System.Drawing.Size(66, 13);
+			this.labelPair.TabIndex = 25;
+			this.labelPair.Text = "BTC -> USD";
 			// 
 			// buttonMinimize
 			// 
@@ -396,7 +378,7 @@
 			this.ContextMenuStrip = this.contextMenu;
 			this.Controls.Add(this.buttonMaximize);
 			this.Controls.Add(this.buttonMinimize);
-			this.Controls.Add(this.labelConv);
+			this.Controls.Add(this.labelPair);
 			this.Controls.Add(this.buttonClose);
 			this.Controls.Add(this.labelError);
 			this.Controls.Add(this.button3y);
@@ -408,18 +390,16 @@
 			this.Controls.Add(this.button1d);
 			this.Controls.Add(this.button6h);
 			this.Controls.Add(this.button1h);
-			this.Controls.Add(this.labelValueVal);
-			this.Controls.Add(this.labelTimeVal);
-			this.Controls.Add(this.labelTimeText);
-			this.Controls.Add(this.labelValueText);
-			this.Controls.Add(this.labelOpenVal);
-			this.Controls.Add(this.labelHighVal);
-			this.Controls.Add(this.labelLowVal);
-			this.Controls.Add(this.labelCloseVal);
-			this.Controls.Add(this.labelCloseText);
-			this.Controls.Add(this.labelLowText);
-			this.Controls.Add(this.labelHighText);
-			this.Controls.Add(this.labelOpenText);
+			this.Controls.Add(this.labelValue);
+			this.Controls.Add(this.labelTime);
+			this.Controls.Add(this.labelOpen);
+			this.Controls.Add(this.labelHigh);
+			this.Controls.Add(this.labelLow);
+			this.Controls.Add(this.labelClose);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.mainChart);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -439,18 +419,16 @@
 		private System.Windows.Forms.ContextMenuStrip contextMenu;
 		private System.Windows.Forms.ToolStripMenuItem toolStripClose;
 		private System.Windows.Forms.DataVisualization.Charting.Chart mainChart;
-		private System.Windows.Forms.Label labelOpenText;
-		private System.Windows.Forms.Label labelHighText;
-		private System.Windows.Forms.Label labelLowText;
-		private System.Windows.Forms.Label labelCloseText;
-		private System.Windows.Forms.Label labelCloseVal;
-		private System.Windows.Forms.Label labelLowVal;
-		private System.Windows.Forms.Label labelHighVal;
-		private System.Windows.Forms.Label labelOpenVal;
-		private System.Windows.Forms.Label labelValueVal;
-		private System.Windows.Forms.Label labelTimeVal;
-		private System.Windows.Forms.Label labelTimeText;
-		private System.Windows.Forms.Label labelValueText;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label labelClose;
+		private System.Windows.Forms.Label labelLow;
+		private System.Windows.Forms.Label labelHigh;
+		private System.Windows.Forms.Label labelOpen;
+		private System.Windows.Forms.Label labelValue;
+		private System.Windows.Forms.Label labelTime;
 		private System.Windows.Forms.Button button1h;
 		private System.Windows.Forms.Button button6h;
 		private System.Windows.Forms.Button button1d;
@@ -462,7 +440,7 @@
 		private System.Windows.Forms.Button button3y;
 		private System.Windows.Forms.Label labelError;
 		private System.Windows.Forms.Button buttonClose;
-		private System.Windows.Forms.Label labelConv;
+		private System.Windows.Forms.Label labelPair;
 		private System.Windows.Forms.Button buttonMinimize;
 		private System.Windows.Forms.Button buttonMaximize;
 	}
