@@ -27,6 +27,9 @@ namespace CryptoGadget {
 
 		private DataPoint GenerateDataPoint(JToken jtok) {
 
+			(jtok as JObject).Remove("volumefrom"); // memory saving
+			(jtok as JObject).Remove("volumeto");
+
 			DataPoint dp = new DataPoint();
 
 			double high = jtok["high"].ToObject<double>();
@@ -39,7 +42,7 @@ namespace CryptoGadget {
 			DateTime time = Epoch.AddSeconds(jtok["time"].ToObject<Int64>());
 			dp.AxisLabel = time.ToShortDateString() + "\n" + time.TimeOfDay;
 			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.Chart.CandleUpColor : _sett.Chart.CandleDownColor;
-
+			
 			return dp;
 		}
 		private void TryFetchData() { // fill the chart with extra data if possible
@@ -52,7 +55,7 @@ namespace CryptoGadget {
 						_serie_data.Insert(i, jarr[i]);
 					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
 					_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
-					labelError.Text = "";
+					labelError.Text = _data_remaining ? "" : "All possible data fetched";
 					labelError.Update();
 				} catch {
 					labelError.Text = "ERROR: Can't connect with CryptoCompare API";
@@ -122,7 +125,7 @@ namespace CryptoGadget {
 
 		}
 
-
+		
 		public FormChart(string coin, string target) {
 
 			InitializeComponent();
@@ -139,10 +142,10 @@ namespace CryptoGadget {
 				SetColors();
 
 				mainChart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-				mainChart.ChartAreas[0].AxisX.Interval = 4;
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
-				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
+				mainChart.ChartAreas[0].AxisX.Interval = 4;
 				mainChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
+				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
 				mainChart.ChartAreas[0].CursorY.Interval = 0;
 				mainChart.ChartAreas[0].AxisY.IsStartedFromZero = false;
 
@@ -183,7 +186,7 @@ namespace CryptoGadget {
 					case 7: button1y.PerformClick(); break;
 					default: button3y.PerformClick(); break;
 				}
-
+				
 			};
 
 		}
@@ -269,7 +272,7 @@ namespace CryptoGadget {
 
 				labelValue.Visible = labelTime.Visible = true;
 				labelValue.Location = new Point(X_LEFT - labelValue.Width + mainChart.Location.X, (int)mainChart.ChartAreas[0].AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
-				labelTime.Location  = new Point((int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22, mainChart.Height - Y_DOWN + 7 + labelTime.Height);
+				labelTime.Location  = new Point(Math.Min(Size.Width - labelTime.Width, (int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22), mainChart.Height - Y_DOWN + 7 + labelTime.Height);
 
 			} catch { }
 
@@ -289,8 +292,8 @@ namespace CryptoGadget {
 				}
 			}
 			else if(e.Delta < 0) { // Zoom out
-				TryFetchData(); 
-				for(int i = 0; i > delta && _axis_x.end - _axis_x.begin < _axis_x.end; i -= SystemInformation.MouseWheelScrollDelta) {
+				TryFetchData();
+				for(int i = 0; i > delta; i -= SystemInformation.MouseWheelScrollDelta) {
 					if(_axis_x.begin > 0) {
 						_axis_x.begin--;
 						mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
