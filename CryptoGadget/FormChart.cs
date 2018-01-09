@@ -47,7 +47,7 @@ namespace CryptoGadget {
 				try {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
-					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 120, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 500, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
 					for(int i = 0; i < jarr.Count; i++)
 						_serie_data.Insert(i, jarr[i]);
 					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
@@ -243,11 +243,12 @@ namespace CryptoGadget {
 			
 			try {
 
-				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(e.Location, true);
-				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(e.Location, true);
+				Point location = new Point((sender as Control).Location.X - mainChart.Location.X + e.X, (sender as Control).Location.Y - mainChart.Location.Y + e.Y); // just for MouseMove on labels
+				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(location, true);
+				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(location, true);
 
-				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
-				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(location.X);
+				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(location.Y);
 				_axis_x.last = (int)axis_x;
 
 				axis_x = Math.Max(mainChart.ChartAreas[0].AxisX.Minimum, Math.Min(mainChart.ChartAreas[0].AxisX.Maximum, axis_x));
@@ -276,17 +277,20 @@ namespace CryptoGadget {
 
 		}
 		private void mainChart_MouseWheel(object sender, MouseEventArgs e) {
-			
+
+			Global.SuspendDrawing(mainChart);
+
+			int delta = e.Delta * mainChart.Series[0].Points.Count / 15; // asimetric zoom
 			if(e.Delta > 0) { // Zoom in
-				for(int i = 0; i < e.Delta && _axis_x.end - _axis_x.begin > 40; i += SystemInformation.MouseWheelScrollDelta) {
+				for(int i = 0; i < delta && _axis_x.end - _axis_x.begin > 40; i += SystemInformation.MouseWheelScrollDelta) {
 					_axis_x.begin++; _axis_x.end--;
 					mainChart.Series[0].Points.RemoveAt(0);
 					mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
 				}
 			}
 			else if(e.Delta < 0) { // Zoom out
-				TryFetchData();
-				for(int i = 0; i > e.Delta && _axis_x.end - _axis_x.begin < 100; i -= SystemInformation.MouseWheelScrollDelta) {
+				TryFetchData(); 
+				for(int i = 0; i > delta && _axis_x.end - _axis_x.begin < _axis_x.end; i -= SystemInformation.MouseWheelScrollDelta) {
 					if(_axis_x.begin > 0) {
 						_axis_x.begin--;
 						mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
@@ -298,11 +302,14 @@ namespace CryptoGadget {
 				}
 			}
 
+			Global.ResumeDrawing(mainChart);
+
 			mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
 			mainChart_MouseMove(sender, e);
 		}
 
 		private void FormChart_Resize(object sender, EventArgs e) {
+			// Keep pixel position of chart axes
 			mainChart.ChartAreas[0].InnerPlotPosition.Height = (1 - (float)Y_DOWN / mainChart.Size.Height) * 100;
 			mainChart.ChartAreas[0].InnerPlotPosition.Width = (1 - (float)X_RIGHT / mainChart.Size.Width) * 100;
 			mainChart.ChartAreas[0].InnerPlotPosition.X = ((float)X_LEFT / mainChart.Size.Width) * 100;

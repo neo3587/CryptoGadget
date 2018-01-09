@@ -187,6 +187,7 @@
 			this.labelValue.TabIndex = 13;
 			this.labelValue.Text = "0.00";
 			this.labelValue.Visible = false;
+			this.labelValue.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
 			// labelTime
 			// 
@@ -198,6 +199,7 @@
 			this.labelTime.TabIndex = 12;
 			this.labelTime.Text = "00:00";
 			this.labelTime.Visible = false;
+			this.labelTime.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
 			// button1h
 			// 

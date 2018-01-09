@@ -13,11 +13,13 @@ namespace CryptoGadget {
 
 	public class Global : PropManager<Global> {
 
-		#region DragMove Method Details
+		#region Dll Methods
 		[DllImport("user32.dll")]
 		private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 		[DllImport("user32.dll")]
 		private static extern bool ReleaseCapture();
+		[DllImport("user32.dll")]
+		private static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
 		#endregion
 
 		public static readonly string ProfileIniLocation = Application.StartupPath + "\\profile_default.ini";
@@ -37,7 +39,13 @@ namespace CryptoGadget {
 				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
 			}
 		}
-		
+		public static void SuspendDrawing(Control parent) {
+			SendMessage(parent.Handle, 11, false, 0);
+		}
+		public static void ResumeDrawing(Control parent) {
+			SendMessage(parent.Handle, 11, true, 0);
+		}
+
 		public static void ControlApply<T>(Control ctrl, Action<Control> fn) {
 			if(ctrl is T) {
 				fn(ctrl);
