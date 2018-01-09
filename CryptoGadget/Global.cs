@@ -39,6 +39,12 @@ namespace CryptoGadget {
 				SendMessage((sender as Control).FindForm().Handle, 0xA1, 0x02, 0);
 			}
 		}
+		public static void DropDownOnClick(object sender, EventArgs e) {
+			(sender as ComboBox).DroppedDown = true;
+		}
+		public static void DropDownOnKeyPress(object sender, KeyPressEventArgs e) {
+			(sender as ComboBox).DroppedDown = true;
+		}
 		public static void SuspendDrawing(Control parent) {
 			SendMessage(parent.Handle, 11, false, 0);
 		}

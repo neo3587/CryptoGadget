@@ -33,16 +33,16 @@
 			this.checkCoinOnlyFiat = new System.Windows.Forms.CheckBox();
 			this.checkTargetIndexName = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.buttonIconSwap = new System.Windows.Forms.Button();
 			this.buttonIconReDownload = new System.Windows.Forms.Button();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.buttonIconTargetSwap = new System.Windows.Forms.Button();
+			this.buttonIconTargetReDownload = new System.Windows.Forms.Button();
 			this.numAlertAbove = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.numAlertBelow = new System.Windows.Forms.NumericUpDown();
-			this.buttonIconTargetSwap = new System.Windows.Forms.Button();
-			this.buttonIconTargetReDownload = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertAbove)).BeginInit();
@@ -82,8 +82,6 @@
 			this.comboCoin.Size = new System.Drawing.Size(192, 21);
 			this.comboCoin.Sorted = true;
 			this.comboCoin.TabIndex = 2;
-			this.comboCoin.Click += new System.EventHandler(this.DropDownOnClick);
-			this.comboCoin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
 			// 
 			// comboTarget
 			// 
@@ -94,8 +92,6 @@
 			this.comboTarget.Size = new System.Drawing.Size(192, 21);
 			this.comboTarget.Sorted = true;
 			this.comboTarget.TabIndex = 4;
-			this.comboTarget.Click += new System.EventHandler(this.DropDownOnClick);
-			this.comboTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DropDownOnKeyPress);
 			// 
 			// checkTargetOnlyFiat
 			// 
@@ -155,20 +151,6 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Coin";
 			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this.buttonIconTargetSwap);
-			this.groupBox2.Controls.Add(this.checkTargetIndexName);
-			this.groupBox2.Controls.Add(this.buttonIconTargetReDownload);
-			this.groupBox2.Controls.Add(this.checkTargetOnlyFiat);
-			this.groupBox2.Controls.Add(this.comboTarget);
-			this.groupBox2.Location = new System.Drawing.Point(222, 9);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(204, 125);
-			this.groupBox2.TabIndex = 11;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Target Coin";
-			// 
 			// buttonIconSwap
 			// 
 			this.buttonIconSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -190,6 +172,42 @@
 			this.buttonIconReDownload.Text = "Re-Download Icon";
 			this.buttonIconReDownload.UseVisualStyleBackColor = true;
 			this.buttonIconReDownload.Click += new System.EventHandler(this.buttonIconReDownload_Click);
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.buttonIconTargetSwap);
+			this.groupBox2.Controls.Add(this.checkTargetIndexName);
+			this.groupBox2.Controls.Add(this.buttonIconTargetReDownload);
+			this.groupBox2.Controls.Add(this.checkTargetOnlyFiat);
+			this.groupBox2.Controls.Add(this.comboTarget);
+			this.groupBox2.Location = new System.Drawing.Point(222, 9);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(204, 125);
+			this.groupBox2.TabIndex = 11;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Target Coin";
+			// 
+			// buttonIconTargetSwap
+			// 
+			this.buttonIconTargetSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonIconTargetSwap.Location = new System.Drawing.Point(123, 95);
+			this.buttonIconTargetSwap.Name = "buttonIconTargetSwap";
+			this.buttonIconTargetSwap.Size = new System.Drawing.Size(75, 23);
+			this.buttonIconTargetSwap.TabIndex = 14;
+			this.buttonIconTargetSwap.Text = "Swap Icon";
+			this.buttonIconTargetSwap.UseVisualStyleBackColor = true;
+			this.buttonIconTargetSwap.Click += new System.EventHandler(this.buttonIconTargetSwap_Click);
+			// 
+			// buttonIconTargetReDownload
+			// 
+			this.buttonIconTargetReDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonIconTargetReDownload.Location = new System.Drawing.Point(6, 95);
+			this.buttonIconTargetReDownload.Name = "buttonIconTargetReDownload";
+			this.buttonIconTargetReDownload.Size = new System.Drawing.Size(111, 23);
+			this.buttonIconTargetReDownload.TabIndex = 15;
+			this.buttonIconTargetReDownload.Text = "Re-Download Icon";
+			this.buttonIconTargetReDownload.UseVisualStyleBackColor = true;
+			this.buttonIconTargetReDownload.Click += new System.EventHandler(this.buttonIconTargetReDownload_Click);
 			// 
 			// numAlertAbove
 			// 
@@ -258,29 +276,7 @@
 			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
 			this.numAlertBelow.TabIndex = 4;
 			// 
-			// buttonIconTargetSwap
-			// 
-			this.buttonIconTargetSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconTargetSwap.Location = new System.Drawing.Point(123, 95);
-			this.buttonIconTargetSwap.Name = "buttonIconTargetSwap";
-			this.buttonIconTargetSwap.Size = new System.Drawing.Size(75, 23);
-			this.buttonIconTargetSwap.TabIndex = 14;
-			this.buttonIconTargetSwap.Text = "Swap Icon";
-			this.buttonIconTargetSwap.UseVisualStyleBackColor = true;
-			this.buttonIconTargetSwap.Click += new System.EventHandler(this.buttonIconTargetSwap_Click);
-			// 
-			// buttonIconTargetReDownload
-			// 
-			this.buttonIconTargetReDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconTargetReDownload.Location = new System.Drawing.Point(6, 95);
-			this.buttonIconTargetReDownload.Name = "buttonIconTargetReDownload";
-			this.buttonIconTargetReDownload.Size = new System.Drawing.Size(111, 23);
-			this.buttonIconTargetReDownload.TabIndex = 15;
-			this.buttonIconTargetReDownload.Text = "Re-Download Icon";
-			this.buttonIconTargetReDownload.UseVisualStyleBackColor = true;
-			this.buttonIconTargetReDownload.Click += new System.EventHandler(this.buttonIconTargetReDownload_Click);
-			// 
-			// FormCoinSettings
+			// FormPairSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,7 +292,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "FormCoinSettings";
+			this.Name = "FormPairSettings";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "CryptoGadget Settings [Pair Settings]";
 			this.groupBox1.ResumeLayout(false);

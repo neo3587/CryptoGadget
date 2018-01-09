@@ -235,7 +235,7 @@ namespace CryptoGadget {
 			buttonChartCursorLinesColor.DataBindings.Add("BackColor", _sett.Chart, "CursorLinesColor");
 			buttonChartCandleUpColor.DataBindings.Add("BackColor", _sett.Chart, "CandleUpColor");
 			buttonChartCandleDownColor.DataBindings.Add("BackColor", _sett.Chart, "CandleDownColor");
-			comboChartDateRange.DataBindings.Add("SelectedIndex", _sett.Chart, "DateRange");
+			comboChartStep.DataBindings.Add("SelectedIndex", _sett.Chart, "DateRange");
 
 			// Other (not actually binds)
 
@@ -271,6 +271,11 @@ namespace CryptoGadget {
 			colsGrid.DoubleBuffered(true);
 
 			comboPages.SelectedIndex = 0;
+
+			comboPages.Click += Global.DropDownOnClick;
+			comboPages.KeyPress += Global.DropDownOnKeyPress;
+			comboChartStep.Click += Global.DropDownOnClick;
+			comboChartStep.KeyPress += Global.DropDownOnKeyPress;
 
 			HandleCreated += (sender, e) => BindSettings();
 		}

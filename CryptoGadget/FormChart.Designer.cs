@@ -29,6 +29,7 @@
 			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChart));
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.toolStripCustomStepping = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripClose = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.label1 = new System.Windows.Forms.Label();
@@ -55,21 +56,33 @@
 			this.labelPair = new System.Windows.Forms.Label();
 			this.buttonMinimize = new System.Windows.Forms.Button();
 			this.buttonMaximize = new System.Windows.Forms.Button();
+			this.numStep = new System.Windows.Forms.NumericUpDown();
+			this.comboStep = new System.Windows.Forms.ComboBox();
+			this.buttonApplyStep = new System.Windows.Forms.Button();
 			this.contextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numStep)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// contextMenu
 			// 
 			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripCustomStepping,
             this.toolStripClose});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(104, 26);
+			this.contextMenu.Size = new System.Drawing.Size(167, 48);
+			// 
+			// toolStripCustomStepping
+			// 
+			this.toolStripCustomStepping.Name = "toolStripCustomStepping";
+			this.toolStripCustomStepping.Size = new System.Drawing.Size(166, 22);
+			this.toolStripCustomStepping.Text = "Custom Stepping";
+			this.toolStripCustomStepping.Click += new System.EventHandler(this.toolStripCustomStepping_Click);
 			// 
 			// toolStripClose
 			// 
 			this.toolStripClose.Name = "toolStripClose";
-			this.toolStripClose.Size = new System.Drawing.Size(103, 22);
+			this.toolStripClose.Size = new System.Drawing.Size(166, 22);
 			this.toolStripClose.Text = "Close";
 			this.toolStripClose.Click += new System.EventHandler(this.toolStripClose_Click);
 			// 
@@ -181,7 +194,7 @@
 			// 
 			this.labelValue.AutoSize = true;
 			this.labelValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.labelValue.Location = new System.Drawing.Point(406, 0);
+			this.labelValue.Location = new System.Drawing.Point(543, 0);
 			this.labelValue.Name = "labelValue";
 			this.labelValue.Size = new System.Drawing.Size(30, 15);
 			this.labelValue.TabIndex = 13;
@@ -193,7 +206,7 @@
 			// 
 			this.labelTime.AutoSize = true;
 			this.labelTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.labelTime.Location = new System.Drawing.Point(516, 0);
+			this.labelTime.Location = new System.Drawing.Point(579, 0);
 			this.labelTime.Name = "labelTime";
 			this.labelTime.Size = new System.Drawing.Size(36, 15);
 			this.labelTime.TabIndex = 12;
@@ -314,7 +327,7 @@
 			this.labelError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelError.AutoSize = true;
 			this.labelError.BackColor = System.Drawing.Color.Transparent;
-			this.labelError.Location = new System.Drawing.Point(343, 315);
+			this.labelError.Location = new System.Drawing.Point(348, 315);
 			this.labelError.Name = "labelError";
 			this.labelError.Size = new System.Drawing.Size(0, 13);
 			this.labelError.TabIndex = 23;
@@ -335,9 +348,8 @@
 			// 
 			// labelPair
 			// 
-			this.labelPair.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.labelPair.AutoSize = true;
-			this.labelPair.Location = new System.Drawing.Point(576, 317);
+			this.labelPair.Location = new System.Drawing.Point(462, 0);
 			this.labelPair.Name = "labelPair";
 			this.labelPair.Size = new System.Drawing.Size(66, 13);
 			this.labelPair.TabIndex = 25;
@@ -371,13 +383,71 @@
 			this.buttonMaximize.UseVisualStyleBackColor = true;
 			this.buttonMaximize.Click += new System.EventHandler(this.buttonMaximize_Click);
 			// 
+			// numStep
+			// 
+			this.numStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.numStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.numStep.Location = new System.Drawing.Point(99, 313);
+			this.numStep.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+			this.numStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numStep.Name = "numStep";
+			this.numStep.Size = new System.Drawing.Size(67, 20);
+			this.numStep.TabIndex = 28;
+			this.numStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numStep.Visible = false;
+			// 
+			// comboStep
+			// 
+			this.comboStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.comboStep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.comboStep.FormattingEnabled = true;
+			this.comboStep.Items.AddRange(new object[] {
+            "Minute",
+            "Hour",
+            "Day"});
+			this.comboStep.Location = new System.Drawing.Point(2, 312);
+			this.comboStep.Name = "comboStep";
+			this.comboStep.Size = new System.Drawing.Size(91, 21);
+			this.comboStep.TabIndex = 29;
+			this.comboStep.Text = "Hour";
+			this.comboStep.Visible = false;
+			// 
+			// buttonApplyStep
+			// 
+			this.buttonApplyStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonApplyStep.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonApplyStep.Location = new System.Drawing.Point(172, 312);
+			this.buttonApplyStep.Name = "buttonApplyStep";
+			this.buttonApplyStep.Size = new System.Drawing.Size(49, 23);
+			this.buttonApplyStep.TabIndex = 30;
+			this.buttonApplyStep.Text = "Apply";
+			this.buttonApplyStep.UseVisualStyleBackColor = true;
+			this.buttonApplyStep.Visible = false;
+			this.buttonApplyStep.Click += new System.EventHandler(this.buttonApplyStep_Click);
+			// 
 			// FormChart
 			// 
+			this.AcceptButton = this.buttonApplyStep;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.ClientSize = new System.Drawing.Size(682, 336);
 			this.ContextMenuStrip = this.contextMenu;
+			this.Controls.Add(this.buttonApplyStep);
+			this.Controls.Add(this.comboStep);
+			this.Controls.Add(this.numStep);
 			this.Controls.Add(this.buttonMaximize);
 			this.Controls.Add(this.buttonMinimize);
 			this.Controls.Add(this.labelPair);
@@ -411,6 +481,7 @@
 			this.Resize += new System.EventHandler(this.FormChart_Resize);
 			this.contextMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numStep)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -445,5 +516,9 @@
 		private System.Windows.Forms.Label labelPair;
 		private System.Windows.Forms.Button buttonMinimize;
 		private System.Windows.Forms.Button buttonMaximize;
+		private System.Windows.Forms.ToolStripMenuItem toolStripCustomStepping;
+		private System.Windows.Forms.NumericUpDown numStep;
+		private System.Windows.Forms.ComboBox comboStep;
+		private System.Windows.Forms.Button buttonApplyStep;
 	}
 }

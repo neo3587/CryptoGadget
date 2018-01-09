@@ -118,7 +118,12 @@ namespace CryptoGadget {
 			_default_conv = default_conv;
 			_editing = editing;
 
-            HandleCreated += (sender, e) => {
+			comboCoin.Click += Global.DropDownOnClick;
+			comboCoin.KeyPress += Global.DropDownOnKeyPress;
+			comboTarget.Click += Global.DropDownOnClick;
+			comboTarget.KeyPress += Global.DropDownOnKeyPress;
+
+			HandleCreated += (sender, e) => {
 
 				Text = "CryptoGadget Settings " + (_editing ? "[Edit Coin]" : "[Add Coin]");
 
@@ -196,13 +201,6 @@ namespace CryptoGadget {
 		}
 		private void buttonIconTargetSwap_Click(object sender, EventArgs e) {
 			IconSwap((comboTarget.SelectedItem as CoinPair).OriginalLeft(checkTargetIndexName.Checked), (comboTarget.SelectedItem as CoinPair).OriginalRight(checkTargetIndexName.Checked));
-		}
-
-		private void DropDownOnClick(object sender, EventArgs e) {
-			(sender as ComboBox).DroppedDown = true;
-		}
-		private void DropDownOnKeyPress(object sender, KeyPressEventArgs e) {
-			(sender as ComboBox).DroppedDown = true;
 		}
 
 	}

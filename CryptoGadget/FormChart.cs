@@ -92,6 +92,9 @@ namespace CryptoGadget {
 
 			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.Chart.CursorLinesColor;
 
+			comboStep.ForeColor = numStep.ForeColor = _sett.Chart.ForeColor;
+			comboStep.BackColor = numStep.BackColor = _sett.Chart.BackColor;
+			
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
 			
@@ -159,6 +162,8 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
 				mainChart.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None;
 
+				comboStep.Click += Global.DropDownOnClick;
+				comboStep.KeyPress += Global.DropDownOnKeyPress;
 				MouseDown += Global.DragMove;
 				Global.ControlApply<Label>(this, (ctrl) => ctrl.MouseDown += Global.DragMove);
 				Global.ControlApply<Button>(this, (ctrl) => ctrl.GotFocus += (f_sender, f_e) => ActiveControl = mainChart);
@@ -192,6 +197,13 @@ namespace CryptoGadget {
 		}
 
 
+		private void toolStripCustomStepping_Click(object sender, EventArgs e) {
+			foreach(Control ctrl in new Control[] { button1m, button5m, button20m, button1h, button6h, button24h, button3d, button7d, button30d })
+				ctrl.Visible = toolStripCustomStepping.Checked;
+			foreach(Control ctrl in new Control[] { comboStep, numStep, buttonApplyStep })
+				ctrl.Visible = !toolStripCustomStepping.Checked;
+			toolStripCustomStepping.Checked = !toolStripCustomStepping.Checked;
+		}
 		private void toolStripClose_Click(object sender, EventArgs e) {
 			Close();
 		}
@@ -354,6 +366,13 @@ namespace CryptoGadget {
 		}
 		private void button1m_Click(object sender, EventArgs e) {
 			ChartFill(CCRequest.HistoType.Minute, 1);
+		}
+
+		private void buttonApplyStep_Click(object sender, EventArgs e) {
+			CCRequest.HistoType htype = comboStep.SelectedIndex == 0 ? CCRequest.HistoType.Minute :
+										comboStep.SelectedIndex == 1 ? CCRequest.HistoType.Hour : 
+										CCRequest.HistoType.Day;
+			ChartFill(htype, (int)numStep.Value);		
 		}
 
 

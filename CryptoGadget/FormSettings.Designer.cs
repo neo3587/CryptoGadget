@@ -158,7 +158,7 @@
 			this.buttonChartCandleDownColor = new System.Windows.Forms.Button();
 			this.label43 = new System.Windows.Forms.Label();
 			this.buttonChartCursorLinesColor = new System.Windows.Forms.Button();
-			this.comboChartDateRange = new System.Windows.Forms.ComboBox();
+			this.comboChartStep = new System.Windows.Forms.ComboBox();
 			this.buttonDefaultCharts = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.linkCryptoCompareAPI = new System.Windows.Forms.LinkLabel();
@@ -1681,7 +1681,7 @@
 			// 
 			this.tabPage5.Controls.Add(this.label34);
 			this.tabPage5.Controls.Add(this.groupBox8);
-			this.tabPage5.Controls.Add(this.comboChartDateRange);
+			this.tabPage5.Controls.Add(this.comboChartStep);
 			this.tabPage5.Controls.Add(this.buttonDefaultCharts);
 			this.tabPage5.Controls.Add(this.label36);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -1833,8 +1833,8 @@
 			// 
 			// comboChartDateRange
 			// 
-			this.comboChartDateRange.FormattingEnabled = true;
-			this.comboChartDateRange.Items.AddRange(new object[] {
+			this.comboChartStep.FormattingEnabled = true;
+			this.comboChartStep.Items.AddRange(new object[] {
             "1 minute",
             "5 minutes",
             "20 minutes",
@@ -1844,12 +1844,11 @@
             "3 days",
             "7 days",
             "30 days"});
-			this.comboChartDateRange.Location = new System.Drawing.Point(342, 24);
-			this.comboChartDateRange.Name = "comboChartDateRange";
-			this.comboChartDateRange.Size = new System.Drawing.Size(100, 21);
-			this.comboChartDateRange.TabIndex = 71;
-			this.comboChartDateRange.Text = "1 day";
-			this.comboChartDateRange.Click += new System.EventHandler(this.DropDownOnClick);
+			this.comboChartStep.Location = new System.Drawing.Point(342, 24);
+			this.comboChartStep.Name = "comboChartDateRange";
+			this.comboChartStep.Size = new System.Drawing.Size(100, 21);
+			this.comboChartStep.TabIndex = 71;
+			this.comboChartStep.Text = "1 day";
 			// 
 			// buttonDefaultCharts
 			// 
@@ -2199,7 +2198,6 @@
 			this.comboPages.Size = new System.Drawing.Size(121, 21);
 			this.comboPages.TabIndex = 20;
 			this.comboPages.SelectedIndexChanged += new System.EventHandler(this.comboPages_SelectedIndexChanged);
-			this.comboPages.Click += new System.EventHandler(this.DropDownOnClick);
 			// 
 			// buttonApply
 			// 
@@ -2428,7 +2426,7 @@
 		private System.Windows.Forms.TextBox textBoxDonationBTC;
 		private System.Windows.Forms.Button buttonDefaultCharts;
 		private System.Windows.Forms.Label label34;
-		private System.Windows.Forms.ComboBox comboChartDateRange;
+		private System.Windows.Forms.ComboBox comboChartStep;
 		private System.Windows.Forms.Label label36;
 		private System.Windows.Forms.GroupBox groupBox8;
 		private System.Windows.Forms.Button buttonChartCandleUpColor;
