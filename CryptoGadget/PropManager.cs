@@ -18,8 +18,8 @@ namespace CryptoGadget {
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		protected void NotifyPropertyChanged([CallerMemberName] String property_name = "") {
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property_name));
 		}
 	}
 

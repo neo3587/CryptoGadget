@@ -428,13 +428,22 @@ namespace CryptoGadget {
 					_timer.alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 				}
 
-            };
+				#if DEBUG
+				string coin = "BTC"; string target = "USD";
+				_charts.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
+					_charts_mtx.WaitOne();
+					FormChart chart = _charts[(coin, target)].form;
+					_charts_mtx.ReleaseMutex();
+					chart.ShowDialog();
+					_charts_mtx.WaitOne();
+					_charts.Remove((coin, target));
+					_charts_mtx.ReleaseMutex();
+				})));
+				_charts[(coin, target)].thread.Start();
+				#endif
 
-			
-			#if DEBUG
-			new Thread(() => new FormChartExperimental("BTC", "USD").ShowDialog()).Start();
-			#endif
-			
+			};
+
 		}
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {

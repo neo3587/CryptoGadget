@@ -75,7 +75,7 @@
 			this.toolStripClose.Text = "Close";
 			this.toolStripClose.Click += new System.EventHandler(this.toolStripClose_Click);
 			// 
-			// mainChart
+			// chart
 			// 
 			this.mainChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -88,8 +88,8 @@
 			this.mainChart.ContextMenuStrip = this.contextMenu;
 			legend1.Name = "LegendCandle";
 			this.mainChart.Legends.Add(legend1);
-			this.mainChart.Location = new System.Drawing.Point(-28, 4);
-			this.mainChart.Name = "mainChart";
+			this.mainChart.Location = new System.Drawing.Point(12, 12);
+			this.mainChart.Name = "chart";
 			series1.ChartArea = "ChartAreaCandle";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
 			series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
@@ -98,7 +98,7 @@
 			series1.Name = "SeriesCandle";
 			series1.YValuesPerPoint = 4;
 			this.mainChart.Series.Add(series1);
-			this.mainChart.Size = new System.Drawing.Size(747, 320);
+			this.mainChart.Size = new System.Drawing.Size(658, 312);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);

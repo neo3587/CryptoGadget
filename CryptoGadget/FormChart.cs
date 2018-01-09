@@ -13,13 +13,14 @@ namespace CryptoGadget {
 	public partial class FormChart : Form {
 
 		private Settings _sett = new Settings();
-		private (string coin, string target) _conv = ("", "");
+		private (string coin, string target) _pair = ("", "");
 		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
 		private (int begin, int end, int last) _axis_x = (0, 0, 0);
 		private bool _data_remaining = true;
 		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 24);
 		private JArray _serie_data = null;
-		
+
+		private const float X_LEFT = 50, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
 
 		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -35,7 +36,8 @@ namespace CryptoGadget {
 
 			dp.YValues = new double[] { high, low, open, close };
 			dp.Tag = jtok["time"].ToObject<Int64>();
-			dp.AxisLabel = Epoch.AddSeconds(jtok["time"].ToObject<Int64>()).ToString();
+			DateTime time = Epoch.AddSeconds(jtok["time"].ToObject<Int64>());
+			dp.AxisLabel = time.ToShortDateString() + "\n" + time.TimeOfDay;
 			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.Chart.CandleUpColor : _sett.Chart.CandleDownColor;
 
 			return dp;
@@ -45,7 +47,7 @@ namespace CryptoGadget {
 				try {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
-					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, _req_format.type, 120, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 120, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
 					for(int i = 0; i < jarr.Count; i++)
 						_serie_data.Insert(i, jarr[i]);
 					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
@@ -94,7 +96,7 @@ namespace CryptoGadget {
 				labelError.Text = "Fetching Data";
 				labelError.Update();
 
-				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_conv.coin, _conv.target, type, 120, step, time));
+				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, type, 120, step, time));
 				if(json == null || json["Response"].ToString().ToLower() == "error")
 					throw new Exception();
 
@@ -124,15 +126,15 @@ namespace CryptoGadget {
 		public FormChart(string coin, string target) {
 
 			InitializeComponent();
-			_conv.coin = coin;
-			_conv.target = target;
+			_pair.coin = coin;
+			_pair.target = target;
 
 			Load += (sender, e) => {
 
 				Global.Sett.CloneTo(_sett);
 
 				DoubleBuffered = true;
-				labelConv.Text = _conv.coin + " -> " + _conv.target;
+				labelConv.Text = _pair.coin + " -> " + _pair.target;
 
 				SetColors();
 
@@ -140,8 +142,19 @@ namespace CryptoGadget {
 				mainChart.ChartAreas[0].AxisX.Interval = 4;
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
 				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
+				mainChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
 				mainChart.ChartAreas[0].CursorY.Interval = 0;
 				mainChart.ChartAreas[0].AxisY.IsStartedFromZero = false;
+
+				mainChart.ChartAreas[0].Position = new ElementPosition() {
+					Auto = false,
+					Height = 100,
+					Width = 100,
+					X = 0,
+					Y = 0
+				};
+				mainChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
+				mainChart.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None;
 
 				MouseDown += Global.DragMove;
 				Global.ControlApply<Label>(this, (ctrl) => ctrl.MouseDown += Global.DragMove);
@@ -246,7 +259,7 @@ namespace CryptoGadget {
 					DataPoint dp = mainChart.Series[0].Points[(int)Math.Round(axis_x) - 1];
 
 					labelValueVal.Text = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString().Substring(0, 13);
-					labelTimeVal.Text = dp.AxisLabel;
+					labelTimeVal.Text = Epoch.AddSeconds((Int64)dp.Tag).ToString();
 
 					labelHighVal.Text = dp.YValues[0].ToString();
 					labelLowVal.Text = dp.YValues[1].ToString();
@@ -292,6 +305,13 @@ namespace CryptoGadget {
 		}
 
 		private void FormChart_Resize(object sender, EventArgs e) {
+			mainChart.ChartAreas[0].InnerPlotPosition.Height = (1 - Y_DOWN / mainChart.Size.Height) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.Width = (1 - X_RIGHT / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.X = (X_LEFT / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].InnerPlotPosition.Y = (Y_UP / mainChart.Size.Height) * 100;
+			mainChart.ChartAreas[0].AxisY.MajorTickMark.Size = (XY_TICK / mainChart.Size.Width) * 100;
+			mainChart.ChartAreas[0].AxisX.MajorTickMark.Size = (XY_TICK / mainChart.Size.Width) * 100;
+
 			Refresh(); // avoid resize gripper graphic glitches 
 		}
 
