@@ -266,10 +266,10 @@ namespace CryptoGadget {
 				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(location.Y);
 				_axis_x.last = (int)axis_x;
 
-				axis_x = Math.Max(mainChart.ChartAreas[0].AxisX.Minimum, Math.Min(mainChart.ChartAreas[0].AxisX.Maximum, axis_x));
-				axis_y = Math.Max(mainChart.ChartAreas[0].AxisY.Minimum, Math.Min(mainChart.ChartAreas[0].AxisY.Maximum, axis_y));
+				axis_x = Global.Constrain(axis_x, mainChart.ChartAreas[0].AxisX.Minimum, mainChart.ChartAreas[0].AxisX.Maximum); 
+				axis_y = Global.Constrain(axis_y, mainChart.ChartAreas[0].AxisY.Minimum, mainChart.ChartAreas[0].AxisY.Maximum);
 
-				int index_x = Math.Max(0, Math.Min(mainChart.Series[0].Points.Count - 1, (int)Math.Round(axis_x) - 1));
+				int index_x = Global.Constrain((int)Math.Round(axis_x) - 1, 0, mainChart.Series[0].Points.Count - 1);
 				DataPoint dp = mainChart.Series[0].Points[index_x];
 
 				labelValue.Text = axis_y.ToString("0.000000000").Substring(0, 10); 
@@ -279,13 +279,13 @@ namespace CryptoGadget {
 				labelLow.Text	= dp.YValues[1].ToString();
 				labelOpen.Text	= dp.YValues[2].ToString();
 				labelClose.Text	= dp.YValues[3].ToString();
-
+				
 				labelHigh.ForeColor	= labelLow.ForeColor = labelOpen.ForeColor = labelClose.ForeColor = dp.Color;
 
 				labelValue.Visible = labelTime.Visible = true;
 				labelValue.Location = new Point(X_LEFT - labelValue.Width + mainChart.Location.X, 
 												(int)mainChart.ChartAreas[0].AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
-				labelTime.Location  = new Point(Math.Max(X_LEFT + mainChart.Location.X - 1, Math.Min(Size.Width - labelTime.Width, (int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22)), 
+				labelTime.Location  = new Point(Global.Constrain((int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22, X_LEFT + mainChart.Location.X - 1, Size.Width - labelTime.Width), 
 												mainChart.Height - Y_DOWN + 7 + labelTime.Height);
 
 			} catch { }
@@ -295,29 +295,49 @@ namespace CryptoGadget {
 		}
 		private void mainChart_MouseWheel(object sender, MouseEventArgs e) {
 
-			Global.SuspendDrawing(mainChart);
-
-			int delta = e.Delta * mainChart.Series[0].Points.Count / 15; // asimetric zoom
-			if(e.Delta > 0) { // Zoom in
-				for(int i = 0; i < delta && _axis_x.end - _axis_x.begin > 40; i += SystemInformation.MouseWheelScrollDelta) {
-					_axis_x.begin++; _axis_x.end--;
-					mainChart.Series[0].Points.RemoveAt(0);
-					mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
-				}
-			}
-			else if(e.Delta < 0) { // Zoom out
+			Func<int, int> WorkLeft = (n_steps) => {
 				TryFetchData();
-				for(int i = 0; i > delta; i -= SystemInformation.MouseWheelScrollDelta) {
-					if(_axis_x.begin > 0) {
+				for(int i = 0; i < n_steps; i++) {
+					if(e.Delta > 0 && _axis_x.end - _axis_x.begin > 40) { // Zoom in
+						_axis_x.begin++;
+						mainChart.Series[0].Points.RemoveAt(0);
+					}
+					else if(e.Delta < 0 && _axis_x.begin > 0) { // Zoom out
 						_axis_x.begin--;
 						mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
 					}
-					if(_axis_x.end < _serie_data.Count) {
+					else {
+						return n_steps - i;
+					}
+				}
+				return 0;
+			};
+			Func<int, int> WorkRight = (n_steps) => {
+				TryFetchData();
+				for(int i = 0; i < n_steps; i++) {
+					if(e.Delta > 0 && _axis_x.end - _axis_x.begin > 40) { // Zoom in
+						_axis_x.end--;
+						mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
+					}
+					else if(e.Delta < 0 && _axis_x.end < _serie_data.Count) { // Zoom out
 						_axis_x.end++;
 						mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
 					}
+					else {
+						return n_steps - i;
+					}
 				}
-			}
+				return 0;
+			};
+
+			Global.SuspendDrawing(mainChart);
+
+			int steps = mainChart.Series[0].Points.Count / 15; // asimetric zoom
+			int steps_left = (int)Math.Round(steps * (float)(e.X -  X_LEFT) / (Size.Width - X_RIGHT - X_LEFT)); // zoom % on left/right depending on mouse position
+			int steps_right = steps - steps_left;
+
+			WorkRight(WorkLeft(steps_left));
+			WorkLeft(WorkRight(steps_right));
 
 			Global.ResumeDrawing(mainChart);
 

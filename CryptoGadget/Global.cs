@@ -62,6 +62,10 @@ namespace CryptoGadget {
 			}
 		}
 
+		public static T Constrain<T>(T x, T min, T max) {
+			return Math.Min((dynamic)max, Math.Max((dynamic)min, (dynamic)x));
+		}
+
 		public static Bitmap GetIcon(string name, int size = 0) {
 			Bitmap bmp;
 			name = name.ToLower().Replace("*", "_star");
