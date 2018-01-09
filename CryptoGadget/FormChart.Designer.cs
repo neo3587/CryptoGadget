@@ -41,15 +41,15 @@
 			this.labelOpen = new System.Windows.Forms.Label();
 			this.labelValue = new System.Windows.Forms.Label();
 			this.labelTime = new System.Windows.Forms.Label();
+			this.button1m = new System.Windows.Forms.Button();
+			this.button5m = new System.Windows.Forms.Button();
+			this.button20m = new System.Windows.Forms.Button();
 			this.button1h = new System.Windows.Forms.Button();
 			this.button6h = new System.Windows.Forms.Button();
-			this.button1d = new System.Windows.Forms.Button();
+			this.button24h = new System.Windows.Forms.Button();
 			this.button3d = new System.Windows.Forms.Button();
 			this.button7d = new System.Windows.Forms.Button();
-			this.button1m = new System.Windows.Forms.Button();
-			this.button3m = new System.Windows.Forms.Button();
-			this.button1y = new System.Windows.Forms.Button();
-			this.button3y = new System.Windows.Forms.Button();
+			this.button30d = new System.Windows.Forms.Button();
 			this.labelError = new System.Windows.Forms.Label();
 			this.buttonClose = new System.Windows.Forms.Button();
 			this.labelPair = new System.Windows.Forms.Label();
@@ -201,14 +201,50 @@
 			this.labelTime.Visible = false;
 			this.labelTime.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
+			// button1m
+			// 
+			this.button1m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button1m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1m.Location = new System.Drawing.Point(305, 312);
+			this.button1m.Name = "button1m";
+			this.button1m.Size = new System.Drawing.Size(37, 23);
+			this.button1m.TabIndex = 14;
+			this.button1m.Text = "1m";
+			this.button1m.UseVisualStyleBackColor = true;
+			this.button1m.Click += new System.EventHandler(this.button1m_Click);
+			// 
+			// button5m
+			// 
+			this.button5m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button5m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button5m.Location = new System.Drawing.Point(267, 312);
+			this.button5m.Name = "button5m";
+			this.button5m.Size = new System.Drawing.Size(37, 23);
+			this.button5m.TabIndex = 15;
+			this.button5m.Text = "5m";
+			this.button5m.UseVisualStyleBackColor = true;
+			this.button5m.Click += new System.EventHandler(this.button5m_Click);
+			// 
+			// button20m
+			// 
+			this.button20m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button20m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button20m.Location = new System.Drawing.Point(229, 312);
+			this.button20m.Name = "button20m";
+			this.button20m.Size = new System.Drawing.Size(37, 23);
+			this.button20m.TabIndex = 16;
+			this.button20m.Text = "20m";
+			this.button20m.UseVisualStyleBackColor = true;
+			this.button20m.Click += new System.EventHandler(this.button20m_Click);
+			// 
 			// button1h
 			// 
 			this.button1h.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1h.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1h.Location = new System.Drawing.Point(257, 312);
+			this.button1h.Location = new System.Drawing.Point(191, 312);
 			this.button1h.Name = "button1h";
-			this.button1h.Size = new System.Drawing.Size(31, 23);
-			this.button1h.TabIndex = 14;
+			this.button1h.Size = new System.Drawing.Size(37, 23);
+			this.button1h.TabIndex = 17;
 			this.button1h.Text = "1h";
 			this.button1h.UseVisualStyleBackColor = true;
 			this.button1h.Click += new System.EventHandler(this.button1h_Click);
@@ -217,34 +253,34 @@
 			// 
 			this.button6h.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button6h.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button6h.Location = new System.Drawing.Point(225, 312);
+			this.button6h.Location = new System.Drawing.Point(153, 312);
 			this.button6h.Name = "button6h";
-			this.button6h.Size = new System.Drawing.Size(31, 23);
-			this.button6h.TabIndex = 15;
+			this.button6h.Size = new System.Drawing.Size(37, 23);
+			this.button6h.TabIndex = 18;
 			this.button6h.Text = "6h";
 			this.button6h.UseVisualStyleBackColor = true;
 			this.button6h.Click += new System.EventHandler(this.button6h_Click);
 			// 
-			// button1d
+			// button24h
 			// 
-			this.button1d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button1d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1d.Location = new System.Drawing.Point(193, 312);
-			this.button1d.Name = "button1d";
-			this.button1d.Size = new System.Drawing.Size(31, 23);
-			this.button1d.TabIndex = 16;
-			this.button1d.Text = "1d";
-			this.button1d.UseVisualStyleBackColor = true;
-			this.button1d.Click += new System.EventHandler(this.button1d_Click);
+			this.button24h.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button24h.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button24h.Location = new System.Drawing.Point(115, 312);
+			this.button24h.Name = "button24h";
+			this.button24h.Size = new System.Drawing.Size(37, 23);
+			this.button24h.TabIndex = 19;
+			this.button24h.Text = "24h";
+			this.button24h.UseVisualStyleBackColor = true;
+			this.button24h.Click += new System.EventHandler(this.button1m_Click);
 			// 
 			// button3d
 			// 
 			this.button3d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button3d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3d.Location = new System.Drawing.Point(161, 312);
+			this.button3d.Location = new System.Drawing.Point(77, 312);
 			this.button3d.Name = "button3d";
-			this.button3d.Size = new System.Drawing.Size(31, 23);
-			this.button3d.TabIndex = 17;
+			this.button3d.Size = new System.Drawing.Size(37, 23);
+			this.button3d.TabIndex = 20;
 			this.button3d.Text = "3d";
 			this.button3d.UseVisualStyleBackColor = true;
 			this.button3d.Click += new System.EventHandler(this.button3d_Click);
@@ -253,68 +289,32 @@
 			// 
 			this.button7d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button7d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button7d.Location = new System.Drawing.Point(129, 312);
+			this.button7d.Location = new System.Drawing.Point(39, 312);
 			this.button7d.Name = "button7d";
-			this.button7d.Size = new System.Drawing.Size(31, 23);
-			this.button7d.TabIndex = 18;
+			this.button7d.Size = new System.Drawing.Size(37, 23);
+			this.button7d.TabIndex = 21;
 			this.button7d.Text = "7d";
 			this.button7d.UseVisualStyleBackColor = true;
 			this.button7d.Click += new System.EventHandler(this.button7d_Click);
 			// 
-			// button1m
+			// button30d
 			// 
-			this.button1m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button1m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1m.Location = new System.Drawing.Point(97, 312);
-			this.button1m.Name = "button1m";
-			this.button1m.Size = new System.Drawing.Size(31, 23);
-			this.button1m.TabIndex = 19;
-			this.button1m.Text = "1m";
-			this.button1m.UseVisualStyleBackColor = true;
-			this.button1m.Click += new System.EventHandler(this.button1m_Click);
-			// 
-			// button3m
-			// 
-			this.button3m.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button3m.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3m.Location = new System.Drawing.Point(65, 312);
-			this.button3m.Name = "button3m";
-			this.button3m.Size = new System.Drawing.Size(31, 23);
-			this.button3m.TabIndex = 20;
-			this.button3m.Text = "3m";
-			this.button3m.UseVisualStyleBackColor = true;
-			this.button3m.Click += new System.EventHandler(this.button3m_Click);
-			// 
-			// button1y
-			// 
-			this.button1y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button1y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1y.Location = new System.Drawing.Point(33, 312);
-			this.button1y.Name = "button1y";
-			this.button1y.Size = new System.Drawing.Size(31, 23);
-			this.button1y.TabIndex = 21;
-			this.button1y.Text = "1y";
-			this.button1y.UseVisualStyleBackColor = true;
-			this.button1y.Click += new System.EventHandler(this.button1y_Click);
-			// 
-			// button3y
-			// 
-			this.button3y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button3y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3y.Location = new System.Drawing.Point(1, 312);
-			this.button3y.Name = "button3y";
-			this.button3y.Size = new System.Drawing.Size(31, 23);
-			this.button3y.TabIndex = 22;
-			this.button3y.Text = "3y";
-			this.button3y.UseVisualStyleBackColor = true;
-			this.button3y.Click += new System.EventHandler(this.button3y_Click);
+			this.button30d.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button30d.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button30d.Location = new System.Drawing.Point(1, 312);
+			this.button30d.Name = "button30d";
+			this.button30d.Size = new System.Drawing.Size(37, 23);
+			this.button30d.TabIndex = 22;
+			this.button30d.Text = "30d";
+			this.button30d.UseVisualStyleBackColor = true;
+			this.button30d.Click += new System.EventHandler(this.button30d_Click);
 			// 
 			// labelError
 			// 
 			this.labelError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelError.AutoSize = true;
 			this.labelError.BackColor = System.Drawing.Color.Transparent;
-			this.labelError.Location = new System.Drawing.Point(302, 315);
+			this.labelError.Location = new System.Drawing.Point(343, 315);
 			this.labelError.Name = "labelError";
 			this.labelError.Size = new System.Drawing.Size(0, 13);
 			this.labelError.TabIndex = 23;
@@ -383,15 +383,15 @@
 			this.Controls.Add(this.labelPair);
 			this.Controls.Add(this.buttonClose);
 			this.Controls.Add(this.labelError);
-			this.Controls.Add(this.button3y);
-			this.Controls.Add(this.button1y);
-			this.Controls.Add(this.button3m);
-			this.Controls.Add(this.button1m);
+			this.Controls.Add(this.button30d);
 			this.Controls.Add(this.button7d);
 			this.Controls.Add(this.button3d);
-			this.Controls.Add(this.button1d);
+			this.Controls.Add(this.button24h);
 			this.Controls.Add(this.button6h);
 			this.Controls.Add(this.button1h);
+			this.Controls.Add(this.button20m);
+			this.Controls.Add(this.button5m);
+			this.Controls.Add(this.button1m);
 			this.Controls.Add(this.labelValue);
 			this.Controls.Add(this.labelTime);
 			this.Controls.Add(this.labelOpen);
@@ -431,15 +431,15 @@
 		private System.Windows.Forms.Label labelOpen;
 		private System.Windows.Forms.Label labelValue;
 		private System.Windows.Forms.Label labelTime;
+		private System.Windows.Forms.Button button1m;
+		private System.Windows.Forms.Button button5m;
+		private System.Windows.Forms.Button button20m;
 		private System.Windows.Forms.Button button1h;
 		private System.Windows.Forms.Button button6h;
-		private System.Windows.Forms.Button button1d;
+		private System.Windows.Forms.Button button24h;
 		private System.Windows.Forms.Button button3d;
 		private System.Windows.Forms.Button button7d;
-		private System.Windows.Forms.Button button1m;
-		private System.Windows.Forms.Button button3m;
-		private System.Windows.Forms.Button button1y;
-		private System.Windows.Forms.Button button3y;
+		private System.Windows.Forms.Button button30d;
 		private System.Windows.Forms.Label labelError;
 		private System.Windows.Forms.Button buttonClose;
 		private System.Windows.Forms.Label labelPair;

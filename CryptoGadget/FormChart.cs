@@ -58,7 +58,7 @@ namespace CryptoGadget {
 					labelError.Text = _data_remaining ? "" : "All possible data fetched";
 					labelError.Update();
 				} catch {
-					labelError.Text = "ERROR: Can't connect with CryptoCompare API";
+					labelError.Text = "ERROR: Can't connect with CryptoCompare";
 				}
 			}
 		}
@@ -108,7 +108,7 @@ namespace CryptoGadget {
 				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
 
-				_axis_x.begin = Math.Max(_serie_data.Count - _sett.Chart.Zoom, 0);
+				_axis_x.begin = Math.Max(_serie_data.Count - 80, 0);
 				_axis_x.end = _serie_data.Count;
 
 				for(int i = _axis_x.begin; i < _axis_x.end; i++)
@@ -118,7 +118,7 @@ namespace CryptoGadget {
 
 				labelError.Text = "";
 			} catch {
-				labelError.Text = "ERROR: Can't connect with CryptoCompare API";
+				labelError.Text = "ERROR: Can't connect with CryptoCompare";
 			}
 
 			Update();
@@ -165,26 +165,26 @@ namespace CryptoGadget {
 				
 				mainChart.MouseWheel += mainChart_MouseWheel;
 
-				button3y.Click += ButtonColorClick;
-				button1y.Click += ButtonColorClick;
-				button3m.Click += ButtonColorClick;
-				button1m.Click += ButtonColorClick;
+				button30d.Click += ButtonColorClick;
 				button7d.Click += ButtonColorClick;
 				button3d.Click += ButtonColorClick;
-				button1d.Click += ButtonColorClick;
+				button24h.Click += ButtonColorClick;
 				button6h.Click += ButtonColorClick;
 				button1h.Click += ButtonColorClick;
+				button20m.Click += ButtonColorClick;
+				button5m.Click += ButtonColorClick;
+				button1m.Click += ButtonColorClick;
 
 				switch(_sett.Chart.DateRange) {
-					case 0: button1h.PerformClick(); break;
-					case 1: button6h.PerformClick(); break;
-					case 2: button1d.PerformClick(); break;
-					case 3: button3d.PerformClick(); break;
-					case 4: button7d.PerformClick(); break;
-					case 5: button1m.PerformClick(); break;
-					case 6: button3m.PerformClick(); break;
-					case 7: button1y.PerformClick(); break;
-					default: button3y.PerformClick(); break;
+					case 0: button1m.PerformClick(); break;
+					case 1: button5m.PerformClick(); break;
+					case 2: button20m.PerformClick(); break;
+					case 3: button1h.PerformClick(); break;
+					case 4: button6h.PerformClick(); break;
+					case 5: button24h.PerformClick(); break;
+					case 6: button3d.PerformClick(); break;
+					case 7: button7d.PerformClick(); break;
+					default: button30d.PerformClick(); break;
 				}
 				
 			};
@@ -271,8 +271,10 @@ namespace CryptoGadget {
 				labelHigh.ForeColor	= labelLow.ForeColor = labelOpen.ForeColor = labelClose.ForeColor = dp.Color;
 
 				labelValue.Visible = labelTime.Visible = true;
-				labelValue.Location = new Point(X_LEFT - labelValue.Width + mainChart.Location.X, (int)mainChart.ChartAreas[0].AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
-				labelTime.Location  = new Point(Math.Min(Size.Width - labelTime.Width, (int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22), mainChart.Height - Y_DOWN + 7 + labelTime.Height);
+				labelValue.Location = new Point(X_LEFT - labelValue.Width + mainChart.Location.X, 
+												(int)mainChart.ChartAreas[0].AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
+				labelTime.Location  = new Point(Math.Max(X_LEFT + mainChart.Location.X - 1, Math.Min(Size.Width - labelTime.Width, (int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22)), 
+												mainChart.Height - Y_DOWN + 7 + labelTime.Height);
 
 			} catch { }
 
@@ -326,31 +328,31 @@ namespace CryptoGadget {
 			Refresh(); // avoid resize gripper graphic glitches 
 		}
 
-		private void button3y_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Day, 15);
-		}
-		private void button1y_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Day, 5);
-		}
-		private void button3m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Day, 2);
-		}
-		private void button1m_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Hour, 10);
+		private void button30d_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoType.Day, 30);
 		}
 		private void button7d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Hour, 3);
+			ChartFill(CCRequest.HistoType.Day, 7);
 		}
 		private void button3d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Hour, 1);
+			ChartFill(CCRequest.HistoType.Day, 3);
 		}
-		private void button1d_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Minute, 24);
+		private void button24h_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoType.Hour, 24);
 		}
 		private void button6h_Click(object sender, EventArgs e) {
-			ChartFill(CCRequest.HistoType.Minute, 6);
+			ChartFill(CCRequest.HistoType.Hour, 6);
 		}
 		private void button1h_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoType.Hour, 1);
+		}
+		private void button20m_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoType.Minute, 20);
+		}
+		private void button5m_Click(object sender, EventArgs e) {
+			ChartFill(CCRequest.HistoType.Minute, 5);
+		}
+		private void button1m_Click(object sender, EventArgs e) {
 			ChartFill(CCRequest.HistoType.Minute, 1);
 		}
 

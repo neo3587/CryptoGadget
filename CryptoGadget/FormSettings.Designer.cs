@@ -89,7 +89,7 @@
 			this.buttonDonationCopyDASH = new System.Windows.Forms.Button();
 			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
 			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
-			this.label35 = new System.Windows.Forms.Label();
+			this.label36 = new System.Windows.Forms.Label();
 			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
 			this.buttonDonationQrDASH = new System.Windows.Forms.Button();
 			this.buttonDonationQrETH = new System.Windows.Forms.Button();
@@ -145,7 +145,6 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.label34 = new System.Windows.Forms.Label();
-			this.numChartZoom = new System.Windows.Forms.NumericUpDown();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.buttonChartCandleUpColor = new System.Windows.Forms.Button();
 			this.label37 = new System.Windows.Forms.Label();
@@ -161,7 +160,6 @@
 			this.buttonChartCursorLinesColor = new System.Windows.Forms.Button();
 			this.comboChartDateRange = new System.Windows.Forms.ComboBox();
 			this.buttonDefaultCharts = new System.Windows.Forms.Button();
-			this.label36 = new System.Windows.Forms.Label();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.linkCryptoCompareAPI = new System.Windows.Forms.LinkLabel();
 			this.label41 = new System.Windows.Forms.Label();
@@ -218,7 +216,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.coinGrid)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage5.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numChartZoom)).BeginInit();
 			this.groupBox8.SuspendLayout();
 			this.tabPage6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxQrCode)).BeginInit();
@@ -862,15 +859,17 @@
 			this.buttonDonationCopyBTC.UseVisualStyleBackColor = true;
 			this.buttonDonationCopyBTC.Click += new System.EventHandler(this.buttonDonationCopyBTC_Click);
 			// 
-			// label35
+			// label36
 			// 
-			this.label35.AutoSize = true;
-			this.label35.Location = new System.Drawing.Point(235, 23);
-			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(74, 13);
-			this.label35.TabIndex = 69;
-			this.label35.Text = "Default Zoom:";
-			this.toolTip1.SetToolTip(this.label35, "Number of candlesticks that will be displayed by default");
+			this.label36.AutoSize = true;
+			this.label36.Location = new System.Drawing.Point(244, 27);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(92, 13);
+			this.label36.TabIndex = 72;
+			this.label36.Text = "Default Step Size:";
+			this.toolTip1.SetToolTip(this.label36, "Default size of the date step, each candlestick will represent\r\nby default a date" +
+        " range of the given value (the range also\r\ncan be changed directly at the chart)" +
+        "");
 			// 
 			// buttonDonationQrLTC
 			// 
@@ -1680,9 +1679,7 @@
 			// 
 			// tabPage5
 			// 
-			this.tabPage5.Controls.Add(this.label35);
 			this.tabPage5.Controls.Add(this.label34);
-			this.tabPage5.Controls.Add(this.numChartZoom);
 			this.tabPage5.Controls.Add(this.groupBox8);
 			this.tabPage5.Controls.Add(this.comboChartDateRange);
 			this.tabPage5.Controls.Add(this.buttonDefaultCharts);
@@ -1704,24 +1701,6 @@
 			this.label34.TabIndex = 80;
 			this.label34.Text = "Note: Chart changes only will be applied to the \r\n           next opened charts, " +
     "not the current ones";
-			// 
-			// numChartZoom
-			// 
-			this.numChartZoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.numChartZoom.Location = new System.Drawing.Point(344, 21);
-			this.numChartZoom.Minimum = new decimal(new int[] {
-            40,
-            0,
-            0,
-            0});
-			this.numChartZoom.Name = "numChartZoom";
-			this.numChartZoom.Size = new System.Drawing.Size(100, 20);
-			this.numChartZoom.TabIndex = 70;
-			this.numChartZoom.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
 			// 
 			// groupBox8
 			// 
@@ -1856,16 +1835,16 @@
 			// 
 			this.comboChartDateRange.FormattingEnabled = true;
 			this.comboChartDateRange.Items.AddRange(new object[] {
+            "1 minute",
+            "5 minutes",
+            "20 minutes",
             "1 hour",
             "6 hours",
-            "1 day",
+            "24 hours",
             "3 days",
             "7 days",
-            "1 month",
-            "3 months",
-            "1 year",
-            "3 years"});
-			this.comboChartDateRange.Location = new System.Drawing.Point(344, 47);
+            "30 days"});
+			this.comboChartDateRange.Location = new System.Drawing.Point(342, 24);
 			this.comboChartDateRange.Name = "comboChartDateRange";
 			this.comboChartDateRange.Size = new System.Drawing.Size(100, 21);
 			this.comboChartDateRange.TabIndex = 71;
@@ -1882,15 +1861,6 @@
 			this.buttonDefaultCharts.Text = "Defaults";
 			this.buttonDefaultCharts.UseVisualStyleBackColor = true;
 			this.buttonDefaultCharts.Click += new System.EventHandler(this.buttonDefaultCharts_Click);
-			// 
-			// label36
-			// 
-			this.label36.AutoSize = true;
-			this.label36.Location = new System.Drawing.Point(235, 50);
-			this.label36.Name = "label36";
-			this.label36.Size = new System.Drawing.Size(105, 13);
-			this.label36.TabIndex = 72;
-			this.label36.Text = "Default Date Range:";
 			// 
 			// tabPage6
 			// 
@@ -2303,7 +2273,6 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numChartZoom)).EndInit();
 			this.groupBox8.ResumeLayout(false);
 			this.groupBox8.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
@@ -2459,8 +2428,6 @@
 		private System.Windows.Forms.TextBox textBoxDonationBTC;
 		private System.Windows.Forms.Button buttonDefaultCharts;
 		private System.Windows.Forms.Label label34;
-		private System.Windows.Forms.Label label35;
-		private System.Windows.Forms.NumericUpDown numChartZoom;
 		private System.Windows.Forms.ComboBox comboChartDateRange;
 		private System.Windows.Forms.Label label36;
 		private System.Windows.Forms.GroupBox groupBox8;

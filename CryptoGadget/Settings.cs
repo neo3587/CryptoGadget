@@ -320,7 +320,6 @@ namespace CryptoGadget {
 			private Color _cursor_lines_color;
 			private Color _candle_up_color;
 			private Color _candle_down_color;
-			private int _zoom;
 			private int _date_range;
 
 			public Color ForeColor {
@@ -346,10 +345,6 @@ namespace CryptoGadget {
 			public Color CandleDownColor {
 				get => _candle_down_color;
 				set { _candle_down_color = value; NotifyPropertyChanged(); }
-			}
-			public int Zoom {
-				get => _zoom;
-				set { _zoom = value; NotifyPropertyChanged(); }
 			}
 			public int DateRange {
 				get => _date_range;
@@ -612,8 +607,7 @@ namespace CryptoGadget {
 				Chart.CursorLinesColor	= StrHexToColor("FF787878");
 				Chart.CandleUpColor		= StrHexToColor("FF6A833A");
 				Chart.CandleDownColor	= StrHexToColor("FF8A3A3B");
-				Chart.Zoom = 60;
-				Chart.DateRange	= 2; // 1d
+				Chart.DateRange	= 2; // 20m
 			}
 		}
 		public void CloneTo(Settings sett) {

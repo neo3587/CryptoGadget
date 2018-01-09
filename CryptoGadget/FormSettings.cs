@@ -235,7 +235,6 @@ namespace CryptoGadget {
 			buttonChartCursorLinesColor.DataBindings.Add("BackColor", _sett.Chart, "CursorLinesColor");
 			buttonChartCandleUpColor.DataBindings.Add("BackColor", _sett.Chart, "CandleUpColor");
 			buttonChartCandleDownColor.DataBindings.Add("BackColor", _sett.Chart, "CandleDownColor");
-			numChartZoom.DataBindings.Add("Value", _sett.Chart, "Zoom");
 			comboChartDateRange.DataBindings.Add("SelectedIndex", _sett.Chart, "DateRange");
 
 			// Other (not actually binds)
