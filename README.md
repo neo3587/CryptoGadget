@@ -16,6 +16,8 @@ CryptoGadget is a C# based gadget-like application to view the current cryptocur
 - Supports over 1000 cryptocurrencies
 - Easily change the displayed cryptocurrencies
 - Select any of the supported fiat currencies or cryptocurrencies as price reference
+- Price alerts
+- Candlestick charts for historical prices
 
 # <a name="get_run"></a> How to get and run it ?
 
