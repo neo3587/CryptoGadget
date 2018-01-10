@@ -472,8 +472,7 @@ namespace CryptoGadget {
 		}
 
         private void buttonDefaultBasic_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorDark | Settings.DefaultType.Visibility);
-			comboTheme.Text = "";
+			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.Visibility);
 		}
 
 		#endregion
@@ -526,8 +525,7 @@ namespace CryptoGadget {
 		}
 
 		private void buttonDefaultCharts_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Chart | Settings.DefaultType.ChartColorDark);
-			comboChartTheme.Text = "";
+			_sett.Default(Settings.DefaultType.Chart);
 		}
 
 		#endregion
