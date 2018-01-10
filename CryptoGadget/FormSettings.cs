@@ -173,6 +173,7 @@ namespace CryptoGadget {
 			numRefreshRate.DataBindings.Add("Value", _sett.Basic, "RefreshRate");
 			numAlertCheckRate.DataBindings.Add("Value", _sett.Basic, "AlertCheckRate");
 			checkStartup.DataBindings.Add("Checked", _sett.Basic, "Startup");
+			checkNotifyNewUpdate.DataBindings.Add("Checked", _sett.Basic, "NotifyNewVersion");
 
 			// Visibility
 
@@ -235,12 +236,14 @@ namespace CryptoGadget {
 			buttonChartCursorLinesColor.DataBindings.Add("BackColor", _sett.Chart, "CursorLinesColor");
 			buttonChartCandleUpColor.DataBindings.Add("BackColor", _sett.Chart, "CandleUpColor");
 			buttonChartCandleDownColor.DataBindings.Add("BackColor", _sett.Chart, "CandleDownColor");
-			comboChartStep.DataBindings.Add("SelectedIndex", _sett.Chart, "DateRange");
+			comboChartStep.DataBindings.Add("SelectedIndex", _sett.Chart, "DefaultStep");
 
 			// Other (not actually binds)
 
 			textBoxProfileName.Text = Global.Profile;
 			comboTheme.Text = "";
+			labelNewVersion.Text = "New Version Available (" + Global.LastVersion + ")";
+			labelNewVersion.Visible = Global.Version != Global.LastVersion;
 
 		}
 		private void ClearBindings() {
@@ -260,8 +263,7 @@ namespace CryptoGadget {
 
 			InitializeComponent();
 
-			labelCryptoGadgetVersion.Text = typeof(FormMain).Assembly.GetName().Name + " " + typeof(FormMain).Assembly.GetName().Version;
-			labelCryptoGadgetVersion.Text = labelCryptoGadgetVersion.Text.Remove(labelCryptoGadgetVersion.Text.Length - 2);
+			labelCryptoGadgetVersion.Text = typeof(FormMain).Assembly.GetName().Name + " " + Global.Version;
 
 			_ptr_form = form;
 

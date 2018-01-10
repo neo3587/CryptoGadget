@@ -180,7 +180,7 @@ namespace CryptoGadget {
 				button5m.Click += ButtonColorClick;
 				button1m.Click += ButtonColorClick;
 
-				switch(_sett.Chart.DateRange) {
+				switch(_sett.Chart.DefaultStep) {
 					case 0: button1m.PerformClick(); break;
 					case 1: button5m.PerformClick(); break;
 					case 2: button20m.PerformClick(); break;

@@ -26,12 +26,13 @@ namespace CryptoGadget {
 		public static readonly string CoinListLocation = Application.StartupPath + "\\CoinList.json";
 		public static readonly string IconsFolder = Application.StartupPath + "\\ico\\";
 		public static readonly string ProfilesFolder = Application.StartupPath + "\\profiles\\";
+		public static readonly string Version = typeof(FormMain).Assembly.GetName().Version.ToString().Remove(typeof(FormMain).Assembly.GetName().Version.ToString().Length - 2);
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
 
 		public static string Profile = "Default.json";
-
+		public static string LastVersion = Version;
 
 		public static void DragMove(object sender, MouseEventArgs e) {
 			if(e.Button == MouseButtons.Left && (sender as Control).FindForm().WindowState != FormWindowState.Maximized) {

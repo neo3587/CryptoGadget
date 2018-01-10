@@ -62,6 +62,7 @@ namespace CryptoGadget {
 			private int _refresh_rate;
 			private int _alert_check_rate;
 			private bool _startup;
+			private bool _notify_new_version;
 
 			public int RefreshRate {
 				get => _refresh_rate;
@@ -74,6 +75,10 @@ namespace CryptoGadget {
 			public bool Startup {
 				get => _startup;
 				set { _startup = value; NotifyPropertyChanged(); }
+			}
+			public bool NotifyNewVersion {
+				get => _notify_new_version;
+				set { _notify_new_version = value; NotifyPropertyChanged(); }
 			}
 		}
 		public class StVisibility : PropManager<StVisibility> {
@@ -320,7 +325,7 @@ namespace CryptoGadget {
 			private Color _cursor_lines_color;
 			private Color _candle_up_color;
 			private Color _candle_down_color;
-			private int _date_range;
+			private int _default_step;
 
 			public Color ForeColor {
 				get => _fore_color;
@@ -346,9 +351,9 @@ namespace CryptoGadget {
 				get => _candle_down_color;
 				set { _candle_down_color = value; NotifyPropertyChanged(); }
 			}
-			public int DateRange {
-				get => _date_range;
-				set { _date_range = value; NotifyPropertyChanged(); }
+			public int DefaultStep {
+				get => _default_step;
+				set { _default_step = value; NotifyPropertyChanged(); }
 			}
 		}
 
@@ -530,9 +535,10 @@ namespace CryptoGadget {
 				}
 			}
 			if((type & DefaultType.Basic) != 0) {
-				Basic.RefreshRate	  = 20;
-				Basic.AlertCheckRate  = 60;
-				Basic.Startup		  = false;
+				Basic.RefreshRate		= 20;
+				Basic.AlertCheckRate	= 60;
+				Basic.Startup			= false;
+				Basic.NotifyNewVersion	= true;
 			}
 			if((type & DefaultType.Visibility) != 0) {
 				Visibility.Edge     = true;
@@ -607,7 +613,7 @@ namespace CryptoGadget {
 				Chart.CursorLinesColor	= StrHexToColor("FF787878");
 				Chart.CandleUpColor		= StrHexToColor("FF6A833A");
 				Chart.CandleDownColor	= StrHexToColor("FF8A3A3B");
-				Chart.DateRange	= 2; // 20m
+				Chart.DefaultStep	= 2; // 20m
 			}
 		}
 		public void CloneTo(Settings sett) {

@@ -90,6 +90,7 @@
 			this.buttonDonationCopyETH = new System.Windows.Forms.Button();
 			this.buttonDonationCopyBTC = new System.Windows.Forms.Button();
 			this.label36 = new System.Windows.Forms.Label();
+			this.checkNotifyNewUpdate = new System.Windows.Forms.CheckBox();
 			this.buttonDonationQrLTC = new System.Windows.Forms.Button();
 			this.buttonDonationQrDASH = new System.Windows.Forms.Button();
 			this.buttonDonationQrETH = new System.Windows.Forms.Button();
@@ -161,6 +162,7 @@
 			this.comboChartStep = new System.Windows.Forms.ComboBox();
 			this.buttonDefaultCharts = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.labelNewVersion = new System.Windows.Forms.Label();
 			this.linkCryptoCompareAPI = new System.Windows.Forms.LinkLabel();
 			this.label41 = new System.Windows.Forms.Label();
 			this.labelQrCodeName = new System.Windows.Forms.Label();
@@ -871,6 +873,17 @@
         " range of the given value (the range also\r\ncan be changed directly at the chart)" +
         "");
 			// 
+			// checkNotifyNewUpdate
+			// 
+			this.checkNotifyNewUpdate.AutoSize = true;
+			this.checkNotifyNewUpdate.Location = new System.Drawing.Point(342, 176);
+			this.checkNotifyNewUpdate.Name = "checkNotifyNewUpdate";
+			this.checkNotifyNewUpdate.Size = new System.Drawing.Size(112, 17);
+			this.checkNotifyNewUpdate.TabIndex = 79;
+			this.checkNotifyNewUpdate.Text = "Notify new update";
+			this.toolTip1.SetToolTip(this.checkNotifyNewUpdate, "Notify on startup if a new update of CryptoGadget is\r\navailable for download");
+			this.checkNotifyNewUpdate.UseVisualStyleBackColor = true;
+			// 
 			// buttonDonationQrLTC
 			// 
 			this.buttonDonationQrLTC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonationQrLTC.BackgroundImage")));
@@ -1362,6 +1375,7 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.checkNotifyNewUpdate);
 			this.tabPage2.Controls.Add(this.numAlertCheckRate);
 			this.tabPage2.Controls.Add(this.label22);
 			this.tabPage2.Controls.Add(this.groupBox3);
@@ -1831,7 +1845,7 @@
 			this.buttonChartCursorLinesColor.UseVisualStyleBackColor = true;
 			this.buttonChartCursorLinesColor.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
-			// comboChartDateRange
+			// comboChartStep
 			// 
 			this.comboChartStep.FormattingEnabled = true;
 			this.comboChartStep.Items.AddRange(new object[] {
@@ -1845,7 +1859,7 @@
             "7 days",
             "30 days"});
 			this.comboChartStep.Location = new System.Drawing.Point(342, 24);
-			this.comboChartStep.Name = "comboChartDateRange";
+			this.comboChartStep.Name = "comboChartStep";
 			this.comboChartStep.Size = new System.Drawing.Size(100, 21);
 			this.comboChartStep.TabIndex = 71;
 			this.comboChartStep.Text = "1 day";
@@ -1863,6 +1877,7 @@
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.Controls.Add(this.labelNewVersion);
 			this.tabPage6.Controls.Add(this.linkCryptoCompareAPI);
 			this.tabPage6.Controls.Add(this.label41);
 			this.tabPage6.Controls.Add(this.labelQrCodeName);
@@ -1899,6 +1914,17 @@
 			this.tabPage6.TabIndex = 6;
 			this.tabPage6.Text = "Additional";
 			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// labelNewVersion
+			// 
+			this.labelNewVersion.AutoSize = true;
+			this.labelNewVersion.ForeColor = System.Drawing.Color.Red;
+			this.labelNewVersion.Location = new System.Drawing.Point(152, 264);
+			this.labelNewVersion.Name = "labelNewVersion";
+			this.labelNewVersion.Size = new System.Drawing.Size(155, 13);
+			this.labelNewVersion.TabIndex = 56;
+			this.labelNewVersion.Text = "New Version Available (vX.X.X)";
+			this.labelNewVersion.Visible = false;
 			// 
 			// linkCryptoCompareAPI
 			// 
@@ -2443,5 +2469,7 @@
 		private System.Windows.Forms.Button buttonChartCursorLinesColor;
 		private System.Windows.Forms.LinkLabel linkCryptoCompareAPI;
 		private System.Windows.Forms.Label label41;
+		private System.Windows.Forms.Label labelNewVersion;
+		private System.Windows.Forms.CheckBox checkNotifyNewUpdate;
 	}
 }

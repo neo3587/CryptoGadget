@@ -359,8 +359,7 @@ namespace CryptoGadget {
 
             InitializeComponent();
 
-            notifyIcon.Text = typeof(FormMain).Assembly.GetName().Name + " " + typeof(FormMain).Assembly.GetName().Version;
-            notifyIcon.Text = notifyIcon.Text.Remove(notifyIcon.Text.Length - 2);
+            notifyIcon.Text = typeof(FormMain).Assembly.GetName().Name + " " + Global.Version;
 
 			Load += (sender, e) => {
 				
@@ -427,6 +426,20 @@ namespace CryptoGadget {
 				if(_alert_list.Count > 0) {
 					_timer.alert.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 				}
+
+				new Thread(() => {
+					try {
+						using(System.Net.Http.HttpClient client = new System.Net.Http.HttpClient()) {
+							client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
+							using(System.Net.Http.HttpResponseMessage response = client.GetAsync("https://api.github.com/repos/neo3587/CryptoGadget/releases").Result) {
+								Global.LastVersion = JArray.Parse(response.Content.ReadAsStringAsync().Result)[0]["tag_name"].ToString();
+								if(Global.Sett.Basic.NotifyNewVersion && Global.LastVersion != Global.Version) {
+									notifyIcon.ShowBalloonTip(5000, "CryptoGadget", "A new CryptoGadget version is available: " + Global.LastVersion, ToolTipIcon.None);
+								}
+							}
+						}
+					} catch { }
+				}).Start();
 
 				#if DEBUG
 				string coin = "BTC"; string target = "USD";
