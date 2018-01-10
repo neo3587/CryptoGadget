@@ -284,7 +284,7 @@
 			this.button24h.TabIndex = 19;
 			this.button24h.Text = "24h";
 			this.button24h.UseVisualStyleBackColor = true;
-			this.button24h.Click += new System.EventHandler(this.button1m_Click);
+			this.button24h.Click += new System.EventHandler(this.button24h_Click);
 			// 
 			// button3d
 			// 

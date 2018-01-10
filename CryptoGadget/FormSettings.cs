@@ -472,7 +472,7 @@ namespace CryptoGadget {
 		}
 
         private void buttonDefaultBasic_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorLight | Settings.DefaultType.Visibility);
+			_sett.Default(Settings.DefaultType.Basic | Settings.DefaultType.ColorDark | Settings.DefaultType.Visibility);
 			comboTheme.Text = "";
 		}
 
@@ -521,8 +521,13 @@ namespace CryptoGadget {
 
 		#region Charts Tab
 
+		private void comboChartTheme_SelectedIndexChanged(object sender, EventArgs e) {
+			_sett.Default(comboChartTheme.SelectedIndex == 0 ? Settings.DefaultType.ChartColorLight : Settings.DefaultType.ChartColorDark);
+		}
+
 		private void buttonDefaultCharts_Click(object sender, EventArgs e) {
-			_sett.Default(Settings.DefaultType.Chart);
+			_sett.Default(Settings.DefaultType.Chart | Settings.DefaultType.ChartColorDark);
+			comboChartTheme.Text = "";
 		}
 
 		#endregion

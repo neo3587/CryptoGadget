@@ -62,9 +62,11 @@ namespace CryptoGadget {
 					ControlApply<T>(child, fn);
 			}
 		}
-
 		public static T Constrain<T>(T x, T min, T max) {
 			return Math.Min((dynamic)max, Math.Max((dynamic)min, (dynamic)x));
+		}
+		public static Color StrHexToColor(string str) {
+			return Color.FromArgb(int.Parse(str, System.Globalization.NumberStyles.HexNumber));
 		}
 
 		public static Bitmap GetIcon(string name, int size = 0) {

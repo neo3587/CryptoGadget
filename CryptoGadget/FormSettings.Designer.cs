@@ -147,6 +147,8 @@
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.label34 = new System.Windows.Forms.Label();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.label35 = new System.Windows.Forms.Label();
+			this.comboChartTheme = new System.Windows.Forms.ComboBox();
 			this.buttonChartCandleUpColor = new System.Windows.Forms.Button();
 			this.label37 = new System.Windows.Forms.Label();
 			this.label38 = new System.Windows.Forms.Label();
@@ -1718,6 +1720,8 @@
 			// 
 			// groupBox8
 			// 
+			this.groupBox8.Controls.Add(this.label35);
+			this.groupBox8.Controls.Add(this.comboChartTheme);
 			this.groupBox8.Controls.Add(this.buttonChartCandleUpColor);
 			this.groupBox8.Controls.Add(this.label37);
 			this.groupBox8.Controls.Add(this.label38);
@@ -1732,14 +1736,35 @@
 			this.groupBox8.Controls.Add(this.buttonChartCursorLinesColor);
 			this.groupBox8.Location = new System.Drawing.Point(6, 6);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(162, 206);
+			this.groupBox8.Size = new System.Drawing.Size(162, 235);
 			this.groupBox8.TabIndex = 78;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Colors";
 			// 
+			// label35
+			// 
+			this.label35.AutoSize = true;
+			this.label35.Location = new System.Drawing.Point(9, 24);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(46, 13);
+			this.label35.TabIndex = 81;
+			this.label35.Text = "Theme: ";
+			// 
+			// comboChartTheme
+			// 
+			this.comboChartTheme.FormattingEnabled = true;
+			this.comboChartTheme.Items.AddRange(new object[] {
+            "Light",
+            "Dark"});
+			this.comboChartTheme.Location = new System.Drawing.Point(61, 21);
+			this.comboChartTheme.Name = "comboChartTheme";
+			this.comboChartTheme.Size = new System.Drawing.Size(82, 21);
+			this.comboChartTheme.TabIndex = 81;
+			this.comboChartTheme.SelectedIndexChanged += new System.EventHandler(this.comboChartTheme_SelectedIndexChanged);
+			// 
 			// buttonChartCandleUpColor
 			// 
-			this.buttonChartCandleUpColor.Location = new System.Drawing.Point(120, 137);
+			this.buttonChartCandleUpColor.Location = new System.Drawing.Point(120, 169);
 			this.buttonChartCandleUpColor.Name = "buttonChartCandleUpColor";
 			this.buttonChartCandleUpColor.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartCandleUpColor.TabIndex = 57;
@@ -1749,7 +1774,7 @@
 			// label37
 			// 
 			this.label37.AutoSize = true;
-			this.label37.Location = new System.Drawing.Point(9, 142);
+			this.label37.Location = new System.Drawing.Point(9, 174);
 			this.label37.Name = "label37";
 			this.label37.Size = new System.Drawing.Size(83, 13);
 			this.label37.TabIndex = 56;
@@ -1758,7 +1783,7 @@
 			// label38
 			// 
 			this.label38.AutoSize = true;
-			this.label38.Location = new System.Drawing.Point(9, 84);
+			this.label38.Location = new System.Drawing.Point(9, 116);
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(56, 13);
 			this.label38.TabIndex = 52;
@@ -1767,7 +1792,7 @@
 			// label39
 			// 
 			this.label39.AutoSize = true;
-			this.label39.Location = new System.Drawing.Point(9, 55);
+			this.label39.Location = new System.Drawing.Point(9, 87);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(62, 13);
 			this.label39.TabIndex = 1;
@@ -1775,7 +1800,7 @@
 			// 
 			// buttonChartGridColor
 			// 
-			this.buttonChartGridColor.Location = new System.Drawing.Point(120, 79);
+			this.buttonChartGridColor.Location = new System.Drawing.Point(120, 111);
 			this.buttonChartGridColor.Name = "buttonChartGridColor";
 			this.buttonChartGridColor.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartGridColor.TabIndex = 53;
@@ -1785,7 +1810,7 @@
 			// label40
 			// 
 			this.label40.AutoSize = true;
-			this.label40.Location = new System.Drawing.Point(9, 26);
+			this.label40.Location = new System.Drawing.Point(9, 58);
 			this.label40.Name = "label40";
 			this.label40.Size = new System.Drawing.Size(58, 13);
 			this.label40.TabIndex = 0;
@@ -1794,7 +1819,7 @@
 			// label42
 			// 
 			this.label42.AutoSize = true;
-			this.label42.Location = new System.Drawing.Point(9, 113);
+			this.label42.Location = new System.Drawing.Point(9, 145);
 			this.label42.Name = "label42";
 			this.label42.Size = new System.Drawing.Size(95, 13);
 			this.label42.TabIndex = 5;
@@ -1802,7 +1827,7 @@
 			// 
 			// buttonChartForeColor
 			// 
-			this.buttonChartForeColor.Location = new System.Drawing.Point(120, 21);
+			this.buttonChartForeColor.Location = new System.Drawing.Point(120, 53);
 			this.buttonChartForeColor.Name = "buttonChartForeColor";
 			this.buttonChartForeColor.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartForeColor.TabIndex = 6;
@@ -1811,7 +1836,7 @@
 			// 
 			// buttonChartBackColor
 			// 
-			this.buttonChartBackColor.Location = new System.Drawing.Point(120, 50);
+			this.buttonChartBackColor.Location = new System.Drawing.Point(120, 82);
 			this.buttonChartBackColor.Name = "buttonChartBackColor";
 			this.buttonChartBackColor.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartBackColor.TabIndex = 7;
@@ -1820,7 +1845,7 @@
 			// 
 			// buttonChartCandleDownColor
 			// 
-			this.buttonChartCandleDownColor.Location = new System.Drawing.Point(120, 166);
+			this.buttonChartCandleDownColor.Location = new System.Drawing.Point(120, 198);
 			this.buttonChartCandleDownColor.Name = "buttonChartCandleDownColor";
 			this.buttonChartCandleDownColor.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartCandleDownColor.TabIndex = 17;
@@ -1830,7 +1855,7 @@
 			// label43
 			// 
 			this.label43.AutoSize = true;
-			this.label43.Location = new System.Drawing.Point(9, 171);
+			this.label43.Location = new System.Drawing.Point(9, 203);
 			this.label43.Name = "label43";
 			this.label43.Size = new System.Drawing.Size(89, 13);
 			this.label43.TabIndex = 16;
@@ -1838,7 +1863,7 @@
 			// 
 			// buttonChartCursorLinesColor
 			// 
-			this.buttonChartCursorLinesColor.Location = new System.Drawing.Point(120, 108);
+			this.buttonChartCursorLinesColor.Location = new System.Drawing.Point(120, 140);
 			this.buttonChartCursorLinesColor.Name = "buttonChartCursorLinesColor";
 			this.buttonChartCursorLinesColor.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartCursorLinesColor.TabIndex = 11;
@@ -2471,5 +2496,7 @@
 		private System.Windows.Forms.Label label41;
 		private System.Windows.Forms.Label labelNewVersion;
 		private System.Windows.Forms.CheckBox checkNotifyNewUpdate;
+		private System.Windows.Forms.Label label35;
+		private System.Windows.Forms.ComboBox comboChartTheme;
 	}
 }

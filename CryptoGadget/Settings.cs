@@ -358,18 +358,20 @@ namespace CryptoGadget {
 		}
 
 		public enum DefaultType {
-			Coins		= 0x0001,
-			Basic		= 0x0002,
-			Visibility	= 0x0004,
-			ColorLight	= 0x0008,
-			ColorDark	= 0x0010,
-			Coords		= 0x0020,
-			Metrics		= 0x0080,
-			Pages		= 0x0100,
-			Market		= 0x0200,
-			Grid		= 0x0400,
-			Chart		= 0x0800,
-			All			= 0xFFFF
+			Coins			= 0x0001,
+			Basic			= 0x0002,
+			Visibility		= 0x0004,
+			ColorLight		= 0x0008,
+			ColorDark		= 0x0010,
+			Coords			= 0x0020,
+			Metrics			= 0x0040,
+			Pages			= 0x0080,
+			Market			= 0x0100,
+			Grid			= 0x0200,
+			Chart			= 0x0400,
+			ChartColorLight = 0x0800,
+			ChartColorDark	= 0x1000,
+			All				= 0xFFFF
 		}
 		public class CoinList : BindingList<StCoin> {
 			public CoinList() : base() { }
@@ -498,10 +500,6 @@ namespace CryptoGadget {
 			return true;
 		}
 		public void Default(DefaultType type = DefaultType.All, int page = -1) {
-			Func<string, Color> StrHexToColor = (str) => {
-				return System.Drawing.Color.FromArgb(int.Parse(str, System.Globalization.NumberStyles.HexNumber));
-			};
-
 			if((type & DefaultType.Coins) != 0) {
 				Action<int> FillCoinPage = (int n_page) => {
 					ValueTuple<string, string>[] coins = {
@@ -545,32 +543,31 @@ namespace CryptoGadget {
 				Visibility.Header   = true;
 				Visibility.Refresh  = true;
 			}
-			if((type & DefaultType.ColorLight) != 0) {
-				Color.RowsText			= StrHexToColor("FF000000");
-				Color.RowsValues		= StrHexToColor("FF000000");
-				Color.Background1		= StrHexToColor("FFF3F7F7");
-				Color.Background2		= StrHexToColor("FFFFFFFF");
-				Color.PositiveRefresh	= StrHexToColor("FFCEEBD3");
-				Color.NegativeRefresh	= StrHexToColor("FFF6D4D1");
-				Color.PositiveChange	= StrHexToColor("FF27892F");
-				Color.NegativeChange	= StrHexToColor("FFCF6563");
-				Color.HeaderText		= StrHexToColor("FF000000");
-				Color.HeaderBackground	= StrHexToColor("FFF0F0F0");
-				Color.Edge				= StrHexToColor("FFAFAFAF");
+			if((type & DefaultType.ColorDark) != 0) {
+				Color.RowsText			= Global.StrHexToColor("FFDADADA");
+				Color.RowsValues		= Global.StrHexToColor("FFDADADA");
+				Color.Background1		= Global.StrHexToColor("FF1E1E1E");
+				Color.Background2		= Global.StrHexToColor("FF2F2F2F");
+				Color.PositiveRefresh	= Global.StrHexToColor("FF3A8F49");
+				Color.NegativeRefresh	= Global.StrHexToColor("FF96261D");
+				Color.PositiveChange	= Global.StrHexToColor("FF27892F");
+				Color.NegativeChange	= Global.StrHexToColor("FFCF6563");
+				Color.HeaderText		= Global.StrHexToColor("FFC7C7C7");
+				Color.HeaderBackground	= Global.StrHexToColor("FF2C2C2C");
+				Color.Edge				= Global.StrHexToColor("FF535353");
 			}
-			else if((type & DefaultType.ColorDark) != 0) {
-				Color.RowsText			= StrHexToColor("FFDADADA");
-				Color.RowsValues		= StrHexToColor("FFDADADA");
-				Color.Background1		= StrHexToColor("FF1E1E1E");
-				Color.Background2		= StrHexToColor("FF2F2F2F");
-				Color.PositiveRefresh	= StrHexToColor("FF3A8F49");
-				Color.NegativeRefresh	= StrHexToColor("FF96261D");
-				Color.PositiveChange	= StrHexToColor("FF27892F");
-				Color.NegativeChange	= StrHexToColor("FFCF6563");
-				Color.HeaderText		= StrHexToColor("FFC7C7C7");
-				Color.HeaderBackground	= StrHexToColor("FF2C2C2C");
-				Color.Edge				= StrHexToColor("FF535353");
-
+			else if((type & DefaultType.ColorLight) != 0) {
+				Color.RowsText			= Global.StrHexToColor("FF000000");
+				Color.RowsValues		= Global.StrHexToColor("FF000000");
+				Color.Background1		= Global.StrHexToColor("FFF3F7F7");
+				Color.Background2		= Global.StrHexToColor("FFFFFFFF");
+				Color.PositiveRefresh	= Global.StrHexToColor("FFCEEBD3");
+				Color.NegativeRefresh	= Global.StrHexToColor("FFF6D4D1");
+				Color.PositiveChange	= Global.StrHexToColor("FF27892F");
+				Color.NegativeChange	= Global.StrHexToColor("FFCF6563");
+				Color.HeaderText		= Global.StrHexToColor("FF000000");
+				Color.HeaderBackground	= Global.StrHexToColor("FFF0F0F0");
+				Color.Edge				= Global.StrHexToColor("FFAFAFAF");
 			}
 			if((type & DefaultType.Coords) != 0) {
 				Coords.PosX = 50;
@@ -607,13 +604,23 @@ namespace CryptoGadget {
 				Grid.BindColsPtr();
 			}
 			if((type & DefaultType.Chart) != 0) {
-				Chart.ForeColor			= StrHexToColor("FFC8C8C8");
-				Chart.BackColor			= StrHexToColor("FF1B262D");
-				Chart.GridColor			= StrHexToColor("FF28343C");
-				Chart.CursorLinesColor	= StrHexToColor("FF787878");
-				Chart.CandleUpColor		= StrHexToColor("FF6A833A");
-				Chart.CandleDownColor	= StrHexToColor("FF8A3A3B");
 				Chart.DefaultStep	= 2; // 20m
+			}
+			if((type & DefaultType.ChartColorDark) != 0) {
+				Chart.ForeColor			= Global.StrHexToColor("FFC8C8C8");
+				Chart.BackColor			= Global.StrHexToColor("FF1B262D");
+				Chart.GridColor			= Global.StrHexToColor("FF28343C");
+				Chart.CursorLinesColor	= Global.StrHexToColor("FF787878");
+				Chart.CandleUpColor		= Global.StrHexToColor("FF6A833A");
+				Chart.CandleDownColor	= Global.StrHexToColor("FF8A3A3B");
+			}
+			else if((type & DefaultType.ChartColorLight) != 0) {
+				Chart.ForeColor			= Global.StrHexToColor("FF070707");
+				Chart.BackColor			= Global.StrHexToColor("FFF0F0F0");
+				Chart.GridColor			= Global.StrHexToColor("FFAFAFAF");
+				Chart.CursorLinesColor	= Global.StrHexToColor("FF008FDB");
+				Chart.CandleUpColor		= Global.StrHexToColor("FF68C221");
+				Chart.CandleDownColor	= Global.StrHexToColor("FFCB2C4B");
 			}
 		}
 		public void CloneTo(Settings sett) {

@@ -17,7 +17,7 @@ namespace CryptoGadget {
 		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
 		private (int begin, int end, int last) _axis_x = (0, 0, 0);
 		private bool _data_remaining = true;
-		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 24);
+		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 20);
 		private JArray _serie_data = null;
 
 		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
@@ -45,12 +45,12 @@ namespace CryptoGadget {
 			
 			return dp;
 		}
-		private void TryFetchData() { // fill the chart with extra data if possible
+		private void TryFetchData() { // fill the chart with extra data only if possible
 			if(_axis_x.begin == 0 && _data_remaining) { 
 				try {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
-					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 500, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 1000, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
 					for(int i = 0; i < jarr.Count; i++)
 						_serie_data.Insert(i, jarr[i]);
 					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
