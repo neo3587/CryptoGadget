@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -18,7 +19,7 @@ namespace CryptoGadget {
 		private (int begin, int end, int last) _axis_x = (0, 0, 0);
 		private bool _data_remaining = true;
 		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 20);
-		private JArray _serie_data = null;
+		private List<DataPoint> _serie_data = new List<DataPoint>();
 
 		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
 
@@ -26,9 +27,6 @@ namespace CryptoGadget {
 
 
 		private DataPoint GenerateDataPoint(JToken jtok) {
-
-			(jtok as JObject).Remove("volumefrom"); // memory saving
-			(jtok as JObject).Remove("volumeto");
 
 			DataPoint dp = new DataPoint();
 
@@ -50,11 +48,11 @@ namespace CryptoGadget {
 				try {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
-					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 1000, _req_format.step, _serie_data[0]["time"].ToObject<Int64>()))["Data"].ToObject<JArray>();
+					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 1000, _req_format.step, (Int64)_serie_data[0].Tag))["Data"].ToObject<JArray>();
 					for(int i = 0; i < jarr.Count; i++)
-						_serie_data.Insert(i, jarr[i]);
+						_serie_data.Insert(i, GenerateDataPoint(jarr[i]));
 					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
-					_data_remaining = jarr.Count != 0 && _serie_data[0]["time"].ToObject<Int64>() > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
+					_data_remaining = jarr.Count != 0 && (Int64)_serie_data[0].Tag > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
 					labelError.Text = _data_remaining ? "" : "All possible data fetched";
 					labelError.Update();
 				} catch {
@@ -106,16 +104,20 @@ namespace CryptoGadget {
 				if(json == null || json["Response"].ToString().ToLower() == "error")
 					throw new Exception();
 
-				_serie_data = json["Data"].ToObject<JArray>();
+				JArray jarr = json["Data"].ToObject<JArray>();
 				_req_format = (type, step);
 				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
+				_serie_data.Clear();
+
+				for(int i = 0; i < jarr.Count; i++) 
+					_serie_data.Add(GenerateDataPoint(jarr[i]));
 
 				_axis_x.begin = Math.Max(_serie_data.Count - 80, 0);
 				_axis_x.end = _serie_data.Count;
 
-				for(int i = _axis_x.begin; i < _axis_x.end; i++)
-					mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[i]));
+				for(int i = _axis_x.begin; i < _axis_x.end; i++) 
+					mainChart.Series[0].Points.Add(_serie_data[i]);
 
 				mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
 
@@ -232,7 +234,7 @@ namespace CryptoGadget {
 							for(int i = _axis_x.last; i < (int)axis_x &&_axis_x.begin > 0; i++) { 
 								_axis_x.begin--; _axis_x.end--;
 								mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
-								mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
+								mainChart.Series[0].Points.Insert(0, _serie_data[_axis_x.begin]);
 							}
 							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
@@ -240,7 +242,7 @@ namespace CryptoGadget {
 							for(int i = (int)axis_x; i < _axis_x.last && _axis_x.end < _serie_data.Count; i++) {
 								_axis_x.begin++; _axis_x.end++;
 								mainChart.Series[0].Points.RemoveAt(0);
-								mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
+								mainChart.Series[0].Points.Add(_serie_data[_axis_x.end - 1]);
 							}
 							mainChart.ChartAreas[0].RecalculateAxesScale();
 						}
@@ -304,7 +306,7 @@ namespace CryptoGadget {
 					}
 					else if(e.Delta < 0 && _axis_x.begin > 0) { // Zoom out
 						_axis_x.begin--;
-						mainChart.Series[0].Points.Insert(0, GenerateDataPoint(_serie_data[_axis_x.begin]));
+						mainChart.Series[0].Points.Insert(0, _serie_data[_axis_x.begin]);
 					}
 					else {
 						return n_steps - i;
@@ -321,7 +323,7 @@ namespace CryptoGadget {
 					}
 					else if(e.Delta < 0 && _axis_x.end < _serie_data.Count) { // Zoom out
 						_axis_x.end++;
-						mainChart.Series[0].Points.Add(GenerateDataPoint(_serie_data[_axis_x.end - 1]));
+						mainChart.Series[0].Points.Add(_serie_data[_axis_x.end - 1]);
 					}
 					else {
 						return n_steps - i;
