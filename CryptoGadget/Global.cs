@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Collections.Generic;
 
 using Newtonsoft.Json.Linq;
 
@@ -72,6 +73,7 @@ namespace CryptoGadget {
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
+		public static (Dictionary<(string coin, string target), (FormChart form, Thread thread)> dict, Mutex mtx) Charts = (new Dictionary<(string, string), (FormChart, Thread)>(), new Mutex());
 
 		public static string Profile = "Default.json";
 		public static string LastVersion = Version;

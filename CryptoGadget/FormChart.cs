@@ -13,7 +13,7 @@ namespace CryptoGadget {
 
 	public partial class FormChart : Form {
 
-		private Settings _sett = new Settings();
+		private Settings.StChart _sett = new Settings.StChart();
 		private (string coin, string target) _pair = ("", "");
 		private bool _chart_clicked = false; // avoids DragMove until left-click is released if chart area was clicked
 		private (int begin, int end, int last) _axis_x = (0, 0, 0); // (shown_first, shown_last, last_clicked)
@@ -24,6 +24,14 @@ namespace CryptoGadget {
 
 		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
 		private readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+
+		internal void ApplySettings() {
+			Settings tmp_sett = new Settings();
+			Global.Sett.CloneTo(tmp_sett);
+			_sett = tmp_sett.Chart;
+			SetColors();
+		}
 
 
 		private DataPoint GenerateDataPoint(JToken jtok) {
@@ -39,7 +47,7 @@ namespace CryptoGadget {
 			dp.Tag = jtok["time"].ToObject<Int64>();
 			DateTime time = Epoch.AddSeconds(jtok["time"].ToObject<Int64>());
 			dp.AxisLabel = time.ToShortDateString() + "\n" + time.TimeOfDay;
-			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.Chart.CandleUpColor : _sett.Chart.CandleDownColor;
+			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
 			
 			return dp;
 		}
@@ -67,37 +75,40 @@ namespace CryptoGadget {
 		}
 		private void ButtonColorClick(object sender, EventArgs e) {
 			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.Chart.ForeColor;
-				ctrl.BackColor = _sett.Chart.BackColor;
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
 			});
-			(sender as Button).ForeColor = _sett.Chart.BackColor;
-			(sender as Button).BackColor = _sett.Chart.ForeColor;
+			(sender as Button).ForeColor = _sett.BackColor;
+			(sender as Button).BackColor = _sett.ForeColor;
 		}
 		private void SetColors() {
 
-			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.Chart.ForeColor;
-			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.Chart.ForeColor;
+			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.ForeColor;
+			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.ForeColor;
 
-			BackColor = _sett.Chart.BackColor;
-			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.Chart.BackColor;
+			BackColor = _sett.BackColor;
+			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.BackColor;
 
 			Global.ControlApply<Label>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.Chart.ForeColor;
-				ctrl.BackColor = _sett.Chart.BackColor;
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
 			});
 			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.Chart.ForeColor;
-				ctrl.BackColor = _sett.Chart.BackColor;
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
 			});
 
-			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.Chart.GridColor;
-			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.Chart.GridColor;
+			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
+			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.GridColor;
 
-			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.Chart.CursorLinesColor;
+			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.CursorLinesColor;
 
-			comboStep.ForeColor = numStep.ForeColor = _sett.Chart.ForeColor;
-			comboStep.BackColor = numStep.BackColor = _sett.Chart.BackColor;
-			
+			comboStep.ForeColor = numStep.ForeColor = _sett.ForeColor;
+			comboStep.BackColor = numStep.BackColor = _sett.BackColor;
+
+			System.Threading.Tasks.Parallel.ForEach(_serie_data, (dp, state) => {
+				Invoke((MethodInvoker)delegate { dp.BackSecondaryColor = dp.Color = dp.YValues[2] >= dp.YValues[3] ? _sett.CandleUpColor : _sett.CandleDownColor; });
+			});
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
 
@@ -143,12 +154,10 @@ namespace CryptoGadget {
 
 			Load += (sender, e) => {
 
-				Global.Sett.CloneTo(_sett);
-
 				DoubleBuffered = true;
 				Text =  labelPair.Text = _pair.coin + " → " + _pair.target;
 
-				SetColors();
+				ApplySettings();
 
 				mainChart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
 				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
@@ -186,7 +195,7 @@ namespace CryptoGadget {
 				button5m.Click += ButtonColorClick;
 				button1m.Click += ButtonColorClick;
 
-				switch(_sett.Chart.DefaultStep) {
+				switch(_sett.DefaultStep) {
 					case 0: button1m.PerformClick(); break;
 					case 1: button5m.PerformClick(); break;
 					case 2: button20m.PerformClick(); break;

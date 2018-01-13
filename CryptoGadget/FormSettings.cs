@@ -20,11 +20,19 @@ namespace CryptoGadget {
 
 
 		private void ApplySettings() {
+
 			_sett.CloneTo(Global.Sett);
 			Global.Sett.Store();
 			Global.Sett.Save();
+
 			_ptr_form.ApplySettings();
 			Global.Profile = textBoxProfileName.Text;
+
+			Global.Charts.mtx.WaitOne();
+			foreach((FormChart form, System.Threading.Thread thread) item in Global.Charts.dict.Values) {
+				item.form.Invoke((MethodInvoker)delegate { item.form.ApplySettings(); });
+			}
+			Global.Charts.mtx.ReleaseMutex();
 		}
 		
         private JObject DownloadCoinDB() {

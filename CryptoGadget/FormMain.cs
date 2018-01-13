@@ -61,7 +61,6 @@ namespace CryptoGadget {
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
 		private Settings.CoinList _alert_list = new Settings.CoinList();
-		private (Dictionary<(string coin, string target), (FormChart form, Thread thread)> dict, Mutex mtx) _charts = (new Dictionary<(string, string), (FormChart, Thread)>(), new Mutex());
 
 
 		internal void ApplySettings() {
@@ -402,16 +401,16 @@ namespace CryptoGadget {
 
 				#if DEBUG
 				string coin = "BTC"; string target = "USD";
-				_charts.dict.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
-					_charts.mtx.WaitOne();
-					FormChart chart = _charts.dict[(coin, target)].form;
-					_charts.mtx.ReleaseMutex();
+				Global.Charts.dict.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
+					Global.Charts.mtx.WaitOne();
+					FormChart chart = Global.Charts.dict[(coin, target)].form;
+					Global.Charts.mtx.ReleaseMutex();
 					chart.ShowDialog();
-					_charts.mtx.WaitOne();
-					_charts.dict.Remove((coin, target));
-					_charts.mtx.ReleaseMutex();
+					Global.Charts.mtx.WaitOne();
+					Global.Charts.dict.Remove((coin, target));
+					Global.Charts.mtx.ReleaseMutex();
 				})));
-				_charts.dict[(coin, target)].thread.Start();
+				Global.Charts.dict[(coin, target)].thread.Start();
 				#endif
 
 			};
@@ -443,7 +442,7 @@ namespace CryptoGadget {
 			_timer.alert.req.Kill(500);
 			_timer.rows.req.Kill(500);
 
-			foreach((FormChart, Thread) chart in _charts.dict.Values) 
+			foreach((FormChart, Thread) chart in Global.Charts.dict.Values) 
 				chart.Item1.Invoke((MethodInvoker)delegate { chart.Item1.Close(); });
 
 			if(Global.Sett.Coords.ExitSave && (Location.X != Global.Sett.Coords.PosX || Location.Y != Global.Sett.Coords.PosY)) {
@@ -479,30 +478,30 @@ namespace CryptoGadget {
 
 			cm.Items.Add(new ToolStripMenuItem(coin + " → " + target + " chart", null, (ts_sender, ts_e) => {
 
-				_charts.mtx.WaitOne();
+				Global.Charts.mtx.WaitOne();
 
-				if(_charts.dict.ContainsKey((coin, target))) {
-					_charts.dict[(coin, target)].Item1.Invoke((MethodInvoker)delegate {
-						if(_charts.dict[(coin, target)].form.WindowState == FormWindowState.Minimized)
-							_charts.dict[(coin, target)].form.WindowState = FormWindowState.Normal;
-						_charts.dict[(coin, target)].form.Activate();
+				if(Global.Charts.dict.ContainsKey((coin, target))) {
+					Global.Charts.dict[(coin, target)].Item1.Invoke((MethodInvoker)delegate {
+						if(Global.Charts.dict[(coin, target)].form.WindowState == FormWindowState.Minimized)
+							Global.Charts.dict[(coin, target)].form.WindowState = FormWindowState.Normal;
+						Global.Charts.dict[(coin, target)].form.Activate();
 					});
-					_charts.mtx.ReleaseMutex();
+					Global.Charts.mtx.ReleaseMutex();
 					return;
 				}
 
-				_charts.dict.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
-					_charts.mtx.WaitOne();
-					FormChart chart = _charts.dict[(coin, target)].form;
-					_charts.mtx.ReleaseMutex();
+				Global.Charts.dict.Add((coin, target), (new FormChart(coin, target), new Thread(() => {
+					Global.Charts.mtx.WaitOne();
+					FormChart chart = Global.Charts.dict[(coin, target)].form;
+					Global.Charts.mtx.ReleaseMutex();
 					chart.ShowDialog();
-					_charts.mtx.WaitOne();
-					_charts.dict.Remove((coin, target));
-					_charts.mtx.ReleaseMutex();
+					Global.Charts.mtx.WaitOne();
+					Global.Charts.dict.Remove((coin, target));
+					Global.Charts.mtx.ReleaseMutex();
 				})));
-				_charts.dict[(coin, target)].thread.Start();
+				Global.Charts.dict[(coin, target)].thread.Start();
 
-				_charts.mtx.ReleaseMutex();
+				Global.Charts.mtx.ReleaseMutex();
 			}));
 			cm.Items.Add(new ToolStripSeparator());
 
