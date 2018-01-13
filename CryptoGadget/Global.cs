@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 using Newtonsoft.Json.Linq;
 
@@ -11,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CryptoGadget {
 
-	public class Global : PropManager<Global> {
+	public class Global {
 
 		#region Dll Methods
 		[DllImport("user32.dll")]
@@ -22,11 +23,52 @@ namespace CryptoGadget {
 		private static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
 		#endregion
 
-		public static readonly string ProfileIniLocation = Application.StartupPath + "\\profile_default.ini";
-		public static readonly string CoinListLocation = Application.StartupPath + "\\CoinList.json";
-		public static readonly string IconsFolder = Application.StartupPath + "\\ico\\";
-		public static readonly string ProfilesFolder = Application.StartupPath + "\\profiles\\";
-		public static readonly string Version = typeof(FormMain).Assembly.GetName().Version.ToString().Remove(typeof(FormMain).Assembly.GetName().Version.ToString().Length - 2);
+		public class TimerRequest {
+
+			private System.Threading.Timer _timer = null;
+			private volatile bool _disposed = true;
+			private Mutex _mutex = new Mutex();
+			private Action<TimerRequest> _callback;
+
+			public bool Disposed { get => _disposed; }
+
+			public TimerRequest(Action<TimerRequest> callback) {
+				_callback = callback;
+			}
+
+			public bool Start(int period, bool trigger = true) {
+				if(!_disposed)
+					return false;
+				_disposed = false;
+				_timer = new System.Threading.Timer((state) => {
+					if(!_mutex.WaitOne(10)) { // prevent deadlock if Dispose() is called just before executing this lock
+						return;
+					}
+					_callback(this);
+					_mutex.ReleaseMutex();
+				}, null, trigger ? 0 : period, period);
+				return true;
+			}
+			public bool Kill(int wait = Timeout.Infinite) {
+				if(_disposed)
+					return false;
+				using(ManualResetEvent reset_ev = new ManualResetEvent(false)) {
+					_disposed = true;
+					if(!_mutex.WaitOne(wait))
+						return false;
+					if(_timer.Dispose(reset_ev))
+						reset_ev.WaitOne();
+					_mutex.ReleaseMutex();
+				}
+				return true;
+			}
+		}
+
+		public static readonly string LocationProfileIni	= Application.StartupPath + "\\profile_default.ini";
+		public static readonly string LocationCoinList		= Application.StartupPath + "\\CoinList.json";
+		public static readonly string FolderIcons			= Application.StartupPath + "\\ico\\";
+		public static readonly string FolderProfiles		= Application.StartupPath + "\\profiles\\";
+		public static readonly string Version				= typeof(FormMain).Assembly.GetName().Version.ToString().Remove(typeof(FormMain).Assembly.GetName().Version.ToString().Length - 2);
 
 		public static Settings Sett = new Settings();
 		public static JObject Json = null;
@@ -46,11 +88,11 @@ namespace CryptoGadget {
 		public static void DropDownOnKeyPress(object sender, KeyPressEventArgs e) {
 			(sender as ComboBox).DroppedDown = true;
 		}
-		public static void SuspendDrawing(Control parent) {
-			SendMessage(parent.Handle, 11, false, 0);
+		public static void SuspendDrawing(Control ctrl) {
+			SendMessage(ctrl.Handle, 11, false, 0);
 		}
-		public static void ResumeDrawing(Control parent) {
-			SendMessage(parent.Handle, 11, true, 0);
+		public static void ResumeDrawing(Control ctrl) {
+			SendMessage(ctrl.Handle, 11, true, 0);
 		}
 
 		public static void ControlApply<T>(Control ctrl, Action<Control> fn) {
@@ -74,9 +116,9 @@ namespace CryptoGadget {
 			name = name.ToLower().Replace("*", "_star");
 			try {
 				try {
-					bmp = (size == 0 ? new Icon(IconsFolder + name + ".ico") : new Icon(IconsFolder + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
+					bmp = (size == 0 ? new Icon(FolderIcons + name + ".ico") : new Icon(FolderIcons + name + ".ico", new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
 				} catch {
-					bmp = size == 0 ? new Bitmap(IconsFolder + name + ".ico") : new Bitmap(Image.FromFile(IconsFolder + name + ".ico"), new Size(size, size));
+					bmp = size == 0 ? new Bitmap(FolderIcons + name + ".ico") : new Bitmap(Image.FromFile(FolderIcons + name + ".ico"), new Size(size, size));
 				}
 			} catch {
 				bmp = new Bitmap(1, 1);
@@ -88,26 +130,35 @@ namespace CryptoGadget {
 			try {
 				try {
 					bmp = (size == 0 ? new Icon(stream) : new Icon(stream, new Size(size, size))).ToBitmap(); // it looks slightly better if you can load it as a icon
-				} catch(Exception) {
+				} catch {
 					bmp = size == 0 ? new Bitmap(stream) : new Bitmap(Image.FromStream(stream), new Size(size, size));
 				}
-			} catch(Exception) {
+			} catch {
 				bmp = new Bitmap(1, 1);
 			}
 			return size > 0 ? IconResize(bmp, size) : bmp;
 		}
-
 		public static void SetIcon(string name, Bitmap bmp) {
 			name = name.ToLower().Replace("*", "_star");
-			bmp.Save(IconsFolder + name + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
+			bmp.Save(FolderIcons + name + ".ico", System.Drawing.Imaging.ImageFormat.Icon);
 		}
 		public static void SetIcon(string name, Stream stream) {
 			name = name.ToLower().Replace("*", "_star");
 			try {
-				using(StreamWriter writer = new StreamWriter(IconsFolder + name + ".ico")) {
+				using(StreamWriter writer = new StreamWriter(FolderIcons + name + ".ico")) {
 					stream.CopyTo(writer.BaseStream);
 				}
 			} catch { }
+		}
+		public static Bitmap IconResize(Image img, int size) {
+			Bitmap bmp = new Bitmap(size, size);
+			using(Graphics gr = Graphics.FromImage(bmp)) {
+				gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+				gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+				gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+				gr.DrawImage(img, new Rectangle(0, 0, size, size));
+			}
+			return bmp;
 		}
 
 		public static bool JsonIsValid(JObject js) {
@@ -119,17 +170,6 @@ namespace CryptoGadget {
 				}
 			});
 			return result.IsCompleted && !result.LowestBreakIteration.HasValue;
-		}
-
-		public static Bitmap IconResize(Image img, int size) {
-			Bitmap bmp = new Bitmap(size, size);
-			using(Graphics gr = Graphics.FromImage(bmp)) {
-				gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-				gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-				gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-				gr.DrawImage(img, new Rectangle(0, 0, size, size));
-			}
-			return bmp;
 		}
 
 		public static void DbgPrint<T>(T text) {

@@ -76,7 +76,7 @@ namespace CryptoGadget {
 		}
 		private void IconReDownload(string coin) {
 			try {
-				Directory.CreateDirectory(Global.IconsFolder);
+				Directory.CreateDirectory(Global.FolderIcons);
 				if(Global.Json["Data"]?[coin]?["FiatCurrency"] != null) {
 					MessageBox.Show("Fiat currencies icons are not available for download, find a icon for yourself and use \"Icon Swap\" to add/swap it");
 					return;
@@ -100,7 +100,7 @@ namespace CryptoGadget {
 			ofd.Multiselect = false;
 
 			ofd.FileOk += (f_sender, f_ev) => {
-				Directory.CreateDirectory(Global.IconsFolder);
+				Directory.CreateDirectory(Global.FolderIcons);
 				using(Stream stream = (f_sender as OpenFileDialog).OpenFile()) {
 					stream.Position = 0;
 					Global.SetIcon(coin, stream);

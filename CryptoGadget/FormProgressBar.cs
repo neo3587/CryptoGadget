@@ -159,7 +159,7 @@ namespace CryptoGadget {
 
 					List<(string name, string url)> misses = new List<(string, string)>();
 
-					Directory.CreateDirectory(Global.IconsFolder);
+					Directory.CreateDirectory(Global.FolderIcons);
 
 					int coin_count = 0, no_url = 0, failed = 0;
 					foreach(JToken coin in Global.Json["Data"].Values()) {

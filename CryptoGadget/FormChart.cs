@@ -15,15 +15,15 @@ namespace CryptoGadget {
 
 		private Settings _sett = new Settings();
 		private (string coin, string target) _pair = ("", "");
-		private bool _chart_clicked = false; // this avois DragMove until left-click is released if chart area was clicked
-		private (int begin, int end, int last) _axis_x = (0, 0, 0);
+		private bool _chart_clicked = false; // avoids DragMove until left-click is released if chart area was clicked
+		private (int begin, int end, int last) _axis_x = (0, 0, 0); // (shown_first, shown_last, last_clicked)
 		private bool _data_remaining = true;
 		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 20);
 		private List<DataPoint> _serie_data = new List<DataPoint>();
 
-		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
 
-		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
+		private readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 
 		private DataPoint GenerateDataPoint(JToken jtok) {
@@ -44,21 +44,26 @@ namespace CryptoGadget {
 			return dp;
 		}
 		private void TryFetchData() { // fill the chart with extra data only if possible
+
 			if(_axis_x.begin == 0 && _data_remaining) { 
 				try {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
+
 					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 1000, _req_format.step, (Int64)_serie_data[0].Tag))["Data"].ToObject<JArray>();
+
 					for(int i = 0; i < jarr.Count; i++)
 						_serie_data.Insert(i, GenerateDataPoint(jarr[i]));
+
 					_axis_x.begin += jarr.Count; _axis_x.end += jarr.Count;
 					_data_remaining = jarr.Count != 0 && (Int64)_serie_data[0].Tag > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
+
 					labelError.Text = _data_remaining ? "" : "All possible data fetched";
-					labelError.Update();
 				} catch {
 					labelError.Text = "ERROR: Can't connect with CryptoCompare";
 				}
 			}
+
 		}
 		private void ButtonColorClick(object sender, EventArgs e) {
 			Global.ControlApply<Button>(this, (ctrl) => {
@@ -95,16 +100,16 @@ namespace CryptoGadget {
 			
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
-			
+
 			try {
 				labelError.Text = "Fetching Data";
 				labelError.Update();
 
 				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, type, 120, step, time));
 				if(json == null || json["Response"].ToString().ToLower() == "error")
-					throw new Exception();
-
+					throw new Exception("Bad Response");
 				JArray jarr = json["Data"].ToObject<JArray>();
+
 				_req_format = (type, step);
 				_data_remaining = true;
 				mainChart.Series[0].Points.Clear();
@@ -127,7 +132,6 @@ namespace CryptoGadget {
 			}
 
 			Update();
-
 		}
 
 		
@@ -142,7 +146,7 @@ namespace CryptoGadget {
 				Global.Sett.CloneTo(_sett);
 
 				DoubleBuffered = true;
-				labelPair.Text = _pair.coin + " -> " + _pair.target;
+				Text =  labelPair.Text = _pair.coin + " → " + _pair.target;
 
 				SetColors();
 
