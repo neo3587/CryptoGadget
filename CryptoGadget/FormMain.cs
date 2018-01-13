@@ -137,7 +137,7 @@ namespace CryptoGadget {
 							mainGrid.Rows[i].DefaultCellStyle.BackColor = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
 					};
 
-					for(float opacity = 0.0f; opacity < 1.0f && !state.Disposed; opacity += 0.05f) {
+					for(float opacity = 0.0f; opacity < 1.0f && !state.Stopped; opacity += 0.05f) {
 
 						for(int i = 0; i < last_values.Count; i++) {
 

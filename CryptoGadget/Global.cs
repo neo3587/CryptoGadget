@@ -26,20 +26,20 @@ namespace CryptoGadget {
 		public class TimerRequest {
 
 			private System.Threading.Timer _timer = null;
-			private volatile bool _disposed = true;
+			private volatile bool _stopped = true;
 			private Mutex _mutex = new Mutex();
 			private Action<TimerRequest> _callback;
 
-			public bool Disposed { get => _disposed; }
+			public bool Stopped { get => _stopped; }
 
 			public TimerRequest(Action<TimerRequest> callback) {
 				_callback = callback;
 			}
 
 			public bool Start(int period, bool trigger = true) {
-				if(!_disposed)
+				if(!_stopped)
 					return false;
-				_disposed = false;
+				_stopped = false;
 				_timer = new System.Threading.Timer((state) => {
 					if(!_mutex.WaitOne(10)) { // prevent deadlock if Dispose() is called just before executing this lock
 						return;
@@ -50,10 +50,10 @@ namespace CryptoGadget {
 				return true;
 			}
 			public bool Kill(int wait = Timeout.Infinite) {
-				if(_disposed)
+				if(_stopped)
 					return false;
 				using(ManualResetEvent reset_ev = new ManualResetEvent(false)) {
-					_disposed = true;
+					_stopped = true;
 					if(!_mutex.WaitOne(wait))
 						return false;
 					if(_timer.Dispose(reset_ev))

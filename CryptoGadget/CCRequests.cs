@@ -34,15 +34,13 @@ namespace CryptoGadget {
 		}
 
 		public static string ConvertQueryBasic(Settings.CoinList cl, string market = "") {
-			Settings.CoinList[] cl_list = new Settings.CoinList[1] { cl };
-			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
+			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(new Settings.CoinList[1] { cl }, market);
 		}
 		public static string ConvertQueryBasic(Settings.CoinList[] cl_list, string market = "") {
 			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
 		}
 		public static string ConvertQueryFull(Settings.CoinList cl, string market = "") {
-			Settings.CoinList[] cl_list = new Settings.CoinList[1] { cl };
-			return "https://min-api.cryptocompare.com/data/pricemultifull" + _GetInOutArgs(cl_list, market);
+			return "https://min-api.cryptocompare.com/data/pricemultifull" + _GetInOutArgs(new Settings.CoinList[1] { cl }, market);
 		}
 		public static string ConvertQueryFull(Settings.CoinList[] cl_list, string market = "") {
 			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
@@ -59,8 +57,9 @@ namespace CryptoGadget {
 		}
 
 		public static JObject HttpRequest(string query) {
-			HttpWebRequest HttpReq = (HttpWebRequest)WebRequest.Create(query);
-			return JObject.Parse(new StreamReader(((HttpWebResponse)HttpReq.GetResponse()).GetResponseStream()).ReadToEnd());
+			using(WebClient client = new WebClient()) 
+				using(StreamReader reader = new StreamReader(client.OpenRead(query))) 
+					return JObject.Parse(reader.ReadToEnd());
 		}
 
 		public static Bitmap DownloadIcon(string query) {
