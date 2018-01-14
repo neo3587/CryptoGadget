@@ -29,9 +29,9 @@ namespace CryptoGadget {
 			Global.Profile = textBoxProfileName.Text;
 
 			Global.Charts.mtx.WaitOne();
-			foreach((FormChart form, System.Threading.Thread thread) item in Global.Charts.dict.Values) {
+			System.Threading.Tasks.Parallel.ForEach(Global.Charts.dict.Values, (item, state) => {
 				item.form.Invoke((MethodInvoker)delegate { item.form.ApplySettings(); });
-			}
+			});
 			Global.Charts.mtx.ReleaseMutex();
 		}
 		

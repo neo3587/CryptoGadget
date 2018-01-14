@@ -77,9 +77,11 @@ namespace CryptoGadget {
 			Global.ControlApply<Button>(this, (ctrl) => {
 				ctrl.ForeColor = _sett.ForeColor;
 				ctrl.BackColor = _sett.BackColor;
+				ctrl.Tag = false;
 			});
 			(sender as Button).ForeColor = _sett.BackColor;
 			(sender as Button).BackColor = _sett.ForeColor;
+			(sender as Button).Tag = true;
 		}
 		private void SetColors() {
 
@@ -94,8 +96,8 @@ namespace CryptoGadget {
 				ctrl.BackColor = _sett.BackColor;
 			});
 			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+				ctrl.ForeColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.ForeColor : _sett.BackColor;
+				ctrl.BackColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.BackColor : _sett.ForeColor;
 			});
 
 			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
@@ -106,9 +108,9 @@ namespace CryptoGadget {
 			comboStep.ForeColor = numStep.ForeColor = _sett.ForeColor;
 			comboStep.BackColor = numStep.BackColor = _sett.BackColor;
 
-			System.Threading.Tasks.Parallel.ForEach(_serie_data, (dp, state) => {
-				Invoke((MethodInvoker)delegate { dp.BackSecondaryColor = dp.Color = dp.YValues[2] >= dp.YValues[3] ? _sett.CandleUpColor : _sett.CandleDownColor; });
-			});
+			foreach(DataPoint dp in _serie_data)
+				dp.BackSecondaryColor = dp.Color = dp.YValues[2] >= dp.YValues[3] ? _sett.CandleUpColor : _sett.CandleDownColor;
+			
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
 
