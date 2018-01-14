@@ -141,7 +141,7 @@ namespace CryptoGadget {
 				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(_default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + _default_conv.Target + ", " + _default_conv.TargetName + "]"), 0);
 				numAlertAbove.Value = _default_conv.Alert.Above;
 				numAlertBelow.Value = _default_conv.Alert.Below;
-
+				
 			};
 
         }
@@ -201,6 +201,11 @@ namespace CryptoGadget {
 		}
 		private void buttonIconTargetSwap_Click(object sender, EventArgs e) {
 			IconSwap((comboTarget.SelectedItem as CoinPair).OriginalLeft(checkTargetIndexName.Checked), (comboTarget.SelectedItem as CoinPair).OriginalRight(checkTargetIndexName.Checked));
+		}
+
+		private void TrimmedNumericUpDown(object sender, EventArgs e) {
+			string str = (sender as NumericUpDown).Value.ToString("0.00000000");
+			(sender as NumericUpDown).DecimalPlaces = Global.Constrain(str.IndexOfAny(new char[] {',','.'}) != -1 ? 8 - (str.Length - str.TrimEnd('0').Length) : 0, 0, 8);
 		}
 
 	}

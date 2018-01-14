@@ -211,7 +211,6 @@
 			// 
 			// numAlertAbove
 			// 
-			this.numAlertAbove.DecimalPlaces = 8;
 			this.numAlertAbove.Increment = new decimal(new int[] {
             1,
             0,
@@ -226,6 +225,7 @@
 			this.numAlertAbove.Name = "numAlertAbove";
 			this.numAlertAbove.Size = new System.Drawing.Size(120, 20);
 			this.numAlertAbove.TabIndex = 0;
+			this.numAlertAbove.ValueChanged += new System.EventHandler(this.TrimmedNumericUpDown);
 			// 
 			// label1
 			// 
@@ -260,7 +260,6 @@
 			// 
 			// numAlertBelow
 			// 
-			this.numAlertBelow.DecimalPlaces = 8;
 			this.numAlertBelow.Increment = new decimal(new int[] {
             1,
             0,
@@ -275,6 +274,7 @@
 			this.numAlertBelow.Name = "numAlertBelow";
 			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
 			this.numAlertBelow.TabIndex = 4;
+			this.numAlertBelow.ValueChanged += new System.EventHandler(this.TrimmedNumericUpDown);
 			// 
 			// FormPairSettings
 			// 
