@@ -167,14 +167,15 @@ namespace CryptoGadget {
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					foreach(Settings.StCoin st in _alert_list) {
-						decimal val = decimal.Parse(json[st.Coin][st.Target].ToString());
+						decimal val = json[st.Coin][st.Target].ToObject<decimal>();
 						Invoke((MethodInvoker)delegate {
+							Console.WriteLine(st.Coin + " " + st.Target + " " + val);
 							if(st.Alert.Above > 0.0m && val > st.Alert.Above) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
 								st.Alert.Above = 0.0m;
 								_save_on_close = true;
 							}
-							else if(st.Alert.Below > 0.0m && val < st.Alert.Below) {
+							if(st.Alert.Below > 0.0m && val < st.Alert.Below) {
 								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
 								st.Alert.Below = 0.0m;
 								_save_on_close = true;

@@ -34,16 +34,16 @@ namespace CryptoGadget {
 		}
 
 		public static string ConvertQueryBasic(Settings.CoinList cl, string market = "") {
-			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(new Settings.CoinList[1] { cl }, market);
+			return ConvertQueryBasic(new Settings.CoinList[1] { cl }, market);
 		}
 		public static string ConvertQueryBasic(Settings.CoinList[] cl_list, string market = "") {
 			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
 		}
 		public static string ConvertQueryFull(Settings.CoinList cl, string market = "") {
-			return "https://min-api.cryptocompare.com/data/pricemultifull" + _GetInOutArgs(new Settings.CoinList[1] { cl }, market);
+			return ConvertQueryFull(new Settings.CoinList[1] { cl }, market);
 		}
 		public static string ConvertQueryFull(Settings.CoinList[] cl_list, string market = "") {
-			return "https://min-api.cryptocompare.com/data/pricemulti" + _GetInOutArgs(cl_list, market);
+			return "https://min-api.cryptocompare.com/data/pricemultifull" + _GetInOutArgs(cl_list, market);
 		}
 		public static string HistoQuery(string coin, string target, HistoType type, int size = 60, int step = 1, Int64 time = -1) {
 			string str_type = type == HistoType.Minute ? "minute" : (type == HistoType.Hour ? "hour" : "day");
