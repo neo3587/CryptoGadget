@@ -109,7 +109,7 @@ namespace CryptoGadget {
 			comboStep.BackColor = numStep.BackColor = _sett.BackColor;
 
 			foreach(DataPoint dp in _serie_data)
-				dp.BackSecondaryColor = dp.Color = dp.YValues[2] >= dp.YValues[3] ? _sett.CandleUpColor : _sett.CandleDownColor;
+				dp.BackSecondaryColor = dp.Color = dp.YValues[3] >= dp.YValues[2] ? _sett.CandleUpColor : _sett.CandleDownColor;
 			
 		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
