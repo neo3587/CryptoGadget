@@ -216,6 +216,9 @@ namespace CryptoGadget {
 		public class StPages : PropManager<StPages> {
 			private int _default;
 			private bool _exit_save;
+			private bool _auto_rotate;
+			private int _rotate_rate;
+			private int _max_page_rotate;
 
 			public int Default {
 				get => _default;
@@ -224,6 +227,18 @@ namespace CryptoGadget {
 			public bool ExitSave {
 				get => _exit_save;
 				set { _exit_save = value; NotifyPropertyChanged(); }
+			}
+			public bool AutoRotate {
+				get => _auto_rotate;
+				set { _auto_rotate = value; NotifyPropertyChanged(); }
+			}
+			public int RotateRate {
+				get => _rotate_rate;
+				set { _rotate_rate = value; NotifyPropertyChanged(); }
+			}
+			public int MaxPageRotate {
+				get => _max_page_rotate;
+				set { _max_page_rotate = value; NotifyPropertyChanged(); }
 			}
 		}
 		public class StMarket : PropManager<StMarket> {
@@ -444,8 +459,8 @@ namespace CryptoGadget {
 			try {
 
 				// Basic
-				ThrowRule<int>(Basic.RefreshRate, x => x >= 3);
-				ThrowRule<int>(Basic.AlertCheckRate, x => x >= 3);
+				ThrowRule<int>(Basic.RefreshRate, x => (x >= 3 && x <= 3600));
+				ThrowRule<int>(Basic.AlertCheckRate, x => (x >= 3 && x <= 10800));
 
 				// Metrics
 				foreach(PropertyInfo prop in StMetrics.GetProps()) {
@@ -457,16 +472,18 @@ namespace CryptoGadget {
 
 				// Pages
 				ThrowRule<int>(Pages.Default, x => (x >= 0 && x <= 9));
-				
+				ThrowRule<int>(Pages.MaxPageRotate, x => (x >= 0 && x <= 9));
+				ThrowRule<int>(Pages.RotateRate, x => (x >= 3 && x <= 10800));
+
 				// Grid
 				foreach(PropertyInfo prop in StGrid.GetProps()) {
-					ThrowRule<int>((Grid[prop.Name] as StColumn).Width, x => x >= 1);
-					ThrowRule<int>((Grid[prop.Name] as StColumn).Digits, x => x >= 0);
+					ThrowRule<int>((Grid[prop.Name] as StColumn).Width, x => (x >= 1 && x <= 999));
+					ThrowRule<int>((Grid[prop.Name] as StColumn).Digits, x => (x >= 0 && x <= 20));
 				}
 				ThrowRule<int>(Grid.Columns.Count, x => x == StGrid.GetProps().Count());
 				ThrowRule<int>(Grid.Columns.Except(StGrid.GetProps().Select(p => Grid[p.Name])).Count(), x => x == 0);
 				ThrowRule<int>(StGrid.GetProps().Select(p => Grid[p.Name]).Except(Grid.Columns).Count(), x => x == 0);
-				
+
 				// Coins
 				for(int i = 0; i < 10; i++) {
 					foreach(StCoin st in Coins[i]) {
@@ -586,6 +603,9 @@ namespace CryptoGadget {
 			if((type & DefaultType.Pages) != 0) {
 				Pages.Default = 0;
 				Pages.ExitSave = false;
+				Pages.AutoRotate = false;
+				Pages.RotateRate = 60;
+				Pages.MaxPageRotate = 9;
 			}
 			if((type & DefaultType.Market) != 0) {
 				Market.Market = "";

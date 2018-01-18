@@ -56,7 +56,7 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 
-		private ((Global.TimerRequest req, string query) rows, (Global.TimerRequest req, string query) alert) _timer = ((null, ""), (null, "")); // rows = full query -> current page / alert = basic query -> all pages
+		private ((Global.TimerRequest req, string query) rows, (Global.TimerRequest req, string query) alert, Global.TimerRequest rotate) _timer = ((null, ""), (null, ""), null); // rows = full query -> current page / alert = basic query -> all pages
 		private volatile bool _save_on_close = false;
 		private int _page = 0;
 		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
@@ -64,12 +64,16 @@ namespace CryptoGadget {
 
 
 		internal void ApplySettings() {
+			_timer.rotate.Kill();
 			_timer.rows.req.Kill();
 			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
 			Location = curr_loc;
 			_timer.rows.req.Start(Global.Sett.Basic.RefreshRate * 1000);
+			if(Global.Sett.Pages.AutoRotate) {
+				_timer.rotate.Start(Global.Sett.Pages.RotateRate * 1000, false);
+			}
 		}
 		internal void SwapPage(int page) {
 
@@ -86,7 +90,7 @@ namespace CryptoGadget {
 			_timer.rows.req.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 
-
+		
 		private void TimerRowsRoutine(Global.TimerRequest state) {
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
@@ -187,7 +191,10 @@ namespace CryptoGadget {
 			} catch { }
 			 
 		}
-		
+		private void TimerRotateRoutine(Global.TimerRequest state) {
+			Invoke((MethodInvoker)delegate { SwapPage(_page >= Global.Sett.Pages.MaxPageRotate ? 0 : _page + 1); });
+		}
+
 		private void ResizeForm() {
             
             int X = 0;
@@ -381,9 +388,14 @@ namespace CryptoGadget {
 
 				_timer.rows.req = new Global.TimerRequest(TimerRowsRoutine);
 				_timer.alert.req = new Global.TimerRequest(TimerAlertRoutine);
+				_timer.rotate = new Global.TimerRequest(TimerRotateRoutine);
+
 				_timer.rows.req.Start(Global.Sett.Basic.RefreshRate * 1000);
 				if(_alert_list.Count > 0) {
 					_timer.alert.req.Start(Global.Sett.Basic.AlertCheckRate * 1000);
+				}
+				if(Global.Sett.Pages.AutoRotate) {
+					_timer.rotate.Start(Global.Sett.Pages.RotateRate * 1000, false);
 				}
 
 				new Thread(() => {

@@ -223,6 +223,9 @@ namespace CryptoGadget {
 
 			numPagesDefault.DataBindings.Add("Value", _sett.Pages, "Default");
 			checkPagesExitSave.DataBindings.Add("Checked", _sett.Pages, "ExitSave");
+			checkPagesAutoRotate.DataBindings.Add("Checked", _sett.Pages, "AutoRotate");
+			numPagesRotateRate.DataBindings.Add("Value", _sett.Pages, "RotateRate");
+			numPagesMaxRotatePage.DataBindings.Add("Value", _sett.Pages, "MaxPageRotate");
 
 			// Market
 
