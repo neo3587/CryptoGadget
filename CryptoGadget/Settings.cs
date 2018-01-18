@@ -35,6 +35,7 @@ namespace CryptoGadget {
 					set { _below = value; NotifyPropertyChanged(); }
 				}
 			}
+
 			[JsonIgnore]
 			public Bitmap Icon {
 				get => _icon;
@@ -56,6 +57,8 @@ namespace CryptoGadget {
 				get => _target_name;
 				set { _target_name = value; NotifyPropertyChanged(); }
 			}
+			[JsonIgnore]
+			public char AlertType { get; set; } = '-';
 			public StAlert Alert = new StAlert();
 		}
 		public class StBasic : PropManager<StBasic> {

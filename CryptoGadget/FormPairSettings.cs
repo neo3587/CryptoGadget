@@ -172,6 +172,9 @@ namespace CryptoGadget {
 			CoinResult.TargetName = target.Right;
 			CoinResult.Alert.Above = numAlertAbove.Value;
 			CoinResult.Alert.Below = numAlertBelow.Value;
+			CoinResult.AlertType = (CoinResult.Alert.Above > 0.0m && CoinResult.Alert.Below > 0.0m) ? '↕' :
+								   (CoinResult.Alert.Above > 0.0m) ? '↑' :
+								   (CoinResult.Alert.Below > 0.0m) ? '↓' : '-';
 
 			Close();
         }

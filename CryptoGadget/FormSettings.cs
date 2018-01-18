@@ -150,9 +150,12 @@ namespace CryptoGadget {
         }
 
 		private void BindCoins() {
-
+			
 			foreach(Settings.StCoin st in _sett.Coins[_page]) {
 				st.Icon = Global.GetIcon(st.Coin, 16);
+				st.AlertType = (st.Alert.Above > 0.0m && st.Alert.Below > 0.0m) ? '↕' :
+							   (st.Alert.Above > 0.0m) ? '↑' : 
+							   (st.Alert.Below > 0.0m) ? '↓' : '-';
 			}
 			if(Global.Json == null && GetCoinDB()) {
 				foreach(Settings.StCoin st in _sett.Coins[_page]) {
@@ -165,10 +168,7 @@ namespace CryptoGadget {
 			for(int i = 0; i < coin_props.Length; i++)
 				coinGrid.Columns[i].DataPropertyName = coin_props[i].Name;
 
-			BindingSource coin_bind = new BindingSource();
-			coin_bind.DataSource = _sett.Coins[_page];
-			coinGrid.DataSource = coin_bind;
-
+			coinGrid.DataSource = new BindingSource() { DataSource = _sett.Coins[_page] };
 		}
 		private void BindSettings() {
 
