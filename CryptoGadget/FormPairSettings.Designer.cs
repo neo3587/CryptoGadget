@@ -75,7 +75,6 @@
 			// 
 			// comboCoin
 			// 
-			this.comboCoin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.comboCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.comboCoin.Location = new System.Drawing.Point(6, 19);
 			this.comboCoin.Name = "comboCoin";

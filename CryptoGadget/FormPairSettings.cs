@@ -43,6 +43,9 @@ namespace CryptoGadget {
 		public Settings.StCoin CoinResult = null;
 
 
+		private CoinPair GetSelectedCoinPair(ComboBox box) {
+			return (box.Items[box.FindStringExact(box.Text)] as CoinPair);
+		}
 		private void IndexName(ComboBox combo_box) {
 
 			string selected = "[" + (combo_box.SelectedItem as CoinPair).Right + ", " + (combo_box.SelectedItem as CoinPair).Left + "]";
@@ -149,8 +152,8 @@ namespace CryptoGadget {
 
         private void buttonAccept_Click(object sender, EventArgs e) {
 
-            CoinPair coin = (comboCoin.SelectedItem as CoinPair);
-            CoinPair target = (comboTarget.SelectedItem as CoinPair);
+            CoinPair coin = GetSelectedCoinPair(comboCoin);
+            CoinPair target = GetSelectedCoinPair(comboTarget);
 
 			if(checkCoinIndexName.Checked)
 				coin.Reverse();
@@ -184,10 +187,10 @@ namespace CryptoGadget {
 			OnlyFiat(comboCoin, _bind.coin, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
 		}
 		private void buttonIconReDownload_Click(object sender, EventArgs e) {
-			IconReDownload((comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked));
+			IconReDownload(GetSelectedCoinPair(comboCoin).OriginalLeft(checkCoinIndexName.Checked));
 		}
 		private void buttonIconSwap_Click(object sender, EventArgs e) {
-			IconSwap((comboCoin.SelectedItem as CoinPair).OriginalLeft(checkCoinIndexName.Checked), (comboCoin.SelectedItem as CoinPair).OriginalRight(checkCoinIndexName.Checked));
+			IconSwap(GetSelectedCoinPair(comboCoin).OriginalLeft(checkCoinIndexName.Checked), GetSelectedCoinPair(comboCoin).OriginalRight(checkCoinIndexName.Checked));
 		}
 
 		private void checkTargetIndexName_CheckedChanged(object sender, EventArgs e) {
@@ -197,10 +200,10 @@ namespace CryptoGadget {
 			OnlyFiat(comboTarget, _bind.target, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
 		}
 		private void buttonIconTargetReDownload_Click(object sender, EventArgs e) {
-			IconReDownload((comboTarget.SelectedItem as CoinPair).OriginalLeft(checkTargetIndexName.Checked));
+			IconReDownload(GetSelectedCoinPair(comboTarget).OriginalLeft(checkTargetIndexName.Checked));
 		}
 		private void buttonIconTargetSwap_Click(object sender, EventArgs e) {
-			IconSwap((comboTarget.SelectedItem as CoinPair).OriginalLeft(checkTargetIndexName.Checked), (comboTarget.SelectedItem as CoinPair).OriginalRight(checkTargetIndexName.Checked));
+			IconSwap(GetSelectedCoinPair(comboTarget).OriginalLeft(checkTargetIndexName.Checked), GetSelectedCoinPair(comboTarget).OriginalRight(checkTargetIndexName.Checked));
 		}
 
 		private void TrimmedNumericUpDown(object sender, EventArgs e) {
