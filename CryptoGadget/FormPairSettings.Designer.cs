@@ -224,7 +224,8 @@
 			this.numAlertAbove.Name = "numAlertAbove";
 			this.numAlertAbove.Size = new System.Drawing.Size(120, 20);
 			this.numAlertAbove.TabIndex = 0;
-			this.numAlertAbove.ValueChanged += new System.EventHandler(this.TrimmedNumericUpDown);
+			this.numAlertAbove.ValueChanged += new System.EventHandler(this.NumericUpDownTrim);
+			this.numAlertAbove.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericUpDownDecSeparator);
 			// 
 			// label1
 			// 
@@ -273,7 +274,8 @@
 			this.numAlertBelow.Name = "numAlertBelow";
 			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
 			this.numAlertBelow.TabIndex = 4;
-			this.numAlertBelow.ValueChanged += new System.EventHandler(this.TrimmedNumericUpDown);
+			this.numAlertBelow.ValueChanged += new System.EventHandler(this.NumericUpDownTrim);
+			this.numAlertBelow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericUpDownDecSeparator);
 			// 
 			// FormPairSettings
 			// 

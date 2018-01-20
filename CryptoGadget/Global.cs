@@ -92,6 +92,7 @@ namespace CryptoGadget {
 		public static void DropDownOnKeyPress(object sender, KeyPressEventArgs e) {
 			(sender as ComboBox).DroppedDown = true;
 		}
+
 		public static void SuspendDrawing(Control ctrl) {
 			SendMessage(ctrl.Handle, 11, false, 0);
 		}
