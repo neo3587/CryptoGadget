@@ -78,10 +78,10 @@ namespace CryptoGadget {
 		internal void SwapPage(int page) {
 
 			_timer.rows.req.Kill();
-
-			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = false;
+			
+			(toolStripPages.DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page;
-			((contextMenu.Items[0] as ToolStripMenuItem).DropDownItems[_page] as ToolStripMenuItem).Checked = true;
+			(toolStripPages.DropDownItems[_page] as ToolStripMenuItem).Checked = true;
 
 			RowsInit();
 			mainGrid.DataSource = _coin_list;
@@ -104,7 +104,7 @@ namespace CryptoGadget {
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(_timer.rows.query);
+				JObject json = CCRequest.HttpRequest(_timer.rows.query, state.Client);
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					for(int i = 0; i < _coin_list.Count; i++) {
@@ -167,7 +167,7 @@ namespace CryptoGadget {
 
 			try {
 				
-				JObject json = CCRequest.HttpRequest(_timer.alert.query);
+				JObject json = CCRequest.HttpRequest(_timer.alert.query, state.Client);
 
 				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
 					foreach(Settings.StCoin st in _alert_list) {

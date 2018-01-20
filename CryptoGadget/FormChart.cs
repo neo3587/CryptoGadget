@@ -153,11 +153,11 @@ namespace CryptoGadget {
 			InitializeComponent();
 			_pair.coin = coin;
 			_pair.target = target;
-
+			
 			Load += (sender, e) => {
 
 				DoubleBuffered = true;
-				Text =  labelPair.Text = _pair.coin + " → " + _pair.target;
+				Text = labelPair.Text = _pair.coin + " → " + _pair.target;
 
 				ApplySettings();
 

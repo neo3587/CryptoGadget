@@ -30,6 +30,7 @@ namespace CryptoGadget {
 			private volatile bool _stopped = true;
 			private Mutex _mutex = new Mutex();
 			private Action<TimerRequest> _callback;
+			public System.Net.WebClient Client { get; set; } = new System.Net.WebClient();
 
 			public bool Stopped { get => _stopped; }
 
@@ -55,6 +56,7 @@ namespace CryptoGadget {
 					return false;
 				using(ManualResetEvent reset_ev = new ManualResetEvent(false)) {
 					_stopped = true;
+					Client.CancelAsync();
 					if(!_mutex.WaitOne(wait))
 						return false;
 					if(_timer.Dispose(reset_ev))

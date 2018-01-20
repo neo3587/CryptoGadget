@@ -56,10 +56,10 @@ namespace CryptoGadget {
 					"&extraParams=CryptoGadget";
 		}
 
-		public static JObject HttpRequest(string query) {
-			using(WebClient client = new WebClient()) 
-				using(StreamReader reader = new StreamReader(client.OpenRead(query))) 
-					return JObject.Parse(reader.ReadToEnd());
+		public static JObject HttpRequest(string query, WebClient client = null) {
+			client = client ?? new WebClient();
+			using(StreamReader reader = new StreamReader(client.OpenRead(query))) 
+				return JObject.Parse(reader.ReadToEnd());
 		}
 
 		public static Bitmap DownloadIcon(string query) {
