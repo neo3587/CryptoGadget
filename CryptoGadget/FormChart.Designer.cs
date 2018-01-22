@@ -114,7 +114,6 @@
 			this.mainChart.Size = new System.Drawing.Size(658, 312);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
-			this.mainChart.Paint += new System.Windows.Forms.PaintEventHandler(this.mainChart_Paint);
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
 			// label1
@@ -449,6 +448,7 @@
 			this.labelMin.Size = new System.Drawing.Size(30, 15);
 			this.labelMin.TabIndex = 33;
 			this.labelMin.Text = "0.00";
+			this.labelMin.Visible = false;
 			this.labelMin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
 			// labelMax
@@ -460,6 +460,7 @@
 			this.labelMax.Size = new System.Drawing.Size(30, 15);
 			this.labelMax.TabIndex = 36;
 			this.labelMax.Text = "0.00";
+			this.labelMax.Visible = false;
 			this.labelMax.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
 			// FormChart

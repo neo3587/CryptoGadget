@@ -344,6 +344,7 @@ namespace CryptoGadget {
 			private Color _candle_up_color;
 			private Color _candle_down_color;
 			private int _default_step;
+			private bool _show_minmax;
 
 			public Color ForeColor {
 				get => _fore_color;
@@ -372,6 +373,10 @@ namespace CryptoGadget {
 			public int DefaultStep {
 				get => _default_step;
 				set { _default_step = value; NotifyPropertyChanged(); }
+			}
+			public bool ShowMinMax {
+				get => _show_minmax;
+				set { _show_minmax = value; NotifyPropertyChanged(); }
 			}
 		}
 
@@ -627,7 +632,8 @@ namespace CryptoGadget {
 				Grid.BindColsPtr();
 			}
 			if((type & DefaultType.Chart) != 0) {
-				Chart.DefaultStep	= 2; // 20m
+				Chart.DefaultStep = 2; // 20m
+				Chart.ShowMinMax  = true;
 			}
 			if((type & DefaultType.ChartColorDark) != 0) {
 				Chart.ForeColor			= Global.StrHexToColor("FFC8C8C8");

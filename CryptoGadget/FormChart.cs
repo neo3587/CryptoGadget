@@ -31,10 +31,18 @@ namespace CryptoGadget {
 
 
 		internal void ApplySettings() {
+
+			mainChart.Paint -= mainChart_Paint;
+
 			Settings tmp_sett = new Settings();
 			Global.Sett.CloneTo(tmp_sett);
 			_sett = tmp_sett.Chart;
+
 			SetColors();
+			labelMin.Visible = labelMax.Visible = _sett.ShowMinMax;
+			if(_sett.ShowMinMax) 
+				mainChart.Paint += mainChart_Paint;
+
 		}
 
 

@@ -248,6 +248,7 @@ namespace CryptoGadget {
 			buttonChartCandleUpColor.DataBindings.Add("BackColor", _sett.Chart, "CandleUpColor");
 			buttonChartCandleDownColor.DataBindings.Add("BackColor", _sett.Chart, "CandleDownColor");
 			comboChartStep.DataBindings.Add("SelectedIndex", _sett.Chart, "DefaultStep");
+			checkChartShowMinMax.DataBindings.Add("Checked", _sett.Chart, "ShowMinMax");
 
 			// Other (not actually binds)
 
