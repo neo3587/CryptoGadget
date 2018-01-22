@@ -56,42 +56,42 @@ namespace CryptoGadget {
 			public string LastMarket { get; set; } = "?";
 		}
 
-		private ((Global.TimerRequest req, string query) rows, (Global.TimerRequest req, string query) alert, Global.TimerRequest rotate) _timer = ((null, ""), (null, ""), null); // rows = full query -> current page / alert = basic query -> all pages
 		private volatile bool _save_on_close = false;
 		private int _page = 0;
-		private BindingList<CoinRow> _coin_list = new BindingList<CoinRow>();
-		private Settings.CoinList _alert_list = new Settings.CoinList();
+		private (Global.TimerWebRequest timer, string query, BindingList<CoinRow> list) _rows	= (null, "", new BindingList<CoinRow>()); // rows  = full query  -> current page
+		private (Global.TimerWebRequest timer, string query, Settings.CoinList list)	_alerts = (null, "", new Settings.CoinList());    // alert = basic query -> all pages
+		private Global.TimerWebRequest _rotate_timer = null;
 
 
 		internal void ApplySettings() {
-			_timer.rotate.Kill();
-			_timer.rows.req.Kill();
+			_rotate_timer.Kill();
+			_rows.timer.Kill();
 			Point curr_loc = Location; // prevent the form realocation
 			GridInit();
 			ResizeForm();
 			Location = curr_loc;
-			_timer.rows.req.Start(Global.Sett.Basic.RefreshRate * 1000);
+			_rows.timer.Start(Global.Sett.Basic.RefreshRate * 1000);
 			if(Global.Sett.Pages.AutoRotate) {
-				_timer.rotate.Start(Global.Sett.Pages.RotateRate * 1000, false);
+				_rotate_timer.Start(Global.Sett.Pages.RotateRate * 1000, false);
 			}
 		}
 		internal void SwapPage(int page) {
 
-			_timer.rows.req.Kill();
+			_rows.timer.Kill();
 			
 			(toolStripPages.DropDownItems[_page] as ToolStripMenuItem).Checked = false;
 			_page = page;
 			(toolStripPages.DropDownItems[_page] as ToolStripMenuItem).Checked = true;
 
 			RowsInit();
-			mainGrid.DataSource = _coin_list;
+			mainGrid.DataSource = _rows.list;
 			ResizeForm();
 
-			_timer.rows.req.Start(Global.Sett.Basic.RefreshRate * 1000);
+			_rows.timer.Start(Global.Sett.Basic.RefreshRate * 1000);
 		}
 
 		
-		private void TimerRowsRoutine(Global.TimerRequest state) {
+		private void TimerRowsRoutine(Global.TimerWebRequest state) {
 
 			Func<double, int, string> AdaptValue = (val, maxDigit) => {
 				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
@@ -99,34 +99,32 @@ namespace CryptoGadget {
 			};
 
 			List<double> last_values = new List<double>();
-			foreach(CoinRow row in _coin_list)
+			foreach(CoinRow row in _rows.list)
 				last_values.Add(double.Parse(row.Value));
 
 			try {
 
-				JObject json = CCRequest.HttpRequest(_timer.rows.query, state.Client);
+				JObject json = CCRequest.HttpRequest(_rows.query, state.Client);
+				
+				for(int i = 0; i < _rows.list.Count; i++) {
+					try {
+						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
 
-				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
-					for(int i = 0; i < _coin_list.Count; i++) {
-						try {
-							JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
+						foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
+							_rows.list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
+						_rows.list[i].LastMarket = jtok["LASTMARKET"].ToString(); // non-numeric column
 
-							foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
-								_coin_list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
-							_coin_list[i].LastMarket = jtok["LASTMARKET"].ToString(); // non-numeric column
-
-							string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" }; // special coloring and formatting columns
-							foreach(string chg in changes) {
-								if((_coin_list[i][chg] as string)[0] != '-')
-									_coin_list[i][chg] = "+" + (_coin_list[i][chg] as string);
-								mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_coin_list[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
-							}
-							_coin_list[i].Change24Pct += "%";
-							_coin_list[i].ChangeDayPct += "%";
-						} catch { }
-					}
+						string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" }; // special coloring and formatting columns
+						foreach(string chg in changes) {
+							if((_rows.list[i][chg] as string)[0] != '-')
+								_rows.list[i][chg] = "+" + (_rows.list[i][chg] as string);
+							mainGrid.Rows[i].Cells[chg].Style.ForeColor = (_rows.list[i][chg] as string)[0] == '+' ? Global.Sett.Color.PositiveChange : Global.Sett.Color.NegativeChange;
+						}
+						_rows.list[i].Change24Pct += "%";
+						_rows.list[i].ChangeDayPct += "%";
+					} catch { }
 				}
-
+				
 				if(Global.Sett.Visibility.Refresh) {
 					Func<Color, Color, float, Color> ColorApply = (color, bg_color, opacity) => {
 						byte[] byte_color = BitConverter.GetBytes(color.ToArgb());
@@ -145,7 +143,7 @@ namespace CryptoGadget {
 						for(int i = 0; i < last_values.Count; i++) {
 
 							Color bg_color = i % 2 == 0 ? Global.Sett.Color.Background1 : Global.Sett.Color.Background2;
-							double current_value = double.Parse(_coin_list[i].Value);
+							double current_value = double.Parse(_rows.list[i].Value);
 
 							if(current_value > last_values[i])
 								mainGrid.Rows[i].DefaultCellStyle.BackColor = ColorApply(Global.Sett.Color.PositiveRefresh, bg_color, opacity);
@@ -163,35 +161,33 @@ namespace CryptoGadget {
 			} catch { }
 
 		}
-		private void TimerAlertRoutine(Global.TimerRequest state) {
+		private void TimerAlertRoutine(Global.TimerWebRequest state) {
 
 			try {
 				
-				JObject json = CCRequest.HttpRequest(_timer.alert.query, state.Client);
+				JObject json = CCRequest.HttpRequest(_alerts.query, state.Client);
 
-				if(json != null && json["Response"]?.ToString().ToLower() != "error") {
-					foreach(Settings.StCoin st in _alert_list) {
-						decimal val = json[st.Coin][st.Target].ToObject<decimal>();
-						Invoke((MethodInvoker)delegate {
-							Console.WriteLine(st.Coin + " " + st.Target + " " + val);
-							if(st.Alert.Above > 0.0m && val > st.Alert.Above) {
-								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
-								st.Alert.Above = 0.0m;
-								_save_on_close = true;
-							}
-							if(st.Alert.Below > 0.0m && val < st.Alert.Below) {
-								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
-								st.Alert.Below = 0.0m;
-								_save_on_close = true;
-							}
-						});
-					}
+				foreach(Settings.StCoin st in _alerts.list) {
+					decimal val = json[st.Coin][st.Target].ToObject<decimal>();
+					Invoke((MethodInvoker)delegate {
+						Console.WriteLine(st.Coin + " " + st.Target + " " + val);
+						if(st.Alert.Above > 0.0m && val > st.Alert.Above) {
+							notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
+							st.Alert.Above = 0.0m;
+							_save_on_close = true;
+						}
+						if(st.Alert.Below > 0.0m && val < st.Alert.Below) {
+							notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
+							st.Alert.Below = 0.0m;
+							_save_on_close = true;
+						}
+					});
 				}
 
 			} catch { }
 			 
 		}
-		private void TimerRotateRoutine(Global.TimerRequest state) {
+		private void TimerRotateRoutine(Global.TimerWebRequest state) {
 			Invoke((MethodInvoker)delegate { SwapPage(_page >= Global.Sett.Pages.MaxPageRotate ? 0 : _page + 1); });
 		}
 
@@ -243,7 +239,7 @@ namespace CryptoGadget {
 
 			mainGrid.AutoGenerateColumns = false;
 
-			mainGrid.DataSource = _coin_list;
+			mainGrid.DataSource = _rows.list;
 
 			// Metrics & Visibility
 
@@ -290,14 +286,14 @@ namespace CryptoGadget {
 
 			// Other
 
-			_alert_list = Global.Sett.GetAlarmCoins();
-			if(_alert_list.Count > 0)
-				_timer.alert.query = CCRequest.ConvertQueryBasic(_alert_list, Global.Sett.Market.Market);
+			_alerts.list = Global.Sett.GetAlarmCoins();
+			if(_alerts.list.Count > 0)
+				_alerts.query = CCRequest.ConvertQueryBasic(_alerts.list, Global.Sett.Market.Market);
 
 		}
 		private void RowsInit() {
 
-			_coin_list = new BindingList<CoinRow>();
+			_rows.list = new BindingList<CoinRow>();
 
 			for(int i = 0; i < Global.Sett.Coins[_page].Count; i++) {
 
@@ -314,10 +310,10 @@ namespace CryptoGadget {
 				row.TargetIcon = Global.GetIcon(st.Target, Global.Sett.Metrics.IconSize);
 				row.Target = st.Target;
 
-				_coin_list.Add(row);
+				_rows.list.Add(row);
 			}
 
-			_timer.rows.query = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
+			_rows.query = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
 		}
 
 
@@ -386,16 +382,16 @@ namespace CryptoGadget {
 				mainGrid.DoubleBuffered(true);
                 FormBorderStyle = FormBorderStyle.None; // avoid alt-tab
 
-				_timer.rows.req = new Global.TimerRequest(TimerRowsRoutine);
-				_timer.alert.req = new Global.TimerRequest(TimerAlertRoutine);
-				_timer.rotate = new Global.TimerRequest(TimerRotateRoutine);
+				_rows.timer = new Global.TimerWebRequest(TimerRowsRoutine);
+				_alerts.timer = new Global.TimerWebRequest(TimerAlertRoutine);
+				_rotate_timer = new Global.TimerWebRequest(TimerRotateRoutine);
 
-				_timer.rows.req.Start(Global.Sett.Basic.RefreshRate * 1000);
-				if(_alert_list.Count > 0) {
-					_timer.alert.req.Start(Global.Sett.Basic.AlertCheckRate * 1000);
+				_rows.timer.Start(Global.Sett.Basic.RefreshRate * 1000);
+				if(_alerts.list.Count > 0) {
+					_alerts.timer.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 				}
 				if(Global.Sett.Pages.AutoRotate) {
-					_timer.rotate.Start(Global.Sett.Pages.RotateRate * 1000, false);
+					_rotate_timer.Start(Global.Sett.Pages.RotateRate * 1000, false);
 				}
 
 				new Thread(() => {
@@ -431,11 +427,11 @@ namespace CryptoGadget {
 		}
 
 		private void toolStripSettings_Click(object sender, EventArgs e) {
-			_timer.alert.req.Kill();
+			_alerts.timer.Kill();
             FormSettings form2 = new FormSettings(this);
             form2.ShowDialog();
-			if(_alert_list.Count > 0) {
-				_timer.alert.req.Start(Global.Sett.Basic.AlertCheckRate * 1000);
+			if(_alerts.list.Count > 0) {
+				_alerts.timer.Start(Global.Sett.Basic.AlertCheckRate * 1000);
 			}
 		}
         private void toolStripHide_Click(object sender, EventArgs e) {
@@ -452,8 +448,8 @@ namespace CryptoGadget {
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
 
-			_timer.alert.req.Kill(500);
-			_timer.rows.req.Kill(500);
+			_alerts.timer.Kill(500);
+			_rows.timer.Kill(500);
 
 			foreach((FormChart, Thread) chart in Global.Charts.dict.Values) 
 				chart.Item1.Invoke((MethodInvoker)delegate { chart.Item1.Close(); });

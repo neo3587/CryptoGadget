@@ -24,17 +24,17 @@ namespace CryptoGadget {
 		private static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
 		#endregion
 
-		public class TimerRequest {
+		public class TimerWebRequest {
 
 			private System.Threading.Timer _timer = null;
 			private volatile bool _stopped = true;
 			private Mutex _mutex = new Mutex();
-			private Action<TimerRequest> _callback;
+			private Action<TimerWebRequest> _callback;
 			public System.Net.WebClient Client { get; set; } = new System.Net.WebClient();
 
 			public bool Stopped { get => _stopped; }
 
-			public TimerRequest(Action<TimerRequest> callback) {
+			public TimerWebRequest(Action<TimerWebRequest> callback) {
 				_callback = callback;
 			}
 

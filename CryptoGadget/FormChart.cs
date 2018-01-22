@@ -81,7 +81,7 @@ namespace CryptoGadget {
 			});
 			(sender as Button).ForeColor = _sett.BackColor;
 			(sender as Button).BackColor = _sett.ForeColor;
-			(sender as Button).Tag = true;
+			(sender as Button).Tag = true; // avoid color inversion on recoloring from FormSettings
 		}
 		private void SetColors() {
 
@@ -118,10 +118,7 @@ namespace CryptoGadget {
 				labelError.Text = "Fetching Data";
 				labelError.Update();
 
-				JObject json = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, type, 120, step, time));
-				if(json == null || json["Response"].ToString().ToLower() == "error")
-					throw new Exception("Bad Response");
-				JArray jarr = json["Data"].ToObject<JArray>();
+				JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, type, 120, step, time))["Data"].ToObject<JArray>();
 
 				_req_format = (type, step);
 				_data_remaining = true;

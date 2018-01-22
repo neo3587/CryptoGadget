@@ -58,8 +58,12 @@ namespace CryptoGadget {
 
 		public static JObject HttpRequest(string query, WebClient client = null) {
 			client = client ?? new WebClient();
+			JObject json = null;
 			using(StreamReader reader = new StreamReader(client.OpenRead(query))) 
-				return JObject.Parse(reader.ReadToEnd());
+				json = JObject.Parse(reader.ReadToEnd());
+			if(json == null || json["Response"]?.ToString().ToLower() == "error")
+				throw new Exception("Bad Response");
+			return json;
 		}
 
 		public static Bitmap DownloadIcon(string query) {
