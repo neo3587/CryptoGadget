@@ -119,7 +119,7 @@ namespace CryptoGadget {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
 
-					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 1000, _req_format.step, (Int64)_serie_data[0].Tag))["Data"].ToObject<JArray>();
+					JArray jarr = CCRequest.HttpRequest(CCRequest.HistoQuery(_pair.coin, _pair.target, _req_format.type, 1000, _req_format.step, (Int64)_serie_data[0].Tag), new System.Net.WebClient(), false)["Data"].ToObject<JArray>();
 
 					for(int i = 0; i < jarr.Count; i++)
 						_serie_data.Insert(i, GenerateDataPoint(jarr[i]));
@@ -128,7 +128,7 @@ namespace CryptoGadget {
 					_data_remaining = jarr.Count != 0 && (Int64)_serie_data[0].Tag > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
 
 					labelError.Text = _data_remaining ? "" : "All possible data fetched";
-				} catch {
+				} catch(Exception e) {
 					labelError.Text = "ERROR: Can't connect with CryptoCompare";
 				}
 			}
@@ -379,6 +379,7 @@ namespace CryptoGadget {
 			Global.ResumeDrawing(mainChart);
 
 			ChartAreaCandles.AxisX.Interval = SerieCandles.Points.Count / 13;
+			RefreshMinMax();
 			mainChart_MouseMove(sender, e);
 		}
 

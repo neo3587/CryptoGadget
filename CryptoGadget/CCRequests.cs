@@ -56,12 +56,12 @@ namespace CryptoGadget {
 					"&extraParams=CryptoGadget";
 		}
 
-		public static JObject HttpRequest(string query, WebClient client = null) {
+		public static JObject HttpRequest(string query, WebClient client = null, bool check_response = true) {
 			client = client ?? new WebClient();
 			JObject json = null;
 			using(StreamReader reader = new StreamReader(client.OpenRead(query))) 
 				json = JObject.Parse(reader.ReadToEnd());
-			if(json == null || json["Response"]?.ToString().ToLower() == "error")
+			if(check_response && (json == null || json["Response"]?.ToString().ToLower() == "error"))
 				throw new Exception("Bad Response");
 			return json;
 		}
