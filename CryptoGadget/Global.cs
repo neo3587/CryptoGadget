@@ -109,11 +109,15 @@ namespace CryptoGadget {
 					ControlApply<T>(child, fn);
 			}
 		}
-		public static T Constrain<T>(T x, T min, T max) {
-			return Math.Min((dynamic)max, Math.Max((dynamic)min, (dynamic)x));
+		public static dynamic Constrain(dynamic x, dynamic min, dynamic max) {
+			return Math.Min(max, Math.Max(min, x));
 		}
 		public static Color StrHexToColor(string str) {
 			return Color.FromArgb(int.Parse(str, System.Globalization.NumberStyles.HexNumber));
+		}
+		public static string DecimalLimiter(dynamic val, int max_digits) {
+			int decimals = Math.Max(0, max_digits - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
+			return Math.Round(val, decimals).ToString("0." + new string('0', decimals));
 		}
 
 		public static Bitmap GetIcon(string name, int size = 0) {

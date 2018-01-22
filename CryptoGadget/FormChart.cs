@@ -13,6 +13,9 @@ namespace CryptoGadget {
 
 	public partial class FormChart : Form {
 
+		private Series SerieCandles { get => mainChart.Series[0]; set => mainChart.Series[0] = value; }
+		private ChartArea ChartAreaCandles { get => mainChart.ChartAreas[0]; set => mainChart.ChartAreas[0] = value; }
+
 		private Settings.StChart _sett = new Settings.StChart();
 		private (string coin, string target) _pair = ("", "");
 		private bool _chart_clicked = false; // avoids DragMove until left-click is released if chart area was clicked
@@ -20,6 +23,7 @@ namespace CryptoGadget {
 		private bool _data_remaining = true;
 		private (CCRequest.HistoType type, int step) _req_format = (CCRequest.HistoType.Minute, 20);
 		private List<DataPoint> _serie_data = new List<DataPoint>();
+		private (double min, double max) _serie_bounds = (0.0, 0.0); // shown values only
 
 
 		private const int X_LEFT = 55, X_RIGHT = 25, Y_UP = 10, Y_DOWN = 90, XY_TICK = 7;
@@ -34,6 +38,55 @@ namespace CryptoGadget {
 		}
 
 
+		private void RefreshMinMax() {
+			(double min, double max) tmp = (double.MaxValue, double.MinValue);
+			foreach(DataPoint dp in SerieCandles.Points) 
+				tmp = (Math.Min(tmp.min, dp.YValues[1]), Math.Max(tmp.max, dp.YValues[0]));
+			_serie_bounds = tmp;
+			labelMin.Text = _serie_bounds.min.ToString();
+			labelMax.Text = _serie_bounds.max.ToString();
+		}
+
+		private void ButtonColorClick(object sender, EventArgs e) {
+			Global.ControlApply<Button>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
+				ctrl.Tag = false;
+			});
+			(sender as Button).ForeColor = _sett.BackColor;
+			(sender as Button).BackColor = _sett.ForeColor;
+			(sender as Button).Tag = true; // avoid color inversion on recoloring from FormSettings
+		}
+		private void SetColors() {
+
+			ChartAreaCandles.AxisX.LineColor = ChartAreaCandles.AxisY.LineColor = _sett.ForeColor;
+			ChartAreaCandles.AxisX.LabelStyle.ForeColor = ChartAreaCandles.AxisY.LabelStyle.ForeColor = _sett.ForeColor;
+
+			BackColor = _sett.BackColor;
+			ChartAreaCandles.BackColor = mainChart.BackColor = _sett.BackColor;
+
+			Global.ControlApply<Label>(this, (ctrl) => {
+				ctrl.ForeColor = _sett.ForeColor;
+				ctrl.BackColor = _sett.BackColor;
+			});
+			Global.ControlApply<Button>(this, (ctrl) => {
+				ctrl.ForeColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.ForeColor : _sett.BackColor;
+				ctrl.BackColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.BackColor : _sett.ForeColor;
+			});
+
+			ChartAreaCandles.AxisX.MajorGrid.LineColor = ChartAreaCandles.AxisY.MajorGrid.LineColor = _sett.GridColor;
+			ChartAreaCandles.AxisX.MajorTickMark.LineColor = ChartAreaCandles.AxisY.MajorTickMark.LineColor = _sett.GridColor;
+
+			ChartAreaCandles.CursorX.LineColor = ChartAreaCandles.CursorY.LineColor = _sett.CursorLinesColor;
+
+			comboStep.ForeColor = numStep.ForeColor = _sett.ForeColor;
+			comboStep.BackColor = numStep.BackColor = _sett.BackColor;
+
+			foreach(DataPoint dp in _serie_data)
+				dp.BackSecondaryColor = dp.Color = dp.YValues[3] >= dp.YValues[2] ? _sett.CandleUpColor : _sett.CandleDownColor;
+			
+		}
+		
 		private DataPoint GenerateDataPoint(JToken jtok) {
 
 			DataPoint dp = new DataPoint();
@@ -48,12 +101,12 @@ namespace CryptoGadget {
 			DateTime time = Epoch.AddSeconds(jtok["time"].ToObject<Int64>());
 			dp.AxisLabel = time.ToShortDateString() + "\n" + time.TimeOfDay;
 			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
-			
+
 			return dp;
 		}
 		private void TryFetchData() { // fill the chart with extra data only if possible
 
-			if(_axis_x.begin == 0 && _data_remaining) { 
+			if(_axis_x.begin == 0 && _data_remaining) {
 				try {
 					labelError.Text = "Fetching Data";
 					labelError.Update();
@@ -73,45 +126,6 @@ namespace CryptoGadget {
 			}
 
 		}
-		private void ButtonColorClick(object sender, EventArgs e) {
-			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
-				ctrl.Tag = false;
-			});
-			(sender as Button).ForeColor = _sett.BackColor;
-			(sender as Button).BackColor = _sett.ForeColor;
-			(sender as Button).Tag = true; // avoid color inversion on recoloring from FormSettings
-		}
-		private void SetColors() {
-
-			mainChart.ChartAreas[0].AxisX.LineColor = mainChart.ChartAreas[0].AxisY.LineColor = _sett.ForeColor;
-			mainChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = mainChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = _sett.ForeColor;
-
-			BackColor = _sett.BackColor;
-			mainChart.ChartAreas[0].BackColor = mainChart.BackColor = _sett.BackColor;
-
-			Global.ControlApply<Label>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
-			});
-			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.ForeColor : _sett.BackColor;
-				ctrl.BackColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.BackColor : _sett.ForeColor;
-			});
-
-			mainChart.ChartAreas[0].AxisX.MajorGrid.LineColor = mainChart.ChartAreas[0].AxisY.MajorGrid.LineColor = _sett.GridColor;
-			mainChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = mainChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = _sett.GridColor;
-
-			mainChart.ChartAreas[0].CursorX.LineColor = mainChart.ChartAreas[0].CursorY.LineColor = _sett.CursorLinesColor;
-
-			comboStep.ForeColor = numStep.ForeColor = _sett.ForeColor;
-			comboStep.BackColor = numStep.BackColor = _sett.BackColor;
-
-			foreach(DataPoint dp in _serie_data)
-				dp.BackSecondaryColor = dp.Color = dp.YValues[3] >= dp.YValues[2] ? _sett.CandleUpColor : _sett.CandleDownColor;
-			
-		}
 		private void ChartFill(CCRequest.HistoType type, int step, Int64 time = -1) {
 
 			try {
@@ -122,7 +136,7 @@ namespace CryptoGadget {
 
 				_req_format = (type, step);
 				_data_remaining = true;
-				mainChart.Series[0].Points.Clear();
+				SerieCandles.Points.Clear();
 				_serie_data.Clear();
 
 				for(int i = 0; i < jarr.Count; i++) 
@@ -132,9 +146,10 @@ namespace CryptoGadget {
 				_axis_x.end = _serie_data.Count;
 
 				for(int i = _axis_x.begin; i < _axis_x.end; i++) 
-					mainChart.Series[0].Points.Add(_serie_data[i]);
+					SerieCandles.Points.Add(_serie_data[i]);
 
-				mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
+				ChartAreaCandles.AxisX.Interval = SerieCandles.Points.Count / 13;
+				RefreshMinMax();
 
 				labelError.Text = "";
 			} catch {
@@ -148,8 +163,7 @@ namespace CryptoGadget {
 		public FormChart(string coin, string target) {
 
 			InitializeComponent();
-			_pair.coin = coin;
-			_pair.target = target;
+			_pair = (coin, target);
 			
 			Load += (sender, e) => {
 
@@ -157,24 +171,24 @@ namespace CryptoGadget {
 				Text = labelPair.Text = _pair.coin + " → " + _pair.target;
 
 				ApplySettings();
+				
+				ChartAreaCandles.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
+				ChartAreaCandles.AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
+				ChartAreaCandles.AxisX.Interval = 4;
+				ChartAreaCandles.AxisX.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
+				ChartAreaCandles.AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
+				ChartAreaCandles.CursorY.Interval = 0;
+				ChartAreaCandles.AxisY.IsStartedFromZero = false;
 
-				mainChart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-				mainChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
-				mainChart.ChartAreas[0].AxisX.Interval = 4;
-				mainChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
-				mainChart.ChartAreas[0].AxisY.LabelStyle.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8);
-				mainChart.ChartAreas[0].CursorY.Interval = 0;
-				mainChart.ChartAreas[0].AxisY.IsStartedFromZero = false;
-
-				mainChart.ChartAreas[0].Position = new ElementPosition() {
+				ChartAreaCandles.Position = new ElementPosition() {
 					Auto = false,
 					Height = 100,
 					Width = 100,
 					X = 0,
 					Y = 0
 				};
-				mainChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
-				mainChart.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None;
+				ChartAreaCandles.AxisX.LabelStyle.Angle = -90;
+				ChartAreaCandles.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None;
 
 				comboStep.Click += Global.DropDownOnClick;
 				comboStep.KeyPress += Global.DropDownOnKeyPress;
@@ -235,9 +249,9 @@ namespace CryptoGadget {
 
 			if(e.Button == MouseButtons.Left) {
 				try {
-					double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
-					double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-					if(axis_x >= mainChart.ChartAreas[0].AxisX.Minimum && axis_x <= mainChart.ChartAreas[0].AxisX.Maximum && axis_y >= mainChart.ChartAreas[0].AxisY.Minimum && axis_y <= mainChart.ChartAreas[0].AxisY.Maximum) {
+					double axis_x = ChartAreaCandles.AxisX.PixelPositionToValue(e.X);
+					double axis_y = ChartAreaCandles.AxisY.PixelPositionToValue(e.Y);
+					if(axis_x >= ChartAreaCandles.AxisX.Minimum && axis_x <= ChartAreaCandles.AxisX.Maximum && axis_y >= ChartAreaCandles.AxisY.Minimum && axis_y <= ChartAreaCandles.AxisY.Maximum) {
 
 						_chart_clicked = true;
 
@@ -245,20 +259,21 @@ namespace CryptoGadget {
 							TryFetchData();
 							for(int i = _axis_x.last; i < (int)axis_x &&_axis_x.begin > 0; i++) { 
 								_axis_x.begin--; _axis_x.end--;
-								mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
-								mainChart.Series[0].Points.Insert(0, _serie_data[_axis_x.begin]);
+								SerieCandles.Points.RemoveAt(SerieCandles.Points.Count - 1);
+								SerieCandles.Points.Insert(0, _serie_data[_axis_x.begin]);
 							}
-							mainChart.ChartAreas[0].RecalculateAxesScale();
+							ChartAreaCandles.RecalculateAxesScale();
 						}
 						else if(_axis_x.last > (int)axis_x) { // shift right
 							for(int i = (int)axis_x; i < _axis_x.last && _axis_x.end < _serie_data.Count; i++) {
 								_axis_x.begin++; _axis_x.end++;
-								mainChart.Series[0].Points.RemoveAt(0);
-								mainChart.Series[0].Points.Add(_serie_data[_axis_x.end - 1]);
+								SerieCandles.Points.RemoveAt(0);
+								SerieCandles.Points.Add(_serie_data[_axis_x.end - 1]);
 							}
-							mainChart.ChartAreas[0].RecalculateAxesScale();
+							ChartAreaCandles.RecalculateAxesScale();
 						}
 
+						RefreshMinMax();
 					}
 					else if(!_chart_clicked) {
 						Global.DragMove(sender, e);
@@ -273,18 +288,18 @@ namespace CryptoGadget {
 			try {
 
 				Point location = new Point((sender as Control).Location.X - mainChart.Location.X + e.X, (sender as Control).Location.Y - mainChart.Location.Y + e.Y); // just for MouseMove on labels
-				mainChart.ChartAreas[0].CursorX.SetCursorPixelPosition(location, true);
-				mainChart.ChartAreas[0].CursorY.SetCursorPixelPosition(location, true);
+				ChartAreaCandles.CursorX.SetCursorPixelPosition(location, true);
+				ChartAreaCandles.CursorY.SetCursorPixelPosition(location, true);
 
-				double axis_x = mainChart.ChartAreas[0].AxisX.PixelPositionToValue(location.X);
-				double axis_y = mainChart.ChartAreas[0].AxisY.PixelPositionToValue(location.Y);
+				double axis_x = ChartAreaCandles.AxisX.PixelPositionToValue(location.X);
+				double axis_y = ChartAreaCandles.AxisY.PixelPositionToValue(location.Y);
 				_axis_x.last = (int)axis_x;
 
-				axis_x = Global.Constrain(axis_x, mainChart.ChartAreas[0].AxisX.Minimum, mainChart.ChartAreas[0].AxisX.Maximum); 
-				axis_y = Global.Constrain(axis_y, mainChart.ChartAreas[0].AxisY.Minimum, mainChart.ChartAreas[0].AxisY.Maximum);
+				axis_x = Global.Constrain(axis_x, ChartAreaCandles.AxisX.Minimum, ChartAreaCandles.AxisX.Maximum); 
+				axis_y = Global.Constrain(axis_y, ChartAreaCandles.AxisY.Minimum, ChartAreaCandles.AxisY.Maximum);
 
-				int index_x = Global.Constrain((int)Math.Round(axis_x) - 1, 0, mainChart.Series[0].Points.Count - 1);
-				DataPoint dp = mainChart.Series[0].Points[index_x];
+				int index_x = Global.Constrain((int)Math.Round(axis_x) - 1, 0, SerieCandles.Points.Count - 1);
+				DataPoint dp = SerieCandles.Points[index_x];
 
 				labelValue.Text = axis_y.ToString("0.000000000").Substring(0, 10); 
 				labelTime.Text = Epoch.AddSeconds((Int64)dp.Tag).ToString(); 
@@ -298,10 +313,10 @@ namespace CryptoGadget {
 
 				labelValue.Visible = labelTime.Visible = true;
 				labelValue.Location = new Point(X_LEFT - labelValue.Width + mainChart.Location.X, 
-												(int)mainChart.ChartAreas[0].AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
-				labelTime.Location  = new Point(Global.Constrain((int)mainChart.ChartAreas[0].AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22, X_LEFT + mainChart.Location.X - 1, Size.Width - labelTime.Width), 
+												(int)ChartAreaCandles.AxisY.ValueToPixelPosition(axis_y) + labelValue.Height / 2);
+				labelTime.Location  = new Point(Global.Constrain((int)ChartAreaCandles.AxisX.ValueToPixelPosition(index_x) - labelTime.Width / 2 + 22, X_LEFT + mainChart.Location.X - 1, Size.Width - labelTime.Width), 
 												mainChart.Height - Y_DOWN + 7 + labelTime.Height);
-
+				labelValue.BringToFront();
 			} catch { }
 
 			Update();
@@ -314,11 +329,11 @@ namespace CryptoGadget {
 				for(int i = 0; i < n_steps; i++) {
 					if(e.Delta > 0 && _axis_x.end - _axis_x.begin > 40) { // Zoom in
 						_axis_x.begin++;
-						mainChart.Series[0].Points.RemoveAt(0);
+						SerieCandles.Points.RemoveAt(0);
 					}
 					else if(e.Delta < 0 && _axis_x.begin > 0) { // Zoom out
 						_axis_x.begin--;
-						mainChart.Series[0].Points.Insert(0, _serie_data[_axis_x.begin]);
+						SerieCandles.Points.Insert(0, _serie_data[_axis_x.begin]);
 					}
 					else {
 						return n_steps - i;
@@ -331,11 +346,11 @@ namespace CryptoGadget {
 				for(int i = 0; i < n_steps; i++) {
 					if(e.Delta > 0 && _axis_x.end - _axis_x.begin > 40) { // Zoom in
 						_axis_x.end--;
-						mainChart.Series[0].Points.RemoveAt(mainChart.Series[0].Points.Count - 1);
+						SerieCandles.Points.RemoveAt(SerieCandles.Points.Count - 1);
 					}
 					else if(e.Delta < 0 && _axis_x.end < _serie_data.Count) { // Zoom out
 						_axis_x.end++;
-						mainChart.Series[0].Points.Add(_serie_data[_axis_x.end - 1]);
+						SerieCandles.Points.Add(_serie_data[_axis_x.end - 1]);
 					}
 					else {
 						return n_steps - i;
@@ -346,7 +361,7 @@ namespace CryptoGadget {
 
 			Global.SuspendDrawing(mainChart);
 
-			int steps = mainChart.Series[0].Points.Count / 15; // asimetric zoom
+			int steps = SerieCandles.Points.Count / 15; // asimetric zoom
 			int steps_left = (int)Math.Round(steps * (float)(e.X -  X_LEFT) / (Size.Width - X_RIGHT - X_LEFT)); // zoom % on left/right depending on mouse position
 			int steps_right = steps - steps_left;
 
@@ -355,20 +370,20 @@ namespace CryptoGadget {
 
 			Global.ResumeDrawing(mainChart);
 
-			mainChart.ChartAreas[0].AxisX.Interval = mainChart.Series[0].Points.Count / 13;
+			ChartAreaCandles.AxisX.Interval = SerieCandles.Points.Count / 13;
 			mainChart_MouseMove(sender, e);
 		}
 
 		private void FormChart_Resize(object sender, EventArgs e) {
 			// Keep pixel position of chart axes
-			mainChart.ChartAreas[0].InnerPlotPosition.Height = (1 - (float)Y_DOWN / mainChart.Size.Height) * 100;
-			mainChart.ChartAreas[0].InnerPlotPosition.Width = (1 - (float)X_RIGHT / mainChart.Size.Width) * 100;
-			mainChart.ChartAreas[0].InnerPlotPosition.X = ((float)X_LEFT / mainChart.Size.Width) * 100;
-			mainChart.ChartAreas[0].InnerPlotPosition.Y = ((float)Y_UP / mainChart.Size.Height) * 100;
-			mainChart.ChartAreas[0].AxisY.MajorTickMark.Size = ((float)XY_TICK / mainChart.Size.Width) * 100;
-			mainChart.ChartAreas[0].AxisX.MajorTickMark.Size = ((float)XY_TICK / mainChart.Size.Width) * 100;
+			ChartAreaCandles.InnerPlotPosition.Height = (1 - (float)Y_DOWN / mainChart.Size.Height) * 100;
+			ChartAreaCandles.InnerPlotPosition.Width = (1 - (float)X_RIGHT / mainChart.Size.Width) * 100;
+			ChartAreaCandles.InnerPlotPosition.X = ((float)X_LEFT / mainChart.Size.Width) * 100;
+			ChartAreaCandles.InnerPlotPosition.Y = ((float)Y_UP / mainChart.Size.Height) * 100;
+			ChartAreaCandles.AxisY.MajorTickMark.Size = ((float)XY_TICK / mainChart.Size.Width) * 100;
+			ChartAreaCandles.AxisX.MajorTickMark.Size = ((float)XY_TICK / mainChart.Size.Width) * 100;
 
-			mainChart.ChartAreas[0].CursorX.Position = mainChart.ChartAreas[0].CursorY.Position = double.PositiveInfinity;
+			ChartAreaCandles.CursorX.Position = ChartAreaCandles.CursorY.Position = double.PositiveInfinity;
 			labelValue.Visible = labelTime.Visible = false;
 
 			Refresh(); // avoid resize gripper graphic glitches 
@@ -409,15 +424,22 @@ namespace CryptoGadget {
 			ChartFill(htype, (int)numStep.Value);		
 		}
 
-
-		// Overrides to get a sizable Borderless Form
-		protected override void OnPaint(PaintEventArgs e) {
-			base.OnPaint(e);
+		private void mainChart_Paint(object sender, PaintEventArgs e) {
+			int px_min = (int)ChartAreaCandles.AxisY.ValueToPixelPosition(_serie_bounds.min);
+			int px_max = (int)ChartAreaCandles.AxisY.ValueToPixelPosition(_serie_bounds.max);
+			e.Graphics.DrawLine(new Pen(_sett.CursorLinesColor), new Point(X_LEFT, px_min), new Point(Width - X_RIGHT, px_min));
+			e.Graphics.DrawLine(new Pen(_sett.CursorLinesColor), new Point(X_LEFT, px_max), new Point(Width - X_RIGHT, px_max));
+			labelMin.Location = new Point(X_LEFT - labelMin.Width + mainChart.Location.X, px_min + labelMin.Height / 2);
+			labelMax.Location = new Point(X_LEFT - labelMax.Width + mainChart.Location.X, px_max + labelMax.Height / 2);
+		}
+		private void FormChart_Paint(object sender, PaintEventArgs e) {
 			if(VisualStyleRenderer.IsElementDefined(VisualStyleElement.Status.Gripper.Normal)) {
 				VisualStyleRenderer renderer = new VisualStyleRenderer(VisualStyleElement.Status.Gripper.Normal);
-				renderer.DrawBackground(e.Graphics, new Rectangle((Width) - 18, (Height) - 20, 20, 20));
+				renderer.DrawBackground(e.Graphics, new Rectangle(Width - 18, Height - 20, 20, 20));
 			}
 		}
+
+		// Override to get a sizable Borderless Form
 		protected override void WndProc(ref Message m) {
 			if(m.Msg == 0x84) {
 				int x = (int)(m.LParam.ToInt64() & 0xFFFF);

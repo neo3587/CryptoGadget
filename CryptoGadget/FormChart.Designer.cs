@@ -59,6 +59,8 @@
 			this.numStep = new System.Windows.Forms.NumericUpDown();
 			this.comboStep = new System.Windows.Forms.ComboBox();
 			this.buttonApplyStep = new System.Windows.Forms.Button();
+			this.labelMin = new System.Windows.Forms.Label();
+			this.labelMax = new System.Windows.Forms.Label();
 			this.contextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numStep)).BeginInit();
@@ -112,13 +114,14 @@
 			this.mainChart.Size = new System.Drawing.Size(658, 312);
 			this.mainChart.TabIndex = 1;
 			this.mainChart.Text = "(no text)";
+			this.mainChart.Paint += new System.Windows.Forms.PaintEventHandler(this.mainChart_Paint);
 			this.mainChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.BackColor = System.Drawing.Color.Transparent;
-			this.label1.Location = new System.Drawing.Point(7, 0);
+			this.label1.Location = new System.Drawing.Point(2, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(36, 13);
 			this.label1.TabIndex = 2;
@@ -128,7 +131,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.BackColor = System.Drawing.Color.Transparent;
-			this.label2.Location = new System.Drawing.Point(101, 0);
+			this.label2.Location = new System.Drawing.Point(96, 0);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(32, 13);
 			this.label2.TabIndex = 3;
@@ -138,7 +141,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.BackColor = System.Drawing.Color.Transparent;
-			this.label3.Location = new System.Drawing.Point(191, 0);
+			this.label3.Location = new System.Drawing.Point(186, 0);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(30, 13);
 			this.label3.TabIndex = 4;
@@ -148,7 +151,7 @@
 			// 
 			this.label4.AutoSize = true;
 			this.label4.BackColor = System.Drawing.Color.Transparent;
-			this.label4.Location = new System.Drawing.Point(279, 0);
+			this.label4.Location = new System.Drawing.Point(274, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(36, 13);
 			this.label4.TabIndex = 5;
@@ -157,7 +160,7 @@
 			// labelClose
 			// 
 			this.labelClose.AutoSize = true;
-			this.labelClose.Location = new System.Drawing.Point(311, 0);
+			this.labelClose.Location = new System.Drawing.Point(306, 0);
 			this.labelClose.Name = "labelClose";
 			this.labelClose.Size = new System.Drawing.Size(28, 13);
 			this.labelClose.TabIndex = 6;
@@ -166,7 +169,7 @@
 			// labelLow
 			// 
 			this.labelLow.AutoSize = true;
-			this.labelLow.Location = new System.Drawing.Point(217, 0);
+			this.labelLow.Location = new System.Drawing.Point(212, 0);
 			this.labelLow.Name = "labelLow";
 			this.labelLow.Size = new System.Drawing.Size(28, 13);
 			this.labelLow.TabIndex = 7;
@@ -175,7 +178,7 @@
 			// labelHigh
 			// 
 			this.labelHigh.AutoSize = true;
-			this.labelHigh.Location = new System.Drawing.Point(129, 0);
+			this.labelHigh.Location = new System.Drawing.Point(124, 0);
 			this.labelHigh.Name = "labelHigh";
 			this.labelHigh.Size = new System.Drawing.Size(28, 13);
 			this.labelHigh.TabIndex = 8;
@@ -184,7 +187,7 @@
 			// labelOpen
 			// 
 			this.labelOpen.AutoSize = true;
-			this.labelOpen.Location = new System.Drawing.Point(39, 0);
+			this.labelOpen.Location = new System.Drawing.Point(34, 0);
 			this.labelOpen.Name = "labelOpen";
 			this.labelOpen.Size = new System.Drawing.Size(28, 13);
 			this.labelOpen.TabIndex = 9;
@@ -194,7 +197,7 @@
 			// 
 			this.labelValue.AutoSize = true;
 			this.labelValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.labelValue.Location = new System.Drawing.Point(543, 0);
+			this.labelValue.Location = new System.Drawing.Point(384, 320);
 			this.labelValue.Name = "labelValue";
 			this.labelValue.Size = new System.Drawing.Size(30, 15);
 			this.labelValue.TabIndex = 13;
@@ -206,7 +209,7 @@
 			// 
 			this.labelTime.AutoSize = true;
 			this.labelTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.labelTime.Location = new System.Drawing.Point(579, 0);
+			this.labelTime.Location = new System.Drawing.Point(420, 320);
 			this.labelTime.Name = "labelTime";
 			this.labelTime.Size = new System.Drawing.Size(36, 15);
 			this.labelTime.TabIndex = 12;
@@ -349,7 +352,7 @@
 			// labelPair
 			// 
 			this.labelPair.AutoSize = true;
-			this.labelPair.Location = new System.Drawing.Point(462, 0);
+			this.labelPair.Location = new System.Drawing.Point(510, 0);
 			this.labelPair.Name = "labelPair";
 			this.labelPair.Size = new System.Drawing.Size(66, 13);
 			this.labelPair.TabIndex = 25;
@@ -437,6 +440,28 @@
 			this.buttonApplyStep.Visible = false;
 			this.buttonApplyStep.Click += new System.EventHandler(this.buttonApplyStep_Click);
 			// 
+			// labelMin
+			// 
+			this.labelMin.AutoSize = true;
+			this.labelMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.labelMin.Location = new System.Drawing.Point(510, 320);
+			this.labelMin.Name = "labelMin";
+			this.labelMin.Size = new System.Drawing.Size(30, 15);
+			this.labelMin.TabIndex = 33;
+			this.labelMin.Text = "0.00";
+			this.labelMin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
+			// 
+			// labelMax
+			// 
+			this.labelMax.AutoSize = true;
+			this.labelMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.labelMax.Location = new System.Drawing.Point(546, 320);
+			this.labelMax.Name = "labelMax";
+			this.labelMax.Size = new System.Drawing.Size(30, 15);
+			this.labelMax.TabIndex = 36;
+			this.labelMax.Text = "0.00";
+			this.labelMax.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainChart_MouseMove);
+			// 
 			// FormChart
 			// 
 			this.AcceptButton = this.buttonApplyStep;
@@ -445,6 +470,8 @@
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.ClientSize = new System.Drawing.Size(682, 336);
 			this.ContextMenuStrip = this.contextMenu;
+			this.Controls.Add(this.labelMax);
+			this.Controls.Add(this.labelMin);
 			this.Controls.Add(this.buttonApplyStep);
 			this.Controls.Add(this.comboStep);
 			this.Controls.Add(this.numStep);
@@ -478,6 +505,7 @@
 			this.MinimumSize = new System.Drawing.Size(682, 336);
 			this.Name = "FormChart";
 			this.Text = "FormChart";
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormChart_Paint);
 			this.Resize += new System.EventHandler(this.FormChart_Resize);
 			this.contextMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.mainChart)).EndInit();
@@ -520,5 +548,7 @@
 		private System.Windows.Forms.NumericUpDown numStep;
 		private System.Windows.Forms.ComboBox comboStep;
 		private System.Windows.Forms.Button buttonApplyStep;
+		private System.Windows.Forms.Label labelMin;
+		private System.Windows.Forms.Label labelMax;
 	}
 }

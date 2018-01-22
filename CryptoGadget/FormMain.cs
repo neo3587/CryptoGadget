@@ -93,11 +93,6 @@ namespace CryptoGadget {
 		
 		private void TimerRowsRoutine(Global.TimerWebRequest state) {
 
-			Func<double, int, string> AdaptValue = (val, maxDigit) => {
-				int decimals = Math.Max(0, maxDigit - (int)Math.Floor(Math.Log10(Math.Max(1.0, Math.Abs(val))) + 1));
-				return Math.Round(val, decimals).ToString("0." + new string('0', decimals));
-			};
-
 			List<double> last_values = new List<double>();
 			foreach(CoinRow row in _rows.list)
 				last_values.Add(double.Parse(row.Value));
@@ -111,7 +106,7 @@ namespace CryptoGadget {
 						JToken jtok = json["RAW"][Global.Sett.Coins[_page][i].Coin][Global.Sett.Coins[_page][i].Target];
 
 						foreach(ValueTuple<string, string> tp in Settings.StGrid.jsget)
-							_rows.list[i][tp.Item1] = AdaptValue(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
+							_rows.list[i][tp.Item1] = Global.DecimalLimiter(jtok[tp.Item2].ToObject<double>(), (Global.Sett.Grid[tp.Item1] as Settings.StColumn).Digits);
 						_rows.list[i].LastMarket = jtok["LASTMARKET"].ToString(); // non-numeric column
 
 						string[] changes = { "Change24", "Change24Pct", "ChangeDay", "ChangeDayPct" }; // special coloring and formatting columns
@@ -170,7 +165,6 @@ namespace CryptoGadget {
 				foreach(Settings.StCoin st in _alerts.list) {
 					decimal val = json[st.Coin][st.Target].ToObject<decimal>();
 					Invoke((MethodInvoker)delegate {
-						Console.WriteLine(st.Coin + " " + st.Target + " " + val);
 						if(st.Alert.Above > 0.0m && val > st.Alert.Above) {
 							notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
 							st.Alert.Above = 0.0m;
@@ -312,7 +306,7 @@ namespace CryptoGadget {
 
 				_rows.list.Add(row);
 			}
-
+			
 			_rows.query = CCRequest.ConvertQueryFull(Global.Sett.Coins[_page], Global.Sett.Market.Market);
 		}
 
