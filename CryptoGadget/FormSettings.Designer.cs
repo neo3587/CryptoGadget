@@ -154,18 +154,18 @@
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.label35 = new System.Windows.Forms.Label();
 			this.comboChartTheme = new System.Windows.Forms.ComboBox();
-			this.buttonChartCandleUpColor = new System.Windows.Forms.Button();
+			this.buttonChartColorCandleUp = new System.Windows.Forms.Button();
 			this.label37 = new System.Windows.Forms.Label();
 			this.label38 = new System.Windows.Forms.Label();
 			this.label39 = new System.Windows.Forms.Label();
-			this.buttonChartGridColor = new System.Windows.Forms.Button();
+			this.buttonChartColorGrid = new System.Windows.Forms.Button();
 			this.label40 = new System.Windows.Forms.Label();
 			this.label42 = new System.Windows.Forms.Label();
-			this.buttonChartForeColor = new System.Windows.Forms.Button();
-			this.buttonChartBackColor = new System.Windows.Forms.Button();
-			this.buttonChartCandleDownColor = new System.Windows.Forms.Button();
+			this.buttonChartColorForeGround = new System.Windows.Forms.Button();
+			this.buttonChartColorBackGround = new System.Windows.Forms.Button();
+			this.buttonChartColorCandleDown = new System.Windows.Forms.Button();
 			this.label43 = new System.Windows.Forms.Label();
-			this.buttonChartCursorLinesColor = new System.Windows.Forms.Button();
+			this.buttonChartColorCursorLines = new System.Windows.Forms.Button();
 			this.comboChartStep = new System.Windows.Forms.ComboBox();
 			this.buttonDefaultCharts = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -1798,18 +1798,18 @@
 			// 
 			this.groupBox8.Controls.Add(this.label35);
 			this.groupBox8.Controls.Add(this.comboChartTheme);
-			this.groupBox8.Controls.Add(this.buttonChartCandleUpColor);
+			this.groupBox8.Controls.Add(this.buttonChartColorCandleUp);
 			this.groupBox8.Controls.Add(this.label37);
 			this.groupBox8.Controls.Add(this.label38);
 			this.groupBox8.Controls.Add(this.label39);
-			this.groupBox8.Controls.Add(this.buttonChartGridColor);
+			this.groupBox8.Controls.Add(this.buttonChartColorGrid);
 			this.groupBox8.Controls.Add(this.label40);
 			this.groupBox8.Controls.Add(this.label42);
-			this.groupBox8.Controls.Add(this.buttonChartForeColor);
-			this.groupBox8.Controls.Add(this.buttonChartBackColor);
-			this.groupBox8.Controls.Add(this.buttonChartCandleDownColor);
+			this.groupBox8.Controls.Add(this.buttonChartColorForeGround);
+			this.groupBox8.Controls.Add(this.buttonChartColorBackGround);
+			this.groupBox8.Controls.Add(this.buttonChartColorCandleDown);
 			this.groupBox8.Controls.Add(this.label43);
-			this.groupBox8.Controls.Add(this.buttonChartCursorLinesColor);
+			this.groupBox8.Controls.Add(this.buttonChartColorCursorLines);
 			this.groupBox8.Location = new System.Drawing.Point(6, 6);
 			this.groupBox8.Name = "groupBox8";
 			this.groupBox8.Size = new System.Drawing.Size(162, 235);
@@ -1840,12 +1840,12 @@
 			// 
 			// buttonChartCandleUpColor
 			// 
-			this.buttonChartCandleUpColor.Location = new System.Drawing.Point(120, 169);
-			this.buttonChartCandleUpColor.Name = "buttonChartCandleUpColor";
-			this.buttonChartCandleUpColor.Size = new System.Drawing.Size(23, 23);
-			this.buttonChartCandleUpColor.TabIndex = 57;
-			this.buttonChartCandleUpColor.UseVisualStyleBackColor = true;
-			this.buttonChartCandleUpColor.Click += new System.EventHandler(this.ButtonColorPick);
+			this.buttonChartColorCandleUp.Location = new System.Drawing.Point(120, 169);
+			this.buttonChartColorCandleUp.Name = "buttonChartCandleUpColor";
+			this.buttonChartColorCandleUp.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorCandleUp.TabIndex = 57;
+			this.buttonChartColorCandleUp.UseVisualStyleBackColor = true;
+			this.buttonChartColorCandleUp.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label37
 			// 
@@ -1876,12 +1876,12 @@
 			// 
 			// buttonChartGridColor
 			// 
-			this.buttonChartGridColor.Location = new System.Drawing.Point(120, 111);
-			this.buttonChartGridColor.Name = "buttonChartGridColor";
-			this.buttonChartGridColor.Size = new System.Drawing.Size(23, 23);
-			this.buttonChartGridColor.TabIndex = 53;
-			this.buttonChartGridColor.UseVisualStyleBackColor = true;
-			this.buttonChartGridColor.Click += new System.EventHandler(this.ButtonColorPick);
+			this.buttonChartColorGrid.Location = new System.Drawing.Point(120, 111);
+			this.buttonChartColorGrid.Name = "buttonChartGridColor";
+			this.buttonChartColorGrid.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorGrid.TabIndex = 53;
+			this.buttonChartColorGrid.UseVisualStyleBackColor = true;
+			this.buttonChartColorGrid.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label40
 			// 
@@ -1903,30 +1903,30 @@
 			// 
 			// buttonChartForeColor
 			// 
-			this.buttonChartForeColor.Location = new System.Drawing.Point(120, 53);
-			this.buttonChartForeColor.Name = "buttonChartForeColor";
-			this.buttonChartForeColor.Size = new System.Drawing.Size(23, 23);
-			this.buttonChartForeColor.TabIndex = 6;
-			this.buttonChartForeColor.UseVisualStyleBackColor = true;
-			this.buttonChartForeColor.Click += new System.EventHandler(this.ButtonColorPick);
+			this.buttonChartColorForeGround.Location = new System.Drawing.Point(120, 53);
+			this.buttonChartColorForeGround.Name = "buttonChartForeColor";
+			this.buttonChartColorForeGround.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorForeGround.TabIndex = 6;
+			this.buttonChartColorForeGround.UseVisualStyleBackColor = true;
+			this.buttonChartColorForeGround.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonChartBackColor
 			// 
-			this.buttonChartBackColor.Location = new System.Drawing.Point(120, 82);
-			this.buttonChartBackColor.Name = "buttonChartBackColor";
-			this.buttonChartBackColor.Size = new System.Drawing.Size(23, 23);
-			this.buttonChartBackColor.TabIndex = 7;
-			this.buttonChartBackColor.UseVisualStyleBackColor = true;
-			this.buttonChartBackColor.Click += new System.EventHandler(this.ButtonColorPick);
+			this.buttonChartColorBackGround.Location = new System.Drawing.Point(120, 82);
+			this.buttonChartColorBackGround.Name = "buttonChartBackColor";
+			this.buttonChartColorBackGround.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorBackGround.TabIndex = 7;
+			this.buttonChartColorBackGround.UseVisualStyleBackColor = true;
+			this.buttonChartColorBackGround.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// buttonChartCandleDownColor
 			// 
-			this.buttonChartCandleDownColor.Location = new System.Drawing.Point(120, 198);
-			this.buttonChartCandleDownColor.Name = "buttonChartCandleDownColor";
-			this.buttonChartCandleDownColor.Size = new System.Drawing.Size(23, 23);
-			this.buttonChartCandleDownColor.TabIndex = 17;
-			this.buttonChartCandleDownColor.UseVisualStyleBackColor = true;
-			this.buttonChartCandleDownColor.Click += new System.EventHandler(this.ButtonColorPick);
+			this.buttonChartColorCandleDown.Location = new System.Drawing.Point(120, 198);
+			this.buttonChartColorCandleDown.Name = "buttonChartCandleDownColor";
+			this.buttonChartColorCandleDown.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorCandleDown.TabIndex = 17;
+			this.buttonChartColorCandleDown.UseVisualStyleBackColor = true;
+			this.buttonChartColorCandleDown.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// label43
 			// 
@@ -1939,12 +1939,12 @@
 			// 
 			// buttonChartCursorLinesColor
 			// 
-			this.buttonChartCursorLinesColor.Location = new System.Drawing.Point(120, 140);
-			this.buttonChartCursorLinesColor.Name = "buttonChartCursorLinesColor";
-			this.buttonChartCursorLinesColor.Size = new System.Drawing.Size(23, 23);
-			this.buttonChartCursorLinesColor.TabIndex = 11;
-			this.buttonChartCursorLinesColor.UseVisualStyleBackColor = true;
-			this.buttonChartCursorLinesColor.Click += new System.EventHandler(this.ButtonColorPick);
+			this.buttonChartColorCursorLines.Location = new System.Drawing.Point(120, 140);
+			this.buttonChartColorCursorLines.Name = "buttonChartCursorLinesColor";
+			this.buttonChartColorCursorLines.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorCursorLines.TabIndex = 11;
+			this.buttonChartColorCursorLines.UseVisualStyleBackColor = true;
+			this.buttonChartColorCursorLines.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
 			// comboChartStep
 			// 
@@ -2562,18 +2562,18 @@
 		private System.Windows.Forms.ComboBox comboChartStep;
 		private System.Windows.Forms.Label label36;
 		private System.Windows.Forms.GroupBox groupBox8;
-		private System.Windows.Forms.Button buttonChartCandleUpColor;
+		private System.Windows.Forms.Button buttonChartColorCandleUp;
 		private System.Windows.Forms.Label label37;
 		private System.Windows.Forms.Label label38;
 		private System.Windows.Forms.Label label39;
-		private System.Windows.Forms.Button buttonChartGridColor;
+		private System.Windows.Forms.Button buttonChartColorGrid;
 		private System.Windows.Forms.Label label40;
 		private System.Windows.Forms.Label label42;
-		private System.Windows.Forms.Button buttonChartForeColor;
-		private System.Windows.Forms.Button buttonChartBackColor;
-		private System.Windows.Forms.Button buttonChartCandleDownColor;
+		private System.Windows.Forms.Button buttonChartColorForeGround;
+		private System.Windows.Forms.Button buttonChartColorBackGround;
+		private System.Windows.Forms.Button buttonChartColorCandleDown;
 		private System.Windows.Forms.Label label43;
-		private System.Windows.Forms.Button buttonChartCursorLinesColor;
+		private System.Windows.Forms.Button buttonChartColorCursorLines;
 		private System.Windows.Forms.LinkLabel linkCryptoCompareAPI;
 		private System.Windows.Forms.Label label41;
 		private System.Windows.Forms.Label labelNewVersion;

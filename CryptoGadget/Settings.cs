@@ -15,6 +15,8 @@ namespace CryptoGadget {
 
 	public class Settings {
 
+		public string Version { get => Global.Version; }
+
 		public class StCoin : PropManager<StCoin> {
 			private Bitmap _icon = null;
 			private string _coin = "";
@@ -337,39 +339,44 @@ namespace CryptoGadget {
 		}
 
 		public class StChart : PropManager<StChart> {
-			private Color _fore_color;
-			private Color _back_color;
-			private Color _grid_color;
-			private Color _cursor_lines_color;
-			private Color _candle_up_color;
-			private Color _candle_down_color;
+
+			public class StColor : PropManager<StColor> {
+				private Color _foreground;
+				private Color _background;
+				private Color _grid;
+				private Color _cursor_lines;
+				private Color _candle_up;
+				private Color _candle_down;
+
+				public Color ForeGround {
+					get => _foreground;
+					set { _foreground = value; NotifyPropertyChanged(); }
+				}
+				public Color BackGround {
+					get => _background;
+					set { _background = value; NotifyPropertyChanged(); }
+				}
+				public Color Grid {
+					get => _grid;
+					set { _grid = value; NotifyPropertyChanged(); }
+				}
+				public Color CursorLines {
+					get => _cursor_lines;
+					set { _cursor_lines = value; NotifyPropertyChanged(); }
+				}
+				public Color CandleUp {
+					get => _candle_up;
+					set { _candle_up = value; NotifyPropertyChanged(); }
+				}
+				public Color CandleDown {
+					get => _candle_down;
+					set { _candle_down = value; NotifyPropertyChanged(); }
+				}
+			}
+			
 			private int _default_step;
 			private bool _show_minmax;
-
-			public Color ForeColor {
-				get => _fore_color;
-				set { _fore_color = value; NotifyPropertyChanged(); }
-			}
-			public Color BackColor {
-				get => _back_color;
-				set { _back_color = value; NotifyPropertyChanged(); }
-			}
-			public Color GridColor {
-				get => _grid_color;
-				set { _grid_color = value; NotifyPropertyChanged(); }
-			}
-			public Color CursorLinesColor {
-				get => _cursor_lines_color;
-				set { _cursor_lines_color = value; NotifyPropertyChanged(); }
-			}
-			public Color CandleUpColor {
-				get => _candle_up_color;
-				set { _candle_up_color = value; NotifyPropertyChanged(); }
-			}
-			public Color CandleDownColor {
-				get => _candle_down_color;
-				set { _candle_down_color = value; NotifyPropertyChanged(); }
-			}
+			
 			public int DefaultStep {
 				get => _default_step;
 				set { _default_step = value; NotifyPropertyChanged(); }
@@ -378,6 +385,7 @@ namespace CryptoGadget {
 				get => _show_minmax;
 				set { _show_minmax = value; NotifyPropertyChanged(); }
 			}
+			public StColor Color = new StColor();
 		}
 
 		public enum DefaultType {
@@ -429,9 +437,8 @@ namespace CryptoGadget {
 			_file_path = file_path;
 			try {
 				using(StreamReader file = File.OpenText(file_path)) 
-				using(JsonTextReader reader = new JsonTextReader(file)) { 
-					_json = (JObject)JToken.ReadFrom(reader);
-				}
+					using(JsonTextReader reader = new JsonTextReader(file)) 
+						_json = VersionUpgrade((JObject)JToken.ReadFrom(reader));
 			} catch(Exception e) {
 				Global.DbgPrint("Settings.BindFile ERROR: " + e.Message);
 				return false;
@@ -439,6 +446,7 @@ namespace CryptoGadget {
 			return true;
 		}
 		public bool Load() {
+
 			try {
 				Default(); // Prevents errors from missing/null values
 				JsonConvert.PopulateObject(_json.ToString(), this, new JsonSerializerSettings {
@@ -636,20 +644,20 @@ namespace CryptoGadget {
 				Chart.ShowMinMax  = true;
 			}
 			if((type & DefaultType.ChartColorDark) != 0) {
-				Chart.ForeColor			= Global.StrHexToColor("FFC8C8C8");
-				Chart.BackColor			= Global.StrHexToColor("FF1B262D");
-				Chart.GridColor			= Global.StrHexToColor("FF28343C");
-				Chart.CursorLinesColor	= Global.StrHexToColor("FF787878");
-				Chart.CandleUpColor		= Global.StrHexToColor("FF6A833A");
-				Chart.CandleDownColor	= Global.StrHexToColor("FF8A3A3B");
+				Chart.Color.ForeGround	 = Global.StrHexToColor("FFC8C8C8");
+				Chart.Color.BackGround	 = Global.StrHexToColor("FF1B262D");
+				Chart.Color.Grid		 = Global.StrHexToColor("FF28343C");
+				Chart.Color.CursorLines = Global.StrHexToColor("FF787878");
+				Chart.Color.CandleUp	 = Global.StrHexToColor("FF6A833A");
+				Chart.Color.CandleDown	 = Global.StrHexToColor("FF8A3A3B");
 			}
 			else if((type & DefaultType.ChartColorLight) != 0) {
-				Chart.ForeColor			= Global.StrHexToColor("FF070707");
-				Chart.BackColor			= Global.StrHexToColor("FFF0F0F0");
-				Chart.GridColor			= Global.StrHexToColor("FFAFAFAF");
-				Chart.CursorLinesColor	= Global.StrHexToColor("FF008FDB");
-				Chart.CandleUpColor		= Global.StrHexToColor("FF68C221");
-				Chart.CandleDownColor	= Global.StrHexToColor("FFCB2C4B");
+				Chart.Color.ForeGround  = Global.StrHexToColor("FF070707");
+				Chart.Color.BackGround  = Global.StrHexToColor("FFF0F0F0");
+				Chart.Color.Grid		 = Global.StrHexToColor("FFAFAFAF");
+				Chart.Color.CursorLines = Global.StrHexToColor("FF008FDB");
+				Chart.Color.CandleUp	 = Global.StrHexToColor("FF68C221");
+				Chart.Color.CandleDown  = Global.StrHexToColor("FFCB2C4B");
 			}
 		}
 		public void CloneTo(Settings sett) {
@@ -679,6 +687,23 @@ namespace CryptoGadget {
 			foreach(CoinList cl in Coins) 
 				list = new CoinList(list.Concat(cl.Where(x => (x.Alert.Above > 0.0m || x.Alert.Below > 0.0m))).ToList());
 			return list;
+		}
+
+		public JObject VersionUpgrade(JObject json) {
+
+			if(json["Version"] == null) { // <= 2.6.0
+				json["Version"] = "2.6.1";
+				json["Chart"]["Color"] = new JObject(
+					new JProperty("ForeGround",  json["Chart"]["ForeColor"]),
+					new JProperty("BackGround",	 json["Chart"]["BackColor"]),
+					new JProperty("Grid",		 json["Chart"]["GridColor"]),
+					new JProperty("CursorLines", json["Chart"]["CursorLinesColor"]),
+					new JProperty("CandleUp",	 json["Chart"]["CandleUpColor"]),
+					new JProperty("CandleDown",  json["Chart"]["CandleDownColor"])
+				);
+			}
+
+			return json;
 		}
 
 	}

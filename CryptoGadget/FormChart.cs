@@ -57,41 +57,41 @@ namespace CryptoGadget {
 
 		private void ButtonColorClick(object sender, EventArgs e) {
 			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+				ctrl.ForeColor = _sett.Color.ForeGround;
+				ctrl.BackColor = _sett.Color.BackGround;
 				ctrl.Tag = false;
 			});
-			(sender as Button).ForeColor = _sett.BackColor;
-			(sender as Button).BackColor = _sett.ForeColor;
+			(sender as Button).ForeColor = _sett.Color.BackGround;
+			(sender as Button).BackColor = _sett.Color.ForeGround;
 			(sender as Button).Tag = true; // avoid color inversion on recoloring from FormSettings
 		}
 		private void SetColors() {
 
-			ChartAreaCandles.AxisX.LineColor = ChartAreaCandles.AxisY.LineColor = _sett.ForeColor;
-			ChartAreaCandles.AxisX.LabelStyle.ForeColor = ChartAreaCandles.AxisY.LabelStyle.ForeColor = _sett.ForeColor;
-
-			BackColor = _sett.BackColor;
-			ChartAreaCandles.BackColor = mainChart.BackColor = _sett.BackColor;
+			ChartAreaCandles.AxisX.LineColor = ChartAreaCandles.AxisY.LineColor = _sett.Color.ForeGround;
+			ChartAreaCandles.AxisX.LabelStyle.ForeColor = ChartAreaCandles.AxisY.LabelStyle.ForeColor = _sett.Color.ForeGround;
+			
+			BackColor = _sett.Color.BackGround;
+			ChartAreaCandles.BackColor = mainChart.BackColor = _sett.Color.BackGround;
 
 			Global.ControlApply<Label>(this, (ctrl) => {
-				ctrl.ForeColor = _sett.ForeColor;
-				ctrl.BackColor = _sett.BackColor;
+				ctrl.ForeColor = _sett.Color.ForeGround;
+				ctrl.BackColor = _sett.Color.BackGround;
 			});
 			Global.ControlApply<Button>(this, (ctrl) => {
-				ctrl.ForeColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.ForeColor : _sett.BackColor;
-				ctrl.BackColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.BackColor : _sett.ForeColor;
+				ctrl.ForeColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.Color.ForeGround : _sett.Color.BackGround;
+				ctrl.BackColor = (ctrl.Tag is bool && (bool)ctrl.Tag == false) ? _sett.Color.BackGround : _sett.Color.ForeGround;
 			});
 
-			ChartAreaCandles.AxisX.MajorGrid.LineColor = ChartAreaCandles.AxisY.MajorGrid.LineColor = _sett.GridColor;
-			ChartAreaCandles.AxisX.MajorTickMark.LineColor = ChartAreaCandles.AxisY.MajorTickMark.LineColor = _sett.GridColor;
+			ChartAreaCandles.AxisX.MajorGrid.LineColor = ChartAreaCandles.AxisY.MajorGrid.LineColor = _sett.Color.Grid;
+			ChartAreaCandles.AxisX.MajorTickMark.LineColor = ChartAreaCandles.AxisY.MajorTickMark.LineColor = _sett.Color.Grid;
 
-			ChartAreaCandles.CursorX.LineColor = ChartAreaCandles.CursorY.LineColor = _sett.CursorLinesColor;
+			ChartAreaCandles.CursorX.LineColor = ChartAreaCandles.CursorY.LineColor = _sett.Color.CursorLines;
 
-			comboStep.ForeColor = numStep.ForeColor = _sett.ForeColor;
-			comboStep.BackColor = numStep.BackColor = _sett.BackColor;
+			comboStep.ForeColor = numStep.ForeColor = _sett.Color.ForeGround;
+			comboStep.BackColor = numStep.BackColor = _sett.Color.BackGround;
 
 			foreach(DataPoint dp in _serie_data)
-				dp.BackSecondaryColor = dp.Color = dp.YValues[3] >= dp.YValues[2] ? _sett.CandleUpColor : _sett.CandleDownColor;
+				dp.BackSecondaryColor = dp.Color = dp.YValues[3] >= dp.YValues[2] ? _sett.Color.CandleUp : _sett.Color.CandleDown;
 			
 		}
 		
@@ -108,7 +108,7 @@ namespace CryptoGadget {
 			dp.Tag = jtok["time"].ToObject<Int64>();
 			DateTime time = Epoch.AddSeconds(jtok["time"].ToObject<Int64>());
 			dp.AxisLabel = time.ToShortDateString() + "\n" + time.TimeOfDay;
-			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.CandleUpColor : _sett.CandleDownColor;
+			dp.BackSecondaryColor = dp.Color = close >= open ? _sett.Color.CandleUp : _sett.Color.CandleDown;
 
 			return dp;
 		}
@@ -128,7 +128,7 @@ namespace CryptoGadget {
 					_data_remaining = jarr.Count != 0 && (Int64)_serie_data[0].Tag > 1230768000; // avoid < 01/01/2009 dates (since cryptos didn't even exists)
 
 					labelError.Text = _data_remaining ? "" : "All possible data fetched";
-				} catch(Exception e) {
+				} catch {
 					labelError.Text = "ERROR: Can't connect with CryptoCompare";
 				}
 			}
@@ -436,8 +436,8 @@ namespace CryptoGadget {
 		private void mainChart_Paint(object sender, PaintEventArgs e) {
 			int px_min = (int)ChartAreaCandles.AxisY.ValueToPixelPosition(_serie_bounds.min);
 			int px_max = (int)ChartAreaCandles.AxisY.ValueToPixelPosition(_serie_bounds.max);
-			e.Graphics.DrawLine(new Pen(_sett.CursorLinesColor), new Point(X_LEFT, px_min), new Point(Width - X_RIGHT, px_min));
-			e.Graphics.DrawLine(new Pen(_sett.CursorLinesColor), new Point(X_LEFT, px_max), new Point(Width - X_RIGHT, px_max));
+			e.Graphics.DrawLine(new Pen(_sett.Color.CursorLines), new Point(X_LEFT, px_min), new Point(Width - X_RIGHT, px_min));
+			e.Graphics.DrawLine(new Pen(_sett.Color.CursorLines), new Point(X_LEFT, px_max), new Point(Width - X_RIGHT, px_max));
 			labelMin.Location = new Point(X_LEFT - labelMin.Width + mainChart.Location.X, px_min + labelMin.Height / 2);
 			labelMax.Location = new Point(X_LEFT - labelMax.Width + mainChart.Location.X, px_max + labelMax.Height / 2);
 		}

@@ -241,12 +241,12 @@ namespace CryptoGadget {
 
 			// Charts
 
-			buttonChartForeColor.DataBindings.Add("BackColor", _sett.Chart, "ForeColor");
-			buttonChartBackColor.DataBindings.Add("BackColor", _sett.Chart, "BackColor");
-			buttonChartGridColor.DataBindings.Add("BackColor", _sett.Chart, "GridColor");
-			buttonChartCursorLinesColor.DataBindings.Add("BackColor", _sett.Chart, "CursorLinesColor");
-			buttonChartCandleUpColor.DataBindings.Add("BackColor", _sett.Chart, "CandleUpColor");
-			buttonChartCandleDownColor.DataBindings.Add("BackColor", _sett.Chart, "CandleDownColor");
+			buttonChartColorForeGround.DataBindings.Add("BackColor", _sett.Chart.Color, "ForeGround");
+			buttonChartColorBackGround.DataBindings.Add("BackColor", _sett.Chart.Color, "BackGround");
+			buttonChartColorGrid.DataBindings.Add("BackColor", _sett.Chart.Color, "Grid");
+			buttonChartColorCursorLines.DataBindings.Add("BackColor", _sett.Chart.Color, "CursorLines");
+			buttonChartColorCandleUp.DataBindings.Add("BackColor", _sett.Chart.Color, "CandleUp");
+			buttonChartColorCandleDown.DataBindings.Add("BackColor", _sett.Chart.Color, "CandleDown");
 			comboChartStep.DataBindings.Add("SelectedIndex", _sett.Chart, "DefaultStep");
 			checkChartShowMinMax.DataBindings.Add("Checked", _sett.Chart, "ShowMinMax");
 
