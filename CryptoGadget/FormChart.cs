@@ -436,8 +436,8 @@ namespace CryptoGadget {
 		private void mainChart_Paint(object sender, PaintEventArgs e) {
 			int px_min = (int)ChartAreaCandles.AxisY.ValueToPixelPosition(_serie_bounds.min);
 			int px_max = (int)ChartAreaCandles.AxisY.ValueToPixelPosition(_serie_bounds.max);
-			e.Graphics.DrawLine(new Pen(_sett.Color.CursorLines), new Point(X_LEFT, px_min), new Point(Width - X_RIGHT, px_min));
-			e.Graphics.DrawLine(new Pen(_sett.Color.CursorLines), new Point(X_LEFT, px_max), new Point(Width - X_RIGHT, px_max));
+			e.Graphics.DrawLine(new Pen(_sett.Color.MinMaxLines), new Point(X_LEFT, px_min), new Point(Width - X_RIGHT, px_min));
+			e.Graphics.DrawLine(new Pen(_sett.Color.MinMaxLines), new Point(X_LEFT, px_max), new Point(Width - X_RIGHT, px_max));
 			labelMin.Location = new Point(X_LEFT - labelMin.Width + mainChart.Location.X, px_min + labelMin.Height / 2);
 			labelMax.Location = new Point(X_LEFT - labelMax.Width + mainChart.Location.X, px_max + labelMax.Height / 2);
 		}

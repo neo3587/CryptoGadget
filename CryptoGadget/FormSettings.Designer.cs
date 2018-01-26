@@ -151,7 +151,10 @@
 			this.coinGridAlertType = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.checkChartShowMinMax = new System.Windows.Forms.CheckBox();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.buttonChartColorMinMaxLines = new System.Windows.Forms.Button();
+			this.label45 = new System.Windows.Forms.Label();
 			this.label35 = new System.Windows.Forms.Label();
 			this.comboChartTheme = new System.Windows.Forms.ComboBox();
 			this.buttonChartColorCandleUp = new System.Windows.Forms.Button();
@@ -200,7 +203,6 @@
 			this.comboPages = new System.Windows.Forms.ComboBox();
 			this.buttonApply = new System.Windows.Forms.Button();
 			this.buttonPageSwap = new System.Windows.Forms.Button();
-			this.checkChartShowMinMax = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.numPagesDefault)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -1794,8 +1796,20 @@
 			this.tabPage5.Text = "Charts";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// checkChartShowMinMax
+			// 
+			this.checkChartShowMinMax.AutoSize = true;
+			this.checkChartShowMinMax.Location = new System.Drawing.Point(310, 59);
+			this.checkChartShowMinMax.Name = "checkChartShowMinMax";
+			this.checkChartShowMinMax.Size = new System.Drawing.Size(132, 17);
+			this.checkChartShowMinMax.TabIndex = 79;
+			this.checkChartShowMinMax.Text = "Show Min/Max values";
+			this.checkChartShowMinMax.UseVisualStyleBackColor = true;
+			// 
 			// groupBox8
 			// 
+			this.groupBox8.Controls.Add(this.buttonChartColorMinMaxLines);
+			this.groupBox8.Controls.Add(this.label45);
 			this.groupBox8.Controls.Add(this.label35);
 			this.groupBox8.Controls.Add(this.comboChartTheme);
 			this.groupBox8.Controls.Add(this.buttonChartColorCandleUp);
@@ -1812,10 +1826,28 @@
 			this.groupBox8.Controls.Add(this.buttonChartColorCursorLines);
 			this.groupBox8.Location = new System.Drawing.Point(6, 6);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(162, 235);
+			this.groupBox8.Size = new System.Drawing.Size(162, 262);
 			this.groupBox8.TabIndex = 78;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Colors";
+			// 
+			// buttonChartColorMinMaxLines
+			// 
+			this.buttonChartColorMinMaxLines.Location = new System.Drawing.Point(120, 227);
+			this.buttonChartColorMinMaxLines.Name = "buttonChartColorMinMaxLines";
+			this.buttonChartColorMinMaxLines.Size = new System.Drawing.Size(23, 23);
+			this.buttonChartColorMinMaxLines.TabIndex = 83;
+			this.buttonChartColorMinMaxLines.UseVisualStyleBackColor = true;
+			this.buttonChartColorMinMaxLines.Click += new System.EventHandler(this.ButtonColorPick);
+			// 
+			// label45
+			// 
+			this.label45.AutoSize = true;
+			this.label45.Location = new System.Drawing.Point(9, 232);
+			this.label45.Name = "label45";
+			this.label45.Size = new System.Drawing.Size(80, 13);
+			this.label45.TabIndex = 82;
+			this.label45.Text = "Min/Max Lines:";
 			// 
 			// label35
 			// 
@@ -1838,10 +1870,10 @@
 			this.comboChartTheme.TabIndex = 81;
 			this.comboChartTheme.SelectedIndexChanged += new System.EventHandler(this.comboChartTheme_SelectedIndexChanged);
 			// 
-			// buttonChartCandleUpColor
+			// buttonChartColorCandleUp
 			// 
 			this.buttonChartColorCandleUp.Location = new System.Drawing.Point(120, 169);
-			this.buttonChartColorCandleUp.Name = "buttonChartCandleUpColor";
+			this.buttonChartColorCandleUp.Name = "buttonChartColorCandleUp";
 			this.buttonChartColorCandleUp.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartColorCandleUp.TabIndex = 57;
 			this.buttonChartColorCandleUp.UseVisualStyleBackColor = true;
@@ -1874,10 +1906,10 @@
 			this.label39.TabIndex = 1;
 			this.label39.Text = "Back Color:";
 			// 
-			// buttonChartGridColor
+			// buttonChartColorGrid
 			// 
 			this.buttonChartColorGrid.Location = new System.Drawing.Point(120, 111);
-			this.buttonChartColorGrid.Name = "buttonChartGridColor";
+			this.buttonChartColorGrid.Name = "buttonChartColorGrid";
 			this.buttonChartColorGrid.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartColorGrid.TabIndex = 53;
 			this.buttonChartColorGrid.UseVisualStyleBackColor = true;
@@ -1901,28 +1933,28 @@
 			this.label42.TabIndex = 5;
 			this.label42.Text = "Cursor Lines Color:";
 			// 
-			// buttonChartForeColor
+			// buttonChartColorForeGround
 			// 
 			this.buttonChartColorForeGround.Location = new System.Drawing.Point(120, 53);
-			this.buttonChartColorForeGround.Name = "buttonChartForeColor";
+			this.buttonChartColorForeGround.Name = "buttonChartColorForeGround";
 			this.buttonChartColorForeGround.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartColorForeGround.TabIndex = 6;
 			this.buttonChartColorForeGround.UseVisualStyleBackColor = true;
 			this.buttonChartColorForeGround.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
-			// buttonChartBackColor
+			// buttonChartColorBackGround
 			// 
 			this.buttonChartColorBackGround.Location = new System.Drawing.Point(120, 82);
-			this.buttonChartColorBackGround.Name = "buttonChartBackColor";
+			this.buttonChartColorBackGround.Name = "buttonChartColorBackGround";
 			this.buttonChartColorBackGround.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartColorBackGround.TabIndex = 7;
 			this.buttonChartColorBackGround.UseVisualStyleBackColor = true;
 			this.buttonChartColorBackGround.Click += new System.EventHandler(this.ButtonColorPick);
 			// 
-			// buttonChartCandleDownColor
+			// buttonChartColorCandleDown
 			// 
 			this.buttonChartColorCandleDown.Location = new System.Drawing.Point(120, 198);
-			this.buttonChartColorCandleDown.Name = "buttonChartCandleDownColor";
+			this.buttonChartColorCandleDown.Name = "buttonChartColorCandleDown";
 			this.buttonChartColorCandleDown.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartColorCandleDown.TabIndex = 17;
 			this.buttonChartColorCandleDown.UseVisualStyleBackColor = true;
@@ -1937,10 +1969,10 @@
 			this.label43.TabIndex = 16;
 			this.label43.Text = "Negative Candle:";
 			// 
-			// buttonChartCursorLinesColor
+			// buttonChartColorCursorLines
 			// 
 			this.buttonChartColorCursorLines.Location = new System.Drawing.Point(120, 140);
-			this.buttonChartColorCursorLines.Name = "buttonChartCursorLinesColor";
+			this.buttonChartColorCursorLines.Name = "buttonChartColorCursorLines";
 			this.buttonChartColorCursorLines.Size = new System.Drawing.Size(23, 23);
 			this.buttonChartColorCursorLines.TabIndex = 11;
 			this.buttonChartColorCursorLines.UseVisualStyleBackColor = true;
@@ -2347,16 +2379,6 @@
 			this.buttonPageSwap.UseVisualStyleBackColor = true;
 			this.buttonPageSwap.Click += new System.EventHandler(this.buttonPageSwap_Click);
 			// 
-			// checkChartShowMinMax
-			// 
-			this.checkChartShowMinMax.AutoSize = true;
-			this.checkChartShowMinMax.Location = new System.Drawing.Point(310, 59);
-			this.checkChartShowMinMax.Name = "checkChartShowMinMax";
-			this.checkChartShowMinMax.Size = new System.Drawing.Size(132, 17);
-			this.checkChartShowMinMax.TabIndex = 79;
-			this.checkChartShowMinMax.Text = "Show Min/Max values";
-			this.checkChartShowMinMax.UseVisualStyleBackColor = true;
-			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.buttonAccept;
@@ -2592,5 +2614,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridTargetName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn coinGridAlertType;
 		private System.Windows.Forms.CheckBox checkChartShowMinMax;
+		private System.Windows.Forms.Button buttonChartColorMinMaxLines;
+		private System.Windows.Forms.Label label45;
 	}
 }

@@ -347,6 +347,7 @@ namespace CryptoGadget {
 				private Color _cursor_lines;
 				private Color _candle_up;
 				private Color _candle_down;
+				private Color _min_max_lines;
 
 				public Color ForeGround {
 					get => _foreground;
@@ -371,6 +372,10 @@ namespace CryptoGadget {
 				public Color CandleDown {
 					get => _candle_down;
 					set { _candle_down = value; NotifyPropertyChanged(); }
+				}
+				public Color MinMaxLines {
+					get => _min_max_lines;
+					set { _min_max_lines = value; NotifyPropertyChanged(); }
 				}
 			}
 			
@@ -644,20 +649,22 @@ namespace CryptoGadget {
 				Chart.ShowMinMax  = true;
 			}
 			if((type & DefaultType.ChartColorDark) != 0) {
-				Chart.Color.ForeGround	 = Global.StrHexToColor("FFC8C8C8");
-				Chart.Color.BackGround	 = Global.StrHexToColor("FF1B262D");
-				Chart.Color.Grid		 = Global.StrHexToColor("FF28343C");
+				Chart.Color.ForeGround	= Global.StrHexToColor("FFC8C8C8");
+				Chart.Color.BackGround	= Global.StrHexToColor("FF1B262D");
+				Chart.Color.Grid		= Global.StrHexToColor("FF28343C");
 				Chart.Color.CursorLines = Global.StrHexToColor("FF787878");
-				Chart.Color.CandleUp	 = Global.StrHexToColor("FF6A833A");
-				Chart.Color.CandleDown	 = Global.StrHexToColor("FF8A3A3B");
+				Chart.Color.CandleUp	= Global.StrHexToColor("FF6A833A");
+				Chart.Color.CandleDown	= Global.StrHexToColor("FF8A3A3B");
+				Chart.Color.MinMaxLines = Global.StrHexToColor("FF787878");
 			}
 			else if((type & DefaultType.ChartColorLight) != 0) {
 				Chart.Color.ForeGround  = Global.StrHexToColor("FF070707");
 				Chart.Color.BackGround  = Global.StrHexToColor("FFF0F0F0");
-				Chart.Color.Grid		 = Global.StrHexToColor("FFAFAFAF");
+				Chart.Color.Grid		= Global.StrHexToColor("FFAFAFAF");
 				Chart.Color.CursorLines = Global.StrHexToColor("FF008FDB");
-				Chart.Color.CandleUp	 = Global.StrHexToColor("FF68C221");
+				Chart.Color.CandleUp	= Global.StrHexToColor("FF68C221");
 				Chart.Color.CandleDown  = Global.StrHexToColor("FFCB2C4B");
+				Chart.Color.MinMaxLines = Global.StrHexToColor("FF008FDB");
 			}
 		}
 		public void CloneTo(Settings sett) {

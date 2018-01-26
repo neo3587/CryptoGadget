@@ -247,6 +247,7 @@ namespace CryptoGadget {
 			buttonChartColorCursorLines.DataBindings.Add("BackColor", _sett.Chart.Color, "CursorLines");
 			buttonChartColorCandleUp.DataBindings.Add("BackColor", _sett.Chart.Color, "CandleUp");
 			buttonChartColorCandleDown.DataBindings.Add("BackColor", _sett.Chart.Color, "CandleDown");
+			buttonChartColorMinMaxLines.DataBindings.Add("BackColor", _sett.Chart.Color, "MinMaxLines");
 			comboChartStep.DataBindings.Add("SelectedIndex", _sett.Chart, "DefaultStep");
 			checkChartShowMinMax.DataBindings.Add("Checked", _sett.Chart, "ShowMinMax");
 
