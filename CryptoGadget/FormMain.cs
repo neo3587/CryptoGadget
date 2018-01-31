@@ -165,15 +165,19 @@ namespace CryptoGadget {
 				foreach(Settings.StCoin st in _alerts.list) {
 					decimal val = json[st.Coin][st.Target].ToObject<decimal>();
 					Invoke((MethodInvoker)delegate {
-						if(st.Alert.Above > 0.0m && val > st.Alert.Above) {
-							notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above, ToolTipIcon.None);
-							st.Alert.Above = 0.0m;
-							_save_on_close = true;
+						for(int i = st.Alert.Above.Count -1; i >= 0; i--) {
+							if(val > st.Alert.Above[i]) {
+								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Above was set at: " + st.Alert.Above[i], ToolTipIcon.None);
+								st.Alert.Above.RemoveAt(i);
+								_save_on_close = true;
+							}
 						}
-						if(st.Alert.Below > 0.0m && val < st.Alert.Below) {
-							notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below, ToolTipIcon.None);
-							st.Alert.Below = 0.0m;
-							_save_on_close = true;
+						for(int i = st.Alert.Below.Count -1; i >= 0; i--) {
+							if(val < st.Alert.Below[i]) {
+								notifyIcon.ShowBalloonTip(5000, "CryptoGadget", st.Coin + " -> " + st.Target + " current value: " + val + "\nAlarm Below was set at: " + st.Alert.Below[i], ToolTipIcon.None);
+								st.Alert.Below.RemoveAt(i);
+								_save_on_close = true;
+							}
 						}
 					});
 				}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,14 +26,14 @@ namespace CryptoGadget {
 			private string _target_name = "";
 
 			public class StAlert : PropManager<StAlert> {
-				private decimal _above = 0.0m;
-				private decimal _below = 0.0m;
+				private List<decimal> _above = new List<decimal>();
+				private List<decimal> _below = new List<decimal>();
 
-				public decimal Above {
+				public List<decimal> Above {
 					get => _above;
 					set { _above = value; NotifyPropertyChanged(); }
 				}
-				public decimal Below {
+				public List<decimal> Below {
 					get => _below;
 					set { _below = value; NotifyPropertyChanged(); }
 				}
@@ -508,8 +509,8 @@ namespace CryptoGadget {
 				// Coins
 				for(int i = 0; i < 10; i++) {
 					foreach(StCoin st in Coins[i]) {
-						ThrowRule<decimal>(st.Alert.Above, x => x >= 0);
-						ThrowRule<decimal>(st.Alert.Below, x => x >= 0.0m);
+						ThrowRule<List<decimal>>(st.Alert.Above, x => x.All(y => y >= 0.0m));
+						ThrowRule<List<decimal>>(st.Alert.Below, x => x.All(y => y >= 0.0m));
 					}
 				}
 
@@ -692,13 +693,14 @@ namespace CryptoGadget {
 		public CoinList GetAlarmCoins() {
 			CoinList list = new CoinList();
 			foreach(CoinList cl in Coins) 
-				list = new CoinList(list.Concat(cl.Where(x => (x.Alert.Above > 0.0m || x.Alert.Below > 0.0m))).ToList());
+				list = new CoinList(list.Concat(cl.Where(x => (x.Alert.Above.Count > 0 || x.Alert.Below.Count > 0))).ToList());
 			return list;
 		}
 
 		public JObject VersionUpgrade(JObject json) {
 
 			if(json["Version"] == null) { // <= 2.6.0
+				// Added Color class to Chart
 				json["Version"] = "2.6.1";
 				json["Chart"]["Color"] = new JObject(
 					new JProperty("ForeGround",  json["Chart"]["ForeColor"]),
@@ -708,6 +710,18 @@ namespace CryptoGadget {
 					new JProperty("CandleUp",	 json["Chart"]["CandleUpColor"]),
 					new JProperty("CandleDown",  json["Chart"]["CandleDownColor"])
 				);
+			}
+			if(json["Version"].ToString() == "2.6.1") {
+				// Added multiple above/below alerts
+				json["Version"] = "2.7.0";
+				foreach(JToken jpage in json["Coins"]) {
+					foreach(JToken jcoin in jpage) {
+						decimal above = jcoin["Alert"]["Above"].ToObject<decimal>();
+						decimal below = jcoin["Alert"]["Below"].ToObject<decimal>();
+						jcoin["Alert"]["Above"] = above > 0.0m ? new JArray(above) : new JArray();
+						jcoin["Alert"]["Below"] = below > 0.0m ? new JArray(below) : new JArray();
+					}
+				}
 			}
 
 			return json;

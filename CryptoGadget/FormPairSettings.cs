@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 using Newtonsoft.Json.Linq;
 
@@ -44,21 +45,67 @@ namespace CryptoGadget {
 		public Settings.StCoin CoinResult = null;
 
 
-		private CoinPair GetSelectedCoinPair(ComboBox box) {
-			return (box.Items[box.FindStringExact(box.Text)] as CoinPair);
+		private T GetSelectedItem<T>(ComboBox box) { // using TAB key will set SelectedIndex to -1, but the text remains
+			return (T)box.Items[box.FindStringExact(box.Text)];
 		}
+
+
+        public FormPairSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
+
+            InitializeComponent();
+            _ptr_list = coin_list; // just for FindConv
+			_default_conv = default_conv;
+			_editing = editing;
+
+			Global.ControlApply<ComboBox>(this, ctrl => {
+				ctrl.Click += Global.DropDownOnClick;
+				ctrl.KeyPress += Global.DropDownOnKeyPress;
+			});
+
+			HandleCreated += (sender, e) => {
+
+				Text = "CryptoGadget Settings " + (_editing ? "[Edit Coin]" : "[Add Coin]");
+				ShowAlerts(_show_alerts);
+
+				foreach(JProperty jprop in Global.Json["Data"]) {
+					string name		 = jprop.Value["Name"].ToString();
+					string full_name = jprop.Value["CoinName"].ToString();
+					_bind.coin.Add(new CoinPair(name, full_name));
+					_bind.target.Add(new CoinPair(name, full_name));
+				}
+
+				comboCoin.DataSource   = _bind.coin;
+                comboTarget.DataSource = _bind.target;
+
+				comboCoin.SelectedIndex   = _default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + _default_conv.Coin + ", " + _default_conv.CoinName + "]"), 0);
+				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(_default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + _default_conv.Target + ", " + _default_conv.TargetName + "]"), 0);
+
+				if(editing) {
+					comboAlertAbove.Items.AddRange(_default_conv.Alert.Above.Cast<object>().ToArray());
+					comboAlertBelow.Items.AddRange(_default_conv.Alert.Below.Cast<object>().ToArray());
+					comboAlertAbove.SelectedIndex = comboAlertAbove.Items.Count > 0 ? 0 : -1;
+					comboAlertBelow.SelectedIndex = comboAlertBelow.Items.Count > 0 ? 0 : -1;
+				}
+
+			};
+
+        }
+
+
+		#region Pair methods
+
 		private void IndexName(ComboBox combo_box) {
 
 			string selected = "[" + (combo_box.SelectedItem as CoinPair).Right + ", " + (combo_box.SelectedItem as CoinPair).Left + "]";
 
-			for(int i = 0; i < (combo_box.DataSource as BindingSource).Count; i++) 
+			for(int i = 0; i < (combo_box.DataSource as BindingSource).Count; i++)
 				((combo_box.DataSource as BindingSource)[i] as CoinPair).Reverse();
 
 			(combo_box.DataSource as BindingSource).ResetBindings(false);
 			combo_box.SelectedIndex = combo_box.FindStringExact(selected);
 		}
 		private void OnlyFiat(ComboBox combo_box, BindingSource bind, bool index_fullname, bool only_fiat) {
-			
+
 			if(only_fiat) {
 
 				BindingSource fiat_list = new BindingSource();
@@ -113,95 +160,20 @@ namespace CryptoGadget {
 
 			ofd.ShowDialog();
 		}
-		private void ShowAlerts(bool show) {
-			groupBoxAlertAbove.Visible = groupBoxAlertBelow.Visible = show;
-			buttonSwitchAlertView.Text = show ? "Hide Alerts" : "Show Alerts";
-			Size = new System.Drawing.Size(Width, show ? 265 : 181);
-		}
-
-
-        public FormPairSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
-
-            InitializeComponent();
-            _ptr_list = coin_list; // just for FindConv
-			_default_conv = default_conv;
-			_editing = editing;
-
-			comboCoin.Click += Global.DropDownOnClick;
-			comboCoin.KeyPress += Global.DropDownOnKeyPress;
-			comboTarget.Click += Global.DropDownOnClick;
-			comboTarget.KeyPress += Global.DropDownOnKeyPress;
-
-
-			HandleCreated += (sender, e) => {
-
-				Text = "CryptoGadget Settings " + (_editing ? "[Edit Coin]" : "[Add Coin]");
-				ShowAlerts(_show_alerts);
-
-				foreach(JProperty jprop in Global.Json["Data"]) {
-					string name		 = jprop.Value["Name"].ToString();
-					string full_name = jprop.Value["CoinName"].ToString();
-					_bind.coin.Add(new CoinPair(name, full_name));
-					_bind.target.Add(new CoinPair(name, full_name));
-				}
-
-				comboCoin.DataSource   = _bind.coin;
-                comboTarget.DataSource = _bind.target;
-
-				comboCoin.SelectedIndex   = _default_conv.Coin == "" ? 0 : Math.Max(comboCoin.FindStringExact("[" + _default_conv.Coin + ", " + _default_conv.CoinName + "]"), 0);
-				comboTarget.SelectedIndex = Math.Max(comboTarget.FindStringExact(_default_conv.Target == "" ? "[USD, United States Dollar]" : "[" + _default_conv.Target + ", " + _default_conv.TargetName + "]"), 0);
-				numAlertAbove.Value = _default_conv.Alert.Above;
-				numAlertBelow.Value = _default_conv.Alert.Below;
-				
-			};
-
-        }
-
-
-        private void buttonAccept_Click(object sender, EventArgs e) {
-
-            CoinPair coin = GetSelectedCoinPair(comboCoin);
-            CoinPair target = GetSelectedCoinPair(comboTarget);
-
-			if(checkCoinIndexName.Checked)
-				coin.Reverse();
-			if(checkTargetIndexName.Checked)
-				target.Reverse();
-			if(_ptr_list.FindConv(coin.Left, target.Left) != -1 && (!_editing || (_editing && (coin.Left != _default_conv.Coin || target.Left != _default_conv.Target)))) {
-				MessageBox.Show(coin.Left + " => " + target.Left + " conversion is already being used");
-				return;
-            }
-			
-			CoinResult = new Settings.StCoin();
-			CoinResult.Icon       = Global.GetIcon(coin.Left, 16);
-			CoinResult.Coin       = coin.Left;
-			CoinResult.CoinName   = coin.Right;
-			CoinResult.Target	  = target.Left;
-			CoinResult.TargetName = target.Right;
-			CoinResult.Alert.Above = numAlertAbove.Value;
-			CoinResult.Alert.Below = numAlertBelow.Value;
-			CoinResult.AlertType = (CoinResult.Alert.Above > 0.0m && CoinResult.Alert.Below > 0.0m) ? '↕' :
-								   (CoinResult.Alert.Above > 0.0m) ? '↑' :
-								   (CoinResult.Alert.Below > 0.0m) ? '↓' : '-';
-
-			Close();
-        }
-        private void buttonCancel_Click(object sender, EventArgs e) {
-            Close();
-        }
 
 
 		private void checkCoinIndexName_CheckedChanged(object sender, EventArgs e) {
-			IndexName(comboCoin);			
+			IndexName(comboCoin);
 		}
 		private void checkCoinOnlyFiat_CheckedChanged(object sender, EventArgs e) {
 			OnlyFiat(comboCoin, _bind.coin, checkCoinIndexName.Checked, checkCoinOnlyFiat.Checked);
 		}
 		private void buttonIconReDownload_Click(object sender, EventArgs e) {
-			IconReDownload(GetSelectedCoinPair(comboCoin).OriginalLeft(checkCoinIndexName.Checked));
+			IconReDownload(GetSelectedItem<CoinPair>(comboCoin).OriginalLeft(checkCoinIndexName.Checked));
 		}
 		private void buttonIconSwap_Click(object sender, EventArgs e) {
-			IconSwap(GetSelectedCoinPair(comboCoin).OriginalLeft(checkCoinIndexName.Checked), GetSelectedCoinPair(comboCoin).OriginalRight(checkCoinIndexName.Checked));
+			CoinPair cp = GetSelectedItem<CoinPair>(comboCoin);
+			IconSwap(cp.OriginalLeft(checkCoinIndexName.Checked), cp.OriginalRight(checkCoinIndexName.Checked));
 		}
 
 		private void checkTargetIndexName_CheckedChanged(object sender, EventArgs e) {
@@ -211,19 +183,42 @@ namespace CryptoGadget {
 			OnlyFiat(comboTarget, _bind.target, checkTargetIndexName.Checked, checkTargetOnlyFiat.Checked);
 		}
 		private void buttonIconTargetReDownload_Click(object sender, EventArgs e) {
-			IconReDownload(GetSelectedCoinPair(comboTarget).OriginalLeft(checkTargetIndexName.Checked));
+			IconReDownload(GetSelectedItem<CoinPair>(comboTarget).OriginalLeft(checkTargetIndexName.Checked));
 		}
 		private void buttonIconTargetSwap_Click(object sender, EventArgs e) {
-			IconSwap(GetSelectedCoinPair(comboTarget).OriginalLeft(checkTargetIndexName.Checked), GetSelectedCoinPair(comboTarget).OriginalRight(checkTargetIndexName.Checked));
+			CoinPair cp = GetSelectedItem<CoinPair>(comboTarget);
+			IconSwap(cp.OriginalLeft(checkTargetIndexName.Checked), cp.OriginalRight(checkTargetIndexName.Checked));
 		}
 
+		#endregion
+
+		#region Alert methods
+
+		private void ShowAlerts(bool show) {
+			groupBoxAlertAbove.Visible = groupBoxAlertBelow.Visible = show;
+			buttonSwitchAlertView.Text = show ? "Hide Alerts" : "Show Alerts";
+			Size = new System.Drawing.Size(Width, show ? 265 : 181);
+		}
 		private void NumericUpDownDecSeparator(object sender, KeyPressEventArgs e) {
-			if(e.KeyChar.Equals('.') || e.KeyChar.Equals(',')) 
+			if(e.KeyChar.Equals('.') || e.KeyChar.Equals(','))
 				e.KeyChar = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToCharArray()[0];
 		}
 		private void NumericUpDownTrim(object sender, EventArgs e) {
 			string str = (sender as NumericUpDown).Value.ToString("0.00000000");
-			(sender as NumericUpDown).DecimalPlaces = Global.Constrain(str.IndexOfAny(new char[] {',','.'}) != -1 ? 8 - (str.Length - str.TrimEnd('0').Length) : 0, 0, 8);
+			(sender as NumericUpDown).DecimalPlaces = Global.Constrain(str.IndexOfAny(new char[] { ',', '.' }) != -1 ? 8 - (str.Length - str.TrimEnd('0').Length) : 0, 0, 8);
+		}
+		private void AddAlert(ComboBox box, NumericUpDown numeric) {
+			if(numeric.Value > 0 && !box.Items.Cast<decimal>().Contains(numeric.Value))
+				box.SelectedIndex = box.Items.Add(numeric.Value);
+		}
+		private void RemoveAlert(ComboBox box) {
+			if(box.Items.Count > 0) {
+				int index = box.SelectedIndex;
+				box.Items.Remove(GetSelectedItem<decimal>(box));
+				box.SelectedIndex = Math.Min(box.Items.Count -1, index);
+				if(box.Items.Count == 0)
+					box.Text = "";
+			}
 		}
 
 		private void buttonSwitchAlertView_Click(object sender, EventArgs e) {
@@ -231,6 +226,61 @@ namespace CryptoGadget {
 			ShowAlerts(_show_alerts);
 		}
 
+		private void comboAlertAbove_SelectedIndexChanged(object sender, EventArgs e) {
+			numAlertAbove.Value = GetSelectedItem<decimal>(comboAlertAbove);
+		}
+		private void buttonAddAlertAbove_Click(object sender, EventArgs e) {
+			AddAlert(comboAlertAbove, numAlertAbove);
+		}
+		private void buttonRemoveAlertAbove_Click(object sender, EventArgs e) {
+			RemoveAlert(comboAlertAbove);
+		}
+
+		private void comboAlertBelow_SelectedIndexChanged(object sender, EventArgs e) {
+			numAlertBelow.Value = GetSelectedItem<decimal>(comboAlertBelow);
+		}
+		private void buttonAddAlertBelow_Click(object sender, EventArgs e) {
+			AddAlert(comboAlertBelow, numAlertBelow);
+		}
+		private void buttonRemoveAlertBelow_Click(object sender, EventArgs e) {
+			RemoveAlert(comboAlertBelow);
+		}
+
+		#endregion
+
+		private void buttonAccept_Click(object sender, EventArgs e) {
+
+			CoinPair coin = GetSelectedItem<CoinPair>(comboCoin);
+			CoinPair target = GetSelectedItem<CoinPair>(comboTarget);
+
+			if(checkCoinIndexName.Checked)
+				coin.Reverse();
+			if(checkTargetIndexName.Checked)
+				target.Reverse();
+			if(_ptr_list.FindConv(coin.Left, target.Left) != -1 && (!_editing || (_editing && (coin.Left != _default_conv.Coin || target.Left != _default_conv.Target)))) {
+				MessageBox.Show(coin.Left + " => " + target.Left + " conversion is already being used");
+				return;
+			}
+
+			CoinResult = new Settings.StCoin();
+			CoinResult.Icon = Global.GetIcon(coin.Left, 16);
+			CoinResult.Coin = coin.Left;
+			CoinResult.CoinName = coin.Right;
+			CoinResult.Target = target.Left;
+			CoinResult.TargetName = target.Right;
+			CoinResult.Alert.Above = comboAlertAbove.Items.Cast<decimal>().ToList();
+			CoinResult.Alert.Below = comboAlertBelow.Items.Cast<decimal>().ToList();
+			CoinResult.AlertType = (CoinResult.Alert.Above.Count > 0 && CoinResult.Alert.Below.Count > 0) ? '↕' :
+								   (CoinResult.Alert.Above.Count > 0) ? '↑' :
+								   (CoinResult.Alert.Below.Count > 0) ? '↓' : '-';
+
+			Close();
+		}
+		private void buttonCancel_Click(object sender, EventArgs e) {
+			Close();
+		}
+
+		
 	}
 
 }

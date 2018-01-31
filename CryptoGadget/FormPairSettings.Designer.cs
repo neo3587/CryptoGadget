@@ -48,7 +48,7 @@
 			this.comboAlertAbove = new System.Windows.Forms.ComboBox();
 			this.numAlertBelow = new System.Windows.Forms.NumericUpDown();
 			this.groupBoxAlertBelow = new System.Windows.Forms.GroupBox();
-			this.buttonremoveAlertBelow = new System.Windows.Forms.Button();
+			this.buttonRemoveAlertBelow = new System.Windows.Forms.Button();
 			this.buttonAddAlertBelow = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.comboAlertBelow = new System.Windows.Forms.ComboBox();
@@ -279,6 +279,7 @@
 			this.buttonRemoveAlertAbove.TabIndex = 12;
 			this.buttonRemoveAlertAbove.Text = "-";
 			this.buttonRemoveAlertAbove.UseVisualStyleBackColor = true;
+			this.buttonRemoveAlertAbove.Click += new System.EventHandler(this.buttonRemoveAlertAbove_Click);
 			// 
 			// label3
 			// 
@@ -297,6 +298,7 @@
 			this.buttonAddAlertAbove.TabIndex = 11;
 			this.buttonAddAlertAbove.Text = "+";
 			this.buttonAddAlertAbove.UseVisualStyleBackColor = true;
+			this.buttonAddAlertAbove.Click += new System.EventHandler(this.buttonAddAlertAbove_Click);
 			// 
 			// comboAlertAbove
 			// 
@@ -304,7 +306,9 @@
 			this.comboAlertAbove.Location = new System.Drawing.Point(49, 19);
 			this.comboAlertAbove.Name = "comboAlertAbove";
 			this.comboAlertAbove.Size = new System.Drawing.Size(149, 21);
+			this.comboAlertAbove.Sorted = true;
 			this.comboAlertAbove.TabIndex = 6;
+			this.comboAlertAbove.SelectedIndexChanged += new System.EventHandler(this.comboAlertAbove_SelectedIndexChanged);
 			// 
 			// numAlertBelow
 			// 
@@ -327,7 +331,7 @@
 			// 
 			// groupBoxAlertBelow
 			// 
-			this.groupBoxAlertBelow.Controls.Add(this.buttonremoveAlertBelow);
+			this.groupBoxAlertBelow.Controls.Add(this.buttonRemoveAlertBelow);
 			this.groupBoxAlertBelow.Controls.Add(this.buttonAddAlertBelow);
 			this.groupBoxAlertBelow.Controls.Add(this.label4);
 			this.groupBoxAlertBelow.Controls.Add(this.comboAlertBelow);
@@ -340,14 +344,15 @@
 			this.groupBoxAlertBelow.TabStop = false;
 			this.groupBoxAlertBelow.Text = "Alert Below";
 			// 
-			// buttonremoveAlertBelow
+			// buttonRemoveAlertBelow
 			// 
-			this.buttonremoveAlertBelow.Location = new System.Drawing.Point(204, 45);
-			this.buttonremoveAlertBelow.Name = "buttonremoveAlertBelow";
-			this.buttonremoveAlertBelow.Size = new System.Drawing.Size(23, 23);
-			this.buttonremoveAlertBelow.TabIndex = 10;
-			this.buttonremoveAlertBelow.Text = "-";
-			this.buttonremoveAlertBelow.UseVisualStyleBackColor = true;
+			this.buttonRemoveAlertBelow.Location = new System.Drawing.Point(204, 45);
+			this.buttonRemoveAlertBelow.Name = "buttonRemoveAlertBelow";
+			this.buttonRemoveAlertBelow.Size = new System.Drawing.Size(23, 23);
+			this.buttonRemoveAlertBelow.TabIndex = 10;
+			this.buttonRemoveAlertBelow.Text = "-";
+			this.buttonRemoveAlertBelow.UseVisualStyleBackColor = true;
+			this.buttonRemoveAlertBelow.Click += new System.EventHandler(this.buttonRemoveAlertBelow_Click);
 			// 
 			// buttonAddAlertBelow
 			// 
@@ -357,6 +362,7 @@
 			this.buttonAddAlertBelow.TabIndex = 9;
 			this.buttonAddAlertBelow.Text = "+";
 			this.buttonAddAlertBelow.UseVisualStyleBackColor = true;
+			this.buttonAddAlertBelow.Click += new System.EventHandler(this.buttonAddAlertBelow_Click);
 			// 
 			// label4
 			// 
@@ -373,7 +379,9 @@
 			this.comboAlertBelow.Location = new System.Drawing.Point(49, 19);
 			this.comboAlertBelow.Name = "comboAlertBelow";
 			this.comboAlertBelow.Size = new System.Drawing.Size(149, 21);
+			this.comboAlertBelow.Sorted = true;
 			this.comboAlertBelow.TabIndex = 5;
+			this.comboAlertBelow.SelectedIndexChanged += new System.EventHandler(this.comboAlertBelow_SelectedIndexChanged);
 			// 
 			// buttonSwitchAlertView
 			// 
@@ -447,7 +455,7 @@
 		private System.Windows.Forms.Button buttonAddAlertAbove;
 		private System.Windows.Forms.ComboBox comboAlertAbove;
 		private System.Windows.Forms.GroupBox groupBoxAlertBelow;
-		private System.Windows.Forms.Button buttonremoveAlertBelow;
+		private System.Windows.Forms.Button buttonRemoveAlertBelow;
 		private System.Windows.Forms.Button buttonAddAlertBelow;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ComboBox comboAlertBelow;
