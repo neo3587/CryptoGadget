@@ -39,6 +39,7 @@ namespace CryptoGadget {
 		private readonly Settings.StCoin _default_conv = null;
 		private (BindingSource coin, BindingSource target) _bind = (new BindingSource(), new BindingSource());
 		private bool _editing = false;
+		private static bool _show_alerts = false;
 
 		public Settings.StCoin CoinResult = null;
 
@@ -112,6 +113,11 @@ namespace CryptoGadget {
 
 			ofd.ShowDialog();
 		}
+		private void ShowAlerts(bool show) {
+			groupBoxAlertAbove.Visible = groupBoxAlertBelow.Visible = show;
+			buttonSwitchAlertView.Text = show ? "Hide Alerts" : "Show Alerts";
+			Size = new System.Drawing.Size(Width, show ? 265 : 181);
+		}
 
 
         public FormPairSettings(Settings.CoinList coin_list, Settings.StCoin default_conv, bool editing = false) {
@@ -126,11 +132,11 @@ namespace CryptoGadget {
 			comboTarget.Click += Global.DropDownOnClick;
 			comboTarget.KeyPress += Global.DropDownOnKeyPress;
 
-			
 
 			HandleCreated += (sender, e) => {
 
 				Text = "CryptoGadget Settings " + (_editing ? "[Edit Coin]" : "[Add Coin]");
+				ShowAlerts(_show_alerts);
 
 				foreach(JProperty jprop in Global.Json["Data"]) {
 					string name		 = jprop.Value["Name"].ToString();
@@ -218,6 +224,11 @@ namespace CryptoGadget {
 		private void NumericUpDownTrim(object sender, EventArgs e) {
 			string str = (sender as NumericUpDown).Value.ToString("0.00000000");
 			(sender as NumericUpDown).DecimalPlaces = Global.Constrain(str.IndexOfAny(new char[] {',','.'}) != -1 ? 8 - (str.Length - str.TrimEnd('0').Length) : 0, 0, 8);
+		}
+
+		private void buttonSwitchAlertView_Click(object sender, EventArgs e) {
+			_show_alerts = !_show_alerts;
+			ShowAlerts(_show_alerts);
 		}
 
 	}

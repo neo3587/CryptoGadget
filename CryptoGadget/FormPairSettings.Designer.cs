@@ -41,19 +41,30 @@
 			this.numAlertAbove = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.groupBoxAlertAbove = new System.Windows.Forms.GroupBox();
+			this.buttonRemoveAlertAbove = new System.Windows.Forms.Button();
+			this.label3 = new System.Windows.Forms.Label();
+			this.buttonAddAlertAbove = new System.Windows.Forms.Button();
+			this.comboAlertAbove = new System.Windows.Forms.ComboBox();
 			this.numAlertBelow = new System.Windows.Forms.NumericUpDown();
+			this.groupBoxAlertBelow = new System.Windows.Forms.GroupBox();
+			this.buttonremoveAlertBelow = new System.Windows.Forms.Button();
+			this.buttonAddAlertBelow = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.comboAlertBelow = new System.Windows.Forms.ComboBox();
+			this.buttonSwitchAlertView = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertAbove)).BeginInit();
-			this.groupBox3.SuspendLayout();
+			this.groupBoxAlertAbove.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertBelow)).BeginInit();
+			this.groupBoxAlertBelow.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonAccept
 			// 
 			this.buttonAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonAccept.Location = new System.Drawing.Point(489, 111);
+			this.buttonAccept.Location = new System.Drawing.Point(328, 195);
 			this.buttonAccept.Name = "buttonAccept";
 			this.buttonAccept.Size = new System.Drawing.Size(75, 23);
 			this.buttonAccept.TabIndex = 0;
@@ -65,7 +76,7 @@
 			// 
 			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(570, 111);
+			this.buttonCancel.Location = new System.Drawing.Point(409, 195);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 1;
@@ -78,7 +89,7 @@
 			this.comboCoin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.comboCoin.Location = new System.Drawing.Point(6, 19);
 			this.comboCoin.Name = "comboCoin";
-			this.comboCoin.Size = new System.Drawing.Size(192, 21);
+			this.comboCoin.Size = new System.Drawing.Size(221, 21);
 			this.comboCoin.Sorted = true;
 			this.comboCoin.TabIndex = 2;
 			// 
@@ -88,14 +99,14 @@
 			this.comboTarget.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.comboTarget.Location = new System.Drawing.Point(6, 19);
 			this.comboTarget.Name = "comboTarget";
-			this.comboTarget.Size = new System.Drawing.Size(192, 21);
+			this.comboTarget.Size = new System.Drawing.Size(221, 21);
 			this.comboTarget.Sorted = true;
 			this.comboTarget.TabIndex = 4;
 			// 
 			// checkTargetOnlyFiat
 			// 
 			this.checkTargetOnlyFiat.AutoSize = true;
-			this.checkTargetOnlyFiat.Location = new System.Drawing.Point(6, 73);
+			this.checkTargetOnlyFiat.Location = new System.Drawing.Point(111, 46);
 			this.checkTargetOnlyFiat.Name = "checkTargetOnlyFiat";
 			this.checkTargetOnlyFiat.Size = new System.Drawing.Size(120, 17);
 			this.checkTargetOnlyFiat.TabIndex = 6;
@@ -106,7 +117,7 @@
 			// checkCoinIndexName
 			// 
 			this.checkCoinIndexName.AutoSize = true;
-			this.checkCoinIndexName.Location = new System.Drawing.Point(6, 46);
+			this.checkCoinIndexName.Location = new System.Drawing.Point(7, 46);
 			this.checkCoinIndexName.Name = "checkCoinIndexName";
 			this.checkCoinIndexName.Size = new System.Drawing.Size(97, 17);
 			this.checkCoinIndexName.TabIndex = 7;
@@ -117,7 +128,7 @@
 			// checkCoinOnlyFiat
 			// 
 			this.checkCoinOnlyFiat.AutoSize = true;
-			this.checkCoinOnlyFiat.Location = new System.Drawing.Point(6, 72);
+			this.checkCoinOnlyFiat.Location = new System.Drawing.Point(111, 46);
 			this.checkCoinOnlyFiat.Name = "checkCoinOnlyFiat";
 			this.checkCoinOnlyFiat.Size = new System.Drawing.Size(120, 17);
 			this.checkCoinOnlyFiat.TabIndex = 8;
@@ -128,7 +139,7 @@
 			// checkTargetIndexName
 			// 
 			this.checkTargetIndexName.AutoSize = true;
-			this.checkTargetIndexName.Location = new System.Drawing.Point(6, 46);
+			this.checkTargetIndexName.Location = new System.Drawing.Point(7, 46);
 			this.checkTargetIndexName.Name = "checkTargetIndexName";
 			this.checkTargetIndexName.Size = new System.Drawing.Size(97, 17);
 			this.checkTargetIndexName.TabIndex = 9;
@@ -145,7 +156,7 @@
 			this.groupBox1.Controls.Add(this.checkCoinOnlyFiat);
 			this.groupBox1.Location = new System.Drawing.Point(12, 9);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(204, 125);
+			this.groupBox1.Size = new System.Drawing.Size(233, 97);
 			this.groupBox1.TabIndex = 10;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Coin";
@@ -153,9 +164,9 @@
 			// buttonIconSwap
 			// 
 			this.buttonIconSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconSwap.Location = new System.Drawing.Point(123, 95);
+			this.buttonIconSwap.Location = new System.Drawing.Point(136, 67);
 			this.buttonIconSwap.Name = "buttonIconSwap";
-			this.buttonIconSwap.Size = new System.Drawing.Size(75, 23);
+			this.buttonIconSwap.Size = new System.Drawing.Size(91, 23);
 			this.buttonIconSwap.TabIndex = 12;
 			this.buttonIconSwap.Text = "Swap Icon";
 			this.buttonIconSwap.UseVisualStyleBackColor = true;
@@ -164,9 +175,9 @@
 			// buttonIconReDownload
 			// 
 			this.buttonIconReDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconReDownload.Location = new System.Drawing.Point(6, 95);
+			this.buttonIconReDownload.Location = new System.Drawing.Point(6, 67);
 			this.buttonIconReDownload.Name = "buttonIconReDownload";
-			this.buttonIconReDownload.Size = new System.Drawing.Size(111, 23);
+			this.buttonIconReDownload.Size = new System.Drawing.Size(124, 23);
 			this.buttonIconReDownload.TabIndex = 13;
 			this.buttonIconReDownload.Text = "Re-Download Icon";
 			this.buttonIconReDownload.UseVisualStyleBackColor = true;
@@ -179,9 +190,9 @@
 			this.groupBox2.Controls.Add(this.buttonIconTargetReDownload);
 			this.groupBox2.Controls.Add(this.checkTargetOnlyFiat);
 			this.groupBox2.Controls.Add(this.comboTarget);
-			this.groupBox2.Location = new System.Drawing.Point(222, 9);
+			this.groupBox2.Location = new System.Drawing.Point(251, 9);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(204, 125);
+			this.groupBox2.Size = new System.Drawing.Size(233, 97);
 			this.groupBox2.TabIndex = 11;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Target Coin";
@@ -189,9 +200,9 @@
 			// buttonIconTargetSwap
 			// 
 			this.buttonIconTargetSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconTargetSwap.Location = new System.Drawing.Point(123, 95);
+			this.buttonIconTargetSwap.Location = new System.Drawing.Point(136, 68);
 			this.buttonIconTargetSwap.Name = "buttonIconTargetSwap";
-			this.buttonIconTargetSwap.Size = new System.Drawing.Size(75, 23);
+			this.buttonIconTargetSwap.Size = new System.Drawing.Size(91, 23);
 			this.buttonIconTargetSwap.TabIndex = 14;
 			this.buttonIconTargetSwap.Text = "Swap Icon";
 			this.buttonIconTargetSwap.UseVisualStyleBackColor = true;
@@ -200,9 +211,9 @@
 			// buttonIconTargetReDownload
 			// 
 			this.buttonIconTargetReDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonIconTargetReDownload.Location = new System.Drawing.Point(6, 95);
+			this.buttonIconTargetReDownload.Location = new System.Drawing.Point(6, 67);
 			this.buttonIconTargetReDownload.Name = "buttonIconTargetReDownload";
-			this.buttonIconTargetReDownload.Size = new System.Drawing.Size(111, 23);
+			this.buttonIconTargetReDownload.Size = new System.Drawing.Size(124, 23);
 			this.buttonIconTargetReDownload.TabIndex = 15;
 			this.buttonIconTargetReDownload.Text = "Re-Download Icon";
 			this.buttonIconTargetReDownload.UseVisualStyleBackColor = true;
@@ -215,14 +226,14 @@
             0,
             0,
             524288});
-			this.numAlertAbove.Location = new System.Drawing.Point(84, 19);
+			this.numAlertAbove.Location = new System.Drawing.Point(49, 46);
 			this.numAlertAbove.Maximum = new decimal(new int[] {
             -727379969,
             232,
             0,
             0});
 			this.numAlertAbove.Name = "numAlertAbove";
-			this.numAlertAbove.Size = new System.Drawing.Size(120, 20);
+			this.numAlertAbove.Size = new System.Drawing.Size(149, 20);
 			this.numAlertAbove.TabIndex = 0;
 			this.numAlertAbove.ValueChanged += new System.EventHandler(this.NumericUpDownTrim);
 			this.numAlertAbove.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericUpDownDecSeparator);
@@ -230,33 +241,70 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 21);
+			this.label1.Location = new System.Drawing.Point(6, 48);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(65, 13);
+			this.label1.Size = new System.Drawing.Size(37, 13);
 			this.label1.TabIndex = 2;
-			this.label1.Text = "Alert Above:";
+			this.label1.Text = "Value:";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(6, 47);
+			this.label2.Location = new System.Drawing.Point(6, 48);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(63, 13);
+			this.label2.Size = new System.Drawing.Size(37, 13);
 			this.label2.TabIndex = 3;
-			this.label2.Text = "Alert Below:";
+			this.label2.Text = "Value:";
 			// 
-			// groupBox3
+			// groupBoxAlertAbove
 			// 
-			this.groupBox3.Controls.Add(this.numAlertBelow);
-			this.groupBox3.Controls.Add(this.label2);
-			this.groupBox3.Controls.Add(this.label1);
-			this.groupBox3.Controls.Add(this.numAlertAbove);
-			this.groupBox3.Location = new System.Drawing.Point(432, 9);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(213, 96);
-			this.groupBox3.TabIndex = 14;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Alerts";
+			this.groupBoxAlertAbove.Controls.Add(this.buttonRemoveAlertAbove);
+			this.groupBoxAlertAbove.Controls.Add(this.label3);
+			this.groupBoxAlertAbove.Controls.Add(this.buttonAddAlertAbove);
+			this.groupBoxAlertAbove.Controls.Add(this.comboAlertAbove);
+			this.groupBoxAlertAbove.Controls.Add(this.label1);
+			this.groupBoxAlertAbove.Controls.Add(this.numAlertAbove);
+			this.groupBoxAlertAbove.Location = new System.Drawing.Point(12, 112);
+			this.groupBoxAlertAbove.Name = "groupBoxAlertAbove";
+			this.groupBoxAlertAbove.Size = new System.Drawing.Size(233, 77);
+			this.groupBoxAlertAbove.TabIndex = 14;
+			this.groupBoxAlertAbove.TabStop = false;
+			this.groupBoxAlertAbove.Text = "Alert Above";
+			// 
+			// buttonRemoveAlertAbove
+			// 
+			this.buttonRemoveAlertAbove.Location = new System.Drawing.Point(204, 45);
+			this.buttonRemoveAlertAbove.Name = "buttonRemoveAlertAbove";
+			this.buttonRemoveAlertAbove.Size = new System.Drawing.Size(23, 23);
+			this.buttonRemoveAlertAbove.TabIndex = 12;
+			this.buttonRemoveAlertAbove.Text = "-";
+			this.buttonRemoveAlertAbove.UseVisualStyleBackColor = true;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(5, 22);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(40, 13);
+			this.label3.TabIndex = 7;
+			this.label3.Text = "Select:";
+			// 
+			// buttonAddAlertAbove
+			// 
+			this.buttonAddAlertAbove.Location = new System.Drawing.Point(204, 18);
+			this.buttonAddAlertAbove.Name = "buttonAddAlertAbove";
+			this.buttonAddAlertAbove.Size = new System.Drawing.Size(23, 23);
+			this.buttonAddAlertAbove.TabIndex = 11;
+			this.buttonAddAlertAbove.Text = "+";
+			this.buttonAddAlertAbove.UseVisualStyleBackColor = true;
+			// 
+			// comboAlertAbove
+			// 
+			this.comboAlertAbove.FormattingEnabled = true;
+			this.comboAlertAbove.Location = new System.Drawing.Point(49, 19);
+			this.comboAlertAbove.Name = "comboAlertAbove";
+			this.comboAlertAbove.Size = new System.Drawing.Size(149, 21);
+			this.comboAlertAbove.TabIndex = 6;
 			// 
 			// numAlertBelow
 			// 
@@ -265,17 +313,78 @@
             0,
             0,
             524288});
-			this.numAlertBelow.Location = new System.Drawing.Point(84, 45);
+			this.numAlertBelow.Location = new System.Drawing.Point(49, 46);
 			this.numAlertBelow.Maximum = new decimal(new int[] {
             -727379969,
             232,
             0,
             0});
 			this.numAlertBelow.Name = "numAlertBelow";
-			this.numAlertBelow.Size = new System.Drawing.Size(120, 20);
+			this.numAlertBelow.Size = new System.Drawing.Size(149, 20);
 			this.numAlertBelow.TabIndex = 4;
 			this.numAlertBelow.ValueChanged += new System.EventHandler(this.NumericUpDownTrim);
 			this.numAlertBelow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericUpDownDecSeparator);
+			// 
+			// groupBoxAlertBelow
+			// 
+			this.groupBoxAlertBelow.Controls.Add(this.buttonremoveAlertBelow);
+			this.groupBoxAlertBelow.Controls.Add(this.buttonAddAlertBelow);
+			this.groupBoxAlertBelow.Controls.Add(this.label4);
+			this.groupBoxAlertBelow.Controls.Add(this.comboAlertBelow);
+			this.groupBoxAlertBelow.Controls.Add(this.numAlertBelow);
+			this.groupBoxAlertBelow.Controls.Add(this.label2);
+			this.groupBoxAlertBelow.Location = new System.Drawing.Point(251, 112);
+			this.groupBoxAlertBelow.Name = "groupBoxAlertBelow";
+			this.groupBoxAlertBelow.Size = new System.Drawing.Size(233, 77);
+			this.groupBoxAlertBelow.TabIndex = 15;
+			this.groupBoxAlertBelow.TabStop = false;
+			this.groupBoxAlertBelow.Text = "Alert Below";
+			// 
+			// buttonremoveAlertBelow
+			// 
+			this.buttonremoveAlertBelow.Location = new System.Drawing.Point(204, 45);
+			this.buttonremoveAlertBelow.Name = "buttonremoveAlertBelow";
+			this.buttonremoveAlertBelow.Size = new System.Drawing.Size(23, 23);
+			this.buttonremoveAlertBelow.TabIndex = 10;
+			this.buttonremoveAlertBelow.Text = "-";
+			this.buttonremoveAlertBelow.UseVisualStyleBackColor = true;
+			// 
+			// buttonAddAlertBelow
+			// 
+			this.buttonAddAlertBelow.Location = new System.Drawing.Point(204, 18);
+			this.buttonAddAlertBelow.Name = "buttonAddAlertBelow";
+			this.buttonAddAlertBelow.Size = new System.Drawing.Size(23, 23);
+			this.buttonAddAlertBelow.TabIndex = 9;
+			this.buttonAddAlertBelow.Text = "+";
+			this.buttonAddAlertBelow.UseVisualStyleBackColor = true;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(6, 22);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(40, 13);
+			this.label4.TabIndex = 8;
+			this.label4.Text = "Select:";
+			// 
+			// comboAlertBelow
+			// 
+			this.comboAlertBelow.FormattingEnabled = true;
+			this.comboAlertBelow.Location = new System.Drawing.Point(49, 19);
+			this.comboAlertBelow.Name = "comboAlertBelow";
+			this.comboAlertBelow.Size = new System.Drawing.Size(149, 21);
+			this.comboAlertBelow.TabIndex = 5;
+			// 
+			// buttonSwitchAlertView
+			// 
+			this.buttonSwitchAlertView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonSwitchAlertView.Location = new System.Drawing.Point(12, 195);
+			this.buttonSwitchAlertView.Name = "buttonSwitchAlertView";
+			this.buttonSwitchAlertView.Size = new System.Drawing.Size(79, 23);
+			this.buttonSwitchAlertView.TabIndex = 16;
+			this.buttonSwitchAlertView.Text = "Show Alerts";
+			this.buttonSwitchAlertView.UseVisualStyleBackColor = true;
+			this.buttonSwitchAlertView.Click += new System.EventHandler(this.buttonSwitchAlertView_Click);
 			// 
 			// FormPairSettings
 			// 
@@ -283,8 +392,10 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(656, 142);
-			this.Controls.Add(this.groupBox3);
+			this.ClientSize = new System.Drawing.Size(495, 226);
+			this.Controls.Add(this.buttonSwitchAlertView);
+			this.Controls.Add(this.groupBoxAlertBelow);
+			this.Controls.Add(this.groupBoxAlertAbove);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.buttonAccept);
@@ -301,9 +412,11 @@
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertAbove)).EndInit();
-			this.groupBox3.ResumeLayout(false);
-			this.groupBox3.PerformLayout();
+			this.groupBoxAlertAbove.ResumeLayout(false);
+			this.groupBoxAlertAbove.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAlertBelow)).EndInit();
+			this.groupBoxAlertBelow.ResumeLayout(false);
+			this.groupBoxAlertBelow.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -325,9 +438,19 @@
 		private System.Windows.Forms.NumericUpDown numAlertAbove;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.GroupBox groupBoxAlertAbove;
 		private System.Windows.Forms.NumericUpDown numAlertBelow;
 		private System.Windows.Forms.Button buttonIconTargetSwap;
 		private System.Windows.Forms.Button buttonIconTargetReDownload;
+		private System.Windows.Forms.Button buttonRemoveAlertAbove;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Button buttonAddAlertAbove;
+		private System.Windows.Forms.ComboBox comboAlertAbove;
+		private System.Windows.Forms.GroupBox groupBoxAlertBelow;
+		private System.Windows.Forms.Button buttonremoveAlertBelow;
+		private System.Windows.Forms.Button buttonAddAlertBelow;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.ComboBox comboAlertBelow;
+		private System.Windows.Forms.Button buttonSwitchAlertView;
 	}
 }
